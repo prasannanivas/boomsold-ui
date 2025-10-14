@@ -1,0 +1,133 @@
+.neighborhood-details {
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.details-placeholder {
+  text-align: center;
+  color: #666;
+  margin-top: 2rem;
+}
+
+.details-placeholder h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.details-placeholder p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #7f8c8d;
+}
+
+.instructions {
+  text-align: left;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.details-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.neighborhood-name {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3498db;
+  font-weight: 300;
+}
+
+.details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border-left: 4px solid #3498db;
+}
+
+.detail-label {
+  display: block;
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.detail-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.detail-value.price {
+  color: #27ae60;
+  font-size: 1.6rem;
+}
+
+.description {
+  border-left-color: #e74c3c;
+}
+
+.detail-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .neighborhood-details {
+    padding: 1rem;
+  }
+
+  .neighborhood-name {
+    font-size: 1.5rem;
+  }
+
+  .detail-item {
+    padding: 1rem;
+  }
+}
