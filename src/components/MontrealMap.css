@@ -1,92 +1,153 @@
-/* Real Montreal Map - Clean white background with color palette */
+/* Professional Montreal Real Estate Map */
 
 /* Main container */
 .montreal-map-container {
   width: 100%;
   height: 100vh;
-  background: #ffffff;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   display: flex;
   flex-direction: column;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
-/* Color Palette Styling */
-.color-palette {
-  background: #ffffff;
-  padding: 15px 20px;
-  border-bottom: 2px solid #e9ecef;
-  text-align: center;
+/* Professional Header - Comic Book Style */
+.professional-header {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+  color: white;
+  padding: 8px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 3px #000000,
+    0 0 0 6px #FFD700;
+  z-index: 1000;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.color-palette h3 {
-  margin: 0 0 15px 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #2d3436;
-  font-family: 'Arial', 'Helvetica', sans-serif;
+.professional-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 215, 0, 0.03) 2px,
+      rgba(255, 215, 0, 0.03) 4px);
+  pointer-events: none;
 }
 
-.palette-items {
+.header-content {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.palette-item {
+.brand-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
 }
 
-.color-box {
-  width: 20px;
-  height: 20px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
+.brand-logo {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.2));
+  transition: all 0.3s ease;
 }
 
-.color-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #2d3436;
-  font-family: 'Arial', 'Helvetica', sans-serif;
+.brand-logo:hover {
+  filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+  transform: scale(1.05);
 }
 
-/* Montreal Map Container - Rotated for better Montreal orientation */
+/* Professional Map Container */
 .custom-montreal-map {
   flex: 1;
   position: relative;
   background: #ffffff;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  border: none;
+  width: 100%;
 }
 
-/* Leaflet map container styling - pure white background */
+/* Professional Leaflet map styling */
 .leaflet-container {
   background: #ffffff !important;
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Map title overlay */
+/* Enable borders for coordinate editing */
+.leaflet-overlay-pane svg g path {
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+}
+
+/* Allow interactive elements to show borders */
+.leaflet-interactive {
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+}
+
+/* Professional zoom controls */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(30, 41, 59, 0.95) !important;
+  color: #f8fafc !important;
+  border: none !important;
+  font-weight: 600 !important;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(51, 65, 85, 0.95) !important;
+  color: #60a5fa !important;
+}
+
+/* Professional Map Title Overlay */
 .map-title-overlay {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 24px;
+  right: 24px;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #2d3436;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8fafc;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.025em;
 }
 
 /* Neighborhood labels with values - Dynamic font sizing and weight */
 .custom-tooltip {
   background: transparent !important;
-  color: #2d3436 !important;
-  font-weight: 900 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
   font-size: 12px !important;
   /* Base size, will be overridden dynamically */
   padding: 0 !important;
@@ -95,8 +156,10 @@
   text-align: center !important;
   box-shadow: none !important;
   white-space: nowrap !important;
-  font-family: 'Arial', 'Helvetica', sans-serif !important;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+  font-family: 'Comic Sans MS', cursive !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.5) !important;
   transition: font-size 0.3s ease, font-weight 0.3s ease, opacity 0.3s ease !important;
 }
 
@@ -182,8 +245,8 @@
 /* Legacy class for backward compatibility */
 .neighborhood-label-tooltip {
   background: transparent !important;
-  color: #2d3436 !important;
-  font-weight: 900 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
   font-size: 16px !important;
   padding: 0 !important;
   border: none !important;
@@ -191,8 +254,10 @@
   text-align: center !important;
   box-shadow: none !important;
   white-space: nowrap !important;
-  font-family: 'Arial', 'Helvetica', sans-serif !important;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+  font-family: 'Brush Script MT', 'Lucida Handwriting', 'Comic Sans MS', cursive !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.5) !important;
 }
 
 .neighborhood-label-tooltip::before {
@@ -265,8 +330,46 @@
   cursor: pointer;
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .professional-header {
+    padding: 12px 20px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .brand-title {
+    font-size: 24px;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
+  }
+
+  .header-stats {
+    gap: 20px;
+  }
+
+  .stat-value {
+    font-size: 16px;
+  }
+
+  .custom-montreal-map {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .map-title-overlay {
+    top: 16px;
+    right: 16px;
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
   .custom-montreal-map svg {
     height: 80vh;
   }

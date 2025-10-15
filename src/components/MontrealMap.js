@@ -1,45 +1,218 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
 
-// Real Estate Color Palette Component
-const RealEstatePalette = () => {
-  const priceRanges = [
-    { color: "#4A9B8E", label: "<$500K", name: "Affordable" },
-    { color: "#6BB577", label: "$500K-650K", name: "Moderate" },
-    { color: "#8FCC88", label: "$650K-800K", name: "Mid-Range" },
-    { color: "#F4E699", label: "$800K-1M", name: "Upper-Mid" },
-    { color: "#F7D794", label: "$1M-1.2M", name: "Premium" },
-    { color: "#F2B680", label: "$1.2M-1.5M", name: "High-End" },
-    { color: "#E88B5A", label: "$1.5M-2M", name: "Luxury" },
-    { color: "#E76B4A", label: "$2M+", name: "Ultra-Luxury" },
-  ];
-
+// Professional Header Component
+const ProfessionalHeader = () => {
   return (
-    <div className="color-palette">
-      <h3>🏘️ Greater Montreal Real Estate Prices by Postal Code</h3>
-      <div className="palette-items">
-        {priceRanges.map((item, index) => (
-          <div key={index} className="palette-item">
-            <div
-              className="color-box"
-              style={{ backgroundColor: item.color }}
-            ></div>
-            <span className="color-label">{item.label}</span>
-          </div>
-        ))}
+    <div className="professional-header">
+      <div className="header-content">
+        <div className="brand-section">
+          <img
+            src="/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
+            alt="Boomsold"
+            className="brand-logo"
+          />
+        </div>
       </div>
     </div>
   );
 };
 
 // Import the real Montreal data
-const MontrealMap = ({ onNeighborhoodHover }) => {
-  const [hoveredNeighborhood, setHoveredNeighborhood] = useState(null);
+const MontrealMap = ({
+  onNeighborhoodHover,
+  onNeighborhoodLeave,
+  onNeighborhoodClick,
+  startNeighborhoodAnimation = false,
+}) => {
   const [montrealData, setMontrealData] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(10);
   const [map, setMap] = useState(null);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [shouldAnimateNeighborhoods, setShouldAnimateNeighborhoods] =
+    useState(false);
+  const geoJsonLayerRef = useRef(null);
+  const animationAttemptsRef = useRef(0);
+  const animationPlayedRef = useRef(false);
+
+  const getFeatureLayers = useCallback(() => {
+    const layerGroup = geoJsonLayerRef.current;
+    if (!layerGroup) {
+      return [];
+    }
+
+    const collectedLayers = [];
+    layerGroup.eachLayer((layer) => {
+      if (layer?.feature) {
+        collectedLayers.push(layer);
+      }
+    });
+
+    return collectedLayers;
+  }, []);
+
+  const applyInitialHiddenState = useCallback(
+    (layersOverride) => {
+      const layers = layersOverride ?? getFeatureLayers();
+      let hiddenCount = 0;
+      layers.forEach((layer) => {
+        const pathElement = layer?.getElement();
+        if (!pathElement) {
+          return;
+        }
+
+        const duration = 0.85 + Math.random() * 0.5;
+        const startOffset = -160 - Math.random() * 160;
+        const rotation = (Math.random() * 18 - 9).toFixed(2);
+        const swing = (-rotation / 3).toFixed(2);
+
+        pathElement.classList.remove("neighborhood-falling");
+        void pathElement.offsetWidth; // Reset animation state
+        pathElement.style.setProperty(
+          "--fall-duration",
+          `${duration.toFixed(2)}s`
+        );
+        pathElement.style.setProperty("--fall-start-y", `${startOffset}px`);
+        pathElement.style.setProperty("--fall-rotation", `${rotation}deg`);
+        pathElement.style.setProperty("--fall-swing", `${swing}deg`);
+        pathElement.classList.add("neighborhood-hidden");
+        hiddenCount += 1;
+      });
+
+      return hiddenCount;
+    },
+    [getFeatureLayers]
+  );
+
+  const spawnDustBurst = useCallback(
+    (layer) => {
+      if (!map) {
+        return;
+      }
+
+      const bounds = layer?.getBounds?.();
+      if (!bounds) {
+        return;
+      }
+
+      const center = bounds.getCenter();
+      const containerPoint = map.latLngToContainerPoint(center);
+      const container = map.getContainer();
+
+      if (!containerPoint || !container) {
+        return;
+      }
+
+      const dust = document.createElement("div");
+      dust.className = "dust-burst";
+      dust.style.left = `${containerPoint.x}px`;
+      dust.style.top = `${containerPoint.y}px`;
+
+      const particleCount = 6;
+      for (let i = 0; i < particleCount; i += 1) {
+        const particle = document.createElement("span");
+        particle.className = "dust-particle";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 18 + Math.random() * 20;
+        const verticalFactor = 0.5 + Math.random() * 0.4;
+        const delay = 0.035 * i + Math.random() * 0.03;
+
+        particle.style.setProperty(
+          "--dust-x",
+          `${Math.cos(angle) * distance}px`
+        );
+        particle.style.setProperty(
+          "--dust-y",
+          `${Math.sin(angle) * distance * verticalFactor}px`
+        );
+        particle.style.setProperty("--dust-delay", `${delay.toFixed(2)}s`);
+        particle.style.setProperty(
+          "--dust-scale",
+          `${0.7 + Math.random() * 0.6}`
+        );
+
+        dust.appendChild(particle);
+      }
+
+      container.appendChild(dust);
+
+      requestAnimationFrame(() => {
+        dust.classList.add("dust-burst-active");
+      });
+
+      setTimeout(() => {
+        dust.remove();
+      }, 1400);
+    },
+    [map]
+  );
+
+  // Function to trigger neighborhood animations
+  const triggerNeighborhoodAnimations = useCallback(() => {
+    if (!montrealData) {
+      console.log("❌ Cannot animate: missing map or data");
+      return;
+    }
+
+    console.log("🎬 Starting neighborhood falling animations!");
+
+    const layers = getFeatureLayers();
+
+    if (!layers.length) {
+      if (animationAttemptsRef.current < 5) {
+        animationAttemptsRef.current += 1;
+        console.log(
+          `⏱️ No layers yet, retrying animation (attempt ${animationAttemptsRef.current})`
+        );
+        setTimeout(() => {
+          triggerNeighborhoodAnimations();
+        }, 300);
+      } else {
+        console.log(
+          "⚠️ Unable to find neighborhood layers after multiple attempts"
+        );
+      }
+      return;
+    }
+
+    animationAttemptsRef.current = 0;
+
+    const hiddenCount = applyInitialHiddenState(layers);
+    console.log(`🫥 Prepared ${hiddenCount} neighborhoods for animation`);
+
+    const shuffledLayers = [...layers].sort(() => Math.random() - 0.5);
+
+    setTimeout(() => {
+      shuffledLayers.forEach((layer, index) => {
+        const delay = index * 0.075 + Math.random() * 0.18;
+
+        const startAnimation = (attempt = 0) => {
+          const pathElement = layer?.getElement();
+          if (!pathElement) {
+            if (attempt < 5) {
+              requestAnimationFrame(() => startAnimation(attempt + 1));
+            }
+            return;
+          }
+
+          pathElement.classList.remove("neighborhood-falling");
+          void pathElement.offsetWidth; // Restart animation
+          pathElement.style.setProperty("--fall-delay", `${delay.toFixed(2)}s`);
+
+          requestAnimationFrame(() => {
+            pathElement.classList.remove("neighborhood-hidden");
+            pathElement.classList.add("neighborhood-falling");
+          });
+        };
+
+        startAnimation();
+      });
+      console.log(`📊 Animating ${shuffledLayers.length} neighborhoods`);
+    }, 160);
+  }, [montrealData, applyInitialHiddenState, getFeatureLayers]);
 
   // Function to parse CSV price and return formatted price
   const parsePrice = (priceString) => {
@@ -54,26 +227,26 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
     return `$${price}`;
   };
 
-  // Function to determine color based on price range
+  // Function to determine color based on price range - Comic Book Style Palette (Yellow/Black Theme)
   const getPriceColor = (price) => {
-    if (!price) return "#4A5B7C"; // Default color
+    if (!price) return "#FFD54F"; // Default: Sunny Yellow
     const numPrice =
       typeof price === "string" ? parseInt(price.replace(/[",]/g, "")) : price;
 
-    if (numPrice >= 2000000) return "#E76B4A"; // Ultra-Luxury $2M+
-    if (numPrice >= 1500000) return "#E88B5A"; // Luxury $1.5M-2M
-    if (numPrice >= 1200000) return "#F2B680"; // High-End $1.2M-1.5M
-    if (numPrice >= 1000000) return "#F7D794"; // Premium $1M-1.2M
-    if (numPrice >= 800000) return "#F4E699"; // Upper-Mid $800K-1M
-    if (numPrice >= 650000) return "#8FCC88"; // Mid-Range $650K-800K
-    if (numPrice >= 500000) return "#6BB577"; // Moderate $500K-650K
-    return "#4A9B8E"; // Affordable <$500K
+    if (numPrice >= 2000000) return "#FFD700"; // Ultra-Luxury: Pure Gold (matching logo)
+    if (numPrice >= 1500000) return "#FFEB3B"; // Luxury: Bright Yellow
+    if (numPrice >= 1200000) return "#aa9c1eff"; // High-End: Light Yellow
+    if (numPrice >= 1000000) return "#FFD54F"; // Premium: Sunny Yellow
+    if (numPrice >= 800000) return "#317f85ff"; // Upper-Mid: Soft Green
+    if (numPrice >= 650000) return "#66BB6A"; // Mid-Range: Fresh Green
+    if (numPrice >= 500000) return "#4DB6AC"; // Moderate: Teal
+    return "#4DD0E1"; // Affordable: Bright Cyan
   };
 
   // Load both GeoJSON and CSV data
   React.useEffect(() => {
     Promise.all([
-      fetch("/quartierreferencehabitation.geojson").then((response) =>
+      fetch("/quartierreferencehabitation_merged.geojson").then((response) =>
         response.json()
       ),
       fetch("/boomsold.live data - Sheet1.csv").then((response) =>
@@ -199,7 +372,7 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
           } else {
             // Default values for unmapped areas (could be suburbs)
             const isSuburb = !boroughName || boroughName !== "Montréal";
-            const defaultColor = isSuburb ? "#6BB577" : "#4A9B8E"; // Green for suburbs, teal for unknown Montreal areas
+            const defaultColor = isSuburb ? "#80CBC4" : "#4DD0E1"; // Soft teal for suburbs, bright cyan for unknown Montreal areas
             const defaultPrice = isSuburb ? "$550K" : "$520K";
 
             // Generate abbreviation from neighborhood name
@@ -237,25 +410,108 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
           feature.properties.municipality =
             feature.properties.nom_mun || "Montréal";
         });
-        setMontrealData(geoJsonData);
+
+        // Process merged data to ensure unified appearance
+        const processedData = {
+          ...geoJsonData,
+          features: geoJsonData.features.map((feature) => {
+            // For merged features, ensure they appear as single units
+            if (feature.properties.merged_from > 1) {
+              return {
+                ...feature,
+                properties: {
+                  ...feature.properties,
+                  // Mark as merged for styling
+                  isMerged: true,
+                  // Add special class for CSS targeting
+                  className: "merged-borough",
+                },
+              };
+            }
+            return {
+              ...feature,
+              properties: {
+                ...feature.properties,
+                className: "single-borough",
+              },
+            };
+          }),
+        };
+
+        setMontrealData(processedData);
+        setIsMapLoaded(true);
       })
       .catch((error) => console.error("Error loading Montreal data:", error));
   }, []);
 
-  // Style function for each neighborhood
-  const getFeatureStyle = (feature) => ({
-    fillColor: feature.properties.color,
-    weight: 2,
-    opacity: 1,
-    color: "#FFFFFF",
-    fillOpacity: 1.0,
-  });
+  // Initialize neighborhoods as hidden when map loads
+  useEffect(() => {
+    if (isMapLoaded && montrealData) {
+      console.log("Initializing neighborhoods as hidden...");
+      const timer = setTimeout(() => {
+        const hiddenCount = applyInitialHiddenState();
+        console.log(`Hidden ${hiddenCount} neighborhoods`);
+      }, 500);
 
-  // Hover style with projection effect
+      return () => clearTimeout(timer);
+    }
+  }, [isMapLoaded, montrealData, applyInitialHiddenState]);
+
+  // Set flag when animation should start and trigger if map is already ready
+  useEffect(() => {
+    if (startNeighborhoodAnimation) {
+      console.log("🎯 Animation requested, map ready:", !!map);
+      setShouldAnimateNeighborhoods(true);
+
+      // If map is already ready, trigger animations immediately
+      if (montrealData) {
+        console.log(
+          "🚀 Map already ready - triggering animations immediately!"
+        );
+        setTimeout(() => {
+          triggerNeighborhoodAnimations();
+        }, 500);
+      }
+    }
+  }, [
+    startNeighborhoodAnimation,
+    map,
+    montrealData,
+    triggerNeighborhoodAnimations,
+  ]);
+
+  // Fallback: Also try to trigger when map becomes available after animation request
+  useEffect(() => {
+    if (shouldAnimateNeighborhoods && montrealData) {
+      console.log(
+        "🔄 Fallback trigger - map became ready after animation request"
+      );
+      setTimeout(() => {
+        triggerNeighborhoodAnimations();
+      }, 1000);
+    }
+  }, [shouldAnimateNeighborhoods, montrealData, triggerNeighborhoodAnimations]);
+
+  // Style function - visible borders for coordinate editing
+  const getFeatureStyle = (feature) => {
+    return {
+      fillColor: feature.properties.color || "#4DD0E1",
+      weight: 2, // Visible borders for coordinate editing
+      opacity: 0.8, // Semi-transparent borders
+      color: "#ffffff", // White border color for visibility
+      fillOpacity: 0.8,
+      // Add smooth joins for clean appearance
+      lineJoin: "round",
+      lineCap: "round",
+    };
+  }; // Hover style with projection effect and smart borders
   const getHoverStyle = () => ({
-    weight: 4,
-    color: "#000000",
+    weight: 4, // Bold border on hover for all areas
+    color: "#000000", // Black border for strong contrast
     fillOpacity: 1.0,
+    opacity: 1, // Always show border on hover, even for merged areas
+    lineJoin: "round",
+    lineCap: "round",
     // CSS transform for elevation effect
     className: "neighborhood-projected",
   });
@@ -263,6 +519,9 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
   // Feature interaction handlers
   const onEachFeature = (feature, layer) => {
     const originalStyle = getFeatureStyle(feature);
+
+    // Apply the original style to ensure colors are set
+    layer.setStyle(originalStyle);
 
     // Add permanent tooltip with dynamic font size based on zoom
     if (feature.properties && feature.properties.value) {
@@ -304,7 +563,6 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
           pathElement.style.zIndex = "1000";
         }
 
-        setHoveredNeighborhood(feature.properties);
         if (onNeighborhoodHover) {
           onNeighborhoodHover({
             // Basic Information
@@ -361,11 +619,14 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
           pathElement.style.zIndex = "auto";
         }
 
-        setHoveredNeighborhood(null);
+        // Call the leave handler to hide the overlay
+        if (onNeighborhoodLeave) {
+          onNeighborhoodLeave();
+        }
       },
       click: () => {
-        if (onNeighborhoodHover) {
-          onNeighborhoodHover({
+        if (onNeighborhoodClick) {
+          onNeighborhoodClick({
             // Basic Information
             name: feature.properties.name || feature.properties.nom_arr,
             neighborhood:
@@ -432,16 +693,17 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
 
   return (
     <div className="montreal-map-container">
-      {/* Color Palette at the top */}
-      <RealEstatePalette />
+      {/* Professional Header */}
+      <ProfessionalHeader />
 
       <div className="custom-montreal-map">
         <MapContainer
-          center={[45.5088, -73.5878]}
-          zoom={10}
+          center={[45.56, -73.62]}
+          verticalFactor={0.5}
+          zoom={10.8}
           minZoom={6}
           maxZoom={16}
-          style={{ height: "85vh", width: "100%" }}
+          style={{ height: "100%", width: "100%" }}
           zoomControl={true}
           scrollWheelZoom={true}
           doubleClickZoom={true}
@@ -453,16 +715,40 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
           markerZoomAnimation={true}
           attributionControl={false}
           whenCreated={(mapInstance) => {
+            console.log("🗺️ Map created:", mapInstance);
+            console.log(
+              "📊 shouldAnimateNeighborhoods:",
+              shouldAnimateNeighborhoods
+            );
+            console.log("📊 montrealData available:", !!montrealData);
             setMap(mapInstance);
             mapInstance.on("zoomend", () => {
               setCurrentZoom(mapInstance.getZoom());
             });
+
+            // Trigger animation check when map is ready
+            if (shouldAnimateNeighborhoods && montrealData) {
+              console.log(
+                "🚀 Map ready and animation requested - triggering animations!"
+              );
+              setTimeout(() => {
+                triggerNeighborhoodAnimations();
+              }, 1000); // Increased delay to ensure layers are ready
+            } else {
+              console.log(
+                "⏳ Animation not ready yet - shouldAnimate:",
+                shouldAnimateNeighborhoods,
+                "data:",
+                !!montrealData
+              );
+            }
           }}
         >
           <GeoJSON
             data={montrealData}
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
+            ref={geoJsonLayerRef}
           />
         </MapContainer>
 

@@ -1,0 +1,210 @@
+/* Animated Intro Styles */
+.animated-intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.logo-container {
+  position: relative;
+  z-index: 2;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.boomsold-logo {
+  max-width: 400px;
+  height: auto;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation stages */
+.animated-intro.initial .logo-container {
+  transform: scale(0.5);
+  opacity: 0;
+}
+
+.animated-intro.centered .logo-container {
+  transform: scale(1);
+  opacity: 1;
+  animation: pulse 1.5s ease-in-out;
+}
+
+.animated-intro.moving-up {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 0.8) 50%, rgba(233, 236, 239, 0.6) 100%);
+}
+
+.animated-intro.moving-up .logo-container {
+  transform: translateY(-40vh) translateX(-45vw) scale(0.3);
+}
+
+.animated-intro.final-position {
+  background: transparent;
+  pointer-events: none;
+}
+
+.animated-intro.final-position .logo-container {
+  transform: translateY(-45vh) translateX(-45vw) scale(0.25);
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+}
+
+/* Background particles animation */
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.2) 50%, transparent 100%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle-1 {
+  width: 20px;
+  height: 20px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  width: 15px;
+  height: 15px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 1.5s;
+}
+
+.particle-3 {
+  width: 25px;
+  height: 25px;
+  top: 30%;
+  left: 70%;
+  animation-delay: 3s;
+}
+
+.particle-4 {
+  width: 18px;
+  height: 18px;
+  top: 80%;
+  left: 20%;
+  animation-delay: 4.5s;
+}
+
+.particle-5 {
+  width: 12px;
+  height: 12px;
+  top: 15%;
+  left: 50%;
+  animation-delay: 2s;
+}
+
+/* Keyframe animations */
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
+  }
+
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.25));
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+    opacity: 1;
+  }
+
+  66% {
+    transform: translateY(10px) rotate(240deg);
+    opacity: 0.8;
+  }
+}
+
+/* Logo positioning after animation */
+.logo-fixed {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  max-width: 120px;
+  height: auto;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-fixed:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .boomsold-logo {
+    max-width: 300px;
+  }
+
+  .animated-intro.moving-up .logo-container {
+    transform: translateY(-35vh) translateX(-40vw) scale(0.25);
+  }
+
+  .logo-fixed {
+    max-width: 100px;
+    top: 15px;
+    left: 15px;
+  }
+
+  .particle {
+    display: none;
+    /* Hide particles on mobile for performance */
+  }
+}
+
+@media (max-width: 480px) {
+  .boomsold-logo {
+    max-width: 250px;
+  }
+
+  .animated-intro.moving-up .logo-container {
+    transform: translateY(-30vh) translateX(-35vw) scale(0.2);
+  }
+
+  .logo-fixed {
+    max-width: 80px;
+    top: 10px;
+    left: 10px;
+  }
+}

@@ -1,8 +1,8 @@
 .neighborhood-details {
-  height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 2rem;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  max-height: 100%;
+  background: transparent;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -11,42 +11,88 @@
 .details-placeholder {
   text-align: center;
   color: #666;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .details-placeholder h2 {
   color: #2c3e50;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
 }
 
 .details-placeholder p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
   color: #7f8c8d;
 }
 
 .instructions {
   text-align: left;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .instructions ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .instructions li {
-  padding: 0.5rem 0;
-  font-size: 1rem;
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
   color: #555;
 }
 
 .details-content {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Pin controls */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pin-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.pin-indicator {
+  font-size: 0.85rem;
+  color: #007acc;
+  font-weight: 600;
+  background: rgba(0, 122, 204, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+}
+
+.unpin-button {
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  color: #ff3b30;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.unpin-button:hover {
+  background: rgba(255, 59, 48, 0.2);
+  border-color: rgba(255, 59, 48, 0.5);
+  transform: scale(1.1);
 }
 
 @keyframes fadeIn {
@@ -63,11 +109,10 @@
 
 .neighborhood-name {
   color: #2c3e50;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid #3498db;
-  font-weight: 300;
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 600;
+  flex: 1;
 }
 
 .details-grid {

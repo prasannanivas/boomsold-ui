@@ -1,18 +1,18 @@
 import React from "react";
 import "./NeighborhoodDetails.css";
 
-const NeighborhoodDetails = ({ neighborhood }) => {
+const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
   if (!neighborhood) {
     return (
       <div className="neighborhood-details">
         <div className="details-placeholder">
           <h2>Montreal Neighborhoods</h2>
-          <p>Hover over a neighborhood on the map to see its details</p>
+          <p>Hover over a neighborhood to see details, click to pin it</p>
           <div className="instructions">
             <ul>
               <li>🏠 Average property prices</li>
               <li>👥 Population statistics</li>
-              <li>📍 Neighborhood description</li>
+              <li>� Click to pin details</li>
             </ul>
           </div>
         </div>
@@ -23,7 +23,21 @@ const NeighborhoodDetails = ({ neighborhood }) => {
   return (
     <div className="neighborhood-details">
       <div className="details-content">
-        <h2 className="neighborhood-name">{neighborhood.name}</h2>
+        <div className="details-header">
+          <h2 className="neighborhood-name">{neighborhood.name}</h2>
+          {isPinned && (
+            <div className="pin-controls">
+              <span className="pin-indicator">📌 Pinned</span>
+              <button
+                className="unpin-button"
+                onClick={onUnpin}
+                title="Unpin this neighborhood"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
         {neighborhood.neighborhood &&
           neighborhood.neighborhood !== neighborhood.name && (
             <h3 className="neighborhood-subtitle">
@@ -43,39 +57,12 @@ const NeighborhoodDetails = ({ neighborhood }) => {
                 </span>
               </div>
             )}
-            {neighborhood.neighborhoodId && (
-              <div className="detail-item">
-                <span className="detail-label">Neighborhood ID:</span>
-                <span className="detail-value">
-                  {neighborhood.neighborhoodId}
-                </span>
-              </div>
-            )}
-            {neighborhood.boroughId && (
-              <div className="detail-item">
-                <span className="detail-label">Borough ID:</span>
-                <span className="detail-value">{neighborhood.boroughId}</span>
-              </div>
-            )}
-            {neighborhood.neighborhoodCode && (
-              <div className="detail-item">
-                <span className="detail-label">Code:</span>
-                <span className="detail-value">
-                  {neighborhood.neighborhoodCode}
-                </span>
-              </div>
-            )}
           </div>
 
           {/* Real Estate Pricing */}
           <div className="section">
             <h4>🏠 Real Estate Pricing</h4>
-            <div className="detail-item">
-              <span className="detail-label">Average Price:</span>
-              <span className="detail-value price">
-                {neighborhood.averagePrice}
-              </span>
-            </div>
+
             {neighborhood.singleFamilyPrice && (
               <div className="detail-item">
                 <span className="detail-label">Single Family Home:</span>
@@ -130,22 +117,6 @@ const NeighborhoodDetails = ({ neighborhood }) => {
               </div>
             )}
           </div>
-
-          {/* Raw Data Section (for debugging/complete info) */}
-          {neighborhood.rawProperties && (
-            <div className="section">
-              <h4>🔍 Technical Data</h4>
-              {Object.entries(neighborhood.rawProperties).map(
-                ([key, value]) =>
-                  value && (
-                    <div key={key} className="detail-item">
-                      <span className="detail-label">{key}:</span>
-                      <span className="detail-value">{value}</span>
-                    </div>
-                  )
-              )}
-            </div>
-          )}
 
           {/* Description */}
           <div className="detail-item description">
