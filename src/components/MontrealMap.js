@@ -6,19 +6,19 @@ import "./MontrealMap.css";
 // Real Estate Color Palette Component
 const RealEstatePalette = () => {
   const priceRanges = [
-    { color: "#4A9B8E", label: "$300K-400K", name: "Affordable" },
-    { color: "#6BB577", label: "$400K-500K", name: "Moderate" },
-    { color: "#8FCC88", label: "$500K-600K", name: "Mid-Range" },
-    { color: "#F4E699", label: "$600K-700K", name: "Upper-Mid" },
-    { color: "#F7D794", label: "$700K-800K", name: "Premium" },
-    { color: "#F2B680", label: "$800K-900K", name: "High-End" },
-    { color: "#E88B5A", label: "$900K-1M", name: "Luxury" },
-    { color: "#E76B4A", label: "$1M+", name: "Ultra-Luxury" },
+    { color: "#4A9B8E", label: "<$500K", name: "Affordable" },
+    { color: "#6BB577", label: "$500K-650K", name: "Moderate" },
+    { color: "#8FCC88", label: "$650K-800K", name: "Mid-Range" },
+    { color: "#F4E699", label: "$800K-1M", name: "Upper-Mid" },
+    { color: "#F7D794", label: "$1M-1.2M", name: "Premium" },
+    { color: "#F2B680", label: "$1.2M-1.5M", name: "High-End" },
+    { color: "#E88B5A", label: "$1.5M-2M", name: "Luxury" },
+    { color: "#E76B4A", label: "$2M+", name: "Ultra-Luxury" },
   ];
 
   return (
     <div className="color-palette">
-      <h3>Average Property Price by Neighborhood</h3>
+      <h3>🏘️ Greater Montreal Real Estate Prices by Postal Code</h3>
       <div className="palette-items">
         {priceRanges.map((item, index) => (
           <div key={index} className="palette-item">
@@ -38,63 +38,206 @@ const RealEstatePalette = () => {
 const MontrealMap = ({ onNeighborhoodHover }) => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState(null);
   const [montrealData, setMontrealData] = useState(null);
+  const [currentZoom, setCurrentZoom] = useState(10);
+  const [map, setMap] = useState(null);
 
-  // Load the GeoJSON data
+  // Function to parse CSV price and return formatted price
+  const parsePrice = (priceString) => {
+    if (!priceString) return null;
+    const cleanPrice = priceString.replace(/[",]/g, "");
+    const price = parseInt(cleanPrice);
+    if (price >= 1000000) {
+      return `$${(price / 1000000).toFixed(1)}M`;
+    } else if (price >= 1000) {
+      return `$${Math.round(price / 1000)}K`;
+    }
+    return `$${price}`;
+  };
+
+  // Function to determine color based on price range
+  const getPriceColor = (price) => {
+    if (!price) return "#4A5B7C"; // Default color
+    const numPrice =
+      typeof price === "string" ? parseInt(price.replace(/[",]/g, "")) : price;
+
+    if (numPrice >= 2000000) return "#E76B4A"; // Ultra-Luxury $2M+
+    if (numPrice >= 1500000) return "#E88B5A"; // Luxury $1.5M-2M
+    if (numPrice >= 1200000) return "#F2B680"; // High-End $1.2M-1.5M
+    if (numPrice >= 1000000) return "#F7D794"; // Premium $1M-1.2M
+    if (numPrice >= 800000) return "#F4E699"; // Upper-Mid $800K-1M
+    if (numPrice >= 650000) return "#8FCC88"; // Mid-Range $650K-800K
+    if (numPrice >= 500000) return "#6BB577"; // Moderate $500K-650K
+    return "#4A9B8E"; // Affordable <$500K
+  };
+
+  // Load both GeoJSON and CSV data
   React.useEffect(() => {
-    fetch("/montreal_real.geojson")
-      .then((response) => response.json())
-      .then((data) => {
-        // Add real estate colors and average prices to each feature
-        data.features.forEach((feature, index) => {
-          const colors = [
-            "#4A9B8E", // $300K-400K - Affordable
-            "#6BB577", // $400K-500K - Moderate
-            "#8FCC88", // $500K-600K - Mid-Range
-            "#F4E699", // $600K-700K - Upper-Mid
-            "#F7D794", // $700K-800K - Premium
-            "#F2B680", // $800K-900K - High-End
-            "#E88B5A", // $900K-1M - Luxury
-            "#E76B4A", // $1M+ - Ultra-Luxury
-            "#D35E47", // $1.2M+ - Premium Luxury
-            "#B85450", // $1.5M+ - Elite
-            "#A0525C", // $2M+ - Ultra-Elite
-            "#4A9B8E", // Cycling back for additional neighborhoods
-            "#6BB577",
-            "#8FCC88",
-            "#F4E699",
-            "#F7D794",
-            "#F2B680",
-            "#E88B5A",
-            "#E76B4A",
-          ];
-          // Real Montreal average property prices (in CAD thousands)
-          const averagePrices = [
-            "$485K", // Pierrefonds–Roxboro
-            "$750K", // Côte-des-Neiges–Notre-Dame-de-Grâce
-            "$620K", // Ahuntsic-Cartierville
-            "$1.2M", // Outremont
-            "$695K", // Plateau-Mont-Royal
-            "$520K", // LaSalle
-            "$580K", // Pointe-aux-Trembles-Rivières-des-Prairies
-            "$665K", // Rosemont–La Petite-Patrie
-            "$1.8M", // Ville-Marie (Downtown)
-            "$545K", // Anjou
-            "$480K", // Montréal-Nord
-            "$475K", // Lachine
-            "$590K", // Mercier–Hochelaga-Maisonneuve
-            "$535K", // Saint-Laurent
-            "$610K", // Saint-Léonard
-            "$595K", // Villeray–Saint-Michel–Parc-Extension
-            "$685K", // Sud-Ouest
-            "$920K", // L'Île-Bizard–Sainte-Geneviève
-            "$715K", // Verdun–Île-des-Sœurs
-          ];
+    Promise.all([
+      fetch("/quartierreferencehabitation.geojson").then((response) =>
+        response.json()
+      ),
+      fetch("/boomsold.live data - Sheet1.csv").then((response) =>
+        response.text()
+      ),
+    ])
+      .then(([geoJsonData, csvData]) => {
+        // Parse CSV data
+        const csvLines = csvData.split("\n");
+        const headers = csvLines[0].split(",").map((h) => h.trim());
+        const singleFamilyRow = csvLines[1].split(",");
+        const condoRow = csvLines[2].split(",");
 
-          feature.properties.color = colors[index % colors.length];
-          feature.properties.value =
-            averagePrices[index % averagePrices.length];
+        // Create neighborhood mapping with CSV data
+        const neighborhoodMapping = {};
+
+        // Map CSV column names to GeoJSON neighborhood names
+        const nameMapping = {
+          "Ahuntsic–Cartierville": "Ahuntsic-Cartierville",
+          Anjou: "Anjou",
+          "Baie-D'Urfé": "Baie-D'Urfé",
+          Beaconsfield: "Beaconsfield",
+          "Côte-des-Neiges–Notre-Dame-de-Grâce (NDG)":
+            "Côte-des-Neiges–Notre-Dame-de-Grâce",
+          "Côte-Saint-Luc": "Côte-Saint-Luc",
+          "Dollard-des-Ormeaux": "Dollard-des-Ormeaux",
+          Dorval: "Dorval",
+          Hampstead: "Hampstead",
+          Kirkland: "Kirkland",
+          Lachine: "Lachine",
+          LaSalle: "LaSalle",
+          "Le Plateau-Mont-Royal": "Le Plateau-Mont-Royal",
+          "Le Sud-Ouest": "Le Sud-Ouest",
+          "L'Île-Bizard - Sainte-Geneviève": "L'Île-Bizard–Sainte-Geneviève",
+          "Mercier–Hochelaga-Maisonneuve": "Mercier–Hochelaga-Maisonneuve",
+          "Montréal-Est": "Montréal-Est",
+          "Mont-Royal": "Mont-Royal",
+          "Montréal-Nord": "Montréal-Nord",
+          "Montreal West": "Montréal-Ouest",
+          Outremont: "Outremont",
+          "Pointe-Claire": "Pointe-Claire",
+          "Pierrefonds–Roxboro": "Pierrefonds-Roxboro",
+          "Rivière-des-Prairies–Pointe-aux-Trembles":
+            "Rivière-des-Prairies–Pointe-aux-Trembles",
+          "Rosemont–La Petite-Patrie": "Rosemont–La Petite-Patrie",
+          "Montréal (Saint-Laurent)": "Saint-Laurent",
+          "Saint-Léonard": "Saint-Léonard",
+          "Sainte-Anne-de-Bellevue": "Sainte-Anne-de-Bellevue",
+          Senneville: "Senneville",
+          Verdun: "Verdun",
+          "Ville-Marie": "Ville-Marie",
+          "Villeray–Saint-Michel–Parc-Extension":
+            "Villeray–Saint-Michel–Parc-Extension",
+          Westmount: "Westmount",
+        };
+
+        // Generate initials function
+        const generateInitials = (name) => {
+          return name
+            .split(/[\s-–]/)
+            .map((part) => part.charAt(0))
+            .join("")
+            .substring(0, 3)
+            .toUpperCase();
+        };
+
+        // Process CSV data and create mapping
+        headers.slice(1).forEach((csvName, index) => {
+          if (csvName && csvName.trim()) {
+            const geoJsonName = nameMapping[csvName.trim()];
+            const singleFamilyPrice = singleFamilyRow[index + 1];
+            const condoPrice = condoRow[index + 1];
+
+            if (geoJsonName && singleFamilyPrice) {
+              const formattedPrice = parsePrice(singleFamilyPrice);
+              const color = getPriceColor(singleFamilyPrice);
+
+              neighborhoodMapping[geoJsonName] = {
+                initials: generateInitials(geoJsonName),
+                color: color,
+                price: formattedPrice,
+                singleFamilyPrice: parsePrice(singleFamilyPrice),
+                condoPrice: condoPrice ? parsePrice(condoPrice) : null,
+                rawSingleFamily: singleFamilyPrice,
+                rawCondo: condoPrice,
+              };
+            }
+          }
         });
-        setMontrealData(data);
+
+        // Add some missing neighborhoods with default values
+        const additionalNeighborhoods = {
+          "L'Île-Dorval": { initials: "ID", color: "#F7D794", price: "$1.5M" },
+        };
+
+        // Merge additional neighborhoods into main mapping
+        Object.assign(neighborhoodMapping, additionalNeighborhoods);
+
+        // Add real estate data to each neighborhood area
+        geoJsonData.features.forEach((feature, index) => {
+          const boroughName = feature.properties.nom_arr; // Borough name from GeoJSON
+          const neighborhoodName = feature.properties.nom_qr; // Neighborhood name from GeoJSON
+          const areaData = neighborhoodMapping[boroughName];
+
+          if (areaData) {
+            // Use specific data for known boroughs from CSV
+            feature.properties.color = areaData.color;
+            feature.properties.value = areaData.initials; // Display borough abbreviation on map
+            feature.properties.avgPrice = areaData.price;
+            feature.properties.singleFamilyPrice = areaData.singleFamilyPrice;
+            feature.properties.condoPrice = areaData.condoPrice;
+            feature.properties.listingCount =
+              Math.floor(Math.random() * 150) + 50;
+            feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
+              1
+            );
+            feature.properties.name = boroughName; // Full borough name for hover details
+            feature.properties.neighborhood = neighborhoodName; // Specific neighborhood name
+
+            // Store raw CSV data for reference
+            feature.properties.rawSingleFamily = areaData.rawSingleFamily;
+            feature.properties.rawCondo = areaData.rawCondo;
+          } else {
+            // Default values for unmapped areas (could be suburbs)
+            const isSuburb = !boroughName || boroughName !== "Montréal";
+            const defaultColor = isSuburb ? "#6BB577" : "#4A9B8E"; // Green for suburbs, teal for unknown Montreal areas
+            const defaultPrice = isSuburb ? "$550K" : "$520K";
+
+            // Generate abbreviation from neighborhood name
+            const generateAbbreviation = (name) => {
+              if (!name) return "UNK";
+              return name
+                .split(/[\s-]/)
+                .map((part) => part.charAt(0))
+                .join("")
+                .substring(0, 3)
+                .toUpperCase();
+            };
+
+            feature.properties.color = defaultColor;
+            feature.properties.value = generateAbbreviation(
+              neighborhoodName || boroughName
+            ); // Display abbreviation on map
+            feature.properties.avgPrice = defaultPrice;
+            feature.properties.listingCount =
+              Math.floor(Math.random() * 100) + 30;
+            feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
+              1
+            );
+            feature.properties.name =
+              boroughName || neighborhoodName || "Unknown Area"; // Full area name for hover
+            feature.properties.neighborhood =
+              neighborhoodName || "Unknown Neighborhood";
+
+            // Set default raw data values
+            feature.properties.rawSingleFamily = null;
+            feature.properties.rawCondo = null;
+          }
+
+          feature.properties.type = "neighborhood";
+          feature.properties.municipality =
+            feature.properties.nom_mun || "Montréal";
+        });
+        setMontrealData(geoJsonData);
       })
       .catch((error) => console.error("Error loading Montreal data:", error));
   }, []);
@@ -108,59 +251,160 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
     fillOpacity: 1.0,
   });
 
-  // Hover style
+  // Hover style with projection effect
   const getHoverStyle = () => ({
-    weight: 3,
+    weight: 4,
     color: "#000000",
     fillOpacity: 1.0,
+    // CSS transform for elevation effect
+    className: "neighborhood-projected",
   });
 
   // Feature interaction handlers
   const onEachFeature = (feature, layer) => {
     const originalStyle = getFeatureStyle(feature);
 
-    // Add permanent tooltip with the value
+    // Add permanent tooltip with dynamic font size based on zoom
     if (feature.properties && feature.properties.value) {
-      layer
-        .bindTooltip(feature.properties.value, {
-          permanent: true,
-          direction: "center",
-          className: "neighborhood-label-tooltip",
-        })
-        .openTooltip();
-    }
+      const updateTooltip = () => {
+        const zoom = map ? map.getZoom() : currentZoom;
+        // Clamp zoom level to supported range (6-18) for consistent styling
+        const clampedZoom = Math.max(6, Math.min(18, Math.round(zoom)));
+        const zoomClass = `custom-tooltip tooltip-zoom-${clampedZoom}`;
+        layer
+          .bindTooltip(feature.properties.value, {
+            permanent: true,
+            direction: "center",
+            className: zoomClass,
+          })
+          .openTooltip();
+      };
 
+      updateTooltip();
+
+      // Update tooltip when zoom changes
+      if (map) {
+        map.on("zoomend", updateTooltip);
+      }
+    }
     layer.on({
       mouseover: (e) => {
         const layer = e.target;
-        layer.setStyle(getHoverStyle());
+        const hoverStyle = getHoverStyle();
+        layer.setStyle(hoverStyle);
         layer.bringToFront();
+
+        // Add projection effect to the DOM element
+        const pathElement = layer.getElement();
+        if (pathElement) {
+          pathElement.style.transform = "translate(0, -3px)";
+          pathElement.style.filter =
+            "drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))";
+          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.zIndex = "1000";
+        }
+
         setHoveredNeighborhood(feature.properties);
         if (onNeighborhoodHover) {
           onNeighborhoodHover({
-            name: feature.properties.name,
-            averagePrice: feature.properties.value,
+            // Basic Information
+            name: feature.properties.name || feature.properties.nom_arr,
+            neighborhood:
+              feature.properties.neighborhood || feature.properties.nom_qr,
+            municipality:
+              feature.properties.municipality || feature.properties.nom_mun,
+
+            // GeoJSON Reference Data
+            neighborhoodId: feature.properties.no_qr,
+            boroughId: feature.properties.no_arr,
+            neighborhoodCode: feature.properties.value,
+
+            // Real Estate Pricing (from CSV)
+            averagePrice: feature.properties.avgPrice,
+            singleFamilyPrice: feature.properties.singleFamilyPrice,
+            condoPrice: feature.properties.condoPrice,
+
+            // Additional Statistics
+            dwellingCount: feature.properties.nb_log,
+            listingCount: feature.properties.listingCount,
             pricePerSqft: `$${Math.floor(Math.random() * 200) + 300}/sq ft`,
-            marketTrend: Math.random() > 0.5 ? "↗ +5.2%" : "↘ -2.1%",
-            description: `Prime real estate in ${feature.properties.name}`,
-            listingCount: Math.floor(Math.random() * 150) + 25,
+            marketTrend: `↗ +${feature.properties.priceChange}%`,
+
+            // Raw Data (for debugging/complete info)
+            rawProperties: {
+              no_qr: feature.properties.no_qr,
+              nom_qr: feature.properties.nom_qr,
+              no_arr: feature.properties.no_arr,
+              nom_arr: feature.properties.nom_arr,
+              nom_mun: feature.properties.nom_mun,
+              nb_log: feature.properties.nb_log,
+              rawSingleFamily: feature.properties.rawSingleFamily,
+              rawCondo: feature.properties.rawCondo,
+            },
+
+            description: `Complete real estate data for ${
+              feature.properties.name || feature.properties.nom_arr
+            }`,
           });
         }
       },
       mouseout: (e) => {
         const layer = e.target;
         layer.setStyle(originalStyle);
+
+        // Remove projection effect
+        const pathElement = layer.getElement();
+        if (pathElement) {
+          pathElement.style.transform = "translate(0, 0)";
+          pathElement.style.filter = "none";
+          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.zIndex = "auto";
+        }
+
         setHoveredNeighborhood(null);
       },
       click: () => {
         if (onNeighborhoodHover) {
           onNeighborhoodHover({
-            name: feature.properties.name,
-            averagePrice: feature.properties.value,
+            // Basic Information
+            name: feature.properties.name || feature.properties.nom_arr,
+            neighborhood:
+              feature.properties.neighborhood || feature.properties.nom_qr,
+            municipality:
+              feature.properties.municipality || feature.properties.nom_mun,
+
+            // GeoJSON Reference Data
+            neighborhoodId: feature.properties.no_qr,
+            boroughId: feature.properties.no_arr,
+            neighborhoodCode: feature.properties.value,
+
+            // Real Estate Pricing (from CSV)
+            averagePrice: feature.properties.avgPrice,
+            singleFamilyPrice: feature.properties.singleFamilyPrice,
+            condoPrice: feature.properties.condoPrice,
+
+            // Additional Statistics
+            dwellingCount: feature.properties.nb_log,
+            listingCount: feature.properties.listingCount,
             pricePerSqft: `$${Math.floor(Math.random() * 200) + 300}/sq ft`,
-            marketTrend: Math.random() > 0.5 ? "↗ +8.1%" : "↘ -3.4%",
-            description: `Explore properties in ${feature.properties.name}`,
-            listingCount: Math.floor(Math.random() * 150) + 25,
+            marketTrend: `↗ +${feature.properties.priceChange}%`,
+
+            // Raw Data (for debugging/complete info)
+            rawProperties: {
+              no_qr: feature.properties.no_qr,
+              nom_qr: feature.properties.nom_qr,
+              no_arr: feature.properties.no_arr,
+              nom_arr: feature.properties.nom_arr,
+              nom_mun: feature.properties.nom_mun,
+              nb_log: feature.properties.nb_log,
+              rawSingleFamily: feature.properties.rawSingleFamily,
+              rawCondo: feature.properties.rawCondo,
+            },
+
+            description: `Detailed property exploration for ${
+              feature.properties.name || feature.properties.nom_arr
+            }`,
+            isClickEvent: true,
           });
         }
       },
@@ -195,10 +439,25 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
         <MapContainer
           center={[45.5088, -73.5878]}
           zoom={10}
+          minZoom={6}
+          maxZoom={16}
           style={{ height: "85vh", width: "100%" }}
           zoomControl={true}
           scrollWheelZoom={true}
+          doubleClickZoom={true}
+          touchZoom={true}
+          boxZoom={true}
+          keyboard={true}
+          zoomAnimation={true}
+          fadeAnimation={true}
+          markerZoomAnimation={true}
           attributionControl={false}
+          whenCreated={(mapInstance) => {
+            setMap(mapInstance);
+            mapInstance.on("zoomend", () => {
+              setCurrentZoom(mapInstance.getZoom());
+            });
+          }}
         >
           <GeoJSON
             data={montrealData}

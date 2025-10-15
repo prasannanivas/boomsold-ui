@@ -52,7 +52,7 @@
   font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
-/* Montreal Map Container */
+/* Montreal Map Container - Rotated for better Montreal orientation */
 .custom-montreal-map {
   flex: 1;
   position: relative;
@@ -82,7 +82,104 @@
   font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
-/* Neighborhood labels with values */
+/* Neighborhood labels with values - Dynamic font sizing and weight */
+.custom-tooltip {
+  background: transparent !important;
+  color: #2d3436 !important;
+  font-weight: 900 !important;
+  font-size: 12px !important;
+  /* Base size, will be overridden dynamically */
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-align: center !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+  font-family: 'Arial', 'Helvetica', sans-serif !important;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+  transition: font-size 0.3s ease, font-weight 0.3s ease, opacity 0.3s ease !important;
+}
+
+/* Zoom-based font size and weight classes - Smaller & lighter when zoomed out */
+.tooltip-zoom-6 {
+  font-size: 4px !important;
+  font-weight: 300 !important;
+  opacity: 0.5 !important;
+}
+
+.tooltip-zoom-7 {
+  font-size: 5px !important;
+  font-weight: 350 !important;
+  opacity: 0.6 !important;
+}
+
+.tooltip-zoom-8 {
+  font-size: 6px !important;
+  font-weight: 400 !important;
+  opacity: 0.7 !important;
+}
+
+.tooltip-zoom-9 {
+  font-size: 8px !important;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
+}
+
+.tooltip-zoom-10 {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  opacity: 0.9 !important;
+}
+
+.tooltip-zoom-11 {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  opacity: 0.95 !important;
+}
+
+.tooltip-zoom-12 {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-13 {
+  font-size: 14px !important;
+  font-weight: 850 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-14 {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-15 {
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-16 {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-17 {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-18 {
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+/* Legacy class for backward compatibility */
 .neighborhood-label-tooltip {
   background: transparent !important;
   color: #2d3436 !important;
@@ -147,9 +244,36 @@
   }
 }
 
+/* Neighborhood Projection Effect */
+.neighborhood-projected {
+  transform: translate(0, -3px) !important;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3)) !important;
+  transition: all 0.2s ease-out !important;
+  z-index: 1000 !important;
+}
+
+/* SVG path hover effects */
+.leaflet-interactive:hover {
+  transform: translate(0, -3px);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+  transition: all 0.2s ease-out;
+}
+
+/* Enhanced hover state for better visual feedback */
+.leaflet-interactive {
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .custom-montreal-map svg {
     height: 80vh;
+  }
+
+  /* Reduce projection effect on mobile */
+  .neighborhood-projected {
+    transform: translate(0, -2px) !important;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   }
 }
