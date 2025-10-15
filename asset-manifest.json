@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/boomsold-ui/static/css/main.e7a3c31e.css",
+    "main.js": "/boomsold-ui/static/js/main.ff6c06b8.js",
+    "static/js/453.0a794063.chunk.js": "/boomsold-ui/static/js/453.0a794063.chunk.js",
+    "index.html": "/boomsold-ui/index.html",
+    "main.e7a3c31e.css.map": "/boomsold-ui/static/css/main.e7a3c31e.css.map",
+    "main.ff6c06b8.js.map": "/boomsold-ui/static/js/main.ff6c06b8.js.map",
+    "453.0a794063.chunk.js.map": "/boomsold-ui/static/js/453.0a794063.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7a3c31e.css",
+    "static/js/main.ff6c06b8.js"
+  ]
+}
