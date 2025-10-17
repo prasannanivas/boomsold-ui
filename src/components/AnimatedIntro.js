@@ -28,13 +28,16 @@ const AnimatedIntro = ({ onAnimationComplete }) => {
       clearTimeout(timer3);
       clearTimeout(timer4);
     };
-  }, [onAnimationComplete]);
+  }, []);
 
   return (
     <div className={`animated-intro ${animationStage}`}>
       <div className="logo-container">
         <img
-          src="/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
+          src={
+            process.env.PUBLIC_URL +
+            "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
+          }
           alt="BoomSold"
           className="boomsold-logo"
         />

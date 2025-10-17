@@ -46,7 +46,7 @@
 }
 
 .animated-intro.moving-up .logo-container {
-  transform: translateY(-40vh) translateX(-45vw) scale(0.3);
+  transform: translateY(-40vh) translateX(0vw) scale(0.3);
 }
 
 .animated-intro.final-position {
@@ -55,10 +55,9 @@
 }
 
 .animated-intro.final-position .logo-container {
-  transform: translateY(-45vh) translateX(-45vw) scale(0.25);
+  transform: translateY(-45vh) translateX(0vw) scale(0.25);
   position: fixed;
   top: 20px;
-  left: 20px;
   z-index: 1001;
 }
 

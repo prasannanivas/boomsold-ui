@@ -22,6 +22,10 @@ function App() {
     }, 500);
   };
 
+  React.useEffect(() => {
+    console.log("Pinned neighborhood changed:", pinnedNeighborhood);
+  }, [pinnedNeighborhood]);
+
   const handleNeighborhoodHover = (neighborhood) => {
     // Only update if not pinned
     if (!isPinned) {
@@ -32,11 +36,13 @@ function App() {
   };
 
   const handleNeighborhoodClick = (neighborhood) => {
-    if (isPinned && pinnedNeighborhood?.name === neighborhood.name) {
-      // Unpin if clicking the same neighborhood
+    console.log("Neighborhood click:", neighborhood);
+    if (neighborhood.isUnpin) {
+      // Unpin
       setIsPinned(false);
       setPinnedNeighborhood(null);
       setIsHovering(false);
+      setSelectedNeighborhood(null);
     } else {
       // Pin the clicked neighborhood
       setIsPinned(true);
@@ -64,7 +70,9 @@ function App() {
           onNeighborhoodLeave={handleNeighborhoodLeave}
           onNeighborhoodClick={handleNeighborhoodClick}
           startNeighborhoodAnimation={introComplete}
-        />{" "}
+          isPinned={isPinned}
+          pinnedNeighborhood={pinnedNeighborhood}
+        />
         {/* Floating neighborhood details overlay */}
         <div
           className={`neighborhood-overlay ${

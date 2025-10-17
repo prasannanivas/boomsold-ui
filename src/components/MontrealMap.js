@@ -1,7 +1,44 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { MapContainer, GeoJSON } from "react-leaflet";
+import {
+  MapContainer,
+  GeoJSON,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
+import L from "leaflet";
+import simplify from "simplify-js";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
+import {
+  parsePrice,
+  getPriceColor,
+  rotateGeoJSON,
+  generateInitials,
+  generateAbbreviation,
+  nameMapping,
+} from "./Utils";
+import MontrealSvg from "./MontrealSvg";
+
+// Simple point-in-polygon algorithm for [lat, lng] arrays
+function isPointInPolygon(point, vs) {
+  // point: [lat, lng], vs: array of [lat, lng]
+  let x = point[1],
+    y = point[0];
+  let inside = false;
+  for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    let xi = vs[i][1],
+      yi = vs[i][0];
+    let xj = vs[j][1],
+      yj = vs[j][0];
+    let intersect =
+      yi > y !== yj > y &&
+      x < ((xj - xi) * (y - yi)) / (yj - yi + 0.0000001) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
 
 // Professional Header Component
 const ProfessionalHeader = () => {
@@ -10,7 +47,10 @@ const ProfessionalHeader = () => {
       <div className="header-content">
         <div className="brand-section">
           <img
-            src="/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
+            }
             alt="Boomsold"
             className="brand-logo"
           />
@@ -26,30 +66,73 @@ const MontrealMap = ({
   onNeighborhoodLeave,
   onNeighborhoodClick,
   startNeighborhoodAnimation = false,
+  isPinned = false,
+  pinnedNeighborhood = null,
 }) => {
-  const [montrealData, setMontrealData] = useState(null);
+  // Rotated (default) and Top-View (unrotated) datasets
+  const [montrealData, setMontrealData] = useState(null); // rotated
+  const [montrealDataTop, setMontrealDataTop] = useState(null); // unrotated (top view)
+
   const [currentZoom, setCurrentZoom] = useState(10);
+  const [useSatellite, setUseSatellite] = useState(false);
+  const [useTopView, setUseTopView] = useState(false); // when zoomed in, use unrotated data
   const [map, setMap] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+
+  const [parkMarkers, setParkMarkers] = useState([]);
+  const [schoolMarkers, setSchoolMarkers] = useState([]);
+  const [hospitalMarkers, setHospitalMarkers] = useState([]);
+
+  // Custom icons
+  const treeIcon = L.icon({
+    iconUrl: process.env.PUBLIC_URL + "/assets/park-icon.png",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+    tooltipAnchor: [16, -16],
+  });
+  const schoolIcon = L.icon({
+    iconUrl: process.env.PUBLIC_URL + "/assets/school-icon.png",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+    tooltipAnchor: [16, -16],
+  });
+  const hospitalIcon = L.icon({
+    iconUrl: process.env.PUBLIC_URL + "/assets/hospital-icon.png",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+    tooltipAnchor: [16, -16],
+  });
+
   const [shouldAnimateNeighborhoods, setShouldAnimateNeighborhoods] =
     useState(false);
+
+  // Right-side panel state
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [parkImageLoading, setParkImageLoading] = useState(false);
+
+  const pinnedRef = useRef(null);
+  useEffect(() => {
+    pinnedRef.current = pinnedNeighborhood;
+  }, [pinnedNeighborhood]);
+  const [isLoadingMarkers, setIsLoadingMarkers] = useState(false);
+
   const geoJsonLayerRef = useRef(null);
   const animationAttemptsRef = useRef(0);
-  const animationPlayedRef = useRef(false);
 
   const getFeatureLayers = useCallback(() => {
     const layerGroup = geoJsonLayerRef.current;
     if (!layerGroup) {
       return [];
     }
-
     const collectedLayers = [];
     layerGroup.eachLayer((layer) => {
       if (layer?.feature) {
         collectedLayers.push(layer);
       }
     });
-
     return collectedLayers;
   }, []);
 
@@ -86,71 +169,38 @@ const MontrealMap = ({
     [getFeatureLayers]
   );
 
-  const spawnDustBurst = useCallback(
-    (layer) => {
-      if (!map) {
-        return;
+  const splitAmenityMarkers = (elements, polygonLatLngs) => {
+    const schools = [];
+    const hospitals = [];
+
+    const addIfInside = (lat, lon, name, amenity) => {
+      if (lat && lon && isPointInPolygon([lat, lon], polygonLatLngs)) {
+        const item = { lat, lon, name: name || amenity };
+        if (amenity === "school") schools.push(item);
+        if (amenity === "hospital") hospitals.push(item);
       }
+    };
 
-      const bounds = layer?.getBounds?.();
-      if (!bounds) {
-        return;
+    elements.forEach((el) => {
+      const amenity = el.tags && el.tags.amenity;
+      if (amenity !== "school" && amenity !== "hospital") return;
+
+      let lat, lon;
+      if (el.type === "node") {
+        lat = el.lat;
+        lon = el.lon;
+      } else if ((el.type === "way" || el.type === "relation") && el.center) {
+        lat = el.center.lat;
+        lon = el.center.lon;
       }
+      const name = el.tags && (el.tags.name || el.tags["name:en"]);
+      addIfInside(lat, lon, name, amenity);
+    });
 
-      const center = bounds.getCenter();
-      const containerPoint = map.latLngToContainerPoint(center);
-      const container = map.getContainer();
+    return { schools, hospitals };
+  };
 
-      if (!containerPoint || !container) {
-        return;
-      }
-
-      const dust = document.createElement("div");
-      dust.className = "dust-burst";
-      dust.style.left = `${containerPoint.x}px`;
-      dust.style.top = `${containerPoint.y}px`;
-
-      const particleCount = 6;
-      for (let i = 0; i < particleCount; i += 1) {
-        const particle = document.createElement("span");
-        particle.className = "dust-particle";
-
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 18 + Math.random() * 20;
-        const verticalFactor = 0.5 + Math.random() * 0.4;
-        const delay = 0.035 * i + Math.random() * 0.03;
-
-        particle.style.setProperty(
-          "--dust-x",
-          `${Math.cos(angle) * distance}px`
-        );
-        particle.style.setProperty(
-          "--dust-y",
-          `${Math.sin(angle) * distance * verticalFactor}px`
-        );
-        particle.style.setProperty("--dust-delay", `${delay.toFixed(2)}s`);
-        particle.style.setProperty(
-          "--dust-scale",
-          `${0.7 + Math.random() * 0.6}`
-        );
-
-        dust.appendChild(particle);
-      }
-
-      container.appendChild(dust);
-
-      requestAnimationFrame(() => {
-        dust.classList.add("dust-burst-active");
-      });
-
-      setTimeout(() => {
-        dust.remove();
-      }, 1400);
-    },
-    [map]
-  );
-
-  // Function to trigger neighborhood animations
+  // Neighborhood animations
   const triggerNeighborhoodAnimations = useCallback(() => {
     if (!montrealData) {
       console.log("❌ Cannot animate: missing map or data");
@@ -214,43 +264,14 @@ const MontrealMap = ({
     }, 160);
   }, [montrealData, applyInitialHiddenState, getFeatureLayers]);
 
-  // Function to parse CSV price and return formatted price
-  const parsePrice = (priceString) => {
-    if (!priceString) return null;
-    const cleanPrice = priceString.replace(/[",]/g, "");
-    const price = parseInt(cleanPrice);
-    if (price >= 1000000) {
-      return `$${(price / 1000000).toFixed(1)}M`;
-    } else if (price >= 1000) {
-      return `$${Math.round(price / 1000)}K`;
-    }
-    return `$${price}`;
-  };
-
-  // Function to determine color based on price range - Comic Book Style Palette (Yellow/Black Theme)
-  const getPriceColor = (price) => {
-    if (!price) return "#FFD54F"; // Default: Sunny Yellow
-    const numPrice =
-      typeof price === "string" ? parseInt(price.replace(/[",]/g, "")) : price;
-
-    if (numPrice >= 2000000) return "#FFD700"; // Ultra-Luxury: Pure Gold (matching logo)
-    if (numPrice >= 1500000) return "#FFEB3B"; // Luxury: Bright Yellow
-    if (numPrice >= 1200000) return "#aa9c1eff"; // High-End: Light Yellow
-    if (numPrice >= 1000000) return "#FFD54F"; // Premium: Sunny Yellow
-    if (numPrice >= 800000) return "#317f85ff"; // Upper-Mid: Soft Green
-    if (numPrice >= 650000) return "#66BB6A"; // Mid-Range: Fresh Green
-    if (numPrice >= 500000) return "#4DB6AC"; // Moderate: Teal
-    return "#4DD0E1"; // Affordable: Bright Cyan
-  };
-
   // Load both GeoJSON and CSV data
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([
-      fetch("/quartierreferencehabitation_merged.geojson").then((response) =>
-        response.json()
-      ),
-      fetch("/boomsold.live data - Sheet1.csv").then((response) =>
-        response.text()
+      fetch(
+        process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
+      ).then((response) => response.json()),
+      fetch(process.env.PUBLIC_URL + "/boomsold.live data - Sheet1.csv").then(
+        (response) => response.text()
       ),
     ])
       .then(([geoJsonData, csvData]) => {
@@ -262,56 +283,6 @@ const MontrealMap = ({
 
         // Create neighborhood mapping with CSV data
         const neighborhoodMapping = {};
-
-        // Map CSV column names to GeoJSON neighborhood names
-        const nameMapping = {
-          "Ahuntsic–Cartierville": "Ahuntsic-Cartierville",
-          Anjou: "Anjou",
-          "Baie-D'Urfé": "Baie-D'Urfé",
-          Beaconsfield: "Beaconsfield",
-          "Côte-des-Neiges–Notre-Dame-de-Grâce (NDG)":
-            "Côte-des-Neiges–Notre-Dame-de-Grâce",
-          "Côte-Saint-Luc": "Côte-Saint-Luc",
-          "Dollard-des-Ormeaux": "Dollard-des-Ormeaux",
-          Dorval: "Dorval",
-          Hampstead: "Hampstead",
-          Kirkland: "Kirkland",
-          Lachine: "Lachine",
-          LaSalle: "LaSalle",
-          "Le Plateau-Mont-Royal": "Le Plateau-Mont-Royal",
-          "Le Sud-Ouest": "Le Sud-Ouest",
-          "L'Île-Bizard - Sainte-Geneviève": "L'Île-Bizard–Sainte-Geneviève",
-          "Mercier–Hochelaga-Maisonneuve": "Mercier–Hochelaga-Maisonneuve",
-          "Montréal-Est": "Montréal-Est",
-          "Mont-Royal": "Mont-Royal",
-          "Montréal-Nord": "Montréal-Nord",
-          "Montreal West": "Montréal-Ouest",
-          Outremont: "Outremont",
-          "Pointe-Claire": "Pointe-Claire",
-          "Pierrefonds–Roxboro": "Pierrefonds-Roxboro",
-          "Rivière-des-Prairies–Pointe-aux-Trembles":
-            "Rivière-des-Prairies–Pointe-aux-Trembles",
-          "Rosemont–La Petite-Patrie": "Rosemont–La Petite-Patrie",
-          "Montréal (Saint-Laurent)": "Saint-Laurent",
-          "Saint-Léonard": "Saint-Léonard",
-          "Sainte-Anne-de-Bellevue": "Sainte-Anne-de-Bellevue",
-          Senneville: "Senneville",
-          Verdun: "Verdun",
-          "Ville-Marie": "Ville-Marie",
-          "Villeray–Saint-Michel–Parc-Extension":
-            "Villeray–Saint-Michel–Parc-Extension",
-          Westmount: "Westmount",
-        };
-
-        // Generate initials function
-        const generateInitials = (name) => {
-          return name
-            .split(/[\s-–]/)
-            .map((part) => part.charAt(0))
-            .join("")
-            .substring(0, 3)
-            .toUpperCase();
-        };
 
         // Process CSV data and create mapping
         headers.slice(1).forEach((csvName, index) => {
@@ -342,19 +313,17 @@ const MontrealMap = ({
           "L'Île-Dorval": { initials: "ID", color: "#F7D794", price: "$1.5M" },
         };
 
-        // Merge additional neighborhoods into main mapping
         Object.assign(neighborhoodMapping, additionalNeighborhoods);
 
-        // Add real estate data to each neighborhood area
-        geoJsonData.features.forEach((feature, index) => {
-          const boroughName = feature.properties.nom_arr; // Borough name from GeoJSON
-          const neighborhoodName = feature.properties.nom_qr; // Neighborhood name from GeoJSON
+        // Enrich features with data
+        geoJsonData.features.forEach((feature) => {
+          const boroughName = feature.properties.nom_arr;
+          const neighborhoodName = feature.properties.nom_qr;
           const areaData = neighborhoodMapping[boroughName];
 
           if (areaData) {
-            // Use specific data for known boroughs from CSV
             feature.properties.color = areaData.color;
-            feature.properties.value = areaData.initials; // Display borough abbreviation on map
+            feature.properties.value = areaData.initials;
             feature.properties.avgPrice = areaData.price;
             feature.properties.singleFamilyPrice = areaData.singleFamilyPrice;
             feature.properties.condoPrice = areaData.condoPrice;
@@ -363,33 +332,19 @@ const MontrealMap = ({
             feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
               1
             );
-            feature.properties.name = boroughName; // Full borough name for hover details
-            feature.properties.neighborhood = neighborhoodName; // Specific neighborhood name
-
-            // Store raw CSV data for reference
+            feature.properties.name = boroughName;
+            feature.properties.neighborhood = neighborhoodName;
             feature.properties.rawSingleFamily = areaData.rawSingleFamily;
             feature.properties.rawCondo = areaData.rawCondo;
           } else {
-            // Default values for unmapped areas (could be suburbs)
             const isSuburb = !boroughName || boroughName !== "Montréal";
-            const defaultColor = isSuburb ? "#80CBC4" : "#4DD0E1"; // Soft teal for suburbs, bright cyan for unknown Montreal areas
+            const defaultColor = isSuburb ? "#80CBC4" : "#4DD0E1";
             const defaultPrice = isSuburb ? "$550K" : "$520K";
-
-            // Generate abbreviation from neighborhood name
-            const generateAbbreviation = (name) => {
-              if (!name) return "UNK";
-              return name
-                .split(/[\s-]/)
-                .map((part) => part.charAt(0))
-                .join("")
-                .substring(0, 3)
-                .toUpperCase();
-            };
 
             feature.properties.color = defaultColor;
             feature.properties.value = generateAbbreviation(
               neighborhoodName || boroughName
-            ); // Display abbreviation on map
+            );
             feature.properties.avgPrice = defaultPrice;
             feature.properties.listingCount =
               Math.floor(Math.random() * 100) + 30;
@@ -397,11 +352,9 @@ const MontrealMap = ({
               1
             );
             feature.properties.name =
-              boroughName || neighborhoodName || "Unknown Area"; // Full area name for hover
+              boroughName || neighborhoodName || "Unknown Area";
             feature.properties.neighborhood =
               neighborhoodName || "Unknown Neighborhood";
-
-            // Set default raw data values
             feature.properties.rawSingleFamily = null;
             feature.properties.rawCondo = null;
           }
@@ -411,19 +364,16 @@ const MontrealMap = ({
             feature.properties.nom_mun || "Montréal";
         });
 
-        // Process merged data to ensure unified appearance
+        // Unified appearance metadata
         const processedData = {
           ...geoJsonData,
           features: geoJsonData.features.map((feature) => {
-            // For merged features, ensure they appear as single units
             if (feature.properties.merged_from > 1) {
               return {
                 ...feature,
                 properties: {
                   ...feature.properties,
-                  // Mark as merged for styling
                   isMerged: true,
-                  // Add special class for CSS targeting
                   className: "merged-borough",
                 },
               };
@@ -438,7 +388,19 @@ const MontrealMap = ({
           }),
         };
 
-        setMontrealData(processedData);
+        // Rotate the GeoJSON data with scaling to fix aspect ratio
+        const centerPoint = { lat: 45.48, lng: -73.62 }; // Montreal center
+        const rotatedData = rotateGeoJSON(
+          processedData,
+          335,
+          centerPoint,
+          1.2,
+          1
+        ); // 335° rotation, wider horizontally, shorter vertically
+
+        // Keep both: rotated (default) and unrotated (top view)
+        setMontrealData(rotatedData);
+        setMontrealDataTop(processedData);
         setIsMapLoaded(true);
       })
       .catch((error) => console.error("Error loading Montreal data:", error));
@@ -463,7 +425,6 @@ const MontrealMap = ({
       console.log("🎯 Animation requested, map ready:", !!map);
       setShouldAnimateNeighborhoods(true);
 
-      // If map is already ready, trigger animations immediately
       if (montrealData) {
         console.log(
           "🚀 Map already ready - triggering animations immediately!"
@@ -494,17 +455,35 @@ const MontrealMap = ({
 
   // Style function - visible borders for coordinate editing
   const getFeatureStyle = (feature) => {
+    // If pinned, only the pinned neighborhood is bright, others are dull
+    if (isPinned && pinnedNeighborhood && pinnedNeighborhood.name) {
+      const isPinnedFeature =
+        feature.properties.name === pinnedNeighborhood.name;
+      return {
+        fillColor: isPinnedFeature
+          ? feature.properties.color || "#4DD0E1"
+          : "#e0e0e0", // dull gray for non-pinned
+        weight: 2,
+        opacity: 0.8,
+        color: "#ffffff",
+        fillOpacity: isPinnedFeature ? 0.85 : 0.1, // Make non-pinned more transparent
+        lineJoin: "round",
+        lineCap: "round",
+        filter: isPinnedFeature ? "none" : "blur(0.5px) grayscale(0.5)",
+      };
+    }
+    // Default: all neighborhoods bright, but outer transparent if satellite
     return {
       fillColor: feature.properties.color || "#4DD0E1",
-      weight: 2, // Visible borders for coordinate editing
-      opacity: 0.8, // Semi-transparent borders
-      color: "#ffffff", // White border color for visibility
-      fillOpacity: 0.8,
-      // Add smooth joins for clean appearance
+      weight: 2,
+      opacity: 0.8,
+      color: "#ffffff",
+      fillOpacity: useTopView ? 0.9 : useSatellite ? 0.5 : 0.8, // higher opacity for top view
       lineJoin: "round",
       lineCap: "round",
     };
-  }; // Hover style with projection effect and smart borders
+  };
+
   const getHoverStyle = () => ({
     weight: 4, // Bold border on hover for all areas
     color: "#000000", // Black border for strong contrast
@@ -516,18 +495,136 @@ const MontrealMap = ({
     className: "neighborhood-projected",
   });
 
+  // -------- Google Images + Wikipedia helpers --------
+  const fetchFirstGoogleImage = async (query) => {
+    const key = process.env.REACT_APP_GOOGLE_API_KEY;
+    const cx = process.env.REACT_APP_GOOGLE_CSE_ID;
+    if (!key || !cx) return null;
+    try {
+      const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(
+        query
+      )}&searchType=image&num=1&cx=${cx}&key=${key}`;
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const item = data.items && data.items[0];
+      return item ? item.link : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const fetchWikipediaImage = async (query) => {
+    try {
+      const searchRes = await fetch(
+        `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+          query
+        )}&format=json&origin=*`
+      );
+      const searchData = await searchRes.json();
+      if (searchData?.query?.search?.length > 0) {
+        const pageTitle = searchData.query.search[0].title;
+        const pageRes = await fetch(
+          `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${encodeURIComponent(
+            pageTitle
+          )}&origin=*`
+        );
+        const pageData = await pageRes.json();
+        const pages = pageData.query && pageData.query.pages;
+        if (pages) {
+          const firstPage = Object.values(pages)[0];
+          if (firstPage?.original?.source) return firstPage.original.source;
+        }
+      }
+    } catch {
+      // ignore
+    }
+    return null;
+  };
+
+  const getPlaceImage = async (name, typeHint) => {
+    const googleQuery = `${name} Montreal ${typeHint || ""}`.trim();
+    const fromGoogle = await fetchFirstGoogleImage(googleQuery);
+    if (fromGoogle) return fromGoogle;
+
+    const fromWiki = await fetchWikipediaImage(`${name} Montreal`);
+    if (fromWiki) return fromWiki;
+
+    const fallbackMap = {
+      park: "/assets/park-photo.jpg",
+      school: "/assets/school-photo.jpg",
+      hospital: "/assets/hospital-photo.jpg",
+    };
+    return (
+      process.env.PUBLIC_URL + (fallbackMap[typeHint] || "/assets/no-image.png")
+    );
+  };
+  // ---------------------------------------------------
+
   // Feature interaction handlers
   const onEachFeature = (feature, layer) => {
     const originalStyle = getFeatureStyle(feature);
+    const finalColor = feature.properties.color || "#4DD0E1";
 
-    // Apply the original style to ensure colors are set
-    layer.setStyle(originalStyle);
+    // Apply Montreal flag colors initially (red/white pattern) only when not top view
+    const initialColor = Math.random() > 0.3 ? "#ED1B2E" : "#FFFFFF";
+
+    if (!useTopView) {
+      layer.setStyle({
+        ...originalStyle,
+        fillColor: initialColor,
+        fillOpacity: 0.9,
+      });
+    } else {
+      layer.setStyle(originalStyle);
+    }
+
+    // Wait for element to be rendered, then apply animation
+    const applyColorAnimation = () => {
+      requestAnimationFrame(() => {
+        const pathElement = layer.getElement();
+        if (pathElement) {
+          pathElement.style.setProperty("--final-color", finalColor);
+
+          if (!useTopView) {
+            // Start flag color animation after falling animation completes
+            setTimeout(() => {
+              const el = layer.getElement();
+              if (el) {
+                el.classList.add(
+                  initialColor === "#FFFFFF"
+                    ? "montreal-white-cross"
+                    : "montreal-flag-colors"
+                );
+              }
+            }, 2500); // Wait for falling animation to complete
+
+            // Transition to actual price colors after flag animation
+            setTimeout(() => {
+              layer.setStyle(originalStyle);
+              const el = layer.getElement();
+              if (el) {
+                el.classList.remove(
+                  "montreal-flag-colors",
+                  "montreal-white-cross"
+                );
+              }
+            }, 5500); // 2.5s wait + 3s animation = 5.5s total
+          } else {
+            // In top view, immediately keep original style
+            layer.setStyle(originalStyle);
+          }
+        }
+      });
+    };
+
+    // Ensure layer is added to map before applying animation
+    setTimeout(applyColorAnimation, 100);
 
     // Add permanent tooltip with dynamic font size based on zoom
     if (feature.properties && feature.properties.value) {
       const updateTooltip = () => {
         const zoom = map ? map.getZoom() : currentZoom;
-        // Clamp zoom level to supported range (6-18) for consistent styling
         const clampedZoom = Math.max(6, Math.min(18, Math.round(zoom)));
         const zoomClass = `custom-tooltip tooltip-zoom-${clampedZoom}`;
         layer
@@ -541,11 +638,11 @@ const MontrealMap = ({
 
       updateTooltip();
 
-      // Update tooltip when zoom changes
       if (map) {
         map.on("zoomend", updateTooltip);
       }
     }
+
     layer.on({
       mouseover: (e) => {
         const layer = e.target;
@@ -553,7 +650,6 @@ const MontrealMap = ({
         layer.setStyle(hoverStyle);
         layer.bringToFront();
 
-        // Add projection effect to the DOM element
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, -3px)";
@@ -610,7 +706,6 @@ const MontrealMap = ({
         const layer = e.target;
         layer.setStyle(originalStyle);
 
-        // Remove projection effect
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, 0)";
@@ -619,38 +714,168 @@ const MontrealMap = ({
           pathElement.style.zIndex = "auto";
         }
 
-        // Call the leave handler to hide the overlay
         if (onNeighborhoodLeave) {
           onNeighborhoodLeave();
         }
       },
       click: () => {
+        // Ensure map is set from ref if not available
+        let leafletMap = map;
+        if (
+          !leafletMap &&
+          geoJsonLayerRef.current &&
+          geoJsonLayerRef.current._map
+        ) {
+          leafletMap = geoJsonLayerRef.current._map;
+          setMap(leafletMap);
+        }
+
+        // Check if clicking the same pinned neighborhood to unpin
+
+        console.log(
+          "Pinned neighborhood:",
+          pinnedNeighborhood,
+          "Clicked feature:",
+          feature.properties.name
+        );
+        const currentPinned = pinnedRef.current;
+        const isSameNeighborhood =
+          currentPinned && currentPinned.name === feature.properties.name;
+        if (isSameNeighborhood) {
+          // Unpin: clear markers, reset view, clear selected place
+          setParkMarkers([]);
+          setSchoolMarkers([]);
+          setHospitalMarkers([]);
+          setSelectedPlace(null);
+
+          leafletMap.setView([45.56, -73.62], 10.8); // Reset to original view
+          if (onNeighborhoodClick) {
+            onNeighborhoodClick({
+              isUnpin: true,
+              name: feature.properties.name || feature.properties.nom_arr,
+            });
+          }
+          return;
+        }
+
+        // Zoom to neighborhood bounds and fetch amenities strictly inside polygon
+        if (feature.geometry && feature.geometry.coordinates && leafletMap) {
+          let allCoords = [];
+          if (feature.geometry.type === "MultiPolygon") {
+            feature.geometry.coordinates.forEach((poly) => {
+              poly.forEach((ring) => {
+                allCoords = allCoords.concat(ring);
+              });
+            });
+          } else if (feature.geometry.type === "Polygon") {
+            feature.geometry.coordinates.forEach((ring) => {
+              allCoords = allCoords.concat(ring);
+            });
+          }
+          const lats = allCoords.map((c) => c[1]);
+          const lngs = allCoords.map((c) => c[0]);
+          const southWest = [Math.min(...lats), Math.min(...lngs)];
+          const northEast = [Math.max(...lats), Math.max(...lngs)];
+          const bounds = [
+            [southWest[0], southWest[1]],
+            [northEast[0], northEast[1]],
+          ];
+          leafletMap.fitBounds(bounds, { maxZoom: 15 });
+
+          // Clear old markers and show loading
+          setParkMarkers([]);
+          setSchoolMarkers([]);
+          setHospitalMarkers([]);
+          setIsLoadingMarkers(true);
+
+          // Fetch parks, schools, and hospitals from Overpass API (single request)
+          const bbox = `${southWest[0]},${southWest[1]},${northEast[0]},${northEast[1]}`;
+          const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];
+           (
+             node[leisure=park](${bbox});
+             way[leisure=park](${bbox});
+             relation[leisure=park](${bbox});
+             node[amenity~"^(school|hospital)$"](${bbox});
+             way[amenity~"^(school|hospital)$"](${bbox});
+             relation[amenity~"^(school|hospital)$"](${bbox});
+           );
+           out center;`;
+
+          fetch(overpassUrl)
+            .then((res) => res.json())
+            .then((data) => {
+              const parkList = [];
+              if (data.elements) {
+                // Create Leaflet polygon for strict inclusion test
+                const polygonLatLngs = allCoords.map(([lng, lat]) => [
+                  lat,
+                  lng,
+                ]);
+
+                data.elements.forEach((el) => {
+                  let lat, lon, name;
+                  if (el.type === "node") {
+                    lat = el.lat;
+                    lon = el.lon;
+                  } else if (el.type === "way" || el.type === "relation") {
+                    if (el.center) {
+                      lat = el.center.lat;
+                      lon = el.center.lon;
+                    }
+                  }
+
+                  const tags = el.tags || {};
+                  name = tags.name || tags["name:en"];
+
+                  // Parks
+                  if (tags.leisure === "park" && lat && lon) {
+                    if (isPointInPolygon([lat, lon], polygonLatLngs)) {
+                      parkList.push({ lat, lon, name: name || "Park" });
+                    }
+                  }
+                });
+
+                // Split schools & hospitals using helper
+                const { schools, hospitals } = splitAmenityMarkers(
+                  data.elements,
+                  polygonLatLngs
+                );
+
+                setParkMarkers(parkList);
+                setSchoolMarkers(schools);
+                setHospitalMarkers(hospitals);
+                setIsLoadingMarkers(false);
+                console.log(
+                  `Fetched ${parkList.length} parks, ${schools.length} schools, ${hospitals.length} hospitals (strictly inside).`
+                );
+              }
+            })
+            .catch(() => {
+              setParkMarkers([]);
+              setSchoolMarkers([]);
+              setHospitalMarkers([]);
+              setIsLoadingMarkers(false);
+            });
+        } else {
+          console.log("Error: No geometry, coordinates, or map found.");
+        }
         if (onNeighborhoodClick) {
           onNeighborhoodClick({
-            // Basic Information
             name: feature.properties.name || feature.properties.nom_arr,
             neighborhood:
               feature.properties.neighborhood || feature.properties.nom_qr,
             municipality:
               feature.properties.municipality || feature.properties.nom_mun,
-
-            // GeoJSON Reference Data
             neighborhoodId: feature.properties.no_qr,
             boroughId: feature.properties.no_arr,
             neighborhoodCode: feature.properties.value,
-
-            // Real Estate Pricing (from CSV)
             averagePrice: feature.properties.avgPrice,
             singleFamilyPrice: feature.properties.singleFamilyPrice,
             condoPrice: feature.properties.condoPrice,
-
-            // Additional Statistics
             dwellingCount: feature.properties.nb_log,
             listingCount: feature.properties.listingCount,
             pricePerSqft: `$${Math.floor(Math.random() * 200) + 300}/sq ft`,
             marketTrend: `↗ +${feature.properties.priceChange}%`,
-
-            // Raw Data (for debugging/complete info)
             rawProperties: {
               no_qr: feature.properties.no_qr,
               nom_qr: feature.properties.nom_qr,
@@ -661,7 +886,6 @@ const MontrealMap = ({
               rawSingleFamily: feature.properties.rawSingleFamily,
               rawCondo: feature.properties.rawCondo,
             },
-
             description: `Detailed property exploration for ${
               feature.properties.name || feature.properties.nom_arr
             }`,
@@ -691,19 +915,50 @@ const MontrealMap = ({
     );
   }
 
+  // Custom hook to switch tile layer on zoom (also toggles top view)
+  function SatelliteSwitcher() {
+    const map = useMap();
+    useEffect(() => {
+      const onZoom = () => {
+        const z = map.getZoom();
+        console.log("Zoom level:", z);
+        if (z >= 13) {
+          if (!useSatellite) setUseSatellite(true);
+          if (!useTopView) setUseTopView(true);
+        } else {
+          if (useSatellite) setUseSatellite(false);
+          if (useTopView) setUseTopView(false);
+        }
+      };
+      map.on("zoomend", onZoom);
+      return () => map.off("zoomend", onZoom);
+    }, [map, useSatellite, useTopView]);
+    return null;
+  }
+
+  const placeTypeLabel =
+    (selectedPlace &&
+      { park: "Park", school: "School", hospital: "Hospital" }[
+        selectedPlace.type
+      ]) ||
+    "Place";
+
   return (
     <div className="montreal-map-container">
       {/* Professional Header */}
       <ProfessionalHeader />
 
-      <div className="custom-montreal-map">
+      {/* Montreal Flag Section - Above Map */}
+      <MontrealSvg />
+
+      <div className="custom-montreal-map" style={{ background: "" }}>
         <MapContainer
           center={[45.56, -73.62]}
           verticalFactor={0.5}
           zoom={10.8}
           minZoom={6}
           maxZoom={16}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={true}
           scrollWheelZoom={true}
           doubleClickZoom={true}
@@ -715,48 +970,213 @@ const MontrealMap = ({
           markerZoomAnimation={true}
           attributionControl={false}
           whenCreated={(mapInstance) => {
-            console.log("🗺️ Map created:", mapInstance);
-            console.log(
-              "📊 shouldAnimateNeighborhoods:",
-              shouldAnimateNeighborhoods
-            );
-            console.log("📊 montrealData available:", !!montrealData);
             setMap(mapInstance);
             mapInstance.on("zoomend", () => {
               setCurrentZoom(mapInstance.getZoom());
             });
-
-            // Trigger animation check when map is ready
             if (shouldAnimateNeighborhoods && montrealData) {
-              console.log(
-                "🚀 Map ready and animation requested - triggering animations!"
-              );
               setTimeout(() => {
                 triggerNeighborhoodAnimations();
-              }, 1000); // Increased delay to ensure layers are ready
-            } else {
-              console.log(
-                "⏳ Animation not ready yet - shouldAnimate:",
-                shouldAnimateNeighborhoods,
-                "data:",
-                !!montrealData
-              );
+              }, 1000);
             }
           }}
         >
+          <SatelliteSwitcher />
+
+          {/* Base/Satellite tiles */}
+          {useSatellite ? (
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{x}/{y}"
+              attribution="Tiles © Esri"
+            />
+          ) : (
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution="© OpenStreetMap contributors"
+            />
+          )}
+
+          {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
           <GeoJSON
-            data={montrealData}
+            data={useTopView ? montrealDataTop : montrealData}
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
             ref={geoJsonLayerRef}
           />
+
+          {/* Parks */}
+          {parkMarkers.map((park, idx) => (
+            <Marker
+              key={`park-${idx}`}
+              position={[park.lat, park.lon]}
+              icon={treeIcon}
+              eventHandlers={{
+                click: async () => {
+                  setParkImageLoading(true);
+                  const imageUrl = await getPlaceImage(park.name, "park");
+                  setSelectedPlace({
+                    type: "park",
+                    name: park.name,
+                    lat: park.lat,
+                    lon: park.lon,
+                    image: imageUrl,
+                  });
+                  setParkImageLoading(false);
+                },
+              }}
+            >
+              <Popup>{park.name}</Popup>
+            </Marker>
+          ))}
+
+          {/* Schools */}
+          {schoolMarkers.map((school, idx) => (
+            <Marker
+              key={`school-${idx}`}
+              position={[school.lat, school.lon]}
+              icon={schoolIcon}
+              eventHandlers={{
+                click: async () => {
+                  const imageUrl = await getPlaceImage(school.name, "school");
+                  setSelectedPlace({
+                    type: "school",
+                    name: school.name,
+                    lat: school.lat,
+                    lon: school.lon,
+                    image: imageUrl,
+                  });
+                },
+              }}
+            >
+              <Popup>{school.name}</Popup>
+            </Marker>
+          ))}
+
+          {/* Hospitals */}
+          {hospitalMarkers.map((hospital, idx) => (
+            <Marker
+              key={`hospital-${idx}`}
+              position={[hospital.lat, hospital.lon]}
+              icon={hospitalIcon}
+              eventHandlers={{
+                click: async () => {
+                  const imageUrl = await getPlaceImage(
+                    hospital.name,
+                    "hospital"
+                  );
+                  setSelectedPlace({
+                    type: "hospital",
+                    name: hospital.name,
+                    lat: hospital.lat,
+                    lon: hospital.lon,
+                    image: imageUrl,
+                  });
+                },
+              }}
+            >
+              <Popup>{hospital.name}</Popup>
+            </Marker>
+          ))}
         </MapContainer>
 
-        {/* Title overlay */}
-        <div className="map-title-overlay">
-          Montreal Real Estate - Average Property Prices
-        </div>
+        {/* Loading indicator for markers */}
+        {isLoadingMarkers && (
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 1000,
+              background: "rgba(255, 255, 255, 0.9)",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+              fontSize: "16px",
+              color: "#333",
+            }}
+          >
+            Loading markers...
+          </div>
+        )}
       </div>
+
+      {/* Right-side image panel for selected place */}
+      {selectedPlace && (
+        <div
+          style={{
+            position: "fixed",
+            top: 80,
+            right: 0,
+            width: 340,
+            background: "#fff",
+            boxShadow: "0 0 16px rgba(0,0,0,0.15)",
+            zIndex: 2000,
+            padding: 18,
+            borderTopLeftRadius: 12,
+            borderBottomLeftRadius: 12,
+            minHeight: 320,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <button
+            style={{
+              alignSelf: "flex-end",
+              marginBottom: 8,
+              background: "none",
+              border: "none",
+              fontSize: 22,
+              cursor: "pointer",
+            }}
+            onClick={() => setSelectedPlace(null)}
+            title="Close"
+          >
+            ×
+          </button>
+          <h3 style={{ margin: "8px 0 12px 0", fontWeight: 600 }}>
+            {placeTypeLabel}: {selectedPlace.name}
+          </h3>
+          {selectedPlace.type === "park" && parkImageLoading ? (
+            <div
+              style={{
+                width: 260,
+                height: 180,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#eee",
+                borderRadius: 8,
+                marginBottom: 12,
+              }}
+            >
+              Loading image...
+            </div>
+          ) : (
+            <img
+              src={selectedPlace.image}
+              alt={selectedPlace.name}
+              style={{
+                width: 260,
+                height: 180,
+                objectFit: "cover",
+                borderRadius: 8,
+                marginBottom: 12,
+                background: "#eee",
+              }}
+              onError={(e) => {
+                e.currentTarget.src =
+                  process.env.PUBLIC_URL + "/assets/no-image.png";
+              }}
+            />
+          )}
+          <div style={{ fontSize: 15, color: "#555" }}>
+            Lat: {selectedPlace.lat.toFixed(5)}, Lon:{" "}
+            {selectedPlace.lon.toFixed(5)}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

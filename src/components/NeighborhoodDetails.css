@@ -1,37 +1,75 @@
+/* Animated Montreal Flag Logo for Center Focus */
+.neighborhood-details__center-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 90px;
+  height: 90px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Montreal.svg') no-repeat center center;
+  background-size: contain;
+  border-radius: 50%;
+  box-shadow: 0 4px 24px rgba(227, 6, 19, 0.15), 0 0 0 8px rgba(0, 85, 164, 0.08);
+  animation: flagPulse 1.2s infinite alternate cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes flagPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 4px 24px rgba(227, 6, 19, 0.15), 0 0 0 8px rgba(0, 85, 164, 0.08);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.12);
+    box-shadow: 0 8px 32px rgba(0, 85, 164, 0.18), 0 0 0 12px rgba(227, 6, 19, 0.10);
+  }
+}
+
+/* Montreal Flag Theme for NeighborhoodDetails Panel */
 .neighborhood-details {
-  height: auto;
-  max-height: 100%;
-  background: transparent;
-  padding: 1.5rem;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #f4f4f4 0%, #e6e6e6 100%);
+  border-left: 6px solid #e30613;
+  /* Montreal flag red */
+  box-shadow: -4px 0 16px 0 rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
 }
 
 .details-placeholder {
   text-align: center;
-  color: #666;
+  color: #333;
   margin-top: 1rem;
 }
 
 .details-placeholder h2 {
-  color: #2c3e50;
+  color: #ED1B2E;
   margin-bottom: 0.8rem;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .details-placeholder p {
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  color: #7f8c8d;
+  font-size: 1rem;
+  margin-bottom: 1.8rem;
+  color: #666;
+  line-height: 1.6;
 }
 
 .instructions {
   text-align: left;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 1rem;
+  background: #f8f9fa;
+  padding: 1.2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #FFD700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .instructions ul {
@@ -41,9 +79,10 @@
 }
 
 .instructions li {
-  padding: 0.3rem 0;
-  font-size: 0.9rem;
-  color: #555;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
 }
 
 .details-content {
@@ -56,6 +95,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0055a4;
+  /* Montreal flag blue */
+  letter-spacing: 1px;
+}
+
+.details-header .montreal-flag-icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 0.75rem;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Montreal.svg') no-repeat center center;
+  background-size: contain;
+  border-radius: 50%;
+  border: 2px solid #e30613;
 }
 
 .pin-controls {
@@ -122,17 +176,17 @@
 }
 
 .detail-item {
-  background: white;
+  background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-  border-left: 4px solid #3498db;
+  box-shadow: 0 2px 8px rgba(0, 85, 164, 0.08);
+  border-left: 4px solid #0055a4;
 }
 
 .detail-label {
   display: block;
   font-weight: 600;
-  color: #34495e;
+  color: #e30613;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -142,11 +196,11 @@
 .detail-value {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #0055a4;
 }
 
 .detail-value.price {
-  color: #27ae60;
+  color: #00843d;
   font-size: 1.6rem;
 }
 
@@ -164,7 +218,8 @@
 
 /* New styles for comprehensive information display */
 .neighborhood-subtitle {
-  color: #7f8c8d;
+  color: #00843d;
+  /* Montreal flag green */
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   font-weight: 400;
@@ -219,25 +274,12 @@
   font-weight: 600;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .neighborhood-details {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
   }
 
-  .neighborhood-name {
-    font-size: 1.5rem;
-  }
-
-  .neighborhood-subtitle {
-    font-size: 1rem;
-  }
-
-  .detail-item {
-    padding: 1rem;
-  }
-
-  .section h4 {
-    font-size: 1rem;
+  .details-header {
+    font-size: 1.3rem;
   }
 }
