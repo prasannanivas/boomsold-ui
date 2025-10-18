@@ -21,6 +21,8 @@ import {
 } from "./Utils";
 import MontrealSvg from "./MontrealSvg";
 
+import MaskedOutside from "./MaskedOutside.js";
+
 // Simple point-in-polygon algorithm for [lat, lng] arrays
 function isPointInPolygon(point, vs) {
   // point: [lat, lng], vs: array of [lat, lng]
@@ -118,6 +120,8 @@ const MontrealMap = ({
     pinnedRef.current = pinnedNeighborhood;
   }, [pinnedNeighborhood]);
   const [isLoadingMarkers, setIsLoadingMarkers] = useState(false);
+
+  const [allPois, setAllPois] = useState([]);
 
   const geoJsonLayerRef = useRef(null);
   const animationAttemptsRef = useRef(0);
@@ -264,7 +268,7 @@ const MontrealMap = ({
     }, 160);
   }, [montrealData, applyInitialHiddenState, getFeatureLayers]);
 
-  // Load both GeoJSON and CSV data
+  // Load both GeoJSON, CSV data, and POIs
   useEffect(() => {
     Promise.all([
       fetch(
@@ -273,8 +277,11 @@ const MontrealMap = ({
       fetch(process.env.PUBLIC_URL + "/boomsold.live data - Sheet1.csv").then(
         (response) => response.text()
       ),
+      fetch(process.env.PUBLIC_URL + "/assets/montreal_pois.json").then(
+        (response) => response.json()
+      ),
     ])
-      .then(([geoJsonData, csvData]) => {
+      .then(([geoJsonData, csvData, poisData]) => {
         // Parse CSV data
         const csvLines = csvData.split("\n");
         const headers = csvLines[0].split(",").map((h) => h.trim());
@@ -401,6 +408,7 @@ const MontrealMap = ({
         // Keep both: rotated (default) and unrotated (top view)
         setMontrealData(rotatedData);
         setMontrealDataTop(processedData);
+        setAllPois(poisData.elements);
         setIsMapLoaded(true);
       })
       .catch((error) => console.error("Error loading Montreal data:", error));
@@ -460,13 +468,11 @@ const MontrealMap = ({
       const isPinnedFeature =
         feature.properties.name === pinnedNeighborhood.name;
       return {
-        fillColor: isPinnedFeature
-          ? feature.properties.color || "#4DD0E1"
-          : "#e0e0e0", // dull gray for non-pinned
-        weight: 2,
+        fillColor: isPinnedFeature ? "#e3dfdf13" : "white", // dull gray for non-pinned
+        weight: 1,
         opacity: 0.8,
-        color: "#ffffff",
-        fillOpacity: isPinnedFeature ? 0.85 : 0.1, // Make non-pinned more transparent
+        color: "#000000b0",
+        fillOpacity: isPinnedFeature ? 0.1 : 1,
         lineJoin: "round",
         lineCap: "round",
         filter: isPinnedFeature ? "none" : "blur(0.5px) grayscale(0.5)",
@@ -490,6 +496,7 @@ const MontrealMap = ({
     fillOpacity: 1.0,
     opacity: 1, // Always show border on hover, even for merged areas
     lineJoin: "round",
+    fillColor: "#FFD700", // Gold fill on hover
     lineCap: "round",
     // CSS transform for elevation effect
     className: "neighborhood-projected",
@@ -788,74 +795,49 @@ const MontrealMap = ({
           setHospitalMarkers([]);
           setIsLoadingMarkers(true);
 
-          // Fetch parks, schools, and hospitals from Overpass API (single request)
-          const bbox = `${southWest[0]},${southWest[1]},${northEast[0]},${northEast[1]}`;
-          const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];
-           (
-             node[leisure=park](${bbox});
-             way[leisure=park](${bbox});
-             relation[leisure=park](${bbox});
-             node[amenity~"^(school|hospital)$"](${bbox});
-             way[amenity~"^(school|hospital)$"](${bbox});
-             relation[amenity~"^(school|hospital)$"](${bbox});
-           );
-           out center;`;
+          // Filter POIs from preloaded data
+          const parkList = [];
+          if (allPois) {
+            // Create Leaflet polygon for strict inclusion test
+            const polygonLatLngs = allCoords.map(([lng, lat]) => [lat, lng]);
 
-          fetch(overpassUrl)
-            .then((res) => res.json())
-            .then((data) => {
-              const parkList = [];
-              if (data.elements) {
-                // Create Leaflet polygon for strict inclusion test
-                const polygonLatLngs = allCoords.map(([lng, lat]) => [
-                  lat,
-                  lng,
-                ]);
-
-                data.elements.forEach((el) => {
-                  let lat, lon, name;
-                  if (el.type === "node") {
-                    lat = el.lat;
-                    lon = el.lon;
-                  } else if (el.type === "way" || el.type === "relation") {
-                    if (el.center) {
-                      lat = el.center.lat;
-                      lon = el.center.lon;
-                    }
-                  }
-
-                  const tags = el.tags || {};
-                  name = tags.name || tags["name:en"];
-
-                  // Parks
-                  if (tags.leisure === "park" && lat && lon) {
-                    if (isPointInPolygon([lat, lon], polygonLatLngs)) {
-                      parkList.push({ lat, lon, name: name || "Park" });
-                    }
-                  }
-                });
-
-                // Split schools & hospitals using helper
-                const { schools, hospitals } = splitAmenityMarkers(
-                  data.elements,
-                  polygonLatLngs
-                );
-
-                setParkMarkers(parkList);
-                setSchoolMarkers(schools);
-                setHospitalMarkers(hospitals);
-                setIsLoadingMarkers(false);
-                console.log(
-                  `Fetched ${parkList.length} parks, ${schools.length} schools, ${hospitals.length} hospitals (strictly inside).`
-                );
+            allPois.forEach((el) => {
+              let lat, lon, name;
+              if (el.type === "node") {
+                lat = el.lat;
+                lon = el.lon;
+              } else if (el.type === "way" || el.type === "relation") {
+                if (el.center) {
+                  lat = el.center.lat;
+                  lon = el.center.lon;
+                }
               }
-            })
-            .catch(() => {
-              setParkMarkers([]);
-              setSchoolMarkers([]);
-              setHospitalMarkers([]);
-              setIsLoadingMarkers(false);
+
+              const tags = el.tags || {};
+              name = tags.name || tags["name:en"];
+
+              // Parks
+              if (tags.leisure === "park" && lat && lon) {
+                if (isPointInPolygon([lat, lon], polygonLatLngs)) {
+                  parkList.push({ lat, lon, name: name || "Park" });
+                }
+              }
             });
+
+            // Split schools & hospitals using helper
+            const { schools, hospitals } = splitAmenityMarkers(
+              allPois,
+              polygonLatLngs
+            );
+
+            setParkMarkers(parkList);
+            setSchoolMarkers(schools);
+            setHospitalMarkers(hospitals);
+            setIsLoadingMarkers(false);
+            console.log(
+              `Fetched ${parkList.length} parks, ${schools.length} schools, ${hospitals.length} hospitals (from preloaded data).`
+            );
+          }
         } else {
           console.log("Error: No geometry, coordinates, or map found.");
         }
@@ -983,22 +965,22 @@ const MontrealMap = ({
         >
           <SatelliteSwitcher />
 
-          {/* Base/Satellite tiles */}
-          {useSatellite ? (
-            <TileLayer
-              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{x}/{y}"
-              attribution="Tiles © Esri"
-            />
-          ) : (
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="© OpenStreetMap contributors"
-            />
+          {isPinned && (
+            <>
+              <TileLayer
+                url="http://localhost:8080/styles/basic-preview/{z}/{x}/{y}.png"
+                attribution="&copy; MapTiler & OpenStreetMap contributors"
+                maxNativeZoom={14} // match your MBTiles maxzoom (from your JSON)
+                maxZoom={190} // Leaflet will upscale beyond 14
+                tileSize={256}
+              />
+              <MaskedOutside geojson={montrealDataTop} opacity={1} />
+            </>
           )}
 
           {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
           <GeoJSON
-            data={useTopView ? montrealDataTop : montrealData}
+            data={montrealDataTop}
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
             ref={geoJsonLayerRef}

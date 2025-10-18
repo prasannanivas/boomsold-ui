@@ -14,7 +14,7 @@
 /* Professional Header - Comic Book Style */
 .professional-header {
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-  color: white;
+  color: rgb(98, 82, 82);
   padding: 8px 32px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
     0 0 0 3px #000000,
@@ -321,13 +321,13 @@
 }
 
 /* Remove any base map tiles - only show neighborhoods on white */
-.leaflet-tile-pane {
+/* .leaflet-tile-pane {
   display: none !important;
 }
 
 .leaflet-tile {
   display: none !important;
-}
+} */
 
 /* Remove default leaflet controls styling */
 .leaflet-control-zoom {
