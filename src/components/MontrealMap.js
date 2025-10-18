@@ -632,7 +632,7 @@ const MontrealMap = ({
     if (feature.properties && feature.properties.value) {
       const updateTooltip = () => {
         const zoom = map ? map.getZoom() : currentZoom;
-        const clampedZoom = Math.max(6, Math.min(18, Math.round(zoom)));
+        const clampedZoom = Math.max(6, Math.min(21, Math.round(zoom)));
         const zoomClass = `custom-tooltip tooltip-zoom-${clampedZoom}`;
         layer
           .bindTooltip(feature.properties.value, {
@@ -787,7 +787,7 @@ const MontrealMap = ({
             [southWest[0], southWest[1]],
             [northEast[0], northEast[1]],
           ];
-          leafletMap.fitBounds(bounds, { maxZoom: 15 });
+          leafletMap.fitBounds(bounds, { maxZoom: 22 });
 
           // Clear old markers and show loading
           setParkMarkers([]);
@@ -939,7 +939,7 @@ const MontrealMap = ({
           verticalFactor={0.5}
           zoom={10.8}
           minZoom={6}
-          maxZoom={16}
+          maxZoom={22}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={true}
           scrollWheelZoom={true}
@@ -968,10 +968,10 @@ const MontrealMap = ({
           {isPinned && (
             <>
               <TileLayer
-                url="http://localhost:8080/styles/basic-preview/{z}/{x}/{y}.png"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; MapTiler & OpenStreetMap contributors"
-                maxNativeZoom={14} // match your MBTiles maxzoom (from your JSON)
-                maxZoom={190} // Leaflet will upscale beyond 14
+                maxNativeZoom={22} // match your MBTiles maxzoom (from your JSON)
+                maxZoom={22} // Leaflet will upscale beyond 14
                 tileSize={256}
               />
               <MaskedOutside geojson={montrealDataTop} opacity={1} />
