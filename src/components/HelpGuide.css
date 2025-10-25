@@ -1,0 +1,311 @@
+/* Comic Book BoomSold Help Guide */
+.help-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center,
+      rgba(245, 230, 179, 0.95) 0%,
+      rgba(240, 223, 160, 0.98) 100%);
+  backdrop-filter: blur(15px) saturate(180%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.help-guide-content {
+  background: linear-gradient(135deg,
+      #ffffff 0%,
+      #fafafa 50%,
+      #ffffff 100%);
+  border: 6px solid #000000;
+  box-shadow:
+    0 0 0 10px #FFD700,
+    0 40px 100px rgba(0, 0, 0, 0.6),
+    0 0 120px rgba(255, 215, 0, 0.8),
+    inset 0 2px 0 rgba(255, 255, 255, 1);
+  border-radius: 28px;
+  padding: 3.5rem;
+  max-width: 650px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideInScale 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.help-guide-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    repeating-linear-gradient(45deg,
+      transparent,
+      transparent 15px,
+      rgba(255, 215, 0, 0.03) 15px,
+      rgba(255, 215, 0, 0.03) 30px);
+  pointer-events: none;
+  border-radius: 22px;
+}
+
+@keyframes slideInScale {
+  0% {
+    transform: scale(0.85) translateY(60px) rotate(-2deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.help-close-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg,
+      rgba(255, 215, 0, 0.15) 0%,
+      rgba(255, 165, 0, 0.1) 100%);
+  border: 3px solid #FFD700;
+  color: #FFD700;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 16px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.help-close-button:hover {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000000;
+  transform: rotate(180deg) scale(1.15);
+  box-shadow:
+    0 10px 24px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 215, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.help-title {
+  color: #000000;
+  font-size: 2.8rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow:
+    5px 5px 0px #FFD700,
+    -2px -2px 0px #FFD700,
+    2px -2px 0px #FFD700,
+    -2px 2px 0px #FFD700,
+    0 0 35px rgba(255, 215, 0, 0.7),
+    0 0 60px rgba(255, 215, 0, 0.4);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+  animation: titleShine 3s ease-in-out infinite;
+}
+
+@keyframes titleShine {
+
+  0%,
+  100% {
+    text-shadow:
+      5px 5px 0px #FFD700,
+      -2px -2px 0px #FFD700,
+      2px -2px 0px #FFD700,
+      -2px 2px 0px #FFD700,
+      0 0 30px rgba(255, 215, 0, 0.6);
+  }
+
+  50% {
+    text-shadow:
+      5px 5px 0px #FFD700,
+      -2px -2px 0px #FFD700,
+      2px -2px 0px #FFD700,
+      -2px 2px 0px #FFD700,
+      0 0 50px rgba(255, 215, 0, 0.9),
+      0 0 80px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.help-subtitle {
+  color: #333333;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  text-shadow: 1px 1px 0px rgba(255, 215, 0, 0.3);
+}
+
+.help-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.help-step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-left: 4px solid #FFD700;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.help-step:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateX(10px);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+}
+
+.help-step-number {
+  background: #FFD700;
+  color: #000000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.help-step-content h3 {
+  color: #FFD700;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.help-step-content p {
+  color: #cccccc;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.help-get-started {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border: 3px solid #FFD700;
+  color: #000000;
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.help-get-started:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.help-get-started:active {
+  transform: scale(0.98);
+}
+
+/* Help Button - Always visible in corner */
+.help-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border: 3px solid #FFD700;
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 900;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4),
+    0 0 40px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: helpPulse 2s ease-in-out infinite;
+}
+
+@keyframes helpPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4),
+      0 0 40px rgba(255, 215, 0, 0.3);
+  }
+
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6),
+      0 0 60px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.help-button:hover {
+  transform: scale(1.15) rotate(15deg);
+  animation: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .help-guide-content {
+    padding: 2rem 1.5rem;
+    max-width: 95%;
+  }
+
+  .help-title {
+    font-size: 2rem;
+  }
+
+  .help-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .help-step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .help-button {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+  }
+}

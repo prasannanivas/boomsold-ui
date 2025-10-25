@@ -5,6 +5,7 @@ import PartMap from "./components/PartMap";
 import NeighborhoodMap from "./components/NeighborhoodMap";
 import NeighborhoodDetails from "./components/NeighborhoodDetails";
 import AnimatedIntro from "./components/AnimatedIntro";
+import HelpGuide from "./components/HelpGuide";
 
 function App() {
   const [selectedPart, setSelectedPart] = useState(null); // None = show PartMap, else = show MontrealMap
@@ -79,6 +80,9 @@ function App() {
   return (
     <div className="App">
       {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
+
+      {/* Help Guide for first-time users */}
+      <HelpGuide />
 
       <div className="map-container">
         {selectedPart === null ? (

@@ -3,14 +3,7 @@ import "./NeighborhoodDetails.css";
 
 const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
   if (!neighborhood) {
-    return (
-      <div className="neighborhood-details">
-        <div className="details-placeholder">
-          <h2>Montreal Neighborhoods</h2>
-          <p>Hover over a neighborhood to see details</p>
-        </div>
-      </div>
-    );
+    return <></>;
   }
 
   // Helper function to render amenity icons based on count

@@ -1,4 +1,4 @@
-/* Professional Montreal Real Estate Map */
+/* Professional Montreal Real Estate Map - BoomSold Edition */
 
 /* Animation for hover text */
 @keyframes fadeIn {
@@ -13,28 +13,116 @@
   }
 }
 
-/* Main container */
+@keyframes boomPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Main container - White Background for Logo Style */
 .montreal-map-container {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg,
+      #FFFFFF 0%,
+      #F8F8F8 35%,
+      #FFFFFF 65%,
+      #F8F8F8 100%);
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
   overflow: hidden;
+  position: relative;
+}
+
+.selected-part-label {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  font-size: 4rem;
+  font-weight: 900;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+  text-shadow:
+    5px 5px 0px #000000,
+    -3px -3px 0px #000000,
+    3px -3px 0px #000000,
+    -3px 3px 0px #000000,
+    0 0 30px rgba(255, 215, 0, 1),
+    0 0 50px rgba(255, 215, 0, 0.9),
+    0 0 70px rgba(255, 215, 0, 0.7),
+    0 0 100px rgba(255, 215, 0, 0.5);
+  animation: partLabelGlow 2s ease-in-out infinite;
+  pointer-events: none;
+  text-align: center;
+}
+
+@keyframes partLabelGlow {
+
+  0%,
+  100% {
+    text-shadow:
+      5px 5px 0px #000000,
+      -3px -3px 0px #000000,
+      3px -3px 0px #000000,
+      -3px 3px 0px #000000,
+      0 0 25px rgba(255, 215, 0, 0.9),
+      0 0 45px rgba(255, 215, 0, 0.7),
+      0 0 65px rgba(255, 215, 0, 0.5);
+  }
+
+  50% {
+    text-shadow:
+      5px 5px 0px #000000,
+      -3px -3px 0px #000000,
+      3px -3px 0px #000000,
+      -3px 3px 0px #000000,
+      0 0 40px rgba(255, 215, 0, 1),
+      0 0 60px rgba(255, 215, 0, 0.95),
+      0 0 90px rgba(255, 215, 0, 0.8),
+      0 0 120px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.montreal-map-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Professional Header - Comic Book Style */
 .professional-header {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-  color: rgb(98, 82, 82);
-  padding: 4px 32px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-    0 0 0 3px #000000,
-    0 0 0 6px #FFD700;
+  background: linear-gradient(135deg,
+      #000000 0%,
+      #1a1a1a 50%,
+      #000000 100%);
+  color: #FFD700;
+  padding: 6px 32px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 4px #FFD700,
+    0 0 30px rgba(255, 215, 0, 0.4);
   z-index: 1000;
   position: relative;
   flex-shrink: 0;
+  border-bottom: 4px solid #FFD700;
 }
 
 .professional-header::before {
@@ -212,101 +300,163 @@
   letter-spacing: 0.025em;
 }
 
-/* Neighborhood labels with values - Dynamic font sizing and weight */
+/* Neighborhood labels with values - Bold Black Text with Yellow Glow */
 .custom-tooltip {
   background: transparent !important;
-  color: #ffffff !important;
-  font-weight: 500 !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
   font-size: 12px !important;
   /* Base size, will be overridden dynamically */
-  padding: 0 !important;
+  padding: 4px 8px !important;
   border: none !important;
-  border-radius: 0 !important;
+  border-radius: 6px !important;
   text-align: center !important;
   box-shadow: none !important;
   white-space: nowrap !important;
-  font-family: 'Comic Sans MS', cursive !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
-    1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 8px rgba(0, 0, 0, 0.5) !important;
-  transition: font-size 0.3s ease, font-weight 0.3s ease, opacity 0.3s ease !important;
+  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif !important;
+  text-shadow:
+    0 0 8px rgba(255, 215, 0, 0.9),
+    0 0 12px rgba(255, 215, 0, 0.8),
+    1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+  transition: none !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  pointer-events: none !important;
+  will-change: font-size, opacity !important;
 }
 
-/* Zoom-based font size and weight classes - Smaller & lighter when zoomed out */
+/* Part Label - Glowing Yellow Above Neighborhood */
+.part-label {
+  color: #FFD700 !important;
+  font-weight: 900 !important;
+  font-size: 0.65em !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  margin-bottom: 0.15em !important;
+  text-shadow:
+    3px 3px 0px #000000,
+    -2px -2px 0px #000000,
+    2px -2px 0px #000000,
+    -2px 2px 0px #000000,
+    0 0 20px rgba(255, 215, 0, 0.9),
+    0 0 30px rgba(255, 215, 0, 0.7),
+    0 0 40px rgba(255, 215, 0, 0.5) !important;
+  animation: partGlow 2s ease-in-out infinite !important;
+  display: block !important;
+}
+
+@keyframes partGlow {
+
+  0%,
+  100% {
+    text-shadow:
+      3px 3px 0px #000000,
+      -2px -2px 0px #000000,
+      2px -2px 0px #000000,
+      -2px 2px 0px #000000,
+      0 0 15px rgba(255, 215, 0, 0.8),
+      0 0 25px rgba(255, 215, 0, 0.6);
+  }
+
+  50% {
+    text-shadow:
+      3px 3px 0px #000000,
+      -2px -2px 0px #000000,
+      2px -2px 0px #000000,
+      -2px 2px 0px #000000,
+      0 0 25px rgba(255, 215, 0, 1),
+      0 0 40px rgba(255, 215, 0, 0.9),
+      0 0 55px rgba(255, 215, 0, 0.7);
+  }
+}
+
+/* Neighborhood Label - Bold Black with Yellow Glow */
+.neighborhood-label {
+  color: #000000 !important;
+  font-weight: 900 !important;
+  display: block !important;
+  text-shadow:
+    0 0 8px rgba(255, 215, 0, 0.9),
+    0 0 12px rgba(255, 215, 0, 0.8),
+    0 0 16px rgba(255, 215, 0, 0.6),
+    1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Zoom-based font size and weight classes - Bolder and more visible */
 .tooltip-zoom-6 {
-  font-size: 4px !important;
-  font-weight: 300 !important;
-  opacity: 0.5 !important;
-}
-
-.tooltip-zoom-7 {
   font-size: 5px !important;
-  font-weight: 350 !important;
-  opacity: 0.6 !important;
-}
-
-.tooltip-zoom-8 {
-  font-size: 6px !important;
-  font-weight: 400 !important;
+  font-weight: 900 !important;
   opacity: 0.7 !important;
 }
 
-.tooltip-zoom-9 {
-  font-size: 8px !important;
-  font-weight: 500 !important;
+.tooltip-zoom-7 {
+  font-size: 6px !important;
+  font-weight: 900 !important;
+  opacity: 0.75 !important;
+}
+
+.tooltip-zoom-8 {
+  font-size: 7px !important;
+  font-weight: 900 !important;
   opacity: 0.8 !important;
 }
 
+.tooltip-zoom-9 {
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  opacity: 0.85 !important;
+}
+
 .tooltip-zoom-10 {
-  font-size: 10px !important;
-  font-weight: 600 !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
   opacity: 0.9 !important;
 }
 
 .tooltip-zoom-11 {
-  font-size: 12px !important;
-  font-weight: 700 !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
   opacity: 0.95 !important;
 }
 
 .tooltip-zoom-12 {
-  font-size: 13px !important;
-  font-weight: 800 !important;
-  opacity: 1 !important;
-}
-
-.tooltip-zoom-13 {
-  font-size: 14px !important;
-  font-weight: 850 !important;
-  opacity: 1 !important;
-}
-
-.tooltip-zoom-14 {
   font-size: 15px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
 
+.tooltip-zoom-13 {
+  font-size: 17px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+.tooltip-zoom-14 {
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
 .tooltip-zoom-15 {
-  font-size: 16px !important;
+  font-size: 21px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
 
 .tooltip-zoom-16 {
-  font-size: 18px !important;
+  font-size: 24px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
 
 .tooltip-zoom-17 {
-  font-size: 20px !important;
+  font-size: 27px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
 
 .tooltip-zoom-18 {
-  font-size: 22px !important;
+  font-size: 30px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
@@ -378,25 +528,27 @@
   }
 }
 
-/* Neighborhood Projection Effect */
+/* Neighborhood Projection Effect - Instantaneous */
 .neighborhood-projected {
   transform: translate(0, -3px) !important;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3)) !important;
-  transition: all 0.2s ease-out !important;
+  transition: none !important;
   z-index: 1000 !important;
+  will-change: transform, filter !important;
 }
 
 /* SVG path hover effects */
 .leaflet-interactive:hover {
   transform: translate(0, -3px);
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
-  transition: all 0.2s ease-out;
+  transition: none;
 }
 
 /* Enhanced hover state for better visual feedback */
 .leaflet-interactive {
-  transition: all 0.2s ease-out;
+  transition: none;
   cursor: pointer;
+  will-change: transform, filter;
 }
 
 /* Responsive Design */

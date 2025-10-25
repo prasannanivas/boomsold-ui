@@ -11,6 +11,7 @@ import L from "leaflet";
 import simplify from "simplify-js";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
+import "./PremiumEffects.css";
 import {
   parsePrice,
   getPriceColor,
@@ -43,24 +44,6 @@ function isPointInPolygon(point, vs) {
 }
 
 // Professional Header Component
-const ProfessionalHeader = () => {
-  return (
-    <div className="professional-header">
-      <div className="header-content">
-        <div className="brand-section">
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"
-            }
-            alt="Boomsold"
-            className="brand-logo"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // Function to get color based on neighborhood part (direction)
 const getColorByPart = (part) => {
@@ -794,27 +777,27 @@ const MontrealMap = ({
     }
   }, [shouldAnimateNeighborhoods, montrealData, triggerNeighborhoodAnimations]);
 
-  // Style function - all neighborhoods in grey with black big borders
+  // Style function - Yellow Glowing Like BoomSold Logo Burst
   const getFeatureStyle = (feature) => {
-    // Default: all neighborhoods with grey background and black big borders
+    // Yellow glowing neighborhoods like logo burst background
     return {
-      fillColor: "#d3d3d3", // Grey color
-      weight: 4, // Big border
+      fillColor: "#FFD700", // Bright gold yellow like logo burst
+      weight: 6, // Thicker borders to create gap effect
       opacity: 1,
-      color: "#000000", // Black border
-      fillOpacity: 0.8,
+      color: "#FFFFFF", // White borders to create visible gap
+      fillOpacity: 0.9,
       lineJoin: "round",
       lineCap: "round",
     };
   };
 
   const getHoverStyle = () => ({
-    weight: 5, // Slightly bigger border on hover
-    color: "#000000", // Black border
-    fillOpacity: 0.9,
+    weight: 6, // Match the default weight
+    color: "#000000", // Black border on hover
+    fillOpacity: 1,
     opacity: 1,
     lineJoin: "round",
-    fillColor: "#b8b8b8", // Slightly darker grey on hover
+    fillColor: "#FFC107", // Brighter yellow on hover
     lineCap: "round",
   });
 
@@ -1020,8 +1003,9 @@ const MontrealMap = ({
           pathElement.style.transform = "translate(0, -3px)";
           pathElement.style.filter =
             "drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))";
-          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.transition = "none";
           pathElement.style.zIndex = "1000";
+          pathElement.setAttribute("data-hovering", "true");
         }
 
         if (onNeighborhoodHover) {
@@ -1069,13 +1053,22 @@ const MontrealMap = ({
       },
       mouseout: (e) => {
         const layer = e.target;
+        const pathElement = layer.getElement();
+
+        // Check if still hovering (prevents premature reset)
+        if (
+          pathElement &&
+          pathElement.getAttribute("data-hovering") === "true"
+        ) {
+          pathElement.removeAttribute("data-hovering");
+        }
+
         layer.setStyle(originalStyle);
 
-        const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, 0)";
           pathElement.style.filter = "none";
-          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.transition = "none";
           pathElement.style.zIndex = "auto";
         }
 
@@ -1253,32 +1246,24 @@ const MontrealMap = ({
           onClick={onPartBack}
           style={{
             position: "fixed",
-            top: 20,
-            left: 20,
+            top: "10%",
+            left: "5%",
             zIndex: 1000,
             padding: "12px 24px",
-            backgroundColor: "#4ECDC4",
-            color: "white",
-            border: "none",
+            backgroundColor: "#FFD700",
+            color: "#000000ff",
+            border: "2px solid #FFD700",
             borderRadius: "8px",
             fontSize: "16px",
-            fontWeight: 600,
+            fontWeight: 900,
             cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+            boxShadow:
+              "0 0 15px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.15)",
             transition: "all 0.2s ease",
             display: "flex",
             alignItems: "center",
             gap: "8px",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#45b8b0";
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.2)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#4ECDC4";
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+            fontFamily: "'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
           }}
         >
           <span style={{ fontSize: "20px" }}>←</span>
@@ -1287,6 +1272,9 @@ const MontrealMap = ({
       )}
 
       <div className="custom-montreal-map" style={{ background: "" }}>
+        <h2 className="selected-part-label">
+          {selectedPart && `${selectedPart} Montreal`}
+        </h2>
         <MapContainer
           center={center}
           verticalFactor={0.5}
@@ -1345,6 +1333,27 @@ const MontrealMap = ({
             ref={geoJsonLayerRef}
           />
         </MapContainer>
+
+        <div
+          style={{
+            position: "fixed",
+            top: "5%",
+            right: "20px",
+            width: "150px",
+            height: "100px",
+            zIndex: 1000,
+          }}
+        >
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
+            }
+            alt="Boom Sold Logo"
+            className="boomsold-logo"
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
       </div>
     </div>
   );

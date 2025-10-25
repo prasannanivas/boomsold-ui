@@ -3,6 +3,7 @@ import { MapContainer, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
+import "./PremiumEffects.css";
 import ProfessionalHeader from "./ProfessionalHeader";
 import MontrealSvg from "./MontrealSvg";
 
@@ -163,13 +164,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
   const { center, bounds, maxZoom } = getNeighborhoodBounds();
 
-  // Style for the selected neighborhood - grey with black borders
+  // Yellow Glowing style like BoomSold Logo
   const getNeighborhoodStyle = () => ({
-    fillColor: "#d3d3d3", // Grey color
-    weight: 4, // Big border
+    fillColor: "#FFD700", // Bright gold yellow like logo burst
+    weight: 4, // Bold black borders
     opacity: 1,
-    color: "#000000", // Black border
-    fillOpacity: 0.8,
+    color: "#000000", // Black borders
+    fillOpacity: 0.9,
     lineJoin: "round",
     lineCap: "round",
   });
@@ -313,44 +314,29 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
   return (
     <div className="montreal-map-container">
-      {/* Professional Header */}
-      <ProfessionalHeader />
-
-      {/* Montreal Flag Section - Above Map */}
-      <MontrealSvg />
-
       {/* Back Button */}
       {onBack && (
         <button
           onClick={onBack}
           style={{
             position: "fixed",
-            top: 20,
-            left: 20,
+            top: "10%",
+            left: "5%",
             zIndex: 1000,
             padding: "12px 24px",
-            backgroundColor: "#4ECDC4",
-            color: "white",
-            border: "none",
+            backgroundColor: "#FFD700",
+            color: "#000000ff",
+            border: "2px solid #2a2924ff",
             borderRadius: "8px",
             fontSize: "16px",
-            fontWeight: 600,
+            fontWeight: 900,
             cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+
             transition: "all 0.2s ease",
             display: "flex",
             alignItems: "center",
             gap: "8px",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#45b8b0";
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.2)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#4ECDC4";
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+            fontFamily: "'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
           }}
         >
           <span style={{ fontSize: "20px" }}>←</span>

@@ -3,28 +3,29 @@ import { MapContainer, GeoJSON, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
+import "./PremiumEffects.css";
 import { rotateGeoJSON } from "./Utils";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
 
-// Function to get color based on neighborhood part (direction)
+// Premium colors for each part - Luxurious palette
 const getColorByPart = (part) => {
   const colorMap = {
-    North: "#FF6B6B", // Red
-    South: "#4ECDC4", // Teal
-    East: "#FFE66D", // Yellow
-    West: "#95E1D3", // Mint Green
+    North: "#8B5CF6", // Royal Purple
+    South: "#F59E0B", // Rich Amber
+    East: "#10B981", // Emerald Green
+    West: "#3B82F6", // Sapphire Blue
   };
-  return colorMap[part] || "#4DD0E1";
+  return colorMap[part] || "#8B5CF6";
 };
 
 // Function to aggregate neighborhoods by part and merge geometries
 const aggregateByPart = (geoJsonData) => {
   const partMap = {
-    North: { features: [], color: "#FF6B6B" },
-    South: { features: [], color: "#4ECDC4" },
-    East: { features: [], color: "#FFE66D" },
-    West: { features: [], color: "#95E1D3" },
+    North: { features: [], color: "#8B5CF6" },
+    South: { features: [], color: "#F59E0B" },
+    East: { features: [], color: "#10B981" },
+    West: { features: [], color: "#3B82F6" },
   };
 
   // Group features by part
@@ -393,26 +394,37 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
       {/* Hovered Part Name - Above the Map */}
       {hoveredPartName && (
-        <div
+        <h2
           style={{
             position: "fixed",
-            top: 120,
+            top: "20%",
             left: "50%",
-            // transform: "translateX(-50%)",
-            backgroundColor: getColorByPart(hoveredPartName),
-            color: hoveredPartName === "East" ? "#333" : "white",
-            padding: "10px 24px",
-            borderRadius: "6px",
-            fontSize: "18px",
-            fontWeight: 600,
-            zIndex: 1001,
+            transform: "translateX(-50%)",
+            zIndex: 2000,
+            fontSize: "4rem",
+            fontWeight: 900,
+            color: getColorByPart(hoveredPartName),
+            textTransform: "uppercase",
+            letterSpacing: "8px",
+            fontFamily:
+              "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif",
+            textShadow: `
+              5px 5px 0px #000000,
+              -3px -3px 0px #000000,
+              3px -3px 0px #000000,
+              -3px 3px 0px #000000,
+              0 0 30px ${getColorByPart(hoveredPartName) + "4a"},
+              0 0 50px ${getColorByPart(hoveredPartName) + "2e"},
+              0 0 70px ${getColorByPart(hoveredPartName) + "1a"},
+              0 0 100px ${getColorByPart(hoveredPartName) + "0d"}
+            `,
+
             pointerEvents: "none",
-            animation: "fadeIn 0.3s ease-in-out",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+            textAlign: "center",
           }}
         >
           {hoveredPartName}
-        </div>
+        </h2>
       )}
 
       <div className="custom-montreal-map">
