@@ -9,6 +9,7 @@
         "no_arr": "33",
         "nom_arr": "Rivière-des-Prairies–Pointe-aux-Trembles",
         "nom_mun": "Montréal",
+        "part": "North",
         "nb_log": null,
         "merged_from": 3
       },
@@ -2021,6 +2022,7 @@
         "nom_qr": "Beaurivage, Tétreaultville, Dupéré, Guybourg, Longue-Pointe, Louis-Riel, Maisonneuve, Hochelaga, Préfontaine",
         "no_arr": "22",
         "nom_arr": "Mercier–Hochelaga-Maisonneuve",
+        "part": "East",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 9
@@ -3727,6 +3729,7 @@
         "no_arr": "24",
         "nom_arr": "Rosemont–La Petite-Patrie",
         "nom_mun": "Montréal",
+        "part": "South",
         "nb_log": null,
         "merged_from": 7
       },
@@ -4643,6 +4646,7 @@
         "nom_qr": "René-Goupil, Sainte-Lucie, François-Perrault, Gabriel-Sagard, Parc-Extension, Parc-Jarry, Crémazie",
         "no_arr": "25",
         "nom_arr": "Villeray–Saint-Michel–Parc-Extension",
+        "part": "East",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 7
@@ -5552,6 +5556,7 @@
         "nom_qr": "Sault-au-Récollet, Saint-Sulpice, Nicolas-Viel, La Visitation, Nouveau-Bordeaux, Cartierville",
         "no_arr": "23",
         "nom_arr": "Ahuntsic-Cartierville",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 6
@@ -12906,6 +12911,7 @@
         "no_arr": "34",
         "nom_arr": "Côte-des-Neiges–Notre-Dame-de-Grâce",
         "nom_mun": "Montréal",
+        "part": "South",
         "nb_log": null,
         "merged_from": 7
       },
@@ -15958,6 +15964,7 @@
         "nom_qr": "Ville-Émard, Saint-Henri, Côte-Saint-Paul, Pointe-Saint-Charles, Petite-Bourgogne",
         "no_arr": "20",
         "nom_arr": "Le Sud-Ouest",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 5
@@ -16951,6 +16958,7 @@
         "nom_qr": "Montagne, René-Lévesque, Sainte-Marie, Vieux-Montréal",
         "no_arr": "19",
         "nom_arr": "Ville-Marie",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 4
@@ -17772,6 +17780,7 @@
         "nom_qr": "Lorimier, Saint-Louis, Parc-Lafontaine, Parc-Laurier, Mile End, Milton-Parc",
         "no_arr": "21",
         "nom_arr": "Le Plateau-Mont-Royal",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 6
@@ -18155,6 +18164,7 @@
       "properties": {
         "no_qr": "73",
         "nom_qr": "Anjou",
+        "part": "North",
         "no_arr": "09",
         "nom_arr": "Anjou",
         "nom_mun": "Montréal"
@@ -19098,6 +19108,7 @@
       "properties": {
         "no_qr": "74",
         "nom_qr": "Outremont",
+        "part": "South",
         "no_arr": "05",
         "nom_arr": "Outremont",
         "nom_mun": "Montréal"
@@ -19759,6 +19770,7 @@
         "nom_qr": "Chameran/Montpellier, Grenet, Dutrisac, Bois-Francs, Du College/Hodge",
         "no_arr": "15",
         "nom_arr": "Saint-Laurent",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 5
@@ -21356,6 +21368,7 @@
         "nom_qr": "Est, Centre, Ouest, Centre-Nord",
         "no_arr": "16",
         "nom_arr": "Montréal-Nord",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 4
@@ -21761,6 +21774,7 @@
         "nom_qr": "Grande-Prairie, Port-Maurice",
         "no_arr": "14",
         "nom_arr": "Saint-Léonard",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 2
@@ -22699,6 +22713,7 @@
         "no_arr": "12",
         "nom_arr": "Verdun",
         "nom_mun": "Montréal",
+        "part": "South",
         "nb_log": null,
         "merged_from": 3
       },
@@ -23144,6 +23159,7 @@
         "no_arr": "17",
         "nom_arr": "LaSalle",
         "nom_mun": "Montréal",
+        "part": "South",
         "nb_log": null,
         "merged_from": 2
       },
@@ -23504,6 +23520,7 @@
         "nom_qr": "Lachine-Ouest, Vieux-Lachine - Saint-Pierre",
         "no_arr": "27",
         "nom_arr": "Lachine",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 2
@@ -24174,6 +24191,7 @@
         "no_arr": "31",
         "nom_arr": "Pierrefonds-Roxboro",
         "nom_mun": "Montréal",
+        "part": "West",
         "nb_log": null,
         "merged_from": 2
       },
@@ -27298,6 +27316,7 @@
         "nom_qr": "Montréal-Est",
         "no_arr": null,
         "nom_arr": null,
+        "part": "East",
         "nom_mun": "Montréal-Est"
       },
       "geometry": {
@@ -28248,6 +28267,7 @@
         "no_qr": "81",
         "nom_qr": "Westmount",
         "no_arr": null,
+        "part": "South",
         "nom_arr": null,
         "nom_mun": "Westmount"
       },
@@ -28758,6 +28778,7 @@
       "properties": {
         "no_qr": "82",
         "nom_qr": "Hampstead",
+        "part": "South",
         "no_arr": null,
         "nom_arr": null,
         "nom_mun": "Hampstead"
@@ -28946,6 +28967,7 @@
         "no_qr": "83",
         "nom_qr": "Côte-Saint-Luc",
         "no_arr": null,
+        "part": "South",
         "nom_arr": null,
         "nom_mun": "Côte-Saint-Luc"
       },
@@ -29718,6 +29740,7 @@
         "nom_qr": "Montréal-Ouest",
         "no_arr": null,
         "nom_arr": null,
+        "part": "South",
         "nom_mun": "Montréal-Ouest"
       },
       "geometry": {
@@ -29907,6 +29930,7 @@
       "properties": {
         "no_qr": "85",
         "nom_qr": "Dorval",
+        "part": "West",
         "no_arr": null,
         "nom_arr": null,
         "nom_mun": "Dorval"
@@ -33622,6 +33646,7 @@
       "properties": {
         "no_qr": "86",
         "nom_qr": "Pointe-Claire",
+        "part": "West",
         "no_arr": null,
         "nom_arr": null,
         "nom_mun": "Pointe-Claire"
@@ -36663,6 +36688,7 @@
         "nom_qr": "Beaconsfield",
         "no_arr": null,
         "nom_arr": null,
+        "part": "West",
         "nom_mun": "Beaconsfield"
       },
       "geometry": {
@@ -39560,6 +39586,7 @@
       "properties": {
         "no_qr": "90",
         "nom_qr": "Kirkland",
+        "part": "West",
         "no_arr": null,
         "nom_arr": null,
         "nom_mun": "Kirkland"
@@ -40005,6 +40032,7 @@
         "nom_qr": "Dollard-Des Ormeaux",
         "no_arr": null,
         "nom_arr": null,
+        "part": "West",
         "nom_mun": "Dollard-Des Ormeaux"
       },
       "geometry": {
@@ -40628,6 +40656,7 @@
         "nom_qr": "Baie-D'Urfé",
         "no_arr": null,
         "nom_arr": null,
+        "part": "West",
         "nom_mun": "Baie-D'Urfé"
       },
       "geometry": {
@@ -42923,6 +42952,7 @@
         "nom_qr": "Sainte-Anne-de-Bellevue",
         "no_arr": null,
         "nom_arr": null,
+        "part": "West",
         "nom_mun": "Sainte-Anne-de-Bellevue"
       },
       "geometry": {
@@ -44218,6 +44248,7 @@
         "nom_qr": "Senneville",
         "no_arr": null,
         "nom_arr": null,
+        "part": "West",
         "nom_mun": "Senneville"
       },
       "geometry": {
@@ -50261,6 +50292,7 @@
         "nom_qr": "Mont-Royal",
         "no_arr": null,
         "nom_arr": null,
+        "part": "South",
         "nom_mun": "Mont-Royal"
       },
       "geometry": {
@@ -51124,7 +51156,8 @@
         "nom_qr": "L'Île-Bizard–Sainte-Geneviève",
         "no_arr": "32",
         "nom_arr": "L'Île-Bizard–Sainte-Geneviève",
-        "nom_mun": "Montréal"
+        "nom_mun": "Montréal",
+        "part": "West"
       },
       "geometry": {
         "type": "MultiPolygon",

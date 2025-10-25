@@ -26,40 +26,44 @@
   }
 }
 
-/* Montreal Flag Theme for NeighborhoodDetails Panel */
+/* BoomSold Professional Theme - Black, Yellow, White */
 .neighborhood-details {
   height: 100%;
   box-sizing: border-box;
   padding: 2rem 1.5rem;
-  background: linear-gradient(135deg, #f4f4f4 0%, #e6e6e6 100%);
-  border-left: 6px solid #e30613;
-  /* Montreal flag red */
-  box-shadow: -4px 0 16px 0 rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  border-left: 6px solid #FFD700;
+  /* BoomSold gold/yellow */
+  box-shadow: -4px 0 20px 0 rgba(255, 215, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
 }
 
 .details-placeholder {
   text-align: center;
-  color: #333;
+  color: #ffffff;
   margin-top: 1rem;
 }
 
 .details-placeholder h2 {
-  color: #ED1B2E;
+  color: #FFD700;
   margin-bottom: 0.8rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0px #000000,
+    -1px -1px 0px #ffffff,
+    2px 2px 8px rgba(255, 215, 0, 0.5);
 }
 
 .details-placeholder p {
   font-size: 1rem;
   margin-bottom: 1.8rem;
-  color: #666;
+  color: #cccccc;
   line-height: 1.6;
 }
 
@@ -89,27 +93,14 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Pin controls */
+/* Pin controls - BoomSold style */
 .details-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0055a4;
-  /* Montreal flag blue */
-  letter-spacing: 1px;
-}
-
-.details-header .montreal-flag-icon {
-  width: 36px;
-  height: 36px;
-  margin-right: 0.75rem;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Montreal.svg') no-repeat center center;
-  background-size: contain;
-  border-radius: 50%;
-  border: 2px solid #e30613;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #FFD700;
 }
 
 .pin-controls {
@@ -120,17 +111,18 @@
 
 .pin-indicator {
   font-size: 0.85rem;
-  color: #007acc;
+  color: #FFD700;
   font-weight: 600;
-  background: rgba(0, 122, 204, 0.1);
+  background: rgba(255, 215, 0, 0.15);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .unpin-button {
-  background: rgba(255, 59, 48, 0.1);
-  border: 1px solid rgba(255, 59, 48, 0.3);
-  color: #ff3b30;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #FFD700;
   border-radius: 50%;
   width: 28px;
   height: 28px;
@@ -138,15 +130,16 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
 .unpin-button:hover {
-  background: rgba(255, 59, 48, 0.2);
-  border-color: rgba(255, 59, 48, 0.5);
-  transform: scale(1.1);
+  background: #FFD700;
+  color: #000000;
+  border-color: #FFD700;
+  transform: scale(1.1) rotate(90deg);
 }
 
 @keyframes fadeIn {
@@ -162,11 +155,18 @@
 }
 
 .neighborhood-name {
-  color: #2c3e50;
-  font-size: 1.6rem;
+  color: #FFD700;
+  font-size: 2rem;
   margin: 0;
-  font-weight: 600;
+  font-weight: 900;
   flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 3px 3px 0px #000000,
+    -1px -1px 0px #ffffff,
+    2px 2px 8px rgba(255, 215, 0, 0.6);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+  transform: skew(-2deg);
 }
 
 .details-grid {
@@ -175,33 +175,106 @@
   gap: 1.5rem;
 }
 
+/* Amenities Section - BoomSold style */
+.amenities-section {
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.amenities-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.amenity-item {
+  display: flex;
+  gap: 4px;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+}
+
+/* Pricing Section - BoomSold style */
+.pricing-section {
+  margin-bottom: 1rem;
+}
+
+.pricing-section .detail-item {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  padding: 1.2rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+  border-left: 5px solid #FFD700;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.pricing-section .detail-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.25);
+}
+
+.pricing-section .detail-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Area Info - BoomSold style */
+.area-info {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.area-text {
+  font-size: 0.8rem;
+  color: #999999;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
 .detail-item {
-  background: #fff;
+  background: #2a2a2a;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 85, 164, 0.08);
-  border-left: 4px solid #0055a4;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1);
+  border-left: 4px solid #FFD700;
 }
 
 .detail-label {
   display: block;
-  font-weight: 600;
-  color: #e30613;
+  font-weight: 900;
+  color: #FFD700;
   font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.6rem;
+  text-shadow: 2px 2px 0px #000000,
+    -1px -1px 0px rgba(255, 255, 255, 0.3);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
 }
 
 .detail-value {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #0055a4;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 2px 2px 0px #000000,
+    1px 1px 4px rgba(255, 255, 255, 0.3);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
 }
 
 .detail-value.price {
-  color: #00843d;
-  font-size: 1.6rem;
+  color: #FFD700;
+  font-size: 2rem;
+  font-weight: 900;
+  text-shadow: 3px 3px 0px #000000,
+    -1px -1px 0px #ffffff,
+    2px 2px 8px rgba(255, 215, 0, 0.6);
 }
 
 .description {

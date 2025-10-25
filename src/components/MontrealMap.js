@@ -62,6 +62,71 @@ const ProfessionalHeader = () => {
   );
 };
 
+// Function to get color based on neighborhood part (direction)
+const getColorByPart = (part) => {
+  const colorMap = {
+    North: "#FF6B6B", // Red
+    South: "#4ECDC4", // Teal
+    East: "#FFE66D", // Yellow
+    West: "#95E1D3", // Mint Green
+  };
+  return colorMap[part] || "#4DD0E1"; // Default teal if no part specified
+};
+
+// Neighborhood name abbreviations mapping
+const neighborhoodAbbreviations = {
+  "Ahuntsic–Cartierville": "Ahuntsic",
+  "Ahuntsic-Cartierville": "Ahuntsic",
+  Anjou: "Anjou",
+  "Baie-D'Urfé": "Baie-D'Urfé",
+  Beaconsfield: "Beaconsfield",
+  "Côte-des-Neiges–Notre-Dame-de-Grâce": "CDN/NDG",
+  "Côte-des-Neiges-Notre-Dame-de-Grâce": "CDN/NDG",
+  "Côte-Saint-Luc": "CSL",
+  "Dollard-des-Ormeaux": "DDO",
+  "Dollard-Des Ormeaux": "DDO",
+  Dorval: "Dorval",
+  Hampstead: "Hampstead",
+  Kirkland: "Kirkland",
+  Lachine: "Lachine",
+  LaSalle: "Lasalle",
+  "Le Plateau-Mont-Royal": "Plateau",
+  "Le Sud-Ouest": "Le Sud-Ouest",
+  "L'Île-Bizard–Sainte-Geneviève": "Île-Bizard",
+  "L'Île-Bizard - Sainte-Geneviève": "Île-Bizard",
+  "Mercier–Hochelaga-Maisonneuve": "Hochelag",
+  "Mercier-Hochelaga-Maisonneuve": "Hochelag",
+  "Montréal-Est": "Mtl-Est",
+  "Mont-Royal": "Mont-Royal",
+  "Montréal-Nord": "Mtl-Nord",
+  "Montreal West": "Mtl West",
+  Outremont: "Outremont",
+  "Pointe-Claire": "Pointe-Claire",
+  "Pierrefonds–Roxboro": "Pierrefonds",
+  "Pierrefonds-Roxboro": "Pierrefonds",
+  "Rivière-des-Prairies–Pointe-aux-Trembles": "RDP",
+  "Rivière-des-Prairies-Pointe-aux-Trembles": "RDP",
+  "Rosemont–La Petite-Patrie": "Rosemont",
+  "Rosemont-La Petite-Patrie": "Rosemont",
+  "Montréal (Saint-Laurent)": "St-Laurent",
+  "Saint-Laurent": "St-Laurent",
+  "Saint-Léonard": "St-Léonard",
+  "Sainte-Anne-de-Bellevue": "Ste-Anne",
+  "Ste-Anne": "Ste-Anne",
+  Senneville: "Senneville",
+  Verdun: "Verdun",
+  "Ville-Marie": "Ville-Marie",
+  "Villeray–Saint-Michel–Parc-Extension": "Villeray-St-Michel-Park X",
+  "Villeray-Saint-Michel-Parc-Extension": "Villeray-St-Michel-Park X",
+  Westmount: "Westmount",
+};
+
+// Function to get abbreviated name
+const getAbbreviatedName = (fullName) => {
+  if (!fullName) return fullName;
+  return neighborhoodAbbreviations[fullName] || fullName;
+};
+
 // Import the real Montreal data
 const MontrealMap = ({
   onNeighborhoodHover,
@@ -70,6 +135,9 @@ const MontrealMap = ({
   startNeighborhoodAnimation = false,
   isPinned = false,
   pinnedNeighborhood = null,
+  selectedPart = null, // NEW: Name of selected part (for config)
+  partGeoJSON = null, // NEW: Pre-filtered and rotated GeoJSON for selected part
+  onPartBack = null, // NEW: Callback to go back to PartMap
 }) => {
   // Rotated (default) and Top-View (unrotated) datasets
   const [montrealData, setMontrealData] = useState(null); // rotated
@@ -125,6 +193,70 @@ const MontrealMap = ({
 
   const geoJsonLayerRef = useRef(null);
   const animationAttemptsRef = useRef(0);
+  const lastFocusedPartRef = useRef(null);
+
+  const focusMapOnFeatures = useCallback(
+    (features, partName = null) => {
+      if (!map || !features || !features.length) {
+        return;
+      }
+
+      const latLngs = [];
+
+      features.forEach((feature) => {
+        const geometry = feature?.geometry;
+        if (!geometry || !geometry.coordinates) {
+          return;
+        }
+
+        const pushCoords = (coords) => {
+          coords.forEach(([lng, lat]) => {
+            if (Number.isFinite(lat) && Number.isFinite(lng)) {
+              latLngs.push([lat, lng]);
+            }
+          });
+        };
+
+        if (geometry.type === "Polygon") {
+          geometry.coordinates.forEach(pushCoords);
+        } else if (geometry.type === "MultiPolygon") {
+          geometry.coordinates.forEach((polygon) =>
+            polygon.forEach(pushCoords)
+          );
+        }
+      });
+
+      if (!latLngs.length) {
+        return;
+      }
+
+      const bounds = L.latLngBounds(latLngs);
+
+      // Get part-specific zoom level
+      const partZoomLevels = {
+        North: 11.5,
+        South: 12,
+        East: 12.5,
+        West: 12,
+      };
+
+      const targetZoom =
+        partName && partZoomLevels[partName] ? partZoomLevels[partName] : 12;
+
+      const boundsOptions = {
+        padding: [100, 100],
+        maxZoom: targetZoom,
+        duration: 0.6,
+      };
+
+      if (typeof map.flyToBounds === "function") {
+        map.flyToBounds(bounds, boundsOptions);
+      } else {
+        map.fitBounds(bounds, boundsOptions);
+      }
+    },
+    [map]
+  );
 
   const getFeatureLayers = useCallback(() => {
     const layerGroup = geoJsonLayerRef.current;
@@ -270,6 +402,149 @@ const MontrealMap = ({
 
   // Load both GeoJSON, CSV data, and POIs
   useEffect(() => {
+    // If partGeoJSON is provided, use it directly instead of loading and filtering
+    if (partGeoJSON) {
+      Promise.all([
+        Promise.resolve(partGeoJSON), // Use the pre-filtered and rotated GeoJSON
+        fetch(process.env.PUBLIC_URL + "/boomsold.live data - Sheet1.csv").then(
+          (response) => response.text()
+        ),
+        fetch(process.env.PUBLIC_URL + "/assets/montreal_pois.json").then(
+          (response) => response.json()
+        ),
+      ])
+        .then(([geoJsonData, csvData, poisData]) => {
+          // Parse CSV data
+          const csvLines = csvData.split("\n");
+          const headers = csvLines[0].split(",").map((h) => h.trim());
+          const singleFamilyRow = csvLines[1].split(",");
+          const condoRow = csvLines[2].split(",");
+
+          // Create neighborhood mapping with CSV data
+          const neighborhoodMapping = {};
+
+          // Process CSV data and create mapping
+          headers.slice(1).forEach((csvName, index) => {
+            if (csvName && csvName.trim()) {
+              const geoJsonName = nameMapping[csvName.trim()];
+              const singleFamilyPrice = singleFamilyRow[index + 1];
+              const condoPrice = condoRow[index + 1];
+
+              if (geoJsonName && singleFamilyPrice) {
+                const formattedPrice = parsePrice(singleFamilyPrice);
+                const color = getPriceColor(singleFamilyPrice);
+
+                neighborhoodMapping[geoJsonName] = {
+                  initials: generateInitials(geoJsonName),
+                  color: color,
+                  price: formattedPrice,
+                  singleFamilyPrice: parsePrice(singleFamilyPrice),
+                  condoPrice: condoPrice ? parsePrice(condoPrice) : null,
+                  rawSingleFamily: singleFamilyPrice,
+                  rawCondo: condoPrice,
+                };
+              }
+            }
+          });
+
+          // Add some missing neighborhoods with default values
+          const additionalNeighborhoods = {
+            "L'Île-Dorval": {
+              initials: "ID",
+              color: "#F7D794",
+              price: "$1.5M",
+            },
+          };
+
+          Object.assign(neighborhoodMapping, additionalNeighborhoods);
+
+          // Enrich features with data
+          geoJsonData.features.forEach((feature) => {
+            const boroughName = feature.properties.nom_arr;
+            const neighborhoodName = feature.properties.nom_qr;
+            const partDirection = feature.properties.part; // Get the part (East, West, South, North)
+            const areaData = neighborhoodMapping[boroughName];
+
+            if (areaData) {
+              feature.properties.color = areaData.color;
+              feature.properties.value = areaData.initials;
+              feature.properties.avgPrice = areaData.price;
+              feature.properties.singleFamilyPrice = areaData.singleFamilyPrice;
+              feature.properties.condoPrice = areaData.condoPrice;
+              feature.properties.listingCount =
+                Math.floor(Math.random() * 150) + 50;
+              feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
+                1
+              );
+              feature.properties.name = boroughName;
+              feature.properties.neighborhood = neighborhoodName;
+              feature.properties.rawSingleFamily = areaData.rawSingleFamily;
+              feature.properties.rawCondo = areaData.rawCondo;
+            } else {
+              const isSuburb = !boroughName || boroughName !== "Montréal";
+              // Use part-based color if available, otherwise use default
+              const colorBasedOnPart = getColorByPart(partDirection);
+              const defaultColor = isSuburb ? "#80CBC4" : colorBasedOnPart;
+              const defaultPrice = isSuburb ? "$550K" : "$520K";
+
+              feature.properties.color = defaultColor;
+              feature.properties.value = generateAbbreviation(
+                neighborhoodName || boroughName
+              );
+              feature.properties.avgPrice = defaultPrice;
+              feature.properties.listingCount =
+                Math.floor(Math.random() * 100) + 30;
+              feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
+                1
+              );
+              feature.properties.name =
+                boroughName || neighborhoodName || "Unknown Area";
+              feature.properties.neighborhood =
+                neighborhoodName || "Unknown Neighborhood";
+              feature.properties.rawSingleFamily = null;
+              feature.properties.rawCondo = null;
+            }
+
+            feature.properties.type = "neighborhood";
+            feature.properties.municipality =
+              feature.properties.nom_mun || "Montréal";
+          });
+
+          // Unified appearance metadata
+          const processedData = {
+            ...geoJsonData,
+            features: geoJsonData.features.map((feature) => {
+              if (feature.properties.merged_from > 1) {
+                return {
+                  ...feature,
+                  properties: {
+                    ...feature.properties,
+                    isMerged: true,
+                    className: "merged-borough",
+                  },
+                };
+              }
+              return {
+                ...feature,
+                properties: {
+                  ...feature.properties,
+                  className: "single-borough",
+                },
+              };
+            }),
+          };
+
+          // The data is already rotated from PartMap, use it directly
+          setMontrealData(processedData);
+          setMontrealDataTop(processedData); // For top view, use the same rotated data
+          setAllPois(poisData.elements);
+          setIsMapLoaded(true);
+        })
+        .catch((error) => console.error("Error loading Montreal data:", error));
+      return; // Exit early when using partGeoJSON
+    }
+
+    // Original logic: Load full data when no partGeoJSON is provided
     Promise.all([
       fetch(
         process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
@@ -282,6 +557,17 @@ const MontrealMap = ({
       ),
     ])
       .then(([geoJsonData, csvData, poisData]) => {
+        // Filter by selected part if provided
+        let filteredGeoJsonData = geoJsonData;
+        if (selectedPart) {
+          filteredGeoJsonData = {
+            ...geoJsonData,
+            features: geoJsonData.features.filter(
+              (feature) => feature.properties.part === selectedPart
+            ),
+          };
+        }
+
         // Parse CSV data
         const csvLines = csvData.split("\n");
         const headers = csvLines[0].split(",").map((h) => h.trim());
@@ -323,9 +609,10 @@ const MontrealMap = ({
         Object.assign(neighborhoodMapping, additionalNeighborhoods);
 
         // Enrich features with data
-        geoJsonData.features.forEach((feature) => {
+        filteredGeoJsonData.features.forEach((feature) => {
           const boroughName = feature.properties.nom_arr;
           const neighborhoodName = feature.properties.nom_qr;
+          const partDirection = feature.properties.part; // Get the part (East, West, South, North)
           const areaData = neighborhoodMapping[boroughName];
 
           if (areaData) {
@@ -345,7 +632,9 @@ const MontrealMap = ({
             feature.properties.rawCondo = areaData.rawCondo;
           } else {
             const isSuburb = !boroughName || boroughName !== "Montréal";
-            const defaultColor = isSuburb ? "#80CBC4" : "#4DD0E1";
+            // Use part-based color if available, otherwise use default
+            const colorBasedOnPart = getColorByPart(partDirection);
+            const defaultColor = isSuburb ? "#80CBC4" : colorBasedOnPart;
             const defaultPrice = isSuburb ? "$550K" : "$520K";
 
             feature.properties.color = defaultColor;
@@ -373,8 +662,8 @@ const MontrealMap = ({
 
         // Unified appearance metadata
         const processedData = {
-          ...geoJsonData,
-          features: geoJsonData.features.map((feature) => {
+          ...filteredGeoJsonData,
+          features: filteredGeoJsonData.features.map((feature) => {
             if (feature.properties.merged_from > 1) {
               return {
                 ...feature,
@@ -412,7 +701,7 @@ const MontrealMap = ({
         setIsMapLoaded(true);
       })
       .catch((error) => console.error("Error loading Montreal data:", error));
-  }, []);
+  }, [selectedPart, partGeoJSON]);
 
   // Initialize neighborhoods as hidden when map loads
   useEffect(() => {
@@ -427,8 +716,51 @@ const MontrealMap = ({
     }
   }, [isMapLoaded, montrealData, applyInitialHiddenState]);
 
+  // Center and zoom to selected part
+  useEffect(() => {
+    if (!map || (!selectedPart && lastFocusedPartRef.current === null)) {
+      return;
+    }
+
+    if (!selectedPart) {
+      if (lastFocusedPartRef.current !== null) {
+        lastFocusedPartRef.current = null;
+        map.flyTo([45.56, -73.62], 10.8, { duration: 0.6 });
+      }
+      return;
+    }
+
+    const featureSource =
+      montrealDataTop?.features || montrealData?.features || [];
+
+    if (!featureSource.length) {
+      return;
+    }
+
+    if (lastFocusedPartRef.current === selectedPart) {
+      return;
+    }
+
+    const matchingFeatures = featureSource.filter(
+      (feature) => feature?.properties?.part === selectedPart
+    );
+
+    const featuresToFocus = matchingFeatures.length
+      ? matchingFeatures
+      : featureSource;
+
+    focusMapOnFeatures(featuresToFocus, selectedPart);
+    lastFocusedPartRef.current = selectedPart;
+  }, [selectedPart, map, montrealDataTop, montrealData, focusMapOnFeatures]);
+
   // Set flag when animation should start and trigger if map is already ready
   useEffect(() => {
+    // Don't animate when viewing a specific part
+    if (selectedPart) {
+      setShouldAnimateNeighborhoods(false);
+      return;
+    }
+
     if (startNeighborhoodAnimation) {
       console.log("🎯 Animation requested, map ready:", !!map);
       setShouldAnimateNeighborhoods(true);
@@ -447,6 +779,7 @@ const MontrealMap = ({
     map,
     montrealData,
     triggerNeighborhoodAnimations,
+    selectedPart,
   ]);
 
   // Fallback: Also try to trigger when map becomes available after animation request
@@ -461,45 +794,28 @@ const MontrealMap = ({
     }
   }, [shouldAnimateNeighborhoods, montrealData, triggerNeighborhoodAnimations]);
 
-  // Style function - visible borders for coordinate editing
+  // Style function - all neighborhoods in grey with black big borders
   const getFeatureStyle = (feature) => {
-    // If pinned, only the pinned neighborhood is bright, others are dull
-    if (isPinned && pinnedNeighborhood && pinnedNeighborhood.name) {
-      const isPinnedFeature =
-        feature.properties.name === pinnedNeighborhood.name;
-      return {
-        fillColor: isPinnedFeature ? "#e3dfdf13" : "white", // dull gray for non-pinned
-        weight: 1,
-        opacity: 0.8,
-        color: "#000000b0",
-        fillOpacity: isPinnedFeature ? 0.1 : 1,
-        lineJoin: "round",
-        lineCap: "round",
-        filter: isPinnedFeature ? "none" : "blur(0.5px) grayscale(0.5)",
-      };
-    }
-    // Default: all neighborhoods bright, but outer transparent if satellite
+    // Default: all neighborhoods with grey background and black big borders
     return {
-      fillColor: feature.properties.color || "#4DD0E1",
-      weight: 2,
-      opacity: 0.8,
-      color: "#ffffff",
-      fillOpacity: useTopView ? 0.9 : useSatellite ? 0.5 : 0.8, // higher opacity for top view
+      fillColor: "#d3d3d3", // Grey color
+      weight: 4, // Big border
+      opacity: 1,
+      color: "#000000", // Black border
+      fillOpacity: 0.8,
       lineJoin: "round",
       lineCap: "round",
     };
   };
 
   const getHoverStyle = () => ({
-    weight: 4, // Bold border on hover for all areas
-    color: "#000000", // Black border for strong contrast
-    fillOpacity: 1.0,
-    opacity: 1, // Always show border on hover, even for merged areas
+    weight: 5, // Slightly bigger border on hover
+    color: "#000000", // Black border
+    fillOpacity: 0.9,
+    opacity: 1,
     lineJoin: "round",
-    fillColor: "#FFD700", // Gold fill on hover
+    fillColor: "#b8b8b8", // Slightly darker grey on hover
     lineCap: "round",
-    // CSS transform for elevation effect
-    className: "neighborhood-projected",
   });
 
   // -------- Google Images + Wikipedia helpers --------
@@ -573,81 +889,123 @@ const MontrealMap = ({
     const originalStyle = getFeatureStyle(feature);
     const finalColor = feature.properties.color || "#4DD0E1";
 
-    // Apply Montreal flag colors initially (red/white pattern) only when not top view
-    const initialColor = Math.random() > 0.3 ? "#ED1B2E" : "#FFFFFF";
+    // Apply the final color directly
+    layer.setStyle(originalStyle);
 
-    if (!useTopView) {
-      layer.setStyle({
-        ...originalStyle,
-        fillColor: initialColor,
-        fillOpacity: 0.9,
-      });
-    } else {
-      layer.setStyle(originalStyle);
-    }
-
-    // Wait for element to be rendered, then apply animation
-    const applyColorAnimation = () => {
+    // Wait for element to be rendered, then set final styling
+    const applyStyle = () => {
       requestAnimationFrame(() => {
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.setProperty("--final-color", finalColor);
-
-          if (!useTopView) {
-            // Start flag color animation after falling animation completes
-            setTimeout(() => {
-              const el = layer.getElement();
-              if (el) {
-                el.classList.add(
-                  initialColor === "#FFFFFF"
-                    ? "montreal-white-cross"
-                    : "montreal-flag-colors"
-                );
-              }
-            }, 2500); // Wait for falling animation to complete
-
-            // Transition to actual price colors after flag animation
-            setTimeout(() => {
-              layer.setStyle(originalStyle);
-              const el = layer.getElement();
-              if (el) {
-                el.classList.remove(
-                  "montreal-flag-colors",
-                  "montreal-white-cross"
-                );
-              }
-            }, 5500); // 2.5s wait + 3s animation = 5.5s total
-          } else {
-            // In top view, immediately keep original style
-            layer.setStyle(originalStyle);
-          }
         }
       });
     };
 
-    // Ensure layer is added to map before applying animation
-    setTimeout(applyColorAnimation, 100);
+    // Ensure layer is added to map before applying styling
+    setTimeout(applyStyle, 100);
 
     // Add permanent tooltip with dynamic font size based on zoom
-    if (feature.properties && feature.properties.value) {
+    if (feature.properties && feature.properties.name) {
+      const abbreviatedName = getAbbreviatedName(feature.properties.name);
+
       const updateTooltip = () => {
         const zoom = map ? map.getZoom() : currentZoom;
         const clampedZoom = Math.max(6, Math.min(21, Math.round(zoom)));
         const zoomClass = `custom-tooltip tooltip-zoom-${clampedZoom}`;
+
+        // For MultiPolygon, find the largest part and use its center
+        let centerPoint;
+
+        if (feature.geometry.type === "MultiPolygon") {
+          // Find the largest polygon by area
+          let largestArea = 0;
+          let largestPolygonCoords = null;
+
+          feature.geometry.coordinates.forEach((poly) => {
+            const ring = poly[0]; // outer ring
+            // Calculate area using shoelace formula
+            const area = Math.abs(
+              ring.reduce((sum, coord, i, arr) => {
+                if (i === arr.length - 1) return sum;
+                return (
+                  sum + (coord[0] * arr[i + 1][1] - arr[i + 1][0] * coord[1])
+                );
+              }, 0) / 2
+            );
+
+            if (area > largestArea) {
+              largestArea = area;
+              largestPolygonCoords = ring;
+            }
+          });
+
+          // Calculate center of the largest polygon
+          if (largestPolygonCoords) {
+            const lats = largestPolygonCoords.map((c) => c[1]);
+            const lngs = largestPolygonCoords.map((c) => c[0]);
+            let lat = (Math.min(...lats) + Math.max(...lats)) / 2;
+            let lng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
+
+            // Apply specific adjustments for problematic neighborhoods
+            const name = feature.properties.name;
+            if (name.includes("Rivière-des-Prairies") || name.includes("RDP")) {
+              lat += 0.01; // Move RDP up
+            } else if (name.includes("Dorval")) {
+              lat -= 0.008; // Move Dorval down
+            } else if (name.includes("Senneville")) {
+              lng -= 0.015; // Move Senneville left
+            } else if (name.includes("Lachine")) {
+              lng -= 0.01; // Move Lachine left
+            } else if (
+              name.includes("Côte-des-Neiges") ||
+              name.includes("Notre-Dame-de-Grâce") ||
+              name.includes("CDN") ||
+              name.includes("NDG")
+            ) {
+              lng += 0.008; // Move CDN-NDG right
+            } else if (
+              name.includes("Sud-Ouest") ||
+              name.includes("Le Sud-Ouest")
+            ) {
+              lat += 0.008; // Move Le Sud-Ouest up
+            }
+
+            centerPoint = L.latLng(lat, lng);
+          }
+        } else {
+          // For simple Polygon, use layer bounds center
+          const layerBounds = layer.getBounds();
+          centerPoint = layerBounds.getCenter();
+        }
+
+        // Remove existing tooltip
+        layer.unbindTooltip();
+
+        // Create new tooltip at the calculated center
         layer
-          .bindTooltip(feature.properties.value, {
+          .bindTooltip(abbreviatedName, {
             permanent: true,
             direction: "center",
             className: zoomClass,
+            offset: [0, 0],
           })
           .openTooltip();
+
+        // Force tooltip position at the center
+        const tooltip = layer.getTooltip();
+        if (tooltip && centerPoint) {
+          tooltip.setLatLng(centerPoint);
+        }
       };
 
-      updateTooltip();
-
-      if (map) {
-        map.on("zoomend", updateTooltip);
-      }
+      // Wait for layer to be fully rendered before calculating center
+      setTimeout(() => {
+        updateTooltip();
+        if (map) {
+          map.on("zoomend", updateTooltip);
+        }
+      }, 100);
     }
 
     layer.on({
@@ -749,12 +1107,7 @@ const MontrealMap = ({
         const isSameNeighborhood =
           currentPinned && currentPinned.name === feature.properties.name;
         if (isSameNeighborhood) {
-          // Unpin: clear markers, reset view, clear selected place
-          setParkMarkers([]);
-          setSchoolMarkers([]);
-          setHospitalMarkers([]);
-          setSelectedPlace(null);
-
+          // Unpin: reset view and reload full data
           leafletMap.setView([45.56, -73.62], 10.8); // Reset to original view
           if (onNeighborhoodClick) {
             onNeighborhoodClick({
@@ -765,7 +1118,19 @@ const MontrealMap = ({
           return;
         }
 
-        // Zoom to neighborhood bounds and fetch amenities strictly inside polygon
+        // Filter GeoJSON to only show clicked neighborhood
+        const clickedNeighborhoodName =
+          feature.properties.name || feature.properties.nom_arr;
+        const filteredGeoJSON = {
+          type: "FeatureCollection",
+          features: montrealData.features.filter(
+            (f) =>
+              (f.properties.name || f.properties.nom_arr) ===
+              clickedNeighborhoodName
+          ),
+        };
+
+        // Zoom to neighborhood bounds
         if (feature.geometry && feature.geometry.coordinates && leafletMap) {
           let allCoords = [];
           if (feature.geometry.type === "MultiPolygon") {
@@ -787,57 +1152,7 @@ const MontrealMap = ({
             [southWest[0], southWest[1]],
             [northEast[0], northEast[1]],
           ];
-          leafletMap.fitBounds(bounds, { maxZoom: 22 });
-
-          // Clear old markers and show loading
-          setParkMarkers([]);
-          setSchoolMarkers([]);
-          setHospitalMarkers([]);
-          setIsLoadingMarkers(true);
-
-          // Filter POIs from preloaded data
-          const parkList = [];
-          if (allPois) {
-            // Create Leaflet polygon for strict inclusion test
-            const polygonLatLngs = allCoords.map(([lng, lat]) => [lat, lng]);
-
-            allPois.forEach((el) => {
-              let lat, lon, name;
-              if (el.type === "node") {
-                lat = el.lat;
-                lon = el.lon;
-              } else if (el.type === "way" || el.type === "relation") {
-                if (el.center) {
-                  lat = el.center.lat;
-                  lon = el.center.lon;
-                }
-              }
-
-              const tags = el.tags || {};
-              name = tags.name || tags["name:en"];
-
-              // Parks
-              if (tags.leisure === "park" && lat && lon) {
-                if (isPointInPolygon([lat, lon], polygonLatLngs)) {
-                  parkList.push({ lat, lon, name: name || "Park" });
-                }
-              }
-            });
-
-            // Split schools & hospitals using helper
-            const { schools, hospitals } = splitAmenityMarkers(
-              allPois,
-              polygonLatLngs
-            );
-
-            setParkMarkers(parkList);
-            setSchoolMarkers(schools);
-            setHospitalMarkers(hospitals);
-            setIsLoadingMarkers(false);
-            console.log(
-              `Fetched ${parkList.length} parks, ${schools.length} schools, ${hospitals.length} hospitals (from preloaded data).`
-            );
-          }
+          leafletMap.fitBounds(bounds, { maxZoom: 15, padding: [50, 50] });
         } else {
           console.log("Error: No geometry, coordinates, or map found.");
         }
@@ -872,6 +1187,7 @@ const MontrealMap = ({
               feature.properties.name || feature.properties.nom_arr
             }`,
             isClickEvent: true,
+            filteredGeoJSON: filteredGeoJSON, // Pass filtered GeoJSON
           });
         }
       },
@@ -897,26 +1213,24 @@ const MontrealMap = ({
     );
   }
 
-  // Custom hook to switch tile layer on zoom (also toggles top view)
-  function SatelliteSwitcher() {
-    const map = useMap();
-    useEffect(() => {
-      const onZoom = () => {
-        const z = map.getZoom();
-        console.log("Zoom level:", z);
-        if (z >= 13) {
-          if (!useSatellite) setUseSatellite(true);
-          if (!useTopView) setUseTopView(true);
-        } else {
-          if (useSatellite) setUseSatellite(false);
-          if (useTopView) setUseTopView(false);
-        }
-      };
-      map.on("zoomend", onZoom);
-      return () => map.off("zoomend", onZoom);
-    }, [map, useSatellite, useTopView]);
-    return null;
-  }
+  // Get part-specific center and zoom
+  const getPartConfig = () => {
+    const partConfigs = {
+      North: { center: [45.58, -73.48], zoom: 11.5 },
+      South: { center: [45.48, -73.55], zoom: 11.5 },
+      East: { center: [45.54, -73.45], zoom: 12 },
+      West: { center: [45.58, -73.85], zoom: 12 },
+    };
+
+    if (selectedPart && partConfigs[selectedPart]) {
+      return partConfigs[selectedPart];
+    }
+
+    // Default: full Montreal view
+    return { center: [45.56, -73.62], zoom: 10.8 };
+  };
+
+  const { center, zoom } = getPartConfig();
 
   const placeTypeLabel =
     (selectedPlace &&
@@ -928,17 +1242,56 @@ const MontrealMap = ({
   return (
     <div className="montreal-map-container">
       {/* Professional Header */}
-      <ProfessionalHeader />
+      {/* <ProfessionalHeader /> */}
 
       {/* Montreal Flag Section - Above Map */}
-      <MontrealSvg />
+      {/* <MontrealSvg /> */}
+
+      {/* Back Button - Only show when viewing a specific part */}
+      {selectedPart && onPartBack && (
+        <button
+          onClick={onPartBack}
+          style={{
+            position: "fixed",
+            top: 20,
+            left: 20,
+            zIndex: 1000,
+            padding: "12px 24px",
+            backgroundColor: "#4ECDC4",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            fontSize: "16px",
+            fontWeight: 600,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+            transition: "all 0.2s ease",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#45b8b0";
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.2)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#4ECDC4";
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+          }}
+        >
+          <span style={{ fontSize: "20px" }}>←</span>
+          <span>Back to Parts</span>
+        </button>
+      )}
 
       <div className="custom-montreal-map" style={{ background: "" }}>
         <MapContainer
-          center={[45.56, -73.62]}
+          center={center}
           verticalFactor={0.5}
-          zoom={10.8}
-          minZoom={6}
+          zoom={zoom}
+          minZoom={selectedPart ? 10 : 6}
           maxZoom={22}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={true}
@@ -953,212 +1306,46 @@ const MontrealMap = ({
           attributionControl={false}
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
+
+            // Log center and zoom on zoom change
             mapInstance.on("zoomend", () => {
-              setCurrentZoom(mapInstance.getZoom());
+              const zoom = mapInstance.getZoom();
+              const center = mapInstance.getCenter();
+              setCurrentZoom(zoom);
+              console.log("📍 Current Center:", {
+                lat: center.lat.toFixed(6),
+                lng: center.lng.toFixed(6),
+              });
+              console.log("🔍 Current Zoom:", zoom.toFixed(2));
             });
-            if (shouldAnimateNeighborhoods && montrealData) {
-              setTimeout(() => {
-                triggerNeighborhoodAnimations();
-              }, 1000);
-            }
+
+            // Log center on move
+            mapInstance.on("moveend", () => {
+              const center = mapInstance.getCenter();
+              const zoom = mapInstance.getZoom();
+              console.log("🗺️ Map Moved - Center:", {
+                lat: center.lat.toFixed(6),
+                lng: center.lng.toFixed(6),
+              });
+              console.log("🔍 Zoom:", zoom.toFixed(2));
+            });
+
+            // if (shouldAnimateNeighborhoods && montrealData) {
+            //   setTimeout(() => {
+            //     triggerNeighborhoodAnimations();
+            //   }, 1000);
+            // }
           }}
         >
-          <SatelliteSwitcher />
-
-          {isPinned && (
-            <>
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="&copy; MapTiler & OpenStreetMap contributors"
-                maxNativeZoom={22} // match your MBTiles maxzoom (from your JSON)
-                maxZoom={22} // Leaflet will upscale beyond 14
-                tileSize={256}
-              />
-              <MaskedOutside geojson={montrealDataTop} opacity={1} />
-            </>
-          )}
-
           {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
           <GeoJSON
-            data={montrealDataTop}
+            data={montrealData}
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
             ref={geoJsonLayerRef}
           />
-
-          {/* Parks */}
-          {parkMarkers.map((park, idx) => (
-            <Marker
-              key={`park-${idx}`}
-              position={[park.lat, park.lon]}
-              icon={treeIcon}
-              eventHandlers={{
-                click: async () => {
-                  setParkImageLoading(true);
-                  const imageUrl = await getPlaceImage(park.name, "park");
-                  setSelectedPlace({
-                    type: "park",
-                    name: park.name,
-                    lat: park.lat,
-                    lon: park.lon,
-                    image: imageUrl,
-                  });
-                  setParkImageLoading(false);
-                },
-              }}
-            >
-              <Popup>{park.name}</Popup>
-            </Marker>
-          ))}
-
-          {/* Schools */}
-          {schoolMarkers.map((school, idx) => (
-            <Marker
-              key={`school-${idx}`}
-              position={[school.lat, school.lon]}
-              icon={schoolIcon}
-              eventHandlers={{
-                click: async () => {
-                  const imageUrl = await getPlaceImage(school.name, "school");
-                  setSelectedPlace({
-                    type: "school",
-                    name: school.name,
-                    lat: school.lat,
-                    lon: school.lon,
-                    image: imageUrl,
-                  });
-                },
-              }}
-            >
-              <Popup>{school.name}</Popup>
-            </Marker>
-          ))}
-
-          {/* Hospitals */}
-          {hospitalMarkers.map((hospital, idx) => (
-            <Marker
-              key={`hospital-${idx}`}
-              position={[hospital.lat, hospital.lon]}
-              icon={hospitalIcon}
-              eventHandlers={{
-                click: async () => {
-                  const imageUrl = await getPlaceImage(
-                    hospital.name,
-                    "hospital"
-                  );
-                  setSelectedPlace({
-                    type: "hospital",
-                    name: hospital.name,
-                    lat: hospital.lat,
-                    lon: hospital.lon,
-                    image: imageUrl,
-                  });
-                },
-              }}
-            >
-              <Popup>{hospital.name}</Popup>
-            </Marker>
-          ))}
         </MapContainer>
-
-        {/* Loading indicator for markers */}
-        {isLoadingMarkers && (
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 1000,
-              background: "rgba(255, 255, 255, 0.9)",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-              fontSize: "16px",
-              color: "#333",
-            }}
-          >
-            Loading markers...
-          </div>
-        )}
       </div>
-
-      {/* Right-side image panel for selected place */}
-      {selectedPlace && (
-        <div
-          style={{
-            position: "fixed",
-            top: 80,
-            right: 0,
-            width: 340,
-            background: "#fff",
-            boxShadow: "0 0 16px rgba(0,0,0,0.15)",
-            zIndex: 2000,
-            padding: 18,
-            borderTopLeftRadius: 12,
-            borderBottomLeftRadius: 12,
-            minHeight: 320,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <button
-            style={{
-              alignSelf: "flex-end",
-              marginBottom: 8,
-              background: "none",
-              border: "none",
-              fontSize: 22,
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedPlace(null)}
-            title="Close"
-          >
-            ×
-          </button>
-          <h3 style={{ margin: "8px 0 12px 0", fontWeight: 600 }}>
-            {placeTypeLabel}: {selectedPlace.name}
-          </h3>
-          {selectedPlace.type === "park" && parkImageLoading ? (
-            <div
-              style={{
-                width: 260,
-                height: 180,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#eee",
-                borderRadius: 8,
-                marginBottom: 12,
-              }}
-            >
-              Loading image...
-            </div>
-          ) : (
-            <img
-              src={selectedPlace.image}
-              alt={selectedPlace.name}
-              style={{
-                width: 260,
-                height: 180,
-                objectFit: "cover",
-                borderRadius: 8,
-                marginBottom: 12,
-                background: "#eee",
-              }}
-              onError={(e) => {
-                e.currentTarget.src =
-                  process.env.PUBLIC_URL + "/assets/no-image.png";
-              }}
-            />
-          )}
-          <div style={{ fontSize: 15, color: "#555" }}>
-            Lat: {selectedPlace.lat.toFixed(5)}, Lon:{" "}
-            {selectedPlace.lon.toFixed(5)}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

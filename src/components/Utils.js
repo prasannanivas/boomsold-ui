@@ -14,20 +14,20 @@ export const parsePrice = (priceString) => {
   return `$${price}`;
 };
 
-// Function to determine color based on price range - Comic Book Style Palette (Yellow/Black Theme)
+// Function to determine color based on price range - Light Color Palette
 export const getPriceColor = (price) => {
-  if (!price) return "#FFD54F"; // Default: Sunny Yellow
+  if (!price) return "#E8D5E8"; // Default: Light Lavender
   const numPrice =
     typeof price === "string" ? parseInt(price.replace(/[",]/g, "")) : price;
 
-  if (numPrice >= 2000000) return "#FFD700"; // Ultra-Luxury: Pure Gold (matching logo)
-  if (numPrice >= 1500000) return "#FFEB3B"; // Luxury: Bright Yellow
-  if (numPrice >= 1200000) return "#aa9c1eff"; // High-End: Light Yellow
-  if (numPrice >= 1000000) return "#FFD54F"; // Premium: Sunny Yellow
-  if (numPrice >= 800000) return "#317f85ff"; // Upper-Mid: Soft Green
-  if (numPrice >= 650000) return "#66BB6A"; // Mid-Range: Fresh Green
-  if (numPrice >= 500000) return "#4DB6AC"; // Moderate: Teal
-  return "#4DD0E1"; // Affordable: Bright Cyan
+  if (numPrice >= 2000000) return "#D4C5E2"; // Ultra-Luxury: Light Purple
+  if (numPrice >= 1500000) return "#E0D5E8"; // Luxury: Light Lavender
+  if (numPrice >= 1200000) return "#E8D4D4"; // High-End: Light Rose
+  if (numPrice >= 1000000) return "#E8E0D4"; // Premium: Light Peach
+  if (numPrice >= 800000) return "#D4E8E0"; // Upper-Mid: Light Mint
+  if (numPrice >= 650000) return "#D4E8D4"; // Mid-Range: Light Green
+  if (numPrice >= 500000) return "#D9E8F0"; // Moderate: Light Blue
+  return "#E8E8E0"; // Affordable: Light Grey
 };
 
 // Function to rotate GeoJSON coordinates around a center point
