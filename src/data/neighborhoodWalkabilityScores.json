@@ -1,0 +1,342 @@
+{
+  "Rivière-des-Prairies–Pointe-aux-Trembles": {
+    "walkScore": 26,
+    "transitScore": 40,
+    "bikeScore": 33,
+    "accessibilityScore": 32,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 45,
+      "parks": 166,
+      "transit": 0,
+      "healthcare": 2,
+      "entertainment": 0
+    }
+  },
+  "Mercier–Hochelaga-Maisonneuve": {
+    "walkScore": 29,
+    "transitScore": 40,
+    "bikeScore": 36,
+    "accessibilityScore": 34,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 66,
+      "parks": 157,
+      "transit": 0,
+      "healthcare": 5,
+      "entertainment": 0
+    }
+  },
+  "Rosemont–La Petite-Patrie": {
+    "walkScore": 32,
+    "transitScore": 40,
+    "bikeScore": 38,
+    "accessibilityScore": 36,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 104,
+      "parks": 155,
+      "transit": 0,
+      "healthcare": 8,
+      "entertainment": 0
+    }
+  },
+  "Villeray–Saint-Michel–Parc-Extension": {
+    "walkScore": 30,
+    "transitScore": 40,
+    "bikeScore": 37,
+    "accessibilityScore": 35,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 88,
+      "parks": 122,
+      "transit": 0,
+      "healthcare": 2,
+      "entertainment": 0
+    }
+  },
+  "Ahuntsic-Cartierville": {
+    "walkScore": 29,
+    "transitScore": 40,
+    "bikeScore": 36,
+    "accessibilityScore": 34,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 151,
+      "parks": 279,
+      "transit": 0,
+      "healthcare": 9,
+      "entertainment": 0
+    }
+  },
+  "Côte-des-Neiges–Notre-Dame-de-Grâce": {
+    "walkScore": 30,
+    "transitScore": 40,
+    "bikeScore": 37,
+    "accessibilityScore": 35,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 102,
+      "parks": 162,
+      "transit": 0,
+      "healthcare": 12,
+      "entertainment": 0
+    }
+  },
+  "Le Sud-Ouest": {
+    "walkScore": 30,
+    "transitScore": 40,
+    "bikeScore": 37,
+    "accessibilityScore": 35,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 93,
+      "parks": 232,
+      "transit": 0,
+      "healthcare": 11,
+      "entertainment": 0
+    }
+  },
+  "Ville-Marie": {
+    "walkScore": 33,
+    "transitScore": 40,
+    "bikeScore": 39,
+    "accessibilityScore": 36,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 72,
+      "parks": 249,
+      "transit": 0,
+      "healthcare": 9,
+      "entertainment": 0
+    }
+  },
+  "Le Plateau-Mont-Royal": {
+    "walkScore": 37,
+    "transitScore": 40,
+    "bikeScore": 43,
+    "accessibilityScore": 39,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 63,
+      "parks": 127,
+      "transit": 0,
+      "healthcare": 6,
+      "entertainment": 0
+    }
+  },
+  "Anjou": {
+    "walkScore": 25,
+    "transitScore": 40,
+    "bikeScore": 32,
+    "accessibilityScore": 32,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 17,
+      "parks": 48,
+      "transit": 0,
+      "healthcare": 0,
+      "entertainment": 0
+    }
+  },
+  "Outremont": {
+    "walkScore": 31,
+    "transitScore": 40,
+    "bikeScore": 37,
+    "accessibilityScore": 35,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 31,
+      "parks": 33,
+      "transit": 0,
+      "healthcare": 0,
+      "entertainment": 0
+    }
+  },
+  "Saint-Laurent": {
+    "walkScore": 26,
+    "transitScore": 40,
+    "bikeScore": 33,
+    "accessibilityScore": 32,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 62,
+      "parks": 131,
+      "transit": 0,
+      "healthcare": 5,
+      "entertainment": 0
+    }
+  },
+  "Montréal-Nord": {
+    "walkScore": 29,
+    "transitScore": 40,
+    "bikeScore": 36,
+    "accessibilityScore": 34,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 43,
+      "parks": 78,
+      "transit": 0,
+      "healthcare": 3,
+      "entertainment": 0
+    }
+  },
+  "Saint-Léonard": {
+    "walkScore": 28,
+    "transitScore": 40,
+    "bikeScore": 35,
+    "accessibilityScore": 33,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 42,
+      "parks": 55,
+      "transit": 0,
+      "healthcare": 3,
+      "entertainment": 0
+    }
+  },
+  "Verdun": {
+    "walkScore": 28,
+    "transitScore": 40,
+    "bikeScore": 35,
+    "accessibilityScore": 33,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 36,
+      "parks": 94,
+      "transit": 0,
+      "healthcare": 3,
+      "entertainment": 0
+    }
+  },
+  "LaSalle": {
+    "walkScore": 27,
+    "transitScore": 40,
+    "bikeScore": 34,
+    "accessibilityScore": 33,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 56,
+      "parks": 106,
+      "transit": 0,
+      "healthcare": 4,
+      "entertainment": 0
+    }
+  },
+  "Lachine": {
+    "walkScore": 28,
+    "transitScore": 40,
+    "bikeScore": 35,
+    "accessibilityScore": 33,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 59,
+      "parks": 108,
+      "transit": 0,
+      "healthcare": 6,
+      "entertainment": 0
+    }
+  },
+  "Pierrefonds-Roxboro": {
+    "walkScore": 26,
+    "transitScore": 40,
+    "bikeScore": 33,
+    "accessibilityScore": 32,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 57,
+      "parks": 256,
+      "transit": 0,
+      "healthcare": 1,
+      "entertainment": 0
+    }
+  },
+  "Unknown": {
+    "walkScore": 30,
+    "transitScore": 40,
+    "bikeScore": 37,
+    "accessibilityScore": 35,
+    "description": "Car-Dependent - Most errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 55,
+      "parks": 86,
+      "transit": 0,
+      "healthcare": 7,
+      "entertainment": 0
+    }
+  },
+  "L'Île-Bizard–Sainte-Geneviève": {
+    "walkScore": 24,
+    "transitScore": 40,
+    "bikeScore": 31,
+    "accessibilityScore": 31,
+    "description": "Car-Dependent - Almost all errands require a car",
+    "amenityCounts": {
+      "restaurants": 0,
+      "shops": 0,
+      "cafes": 0,
+      "schools": 7,
+      "parks": 72,
+      "transit": 0,
+      "healthcare": 0,
+      "entertainment": 0
+    }
+  }
+}

@@ -4,8 +4,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
 import "./PremiumEffects.css";
-import ProfessionalHeader from "./ProfessionalHeader";
-import MontrealSvg from "./MontrealSvg";
+import { getNeighborhoodScores } from "../utils/walkabilityScores";
+import enhancedWalkScores from "../data/enhancedWalkScores.json";
+import WalkabilityScoresBadge from "./WalkabilityScoresBadge";
 
 // Neighborhood name abbreviations mapping
 const neighborhoodAbbreviations = {
@@ -64,6 +65,16 @@ const getAbbreviatedName = (fullName) => {
 const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const [map, setMap] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(14);
+
+  // Get walkability scores for the neighborhood
+  const neighborhoodName =
+    neighborhoodInfo?.name ||
+    neighborhoodGeoJSON?.features?.[0]?.properties?.name ||
+    neighborhoodGeoJSON?.features?.[0]?.properties?.nom_arr;
+  const walkabilityScores = getNeighborhoodScores(neighborhoodName);
+
+  // Get enhanced scores (transit and bike details)
+  const enhancedScores = enhancedWalkScores[neighborhoodName] || null;
 
   // Calculate area of a polygon using shoelace formula
   const calculatePolygonArea = (coords) => {
@@ -356,7 +367,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
             backgroundColor: "rgba(255, 255, 255, 0.95)",
             borderRadius: "8px",
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            minWidth: "250px",
+            width: "320px",
+            maxWidth: "calc(100vw - 40px)",
           }}
         >
           <h3
@@ -386,6 +398,12 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               {neighborhoodInfo.averagePrice}
             </p>
           )}
+
+          {/* Walkability Scores Section */}
+          <WalkabilityScoresBadge
+            walkabilityScores={walkabilityScores}
+            enhancedScores={enhancedScores}
+          />
         </div>
       )}
 
@@ -397,7 +415,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           maxZoom={18}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={true}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
           doubleClickZoom={true}
           touchZoom={true}
           boxZoom={true}

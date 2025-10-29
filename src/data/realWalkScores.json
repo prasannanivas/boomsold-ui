@@ -1,0 +1,512 @@
+{
+  "Ahuntsic-Cartierville": {
+    "walkScore": 79,
+    "transitScore": 67,
+    "bikeScore": 71,
+    "accessibilityScore": 76,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 79,
+      "updated": "2025-09-08 11:40:38.134882",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Ahuntsic.dash.Cartierville-Montreal-QC/lat=45.5578/lng=-73.7041/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Anjou": {
+    "walkScore": 71,
+    "transitScore": 60,
+    "bikeScore": 63,
+    "accessibilityScore": 68,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 71,
+      "updated": "2025-04-22 18:17:32.918402",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Anjou-Montreal-QC/lat=45.6139/lng=-73.5611/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Baie-D'Urfé": {
+    "walkScore": 58,
+    "transitScore": 49,
+    "bikeScore": 52,
+    "accessibilityScore": 56,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 58,
+      "updated": "2025-10-10 13:10:44.372717",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Baie.dash.D%27Urf%C3%A9-QC/lat=45.4167/lng=-73.9167/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Beaconsfield": {
+    "walkScore": 63,
+    "transitScore": 53,
+    "bikeScore": 56,
+    "accessibilityScore": 61,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 63,
+      "updated": "2025-09-16 11:45:27.953615",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Beaconsfield-QC/lat=45.4333/lng=-73.8667/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Côte-des-Neiges-Notre-Dame-de-Grâce": {
+    "walkScore": 96,
+    "transitScore": 81,
+    "bikeScore": 86,
+    "accessibilityScore": 93,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 96,
+      "updated": "2023-08-25 21:00:57.447092",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/C%C3%B4te.dash.des.dash.Neiges-Montreal-QC/lat=45.4789/lng=-73.6239/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Côte-Saint-Luc": {
+    "walkScore": 75,
+    "transitScore": 63,
+    "bikeScore": 67,
+    "accessibilityScore": 72,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 75,
+      "updated": "2023-08-25 21:04:56.187512",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/C%C3%B4te.dash.Saint.dash.Luc-QC/lat=45.4667/lng=-73.6667/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Dollard-Des Ormeaux": {
+    "walkScore": 82,
+    "transitScore": 69,
+    "bikeScore": 73,
+    "accessibilityScore": 79,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 82,
+      "updated": "2025-04-06 17:00:39.333738",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Dollard.dash.Des-Ormeaux-QC/lat=45.4833/lng=-73.8/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Dorval": {
+    "walkScore": 54,
+    "transitScore": 45,
+    "bikeScore": 48,
+    "accessibilityScore": 52,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 54,
+      "updated": "2025-09-07 11:05:08.857014",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Dorval-QC/lat=45.45/lng=-73.75/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Hampstead": {
+    "walkScore": 96,
+    "transitScore": 81,
+    "bikeScore": 86,
+    "accessibilityScore": 93,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 96,
+      "updated": "2023-08-25 20:58:07.959429",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Hampstead-QC/lat=45.4833/lng=-73.6333/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Kirkland": {
+    "walkScore": 56,
+    "transitScore": 47,
+    "bikeScore": 50,
+    "accessibilityScore": 54,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 56,
+      "updated": "2025-09-14 07:00:39.724718",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Kirkland-QC/lat=45.45/lng=-73.8667/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Lachine": {
+    "walkScore": 82,
+    "transitScore": 69,
+    "bikeScore": 73,
+    "accessibilityScore": 79,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 82,
+      "updated": "2023-08-25 21:04:36.768141",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Lachine-Montreal-QC/lat=45.4333/lng=-73.6667/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "LaSalle": {
+    "walkScore": 65,
+    "transitScore": 55,
+    "bikeScore": 58,
+    "accessibilityScore": 63,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 65,
+      "updated": "2023-08-25 20:46:50.933153",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/LaSalle-Montreal-QC/lat=45.4167/lng=-73.6333/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Le Plateau-Mont-Royal": {
+    "walkScore": 99,
+    "transitScore": 84,
+    "bikeScore": 89,
+    "accessibilityScore": 96,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 99,
+      "updated": "2025-08-25 02:23:11.992895",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Plateau-Mont.dash.Royal-Montreal-QC/lat=45.5289/lng=-73.5764/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Le Sud-Ouest": {
+    "walkScore": 88,
+    "transitScore": 74,
+    "bikeScore": 79,
+    "accessibilityScore": 85,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 88,
+      "updated": "2023-08-25 20:59:53.511445",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Le-Sud.dash.Ouest-Montreal-QC/lat=45.4667/lng=-73.5833/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "L'Île-Bizard-Sainte-Geneviève": {
+    "walkScore": 1,
+    "transitScore": 0,
+    "bikeScore": 0,
+    "accessibilityScore": 0,
+    "description": "Car-Dependent",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 1,
+      "updated": "2022-12-08 01:17:27.621320",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/L%27%C3%8Ele.dash.Bizard-Montreal-QC/lat=45.5/lng=-73.9/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Mercier-Hochelaga-Maisonneuve": {
+    "walkScore": 90,
+    "transitScore": 76,
+    "bikeScore": 81,
+    "accessibilityScore": 87,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 90,
+      "updated": "2025-10-28 21:26:00.279204",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Mercier.dash.Hochelaga.dash.Maisonneuve-Montreal-QC/lat=45.5889/lng=-73.5411/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Montréal-Est": {
+    "walkScore": 78,
+    "transitScore": 66,
+    "bikeScore": 70,
+    "accessibilityScore": 75,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 78,
+      "updated": "2025-08-27 21:15:12.615495",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Montr%C3%A9al.dash.Est-QC/lat=45.6333/lng=-73.5/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Mont-Royal": {
+    "walkScore": 87,
+    "transitScore": 73,
+    "bikeScore": 78,
+    "accessibilityScore": 84,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 87,
+      "updated": "2025-09-03 00:21:25.839283",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Mont.dash.Royal-QC/lat=45.5167/lng=-73.6333/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Montréal-Nord": {
+    "walkScore": 80,
+    "transitScore": 68,
+    "bikeScore": 72,
+    "accessibilityScore": 77,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 80,
+      "updated": "2025-10-01 00:03:30.934037",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Montr%C3%A9al.dash.Nord-Montreal-QC/lat=45.6089/lng=-73.6289/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Montreal West": {
+    "walkScore": 83,
+    "transitScore": 70,
+    "bikeScore": 74,
+    "accessibilityScore": 80,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 83,
+      "updated": "2023-08-25 21:23:18.176038",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Montreal-West-QC/lat=45.4667/lng=-73.65/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Outremont": {
+    "walkScore": 98,
+    "transitScore": 83,
+    "bikeScore": 88,
+    "accessibilityScore": 95,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 98,
+      "updated": "2025-09-04 22:22:02.384930",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Outremont-Montreal-QC/lat=45.5189/lng=-73.6078/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Pointe-Claire": {
+    "walkScore": 81,
+    "transitScore": 68,
+    "bikeScore": 72,
+    "accessibilityScore": 78,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 81,
+      "updated": "2025-09-15 22:36:11.240993",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Pointe.dash.Claire-QC/lat=45.45/lng=-73.8167/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Pierrefonds-Roxboro": {
+    "walkScore": 74,
+    "transitScore": 62,
+    "bikeScore": 66,
+    "accessibilityScore": 71,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 74,
+      "updated": "2025-09-14 11:18:13.660412",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Pierrefonds.dash.Roxboro-Montreal-QC/lat=45.4833/lng=-73.85/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Rivière-des-Prairies-Pointe-aux-Trembles": {
+    "walkScore": 20,
+    "transitScore": 17,
+    "bikeScore": 18,
+    "accessibilityScore": 19,
+    "description": "Car-Dependent",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 20,
+      "updated": "2025-09-05 01:25:18.842686",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Rivi%C3%A8re.dash.des.dash.Prairies-Montreal-QC/lat=45.6589/lng=-73.5439/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Rosemont-La Petite-Patrie": {
+    "walkScore": 94,
+    "transitScore": 79,
+    "bikeScore": 84,
+    "accessibilityScore": 91,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 94,
+      "updated": "2025-09-08 04:09:06.456297",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Rosemont-Montreal-QC/lat=45.5489/lng=-73.5989/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Saint-Laurent": {
+    "walkScore": 96,
+    "transitScore": 81,
+    "bikeScore": 86,
+    "accessibilityScore": 93,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 96,
+      "updated": "2025-09-16 18:39:50.999614",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Saint.dash.Laurent-Montreal-QC/lat=45.5167/lng=-73.6833/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Montréal (Saint-Laurent)": {
+    "walkScore": 96,
+    "transitScore": 81,
+    "bikeScore": 86,
+    "accessibilityScore": 93,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 96,
+      "updated": "2025-09-16 18:39:50.999614",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Saint.dash.Laurent-Montreal-QC/lat=45.5167/lng=-73.6833/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Saint-Léonard": {
+    "walkScore": 74,
+    "transitScore": 62,
+    "bikeScore": 66,
+    "accessibilityScore": 71,
+    "description": "Very Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 74,
+      "updated": "2025-09-11 13:37:42.976573",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Saint.dash.L%C3%A9onard-Montreal-QC/lat=45.5889/lng=-73.5989/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Sainte-Anne-de-Bellevue": {
+    "walkScore": 0,
+    "transitScore": 0,
+    "bikeScore": 0,
+    "accessibilityScore": 0,
+    "description": "Car-Dependent",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 0,
+      "updated": "2022-12-07 22:51:06.636093",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Sainte.dash.Anne.dash.de.dash.Bellevue-QC/lat=45.4/lng=-73.95/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Senneville": {
+    "walkScore": 4,
+    "transitScore": 3,
+    "bikeScore": 3,
+    "accessibilityScore": 3,
+    "description": "Car-Dependent",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 4,
+      "updated": "2019-11-19 12:41:22.840560",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Senneville-QC/lat=45.4167/lng=-73.9333/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Verdun": {
+    "walkScore": 95,
+    "transitScore": 80,
+    "bikeScore": 85,
+    "accessibilityScore": 92,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 95,
+      "updated": "2023-08-25 21:20:13.309926",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Verdun-Montreal-QC/lat=45.4578/lng=-73.5678/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Ville-Marie": {
+    "walkScore": 100,
+    "transitScore": 85,
+    "bikeScore": 90,
+    "accessibilityScore": 97,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 100,
+      "updated": "2025-08-30 15:09:46.188678",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Downtown-Montreal-QC/lat=45.5089/lng=-73.5617/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Villeray-Saint-Michel-Parc-Extension": {
+    "walkScore": 54,
+    "transitScore": 45,
+    "bikeScore": 48,
+    "accessibilityScore": 52,
+    "description": "Somewhat Walkable",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 54,
+      "updated": "2023-02-15 20:40:22.985963",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Villeray-Montreal-QC/lat=45.5589/lng=-73.6189/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  },
+  "Westmount": {
+    "walkScore": 92,
+    "transitScore": 78,
+    "bikeScore": 82,
+    "accessibilityScore": 89,
+    "description": "Walker's Paradise",
+    "apiResponse": {
+      "status": 1,
+      "walkscore": 92,
+      "updated": "2023-08-25 21:13:23.188621",
+      "logo_url": "https://cdn.walk.sc/images/api-logo.png",
+      "more_info_icon": "https://cdn.walk.sc/images/api-more-info.gif",
+      "ws_link": "https://www.walkscore.com/score/Westmount-QC/lat=45.4833/lng=-73.6/?utm_source=veridianml.com&utm_medium=ws_api&utm_campaign=ws_api"
+    }
+  }
+}
