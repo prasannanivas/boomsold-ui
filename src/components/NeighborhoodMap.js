@@ -7,6 +7,7 @@ import "./PremiumEffects.css";
 import { getNeighborhoodScores } from "../utils/walkabilityScores";
 import enhancedWalkScores from "../data/enhancedWalkScores.json";
 import WalkabilityScoresBadge from "./WalkabilityScoresBadge";
+import NeighborhoodFooter from "./NeighborhoodFooter";
 
 // Neighborhood name abbreviations mapping
 const neighborhoodAbbreviations = {
@@ -324,7 +325,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   }
 
   return (
-    <div className="montreal-map-container">
+    <div
+      className="montreal-map-container"
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       {/* Back Button */}
       {onBack && (
         <button
@@ -407,7 +411,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         </div>
       )}
 
-      <div className="custom-montreal-map" style={{ background: "" }}>
+      <div
+        className="custom-montreal-map"
+        style={{ background: "", height: "100vh", flexShrink: 0 }}
+      >
         <MapContainer
           center={center}
           zoom={maxZoom || 14}
@@ -448,6 +455,9 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           />
         </MapContainer>
       </div>
+
+      {/* Footer Section */}
+      <NeighborhoodFooter neighborhoodName={neighborhoodName} />
     </div>
   );
 };

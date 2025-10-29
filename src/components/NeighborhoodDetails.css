@@ -40,7 +40,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  font-family: 'Nunito', sans-serif;
   position: relative;
   overflow-y: auto;
 }
@@ -118,7 +118,7 @@
     0 0 20px rgba(255, 215, 0, 0.6),
     1px 1px 2px rgba(0, 0, 0, 0.3);
   position: relative;
-  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 @keyframes titleGlow {
@@ -271,7 +271,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 
-  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  font-family: 'Nunito', sans-serif;
   position: relative;
   z-index: 1;
 }
@@ -422,14 +422,14 @@
   letter-spacing: 1.5px;
   margin-bottom: 0.6rem;
 
-  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .detail-value {
   font-size: 1.6rem;
   font-weight: 900;
   color: #4d4504;
-  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .detail-value.price {
