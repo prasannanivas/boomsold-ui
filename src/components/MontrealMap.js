@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import {
-  MapContainer,
-  GeoJSON,
-  Marker,
-  Popup,
-  TileLayer,
-  useMap,
-} from "react-leaflet";
+import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import simplify from "simplify-js";
 import "leaflet/dist/leaflet.css";
@@ -41,6 +34,47 @@ function isPointInPolygon(point, vs) {
     if (intersect) inside = !inside;
   }
   return inside;
+}
+
+// Calculate geographic area from GeoJSON coordinates using Shoelace formula
+function calculatePolygonArea(coordinates) {
+  // coordinates is an array of [lng, lat] pairs
+  if (!coordinates || coordinates.length < 3) return 0;
+
+  let area = 0;
+  for (let i = 0; i < coordinates.length - 1; i++) {
+    const [x1, y1] = coordinates[i];
+    const [x2, y2] = coordinates[i + 1];
+    area += x1 * y2 - x2 * y1;
+  }
+  area = Math.abs(area) / 2;
+
+  // Convert to approximate km² (rough approximation for Montreal lat/lng)
+  // At Montreal's latitude (~45°), 1 degree ≈ 78.8 km (longitude) and 111.2 km (latitude)
+  const kmPerDegreeLat = 111.2;
+  const kmPerDegreeLng = 78.8;
+  area = area * kmPerDegreeLat * kmPerDegreeLng;
+
+  return area;
+}
+
+// Calculate total area for a feature (handles Polygon and MultiPolygon)
+function calculateFeatureArea(geometry) {
+  if (!geometry || !geometry.coordinates) return 0;
+
+  let totalArea = 0;
+
+  if (geometry.type === "Polygon") {
+    // For Polygon, use the outer ring (first array)
+    totalArea = calculatePolygonArea(geometry.coordinates[0]);
+  } else if (geometry.type === "MultiPolygon") {
+    // For MultiPolygon, sum all polygon areas
+    geometry.coordinates.forEach((polygon) => {
+      totalArea += calculatePolygonArea(polygon[0]);
+    });
+  }
+
+  return totalArea;
 }
 
 // Professional Header Component
@@ -448,6 +482,10 @@ const MontrealMap = ({
             const partDirection = feature.properties.part; // Get the part (East, West, South, North)
             const areaData = neighborhoodMapping[boroughName];
 
+            // Calculate geographic area from geometry
+            const areaInKm2 = calculateFeatureArea(feature.geometry);
+            feature.properties.area = `${areaInKm2.toFixed(1)} km²`;
+
             if (areaData) {
               feature.properties.color = areaData.color;
               feature.properties.value = areaData.initials;
@@ -459,6 +497,8 @@ const MontrealMap = ({
               feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
                 1
               );
+              feature.properties.pricePerSqft =
+                Math.floor(Math.random() * 200) + 300; // Store as consistent value
               feature.properties.name = boroughName;
               feature.properties.neighborhood = neighborhoodName;
               feature.properties.rawSingleFamily = areaData.rawSingleFamily;
@@ -480,6 +520,8 @@ const MontrealMap = ({
               feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
                 1
               );
+              feature.properties.pricePerSqft =
+                Math.floor(Math.random() * 200) + 300; // Store as consistent value
               feature.properties.name =
                 boroughName || neighborhoodName || "Unknown Area";
               feature.properties.neighborhood =
@@ -598,6 +640,10 @@ const MontrealMap = ({
           const partDirection = feature.properties.part; // Get the part (East, West, South, North)
           const areaData = neighborhoodMapping[boroughName];
 
+          // Calculate geographic area from geometry
+          const areaInKm2 = calculateFeatureArea(feature.geometry);
+          feature.properties.area = `${areaInKm2.toFixed(1)} km²`;
+
           if (areaData) {
             feature.properties.color = areaData.color;
             feature.properties.value = areaData.initials;
@@ -609,6 +655,8 @@ const MontrealMap = ({
             feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
               1
             );
+            feature.properties.pricePerSqft =
+              Math.floor(Math.random() * 200) + 300; // Store as consistent value
             feature.properties.name = boroughName;
             feature.properties.neighborhood = neighborhoodName;
             feature.properties.rawSingleFamily = areaData.rawSingleFamily;
@@ -630,6 +678,8 @@ const MontrealMap = ({
             feature.properties.priceChange = (Math.random() * 15 + 5).toFixed(
               1
             );
+            feature.properties.pricePerSqft =
+              Math.floor(Math.random() * 200) + 300; // Store as consistent value
             feature.properties.name =
               boroughName || neighborhoodName || "Unknown Area";
             feature.properties.neighborhood =
@@ -641,9 +691,7 @@ const MontrealMap = ({
           feature.properties.type = "neighborhood";
           feature.properties.municipality =
             feature.properties.nom_mun || "Montréal";
-        });
-
-        // Unified appearance metadata
+        }); // Unified appearance metadata
         const processedData = {
           ...filteredGeoJsonData,
           features: filteredGeoJsonData.features.map((feature) => {
@@ -1030,8 +1078,9 @@ const MontrealMap = ({
             // Additional Statistics
             dwellingCount: feature.properties.nb_log,
             listingCount: feature.properties.listingCount,
-            pricePerSqft: `$${Math.floor(Math.random() * 200) + 300}/sq ft`,
+            pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
             marketTrend: `↗ +${feature.properties.priceChange}%`,
+            area: feature.properties.area, // Geographic area in km²
 
             // Raw Data (for debugging/complete info)
             rawProperties: {
@@ -1164,8 +1213,9 @@ const MontrealMap = ({
             condoPrice: feature.properties.condoPrice,
             dwellingCount: feature.properties.nb_log,
             listingCount: feature.properties.listingCount,
-            pricePerSqft: `$${Math.floor(Math.random() * 200) + 300}/sq ft`,
+            pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
             marketTrend: `↗ +${feature.properties.priceChange}%`,
+            area: feature.properties.area, // Geographic area in km²
             rawProperties: {
               no_qr: feature.properties.no_qr,
               nom_qr: feature.properties.nom_qr,
@@ -1187,6 +1237,51 @@ const MontrealMap = ({
     });
   };
 
+  // Get part-specific center and zoom - Responsive based on screen size
+  const getPartConfig = useCallback(() => {
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+
+    // Adjust zoom based on screen size
+    const zoomAdjustment = isMobile ? -0.5 : isTablet ? -0.3 : 0;
+
+    const partConfigs = {
+      North: { center: [45.58, -73.48], zoom: 11.5 + zoomAdjustment },
+      South: { center: [45.52, -73.55], zoom: 11.5 + zoomAdjustment },
+      East: { center: [45.54, -73.45], zoom: 12 + zoomAdjustment },
+      West: { center: [45.58, -73.85], zoom: 12 + zoomAdjustment },
+    };
+
+    if (selectedPart && partConfigs[selectedPart]) {
+      return partConfigs[selectedPart];
+    }
+
+    // Default: full Montreal view
+    return { center: [45.56, -73.62], zoom: 10.8 + zoomAdjustment };
+  }, [selectedPart]);
+
+  const { center, zoom } = getPartConfig();
+
+  const placeTypeLabel =
+    (selectedPlace &&
+      { park: "Park", school: "School", hospital: "Hospital" }[
+        selectedPlace.type
+      ]) ||
+    "Place";
+
+  // Add resize listener for responsive behavior
+  useEffect(() => {
+    if (!map) return;
+
+    const handleResize = () => {
+      const { center, zoom } = getPartConfig();
+      map.setView(center, zoom, { animate: false });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [map, getPartConfig]);
+
   if (!montrealData) {
     return (
       <div className="custom-montreal-map">
@@ -1205,32 +1300,6 @@ const MontrealMap = ({
       </div>
     );
   }
-
-  // Get part-specific center and zoom
-  const getPartConfig = () => {
-    const partConfigs = {
-      North: { center: [45.58, -73.48], zoom: 11.5 },
-      South: { center: [45.48, -73.55], zoom: 11.5 },
-      East: { center: [45.54, -73.45], zoom: 12 },
-      West: { center: [45.58, -73.85], zoom: 12 },
-    };
-
-    if (selectedPart && partConfigs[selectedPart]) {
-      return partConfigs[selectedPart];
-    }
-
-    // Default: full Montreal view
-    return { center: [45.56, -73.62], zoom: 10.8 };
-  };
-
-  const { center, zoom } = getPartConfig();
-
-  const placeTypeLabel =
-    (selectedPlace &&
-      { park: "Park", school: "School", hospital: "Hospital" }[
-        selectedPlace.type
-      ]) ||
-    "Place";
 
   return (
     <div className="montreal-map-container">
@@ -1271,7 +1340,10 @@ const MontrealMap = ({
         </button>
       )}
 
-      <div className="custom-montreal-map" style={{ background: "" }}>
+      <div
+        className="custom-montreal-map"
+        style={{ background: "transparent" }}
+      >
         <h2 className="selected-part-label">
           {selectedPart && `${selectedPart} Montreal`}
         </h2>
@@ -1283,7 +1355,7 @@ const MontrealMap = ({
           maxZoom={22}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={true}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
           doubleClickZoom={true}
           touchZoom={true}
           boxZoom={true}
@@ -1294,6 +1366,16 @@ const MontrealMap = ({
           attributionControl={false}
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
+
+            // Remove any default tile layers
+            mapInstance.eachLayer((layer) => {
+              if (layer instanceof L.TileLayer) {
+                mapInstance.removeLayer(layer);
+              }
+            });
+
+            // Disable scroll wheel zoom but keep touch zoom (pinch)
+            mapInstance.scrollWheelZoom.disable();
 
             // Log center and zoom on zoom change
             mapInstance.on("zoomend", () => {

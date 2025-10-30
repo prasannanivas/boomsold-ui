@@ -3,6 +3,7 @@ import { MapContainer, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
+import "./NeighborhoodMap.css";
 import "./PremiumEffects.css";
 import { getNeighborhoodScores } from "../utils/walkabilityScores";
 import enhancedWalkScores from "../data/enhancedWalkScores.json";
@@ -66,6 +67,15 @@ const getAbbreviatedName = (fullName) => {
 const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const [map, setMap] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(14);
+  const [selectedPOICategory, setSelectedPOICategory] = useState(null);
+  const [hoveredPOI, setHoveredPOI] = useState(null);
+  const [poiCategories, setPOICategories] = useState({
+    parks: [],
+    schools: [],
+    hospitals: [],
+    restaurants: [],
+    sports: [],
+  });
 
   // Get walkability scores for the neighborhood
   const neighborhoodName =
@@ -77,7 +87,118 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   // Get enhanced scores (transit and bike details)
   const enhancedScores = enhancedWalkScores[neighborhoodName] || null;
 
-  // Calculate area of a polygon using shoelace formula
+  // Load POI data and filter by neighborhood bounds
+  useEffect(() => {
+    const loadPOIs = async () => {
+      try {
+        const [
+          parksDataRaw,
+          schoolsDataRaw,
+          hospitalsDataRaw,
+          sportsDataRaw,
+          restaurantDataRaw,
+        ] = await Promise.all([
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_parks.json").then(
+            (res) => res.json()
+          ),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_schools.json").then(
+            (res) => res.json()
+          ),
+          fetch(
+            process.env.PUBLIC_URL + "/assets/montreal_hospitals.json"
+          ).then((res) => res.json()),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_sports.json").then(
+            (res) => res.json()
+          ),
+          fetch(
+            process.env.PUBLIC_URL + "/assets/montreal_restaurants.json"
+          ).then((res) => res.json()),
+        ]);
+
+        // Get neighborhood bounds
+        if (
+          !neighborhoodGeoJSON ||
+          !neighborhoodGeoJSON.features ||
+          !neighborhoodGeoJSON.features.length
+        ) {
+          return;
+        }
+
+        const feature = neighborhoodGeoJSON.features[0];
+        let allCoords = [];
+
+        if (feature.geometry.type === "MultiPolygon") {
+          feature.geometry.coordinates.forEach((poly) => {
+            poly.forEach((ring) => {
+              allCoords = allCoords.concat(ring);
+            });
+          });
+        } else if (feature.geometry.type === "Polygon") {
+          feature.geometry.coordinates.forEach((ring) => {
+            allCoords = allCoords.concat(ring);
+          });
+        }
+
+        // Helper function to check if point is in neighborhood
+        const isPointInNeighborhood = (lat, lon) => {
+          // Simple bounding box check for now
+          const lats = allCoords.map((c) => c[1]);
+          const lngs = allCoords.map((c) => c[0]);
+          const minLat = Math.min(...lats);
+          const maxLat = Math.max(...lats);
+          const minLng = Math.min(...lngs);
+          const maxLng = Math.max(...lngs);
+
+          return (
+            lat >= minLat && lat <= maxLat && lon >= minLng && lon <= maxLng
+          );
+        };
+
+        // Filter POIs by neighborhood bounds
+        const parks = (parksDataRaw.elements || []).filter((poi) =>
+          isPointInNeighborhood(poi.lat, poi.lon)
+        );
+
+        const schools = (schoolsDataRaw.elements || []).filter((poi) =>
+          isPointInNeighborhood(poi.lat, poi.lon)
+        );
+
+        const hospitals = (hospitalsDataRaw.elements || []).filter((poi) =>
+          isPointInNeighborhood(poi.lat, poi.lon)
+        );
+
+        const restaurants = (restaurantDataRaw.elements || []).filter((poi) =>
+          isPointInNeighborhood(poi.lat, poi.lon)
+        );
+
+        const sports = (sportsDataRaw.elements || []).filter((poi) =>
+          isPointInNeighborhood(poi.lat, poi.lon)
+        );
+
+        setPOICategories({
+          parks,
+          schools,
+          hospitals,
+          restaurants,
+          sports,
+        });
+
+        console.log("POIs loaded for neighborhood:", {
+          parks: parks.length,
+          schools: schools.length,
+          hospitals: hospitals.length,
+          restaurants: restaurants.length,
+          sports: sports.length,
+        });
+      } catch (error) {
+        console.error("Error loading POIs:", error);
+      }
+    };
+
+    loadPOIs();
+  }, [neighborhoodGeoJSON]);
+
+  // Calculate area of a polygon using shoelace formula and convert to km²
   const calculatePolygonArea = (coords) => {
     let area = 0;
     const n = coords.length;
@@ -86,37 +207,43 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
       area += coords[i][0] * coords[j][1];
       area -= coords[j][0] * coords[i][1];
     }
-    return Math.abs(area / 2);
+    area = Math.abs(area / 2);
+
+    // Convert to approximate km² (rough approximation for Montreal lat/lng)
+    // At Montreal's latitude (~45°), 1 degree ≈ 78.8 km (longitude) and 111.2 km (latitude)
+    const kmPerDegreeLat = 111.2;
+    const kmPerDegreeLng = 78.8;
+    area = area * kmPerDegreeLat * kmPerDegreeLng;
+
+    return area;
   };
 
-  // Calculate total area of the neighborhood
+  // Calculate total area of the neighborhood in km²
   const calculateNeighborhoodArea = (feature) => {
     let totalArea = 0;
 
     if (feature.geometry.type === "MultiPolygon") {
       feature.geometry.coordinates.forEach((poly) => {
-        poly.forEach((ring) => {
-          totalArea += calculatePolygonArea(ring);
-        });
+        // Only use the outer ring (first array) for each polygon
+        totalArea += calculatePolygonArea(poly[0]);
       });
     } else if (feature.geometry.type === "Polygon") {
-      feature.geometry.coordinates.forEach((ring) => {
-        totalArea += calculatePolygonArea(ring);
-      });
+      // Only use the outer ring (first array)
+      totalArea += calculatePolygonArea(feature.geometry.coordinates[0]);
     }
 
     return totalArea;
   };
 
-  // Calculate appropriate zoom level based on area
+  // Calculate appropriate zoom level based on area (in km²)
   const calculateZoomLevel = (area) => {
-    // Area thresholds (in square degrees, approximate)
+    // Area thresholds (in km²)
     // These values are tuned for Montreal neighborhoods
-    if (area > 0.05) return 10; // Very large (RDP, Île-Bizard)
-    if (area > 0.03) return 11; // Large (St-Laurent, Ahuntsic)
-    if (area > 0.015) return 12; // Medium-large
-    if (area > 0.008) return 13; // Medium
-    if (area > 0.004) return 13; // Small
+    if (area > 50) return 10; // Very large (RDP, Île-Bizard)
+    if (area > 40) return 11; // Large (St-Laurent, Ahuntsic)
+    if (area > 30) return 12; // Medium-large
+    if (area > 20) return 13; // Medium
+    if (area > 10) return 13; // Small
     return 13; // Very small (Westmount, Hampstead)
   };
 
@@ -167,8 +294,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
     console.log(
       `Neighborhood: ${feature.properties.name}, Area: ${area.toFixed(
-        6
-      )}, Max Zoom: ${maxZoom}`
+        1
+      )} km², Max Zoom: ${maxZoom}`
     );
 
     return { center: [centerLat, centerLng], bounds, maxZoom };
@@ -308,156 +435,459 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   if (!neighborhoodGeoJSON) {
     return (
       <div className="custom-montreal-map">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            fontSize: "18px",
-            color: "#2d3436",
-          }}
-        >
-          Loading Neighborhood...
-        </div>
+        <div className="neighborhood-loading">Loading Neighborhood...</div>
       </div>
     );
   }
 
-  return (
-    <div
-      className="montreal-map-container"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
-      {/* Back Button */}
-      {onBack && (
-        <button
-          onClick={onBack}
-          style={{
-            position: "fixed",
-            top: "10%",
-            left: "5%",
-            zIndex: 1000,
-            padding: "12px 24px",
-            backgroundColor: "#FFD700",
-            color: "#000000ff",
-            border: "2px solid #2a2924ff",
-            borderRadius: "8px",
-            fontSize: "16px",
-            fontWeight: 900,
-            cursor: "pointer",
+  // POI Category Panel Component
+  const POICategoryPanel = () => {
+    const categories = [
+      {
+        id: "parks",
+        name: "Parks",
+        icon: "🌳",
+        color: "#4CAF50",
+        count: poiCategories.parks.length,
+      },
+      {
+        id: "schools",
+        name: "Schools",
+        icon: "🎓",
+        color: "#2196F3",
+        count: poiCategories.schools.length,
+      },
+      {
+        id: "hospitals",
+        name: "Hospitals",
+        icon: "🏥",
+        color: "#F44336",
+        count: poiCategories.hospitals.length,
+      },
+      {
+        id: "restaurants",
+        name: "Restaurants",
+        icon: "🍽️",
+        color: "#FF9800",
+        count: poiCategories.restaurants.length,
+      },
+      {
+        id: "sports",
+        name: "Sports",
+        icon: "🏟️",
+        color: "#9C27B0",
+        count: poiCategories.sports.length,
+      },
+    ];
 
-            transition: "all 0.2s ease",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontFamily: "'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
-          }}
-        >
-          <span style={{ fontSize: "20px" }}>←</span>
-          <span>Back to All Neighborhoods</span>
-        </button>
-      )}
-
-      {/* Neighborhood Info Badge */}
-      {neighborhoodInfo && (
-        <div
-          style={{
-            position: "fixed",
-            top: 20,
-            right: 20,
-            zIndex: 1000,
-            padding: "16px 24px",
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            borderRadius: "8px",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            width: "320px",
-            maxWidth: "calc(100vw - 40px)",
-          }}
-        >
-          <h3
-            style={{
-              margin: "0 0 8px 0",
-              fontSize: "18px",
-              fontWeight: 600,
-              color: "#333",
-            }}
-          >
-            {getAbbreviatedName(neighborhoodInfo.name)}
-          </h3>
-          {neighborhoodInfo.neighborhood && (
-            <p style={{ margin: "4px 0", fontSize: "14px", color: "#666" }}>
-              {neighborhoodInfo.neighborhood}
-            </p>
-          )}
-          {neighborhoodInfo.averagePrice && (
-            <p
+    return (
+      <div>
+        <div className="poi-category-panel">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedPOICategory(
+                  selectedPOICategory === cat.id ? null : cat.id
+                );
+              }}
+              className={`poi-category-button ${
+                selectedPOICategory === cat.id ? "active" : ""
+              }`}
               style={{
-                margin: "8px 0 4px 0",
-                fontSize: "16px",
-                fontWeight: 600,
-                color: "#4ECDC4",
+                backgroundColor:
+                  selectedPOICategory === cat.id ? cat.color : undefined,
+                color: selectedPOICategory === cat.id ? "#fff" : undefined,
               }}
             >
-              {neighborhoodInfo.averagePrice}
-            </p>
-          )}
-
-          {/* Walkability Scores Section */}
-          <WalkabilityScoresBadge
-            walkabilityScores={walkabilityScores}
-            enhancedScores={enhancedScores}
-          />
+              <span className="poi-category-content">
+                <span className="poi-category-icon">{cat.icon}</span>
+                <span>{cat.name}</span>
+              </span>
+              <span className="poi-category-count">{cat.count}</span>
+            </button>
+          ))}
         </div>
-      )}
-
-      <div
-        className="custom-montreal-map"
-        style={{ background: "", height: "100vh", flexShrink: 0 }}
-      >
-        <MapContainer
-          center={center}
-          zoom={maxZoom || 14}
-          minZoom={11}
-          maxZoom={18}
-          style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={true}
-          scrollWheelZoom={false}
-          doubleClickZoom={true}
-          touchZoom={true}
-          boxZoom={true}
-          keyboard={true}
-          zoomAnimation={true}
-          fadeAnimation={true}
-          markerZoomAnimation={true}
-          attributionControl={false}
-          whenCreated={(mapInstance) => {
-            setMap(mapInstance);
-
-            // Log center and zoom on zoom change
-            mapInstance.on("zoomend", () => {
-              const zoom = mapInstance.getZoom();
-              const center = mapInstance.getCenter();
-              setCurrentZoom(zoom);
-              console.log("📍 Neighborhood Center:", {
-                lat: center.lat.toFixed(6),
-                lng: center.lng.toFixed(6),
-              });
-              console.log("🔍 Zoom:", zoom.toFixed(2));
-            });
-          }}
-        >
-          {/* GeoJSON: Only selected neighborhood */}
-          <GeoJSON
-            data={neighborhoodGeoJSON}
-            style={getNeighborhoodStyle}
-            onEachFeature={onEachFeature}
-          />
-        </MapContainer>
       </div>
+    );
+  };
 
-      {/* Footer Section */}
-      <NeighborhoodFooter neighborhoodName={neighborhoodName} />
+  // POI List Component
+  const POIList = () => {
+    if (!selectedPOICategory) return null;
+
+    const currentPOIs = poiCategories[selectedPOICategory] || [];
+
+    // Filter out unnamed POIs and sort by detail richness
+    const sortedPOIs = currentPOIs
+      .filter((poi) => {
+        const poiName = poi.name || poi.tags?.name || "";
+        return poiName && poiName !== "Unnamed";
+      })
+      .sort((a, b) => {
+        const aName = a.name || a.tags?.name || "";
+        const bName = b.name || b.tags?.name || "";
+
+        // Count details for each POI
+        const aDetails = [
+          aName,
+          a.address,
+          a.cuisine,
+          a.sport,
+          a.phone,
+          a.website,
+          a.openingHours,
+        ].filter(Boolean).length;
+
+        const bDetails = [
+          bName,
+          b.address,
+          b.cuisine,
+          b.sport,
+          b.phone,
+          b.website,
+          b.openingHours,
+        ].filter(Boolean).length;
+
+        // Sort by number of details (descending)
+        if (aDetails !== bDetails) {
+          return bDetails - aDetails;
+        }
+
+        // Otherwise, alphabetically by name
+        return aName.localeCompare(bName);
+      });
+
+    const categoryInfo = {
+      parks: { icon: "🌳", color: "#4CAF50" },
+      schools: { icon: "🎓", color: "#2196F3" },
+      hospitals: { icon: "🏥", color: "#F44336" },
+      restaurants: { icon: "🍽️", color: "#FF9800" },
+      sports: { icon: "🏟️", color: "#9C27B0" },
+    };
+
+    const info = categoryInfo[selectedPOICategory];
+
+    return (
+      <div className="poi-list-container">
+        <div className="poi-list-header">
+          <h3 className="poi-list-title">
+            <span className="poi-list-icon">{info.icon}</span>
+            <span>
+              {selectedPOICategory.charAt(0).toUpperCase() +
+                selectedPOICategory.slice(1)}
+            </span>
+          </h3>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedPOICategory(null);
+            }}
+            className="poi-list-close-button"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="poi-list-grid">
+          {sortedPOIs.slice(0, 50).map((poi, index) => (
+            <div
+              key={`${poi.id}-${index}`}
+              className={`poi-item-card ${
+                hoveredPOI?.id === poi.id ? "hovered" : ""
+              }`}
+              style={{
+                backgroundColor:
+                  hoveredPOI?.id === poi.id ? info.color : undefined,
+                color: hoveredPOI?.id === poi.id ? "#fff" : undefined,
+              }}
+            >
+              <div className="poi-item-name">
+                {poi.name || poi.tags?.name || "Unnamed"}
+              </div>
+              {poi.address && (
+                <div className="poi-item-detail">📍 {poi.address}</div>
+              )}
+              {poi.parkType && (
+                <div className="poi-item-detail">🌳 {poi.parkType}</div>
+              )}
+              {poi.schoolType && (
+                <div className="poi-item-detail">🎓 {poi.schoolType}</div>
+              )}
+              {poi.healthcareType && (
+                <div className="poi-item-detail">🏥 {poi.healthcareType}</div>
+              )}
+              {poi.cuisine && (
+                <div className="poi-item-detail">🍴 {poi.cuisine}</div>
+              )}
+              {poi.sport && (
+                <div className="poi-item-detail">⚽ {poi.sport}</div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {currentPOIs.length > 50 && (
+          <div className="poi-list-footer">
+            Showing first 50 of {currentPOIs.length} items
+          </div>
+        )}
+        {currentPOIs.length === 0 && (
+          <div className="poi-list-empty">
+            No {selectedPOICategory} found in this neighborhood
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="neighborhood-map-container">
+      <div className="neighborhood-map-wrapper">
+        {onBack && (
+          <button onClick={onBack} className="neighborhood-back-button">
+            <span className="neighborhood-back-icon">←</span>
+            <span>Back to All Neighborhoods</span>
+          </button>
+        )}
+
+        <section className="neighborhood-header-section">
+          <div className="neighborhood-header-card">
+            <div className="neighborhood-header-content">
+              <div className="neighborhood-title-group">
+                <h1>
+                  {getAbbreviatedName(
+                    neighborhoodInfo?.name || neighborhoodName
+                  )}
+                </h1>
+                {neighborhoodInfo?.neighborhood && (
+                  <p className="neighborhood-subtitle">
+                    {neighborhoodInfo.neighborhood}
+                  </p>
+                )}
+              </div>
+              {neighborhoodInfo?.averagePrice && (
+                <div className="neighborhood-price-badge">
+                  {neighborhoodInfo.averagePrice}
+                </div>
+              )}
+            </div>
+            <p className="neighborhood-description">
+              Explore the neighborhood outline, mobility scores, and nearby
+              amenities tailored for home hunters.
+            </p>
+          </div>
+        </section>
+
+        <section className="neighborhood-map-section">
+          <div className="neighborhood-map-container-wrapper">
+            <MapContainer
+              center={center}
+              zoom={maxZoom || 14}
+              minZoom={11}
+              maxZoom={18}
+              style={{ height: "60vh", minHeight: "420px", width: "100%" }}
+              zoomControl={true}
+              scrollWheelZoom={false}
+              doubleClickZoom={true}
+              touchZoom={true}
+              boxZoom={true}
+              keyboard={true}
+              zoomAnimation={true}
+              fadeAnimation={true}
+              markerZoomAnimation={true}
+              attributionControl={false}
+              whenCreated={(mapInstance) => {
+                setMap(mapInstance);
+
+                // Log center and zoom on zoom change
+                mapInstance.on("zoomend", () => {
+                  const zoom = mapInstance.getZoom();
+                  const center = mapInstance.getCenter();
+                  setCurrentZoom(zoom);
+                  console.log("📍 Neighborhood Center:", {
+                    lat: center.lat.toFixed(6),
+                    lng: center.lng.toFixed(6),
+                  });
+                  console.log("🔍 Zoom:", zoom.toFixed(2));
+                });
+              }}
+            >
+              {/* GeoJSON: Only selected neighborhood */}
+              <GeoJSON
+                data={neighborhoodGeoJSON}
+                style={getNeighborhoodStyle}
+                onEachFeature={onEachFeature}
+              />
+            </MapContainer>
+          </div>
+        </section>
+
+        {/* Average Prices Section */}
+        {(neighborhoodInfo?.singleFamilyPrice ||
+          neighborhoodInfo?.condoPrice) && (
+          <section className="neighborhood-prices-section">
+            <div className="neighborhood-section-card">
+              <h2 className="neighborhood-section-title">
+                💰 Average Property Prices
+              </h2>
+              <p className="neighborhood-section-description">
+                Get an overview of typical property values in this neighborhood.
+              </p>
+
+              <div
+                style={{
+                  marginTop: "24px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                  gap: "20px",
+                }}
+              >
+                {neighborhoodInfo?.singleFamilyPrice && (
+                  <div
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "16px",
+                      padding: "32px 24px",
+                      textAlign: "center",
+                      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                      border: "3px solid #FFD700",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 30px rgba(255,215,0,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 20px rgba(0,0,0,0.08)";
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "56px",
+                        marginBottom: "16px",
+                      }}
+                    >
+                      🏠
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        color: "#666",
+                        marginBottom: "12px",
+                        fontWeight: "700",
+                        textTransform: "uppercase",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      Average Single Family Home Price
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "36px",
+                        fontWeight: "900",
+                        color: "#2d3436",
+                        textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+                      }}
+                    >
+                      {neighborhoodInfo.singleFamilyPrice}
+                    </div>
+                  </div>
+                )}
+
+                {neighborhoodInfo?.condoPrice && (
+                  <div
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "16px",
+                      padding: "32px 24px",
+                      textAlign: "center",
+                      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                      border: "3px solid #4ECDC4",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 30px rgba(78,205,196,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 20px rgba(0,0,0,0.08)";
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "56px",
+                        marginBottom: "16px",
+                      }}
+                    >
+                      🏢
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        color: "#666",
+                        marginBottom: "12px",
+                        fontWeight: "700",
+                        textTransform: "uppercase",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      Average Condo Price
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "36px",
+                        fontWeight: "900",
+                        color: "#2d3436",
+                        textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+                      }}
+                    >
+                      {neighborhoodInfo.condoPrice}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section className="neighborhood-walkability-section">
+          <div className="neighborhood-section-card">
+            <h2 className="neighborhood-section-title">
+              Walkability & Mobility Scores
+            </h2>
+            <p className="neighborhood-section-description">
+              Scroll through to understand how walkable, bike-friendly, and
+              transit-ready this neighborhood is.
+            </p>
+            <WalkabilityScoresBadge
+              walkabilityScores={walkabilityScores}
+              enhancedScores={enhancedScores}
+            />
+          </div>
+        </section>
+
+        <section className="neighborhood-amenities-section">
+          <div className="neighborhood-section-card">
+            <h2 className="neighborhood-section-title">Amenities Nearby</h2>
+            <p className="neighborhood-section-description">
+              Select a category to see highlighted points of interest within the
+              neighborhood outline.
+            </p>
+            <POICategoryPanel />
+            <POIList />
+          </div>
+        </section>
+
+        {/* <NeighborhoodFooter neighborhoodName={neighborhoodName} /> */}
+      </div>
     </div>
   );
 };

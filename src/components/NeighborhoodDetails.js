@@ -51,6 +51,28 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
         </div>
 
         <div className="details-grid">
+          {/* Real Estate Pricing */}
+          <div className="section pricing-section">
+            {neighborhood.singleFamilyPrice && (
+              <div className="detail-item">
+                <span className="detail-label">
+                  Average Single Family Home Price
+                </span>
+                <span className="detail-value price">
+                  {neighborhood.singleFamilyPrice}
+                </span>
+              </div>
+            )}
+            {neighborhood.condoPrice && (
+              <div className="detail-item">
+                <span className="detail-label">Average Condo Price</span>
+                <span className="detail-value price">
+                  {neighborhood.condoPrice}
+                </span>
+              </div>
+            )}
+          </div>
+
           {/* Amenities Icons */}
           <div className="section amenities-section">
             <div className="amenities-icons">
@@ -85,28 +107,6 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Real Estate Pricing */}
-          <div className="section pricing-section">
-            {neighborhood.singleFamilyPrice && (
-              <div className="detail-item">
-                <span className="detail-label">
-                  Average Single Family Home Price
-                </span>
-                <span className="detail-value price">
-                  {neighborhood.singleFamilyPrice}
-                </span>
-              </div>
-            )}
-            {neighborhood.condoPrice && (
-              <div className="detail-item">
-                <span className="detail-label">Average Condo Price</span>
-                <span className="detail-value price">
-                  {neighborhood.condoPrice}
-                </span>
-              </div>
-            )}
           </div>
 
           {/* Area */}

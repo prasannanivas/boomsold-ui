@@ -68,3 +68,83 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Data Fetching Scripts
+
+The project includes several utility scripts for fetching POI (Points of Interest) and walkability data for Montreal neighborhoods.
+
+### Fetch Sports Arenas and Restaurants
+
+Fetches sports facilities (stadiums, arenas, ice rinks, fitness centers, etc.) and dining establishments (restaurants, cafes, bars, etc.) from OpenStreetMap:
+
+```bash
+node src/scripts/fetchSportsAndRestaurants.js
+```
+
+This will:
+
+- Fetch sports arenas and facilities from OSM Overpass API
+- Fetch restaurants, cafes, bars, and other dining locations
+- Save individual files: `public/assets/montreal_sports.json` and `public/assets/montreal_restaurants.json`
+- Merge data into the main POIs file: `public/assets/montreal_pois.json`
+- Display comprehensive statistics including top cuisines and sports
+
+### Fetch All POIs
+
+Comprehensive POI fetcher that can fetch all types of POIs or specific categories:
+
+```bash
+# Fetch all POI types (sports, restaurants, parks, hospitals, schools)
+node src/scripts/fetchAllPOIs.js
+
+# Fetch only sports facilities
+node src/scripts/fetchAllPOIs.js --type=sports
+
+# Fetch only restaurants
+node src/scripts/fetchAllPOIs.js --type=restaurants
+
+# Other available types: parks, hospitals, schools
+node src/scripts/fetchAllPOIs.js --type=parks
+```
+
+Features:
+
+- Fetches from OpenStreetMap Overpass API
+- Saves category-specific JSON files
+- Merges all data into main POIs file
+- Avoids duplicates
+- Includes comprehensive metadata (address, phone, website, opening hours, etc.)
+- Generates detailed statistics
+
+### Fetch Walk Scores
+
+Fetch real walkability scores from the Walk Score API:
+
+```bash
+# Fetch basic walk scores
+node src/scripts/fetchRealWalkScores.js
+
+# Fetch enhanced scores with transit and bike details
+node src/scripts/fetchEnhancedWalkScores.js
+```
+
+These scripts:
+
+- Fetch real Walk Score, Transit Score, and Bike Score data
+- Calculate accessibility scores
+- Save to `src/data/realWalkScores.json` and `src/data/enhancedWalkScores.json`
+- Update `src/utils/walkabilityScores.js` for use in the app
+- Display top walkable neighborhoods
+
+### Data Files
+
+Generated data files are stored in:
+
+- `public/assets/` - POI JSON files (sports, restaurants, parks, hospitals, schools)
+- `src/data/` - Walk score data
+- `src/utils/` - Utility functions for accessing scores
+
+### API Sources
+
+- **OpenStreetMap Overpass API**: For POI data (free, no key required)
+- **Walk Score API**: For walkability scores (API key: `d9b403ccf5205722332f9548756ba571`)

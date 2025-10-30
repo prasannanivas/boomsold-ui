@@ -1,0 +1,550 @@
+/* NeighborhoodMap.css - BoomSold Neighborhood Detail Page Styles */
+
+/* Main Container */
+.neighborhood-map-container {
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.neighborhood-map-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Back Button */
+.neighborhood-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  color: #000;
+  border: 2px solid #2a2924;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  font-family: 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif;
+  margin-bottom: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.neighborhood-back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #FFC700 0%, #FFD700 100%);
+}
+
+.neighborhood-back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.neighborhood-back-icon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.neighborhood-back-button:hover .neighborhood-back-icon {
+  transform: translateX(-4px);
+}
+
+/* Header Section */
+.neighborhood-header-section {
+  margin-bottom: 24px;
+}
+
+.neighborhood-header-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.neighborhood-header-card:hover {
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.15);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.neighborhood-header-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.neighborhood-title-group h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  background: linear-gradient(135deg, #2a2924 0%, #000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.neighborhood-subtitle {
+  margin: 4px 0 0;
+  color: #555;
+  font-size: 15px;
+}
+
+.neighborhood-price-badge {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #f0fdfc 0%, #ccfbf1 100%);
+  border: 2px solid #5eead4;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #0f766e;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.2);
+  white-space: nowrap;
+}
+
+.neighborhood-description {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Map Section */
+.neighborhood-map-section {
+  margin-bottom: 40px;
+}
+
+.neighborhood-map-container-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
+  background: #fff;
+  border: 3px solid #FFD700;
+  transition: all 0.3s ease;
+}
+
+.neighborhood-map-container-wrapper:hover {
+  box-shadow: 0 30px 60px rgba(255, 215, 0, 0.2);
+}
+
+/* Walkability Section */
+.neighborhood-walkability-section {
+  margin-bottom: 48px;
+}
+
+.neighborhood-section-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.neighborhood-section-card:hover {
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.12);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.neighborhood-section-title {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  position: relative;
+  padding-left: 16px;
+}
+
+.neighborhood-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, #FFD700 0%, #FFC700 100%);
+  border-radius: 2px;
+}
+
+.neighborhood-section-description {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Amenities Section */
+.neighborhood-amenities-section {
+  margin-bottom: 64px;
+}
+
+/* POI Category Panel */
+.poi-category-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.poi-category-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 160px;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.poi-category-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.poi-category-button>* {
+  position: relative;
+  z-index: 1;
+}
+
+.poi-category-button:not(.active) {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  color: #1f2937;
+  border-color: rgba(17, 24, 39, 0.1);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+
+
+
+
+.poi-category-button.active {
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  border-color: rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.poi-category-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poi-category-icon {
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.poi-category-count {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+}
+
+.poi-category-button:not(.active) .poi-category-count {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 199, 0, 0.1) 100%);
+  color: #2a2924;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.poi-category-button.active .poi-category-count {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.poi-category-hint {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  animation: fadeIn 0.3s ease;
+  padding-left: 4px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* POI List */
+.poi-list-container {
+  margin-top: 24px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.poi-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #FFD700 0%, #FFC700 50%, rgba(255, 215, 0, 0.3) 100%) border-box;
+  border-image-slice: 0 0 1 0;
+}
+
+.poi-list-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poi-list-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.poi-list-close-button {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+}
+
+.poi-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+  max-height: 420px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 8px 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #FFD700 #fef3c7;
+}
+
+/* Custom Scrollbar */
+.poi-list-grid::-webkit-scrollbar {
+  width: 10px;
+}
+
+.poi-list-grid::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.poi-list-grid::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FFD700 0%, #FFC700 100%);
+  border-radius: 5px;
+  border: 2px solid #fef3c7;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.poi-item-card {
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 13px;
+  min-height: 70px;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.poi-item-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #FFD700 0%, #FFC700 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
+
+
+.poi-item-name {
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.poi-item-detail {
+  font-size: 11px;
+  opacity: 0.85;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.poi-list-footer {
+  margin-top: 16px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.poi-list-empty {
+  text-align: center;
+  padding: 48px 20px;
+  font-size: 15px;
+  color: #9ca3af;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 215, 0, 0.3);
+}
+
+/* Loading State */
+.neighborhood-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #2d3436;
+}
+
+.neighborhood-loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  margin-left: 16px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #FFD700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .neighborhood-map-container {
+    padding: 20px 12px;
+  }
+
+  .neighborhood-header-card {
+    padding: 16px;
+  }
+
+  .neighborhood-title-group h1 {
+    font-size: 22px;
+  }
+
+  .neighborhood-section-card {
+    padding: 16px;
+  }
+
+  .neighborhood-section-title {
+    font-size: 18px;
+  }
+
+  .poi-category-button {
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  .poi-list-grid {
+    grid-template-columns: 1fr;
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .neighborhood-back-button {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .neighborhood-title-group h1 {
+    font-size: 20px;
+  }
+
+  .poi-category-panel {
+    gap: 8px;
+  }
+
+  .poi-category-button {
+    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}

@@ -2022,7 +2022,7 @@
         "nom_qr": "Beaurivage, Tétreaultville, Dupéré, Guybourg, Longue-Pointe, Louis-Riel, Maisonneuve, Hochelaga, Préfontaine",
         "no_arr": "22",
         "nom_arr": "Mercier–Hochelaga-Maisonneuve",
-        "part": "East",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 9
@@ -4646,7 +4646,7 @@
         "nom_qr": "René-Goupil, Sainte-Lucie, François-Perrault, Gabriel-Sagard, Parc-Extension, Parc-Jarry, Crémazie",
         "no_arr": "25",
         "nom_arr": "Villeray–Saint-Michel–Parc-Extension",
-        "part": "East",
+        "part": "North",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 7
@@ -5556,7 +5556,7 @@
         "nom_qr": "Sault-au-Récollet, Saint-Sulpice, Nicolas-Viel, La Visitation, Nouveau-Bordeaux, Cartierville",
         "no_arr": "23",
         "nom_arr": "Ahuntsic-Cartierville",
-        "part": "North",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 6
@@ -19770,7 +19770,7 @@
         "nom_qr": "Chameran/Montpellier, Grenet, Dutrisac, Bois-Francs, Du College/Hodge",
         "no_arr": "15",
         "nom_arr": "Saint-Laurent",
-        "part": "North",
+        "part": "South",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 5
@@ -27316,7 +27316,7 @@
         "nom_qr": "Montréal-Est",
         "no_arr": null,
         "nom_arr": null,
-        "part": "East",
+        "part": "North",
         "nom_mun": "Montréal-Est"
       },
       "geometry": {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { MapContainer, GeoJSON, useMap } from "react-leaflet";
+import { MapContainer, GeoJSON, useMap, Marker } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
@@ -17,6 +17,16 @@ const getColorByPart = (part) => {
     West: "#3B82F6", // Sapphire Blue
   };
   return colorMap[part] || "#8B5CF6";
+};
+
+// Get display name for each part
+const getPartDisplayName = (part) => {
+  const nameMap = {
+    South: "City Center/ South of the island",
+    West: "West Island",
+    North: "Montreal North",
+  };
+  return nameMap[part] || part;
 };
 
 // Function to aggregate neighborhoods by part and merge geometries
@@ -85,6 +95,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const [hoveredPartName, setHoveredPartName] = useState(null);
   const [hoveredPart, setHoveredPart] = useState(null); // Track which part is hovered
   const geoJsonLayerRef = useRef(null);
+  const [partCenters, setPartCenters] = useState({}); // Store center coordinates for each part
 
   // Load and aggregate GeoJSON data by part
   useEffect(() => {
@@ -109,6 +120,33 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           1.3
         );
 
+        // Calculate centers for each part
+        const centers = {};
+        rotatedData.features.forEach((feature) => {
+          const partName = feature.properties.part;
+          // Calculate centroid of the part
+          let allCoords = [];
+          if (feature.geometry.type === "MultiPolygon") {
+            feature.geometry.coordinates.forEach((poly) => {
+              poly.forEach((ring) => {
+                allCoords = allCoords.concat(ring);
+              });
+            });
+          } else if (feature.geometry.type === "Polygon") {
+            feature.geometry.coordinates.forEach((ring) => {
+              allCoords = allCoords.concat(ring);
+            });
+          }
+
+          const lats = allCoords.map((c) => c[1]);
+          const lngs = allCoords.map((c) => c[0]);
+          centers[partName] = {
+            lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+            lng: (Math.min(...lngs) + Math.max(...lngs)) / 2,
+          };
+        });
+
+        setPartCenters(centers);
         setPartData(rotatedData);
         setIsLoading(false);
       })
@@ -117,6 +155,26 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         setIsLoading(false);
       });
   }, []);
+
+  // Fit map to bounds when data loads or window resizes
+  useEffect(() => {
+    if (map && partData) {
+      const fitMapBounds = () => {
+        const bounds = L.geoJSON(partData).getBounds();
+        map.fitBounds(bounds, {
+          padding: [20, 20],
+          animate: false,
+          maxZoom: 10.8,
+        });
+      };
+
+      fitMapBounds();
+
+      // Fit bounds on window resize
+      window.addEventListener("resize", fitMapBounds);
+      return () => window.removeEventListener("resize", fitMapBounds);
+    }
+  }, [map, partData]);
 
   // Style function for parts - NO BORDERS
   const getPartStyle = (feature) => {
@@ -304,26 +362,6 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               display: "flex",
               alignItems: "center",
               gap: "10px",
-              transform: hoveredPart === "North" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#FF6B6B",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>North</span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
               transform: hoveredPart === "South" ? "scale(1.15)" : "scale(1)",
               transition: "transform 0.2s ease-out",
             }}
@@ -332,31 +370,13 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               style={{
                 width: "24px",
                 height: "24px",
-                backgroundColor: "#4ECDC4",
+                backgroundColor: "#F59E0B",
                 borderRadius: "3px",
               }}
             />
-            <span style={{ fontSize: "14px", color: "#333" }}>South</span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              transform: hoveredPart === "East" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#FFE66D",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>East</span>
+            <span style={{ fontSize: "14px", color: "#333" }}>
+              City Center/ South
+            </span>
           </div>
 
           <div
@@ -372,11 +392,33 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               style={{
                 width: "24px",
                 height: "24px",
-                backgroundColor: "#95E1D3",
+                backgroundColor: "#3B82F6",
                 borderRadius: "3px",
               }}
             />
-            <span style={{ fontSize: "14px", color: "#333" }}>West</span>
+            <span style={{ fontSize: "14px", color: "#333" }}>West Island</span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              transform: hoveredPart === "North" ? "scale(1.15)" : "scale(1)",
+              transition: "transform 0.2s ease-out",
+            }}
+          >
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                backgroundColor: "#8B5CF6",
+                borderRadius: "3px",
+              }}
+            />
+            <span style={{ fontSize: "14px", color: "#333" }}>
+              Montreal North
+            </span>
           </div>
         </div>
 
@@ -397,7 +439,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         <h2
           style={{
             position: "fixed",
-            top: "20%",
+            top: "7.5%",
             left: "50%",
             transform: "translateX(-50%)",
             zIndex: 2000,
@@ -423,29 +465,57 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             textAlign: "center",
           }}
         >
-          {hoveredPartName}
+          {getPartDisplayName(hoveredPartName)}
         </h2>
       )}
 
-      <div className="custom-montreal-map">
+      <div
+        className="custom-montreal-map"
+        style={{ background: "transparent" }}
+      >
         <MapContainer
           center={[45.56, -73.62]}
           zoom={10.8}
-          minZoom={6}
-          maxZoom={22}
           style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={true}
-          scrollWheelZoom={true}
-          doubleClickZoom={true}
-          touchZoom={true}
-          boxZoom={true}
-          keyboard={true}
-          zoomAnimation={true}
-          fadeAnimation={true}
-          markerZoomAnimation={true}
+          zoomControl={false}
+          scrollWheelZoom={false}
+          doubleClickZoom={false}
+          touchZoom={false}
+          boxZoom={false}
+          keyboard={false}
+          dragging={false}
+          zoomAnimation={false}
+          fadeAnimation={false}
+          markerZoomAnimation={false}
           attributionControl={false}
+          preferCanvas={false}
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
+            // Remove any default tile layers
+            mapInstance.eachLayer((layer) => {
+              if (layer instanceof L.TileLayer) {
+                mapInstance.removeLayer(layer);
+              }
+            });
+
+            // Disable all zoom and pan interactions
+            mapInstance.dragging.disable();
+            mapInstance.touchZoom.disable();
+            mapInstance.doubleClickZoom.disable();
+            mapInstance.scrollWheelZoom.disable();
+            mapInstance.boxZoom.disable();
+            mapInstance.keyboard.disable();
+            if (mapInstance.tap) mapInstance.tap.disable();
+
+            // Fit to bounds when data is loaded
+            if (partData) {
+              const bounds = L.geoJSON(partData).getBounds();
+              mapInstance.fitBounds(bounds, {
+                padding: [20, 20],
+                animate: false,
+                maxZoom: 10.8,
+              });
+            }
           }}
         >
           {partData && (
@@ -456,6 +526,64 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               ref={geoJsonLayerRef}
             />
           )}
+
+          {/* Add text labels for each part */}
+
+          {Object.entries(partCenters).map(([partName, center]) => {
+            // Only show South, West, and North
+            if (!["South", "West", "North"].includes(partName)) return null;
+
+            const displayName = getPartDisplayName(partName);
+
+            // Adjust positions for each part
+            let adjustedLat = center.lat;
+            let adjustedLng = center.lng;
+
+            if (partName === "North") {
+              // Move North up and left
+              adjustedLat += 0.03; // Move up
+              adjustedLng -= 0.05; // Move left
+            } else if (partName === "South") {
+              // Move South left
+              adjustedLng -= 0.07; // Move left
+            }
+
+            // Create custom icon with white text
+            const textIcon = L.divIcon({
+              className: "part-label-icon",
+              html: `
+                <div style="
+                  color: white;
+                  font-size: 12px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  text-shadow: 
+                    2px 2px 4px rgba(0,0,0,0.8),
+                    -1px -1px 2px rgba(0,0,0,0.8),
+                    1px -1px 2px rgba(0,0,0,0.8),
+                    -1px 1px 2px rgba(0,0,0,0.8);
+                  white-space: nowrap;
+                  pointer-events: none;
+                  font-family: 'Arial', sans-serif;
+                  transform: translate(-50%, -50%);
+                ">
+                  ${displayName}
+                </div>
+              `,
+              iconSize: [0, 0],
+              iconAnchor: [0, 0],
+            });
+
+            return (
+              <Marker
+                key={partName}
+                position={[adjustedLat, adjustedLng]}
+                icon={textIcon}
+                interactive={false}
+              />
+            );
+          })}
         </MapContainer>
       </div>
     </div>
