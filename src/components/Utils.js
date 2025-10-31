@@ -120,8 +120,7 @@ export const nameMapping = {
   "Mercier-Hochelaga-Maisonneuve": "Mercier–Hochelaga-Maisonneuve",
   "Montréal-Nord": "Montréal-Nord",
   Outremont: "Outremont",
-  "Pierrefonds–Roxboro": "Pierrefonds–Roxboro",
-  "Pierrefonds-Roxboro": "Pierrefonds–Roxboro",
+  "Pierrefonds-Roxboro": "Pierrefonds-Roxboro",
   "Rivière-des-Prairies–Pointe-aux-Trembles":
     "Rivière-des-Prairies–Pointe-aux-Trembles",
   "Rivière-des-Prairies-Pointe-aux-Trembles":
@@ -146,6 +145,7 @@ export const nameMapping = {
   "Côte-Saint-Luc": "Côte-Saint-Luc",
   "Dollard-des-Ormeaux": "Dollard-des-Ormeaux",
   "Dollard-Des Ormeaux": "Dollard-des-Ormeaux",
+  "Dollard-Des-Ormeaux": "Dollard-des-Ormeaux",
   Dorval: "Dorval",
   Hampstead: "Hampstead",
   Kirkland: "Kirkland",

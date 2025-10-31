@@ -200,6 +200,19 @@ const MontrealMap = ({
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [parkImageLoading, setParkImageLoading] = useState(false);
 
+  // Filter state
+  const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [filters, setFilters] = useState({
+    showBoroughs: true,
+    showSuburbs: true,
+    minArea: 0,
+    accessibility: {
+      parks: false,
+      schools: false,
+      hospitals: false,
+    },
+  });
+
   const pinnedRef = useRef(null);
   useEffect(() => {
     pinnedRef.current = pinnedNeighborhood;
@@ -438,6 +451,15 @@ const MontrealMap = ({
           priceData.neighborhoods.forEach((neighborhood) => {
             const geoJsonName =
               nameMapping[neighborhood.name] || neighborhood.name;
+
+            console.log("🗺️ NAME MAPPING:", {
+              originalName: neighborhood.name,
+              mappedName: geoJsonName,
+              hasMappingRule: !!nameMapping[neighborhood.name],
+              singleFamilyPrice: neighborhood.singleFamilyPrice,
+              condoPrice: neighborhood.condoPrice,
+            });
+
             const singleFamilyPrice = neighborhood.singleFamilyPrice;
             const condoPrice = neighborhood.condoPrice;
 
@@ -478,14 +500,31 @@ const MontrealMap = ({
             const municipalityName = feature.properties.nom_mun;
             const partDirection = feature.properties.part; // Get the part (East, West, South, North)
 
+            // Determine scope: Borough (part of Montreal) or Suburb (independent municipality)
+            const scope = boroughName ? "Borough" : "Suburb";
+
             // Try to match by borough first, then by municipality/neighborhood for independent cities
             const lookupName =
               boroughName || municipalityName || neighborhoodName;
-            const areaData = neighborhoodMapping[lookupName];
+
+            // Apply name mapping to handle variations
+            const mappedLookupName = nameMapping[lookupName] || lookupName;
+            const areaData = neighborhoodMapping[mappedLookupName];
+
+            console.log("🔍 FEATURE LOOKUP:", {
+              boroughName,
+              municipalityName,
+              neighborhoodName,
+              lookupName,
+              mappedLookupName,
+              foundData: !!areaData,
+              scope,
+            });
 
             // Calculate geographic area from geometry
             const areaInKm2 = calculateFeatureArea(feature.geometry);
             feature.properties.area = `${areaInKm2.toFixed(1)} km²`;
+            feature.properties.scope = scope; // Add scope property
 
             if (areaData) {
               feature.properties.color = areaData.color;
@@ -637,14 +676,21 @@ const MontrealMap = ({
           const municipalityName = feature.properties.nom_mun;
           const partDirection = feature.properties.part; // Get the part (East, West, South, North)
 
+          // Determine scope: Borough (part of Montreal) or Suburb (independent municipality)
+          const scope = boroughName ? "Borough" : "Suburb";
+
           // Try to match by borough first, then by municipality/neighborhood for independent cities
           const lookupName =
             boroughName || municipalityName || neighborhoodName;
-          const areaData = neighborhoodMapping[lookupName];
+
+          // Apply name mapping to handle variations
+          const mappedLookupName = nameMapping[lookupName] || lookupName;
+          const areaData = neighborhoodMapping[mappedLookupName];
 
           // Calculate geographic area from geometry
           const areaInKm2 = calculateFeatureArea(feature.geometry);
           feature.properties.area = `${areaInKm2.toFixed(1)} km²`;
+          feature.properties.scope = scope; // Add scope property
 
           if (areaData) {
             feature.properties.color = areaData.color;
@@ -850,6 +896,37 @@ const MontrealMap = ({
     fillColor: "#FFC107", // Brighter yellow on hover
     lineCap: "round",
   });
+
+  // Filter features based on current filters
+  const getFilteredData = useCallback(() => {
+    if (!montrealData) return null;
+
+    const filteredFeatures = montrealData.features.filter((feature) => {
+      // Filter by scope (Borough/Suburb)
+      const scope = feature.properties.scope;
+      if (scope === "Borough" && !filters.showBoroughs) return false;
+      if (scope === "Suburb" && !filters.showSuburbs) return false;
+
+      // Filter by minimum area
+      const areaStr = feature.properties.area;
+      if (areaStr) {
+        const areaValue = parseFloat(areaStr.replace(" km²", ""));
+        if (areaValue < filters.minArea) return false;
+      }
+
+      // Accessibility filters (placeholder for future implementation)
+      // if (filters.accessibility.parks && !feature.properties.hasParks) return false;
+      // if (filters.accessibility.schools && !feature.properties.hasSchools) return false;
+      // if (filters.accessibility.hospitals && !feature.properties.hasHospitals) return false;
+
+      return true;
+    });
+
+    return {
+      ...montrealData,
+      features: filteredFeatures,
+    };
+  }, [montrealData, filters]);
 
   // -------- Google Images + Wikipedia helpers --------
   const fetchFirstGoogleImage = async (query) => {
@@ -1415,10 +1492,11 @@ const MontrealMap = ({
         >
           {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
           <GeoJSON
-            data={montrealData}
+            data={getFilteredData() || montrealData}
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
             ref={geoJsonLayerRef}
+            key={JSON.stringify(filters)} // Force re-render when filters change
           />
         </MapContainer>
 
@@ -1442,6 +1520,338 @@ const MontrealMap = ({
             style={{ width: "100%", height: "100%" }}
           />
         </div>
+
+        {/* Filter Button */}
+        <button
+          onClick={() => setShowFilterPanel(!showFilterPanel)}
+          style={{
+            position: "fixed",
+            bottom: "30px",
+            left: "30px",
+            zIndex: 1000,
+            padding: "12px 20px",
+            backgroundColor: "#FFD700",
+            color: "#000000",
+            border: "2px solid #FFD700",
+            borderRadius: "50px",
+            fontSize: "16px",
+            fontWeight: 700,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+            transition: "all 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "#FFC107";
+            e.target.style.transform = "scale(1.05)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "#FFD700";
+            e.target.style.transform = "scale(1)";
+          }}
+        >
+          <span style={{ fontSize: "18px" }}>🔍</span>
+          <span>Filters</span>
+        </button>
+
+        {/* Filter Panel */}
+        {showFilterPanel && (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "100px",
+              left: "30px",
+              zIndex: 1000,
+              backgroundColor: "white",
+              borderRadius: "12px",
+              padding: "20px",
+              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+              minWidth: "300px",
+              maxHeight: "500px",
+              overflowY: "auto",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "16px",
+                borderBottom: "2px solid #FFD700",
+                paddingBottom: "12px",
+              }}
+            >
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: "18px",
+                  fontWeight: 700,
+                  color: "#000",
+                }}
+              >
+                Filter Neighborhoods
+              </h3>
+              <button
+                onClick={() => setShowFilterPanel(false)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "24px",
+                  cursor: "pointer",
+                  color: "#666",
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Scope Filter */}
+            <div style={{ marginBottom: "20px" }}>
+              <h4
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#333",
+                  marginBottom: "10px",
+                }}
+              >
+                Scope
+              </h4>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.showBoroughs}
+                  onChange={(e) =>
+                    setFilters({ ...filters, showBoroughs: e.target.checked })
+                  }
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
+                />
+                <span style={{ fontSize: "14px", color: "#333" }}>
+                  Show Boroughs (Montreal)
+                </span>
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.showSuburbs}
+                  onChange={(e) =>
+                    setFilters({ ...filters, showSuburbs: e.target.checked })
+                  }
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
+                />
+                <span style={{ fontSize: "14px", color: "#333" }}>
+                  Show Suburbs (Independent)
+                </span>
+              </label>
+            </div>
+
+            {/* Area Filter */}
+            <div style={{ marginBottom: "20px" }}>
+              <h4
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#333",
+                  marginBottom: "10px",
+                }}
+              >
+                Minimum Area (km²)
+              </h4>
+              <input
+                type="number"
+                min="0"
+                step="0.5"
+                value={filters.minArea}
+                onChange={(e) =>
+                  setFilters({
+                    ...filters,
+                    minArea: parseFloat(e.target.value) || 0,
+                  })
+                }
+                style={{
+                  width: "100%",
+                  padding: "8px 12px",
+                  border: "2px solid #ddd",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                }}
+                placeholder="Enter minimum area"
+              />
+            </div>
+
+            {/* Accessibility Filter */}
+            <div style={{ marginBottom: "20px" }}>
+              <h4
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#333",
+                  marginBottom: "10px",
+                }}
+              >
+                Accessibility (Coming Soon)
+              </h4>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                  opacity: 0.5,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.accessibility.parks}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      accessibility: {
+                        ...filters.accessibility,
+                        parks: e.target.checked,
+                      },
+                    })
+                  }
+                  disabled
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
+                />
+                <span style={{ fontSize: "14px", color: "#333" }}>
+                  🌳 Has Parks
+                </span>
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                  opacity: 0.5,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.accessibility.schools}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      accessibility: {
+                        ...filters.accessibility,
+                        schools: e.target.checked,
+                      },
+                    })
+                  }
+                  disabled
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
+                />
+                <span style={{ fontSize: "14px", color: "#333" }}>
+                  🏫 Has Schools
+                </span>
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  opacity: 0.5,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.accessibility.hospitals}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      accessibility: {
+                        ...filters.accessibility,
+                        hospitals: e.target.checked,
+                      },
+                    })
+                  }
+                  disabled
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
+                />
+                <span style={{ fontSize: "14px", color: "#333" }}>
+                  🏥 Has Hospitals
+                </span>
+              </label>
+            </div>
+
+            {/* Reset Button */}
+            <button
+              onClick={() =>
+                setFilters({
+                  showBoroughs: true,
+                  showSuburbs: true,
+                  minArea: 0,
+                  accessibility: {
+                    parks: false,
+                    schools: false,
+                    hospitals: false,
+                  },
+                })
+              }
+              style={{
+                width: "100%",
+                padding: "10px",
+                backgroundColor: "#f0f0f0",
+                border: "none",
+                borderRadius: "6px",
+                fontSize: "14px",
+                fontWeight: 600,
+                cursor: "pointer",
+                color: "#333",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#e0e0e0";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "#f0f0f0";
+              }}
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
