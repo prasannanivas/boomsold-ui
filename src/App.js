@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import MontrealMap from "./components/MontrealMap";
 import PartMap from "./components/PartMap";
@@ -18,10 +18,45 @@ function App() {
   const [pinnedNeighborhood, setPinnedNeighborhood] = useState(null);
   const [showIntro, setShowIntro] = useState(true);
   const [introComplete, setIntroComplete] = useState(false);
+  const [isNavigatingBack, setIsNavigatingBack] = useState(false);
 
   React.useEffect(() => {
     console.log("Pinned neighborhood changed:", pinnedNeighborhood);
   }, [pinnedNeighborhood]);
+
+  // Handle browser back navigation
+  useEffect(() => {
+    const handlePopState = (event) => {
+      setIsNavigatingBack(true);
+
+      console.log("Browser back button pressed");
+
+      // Determine current view and navigate back one level
+      if (isPinned && selectedNeighborhoodGeoJSON) {
+        // Currently on NeighborhoodMap → Go back to MontrealMap
+        setIsPinned(false);
+        setPinnedNeighborhood(null);
+        setIsHovering(false);
+        setSelectedNeighborhood(null);
+        setSelectedNeighborhoodGeoJSON(null);
+      } else if (selectedPart !== null) {
+        // Currently on MontrealMap → Go back to PartMap
+        setSelectedPart(null);
+        setSelectedPartGeoJSON(null);
+        setSelectedNeighborhoodGeoJSON(null);
+        setIsPinned(false);
+        setPinnedNeighborhood(null);
+      }
+
+      setTimeout(() => setIsNavigatingBack(false), 100);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isPinned, selectedNeighborhoodGeoJSON, selectedPart]);
 
   const handleNeighborhoodHover = (neighborhood) => {
     // Only update if not pinned
@@ -35,7 +70,10 @@ function App() {
   const handleNeighborhoodClick = (neighborhood) => {
     console.log("Neighborhood click:", neighborhood);
     if (neighborhood.isUnpin) {
-      // Unpin
+      // Unpin - navigate back in history
+      if (!isNavigatingBack) {
+        window.history.back();
+      }
       setIsPinned(false);
       setPinnedNeighborhood(null);
       setIsHovering(false);
@@ -52,6 +90,11 @@ function App() {
       if (neighborhood.filteredGeoJSON) {
         setSelectedNeighborhoodGeoJSON(neighborhood.filteredGeoJSON);
       }
+
+      // Add history entry so back button works
+      if (!isNavigatingBack) {
+        window.history.pushState({}, "", "");
+      }
     }
   };
 
@@ -67,6 +110,11 @@ function App() {
     console.log("Part clicked:", partInfo);
     setSelectedPart(partInfo.partName);
     setSelectedPartGeoJSON(partInfo.geoJSON);
+
+    // Add history entry so back button works
+    if (!isNavigatingBack) {
+      window.history.pushState({}, "", "");
+    }
   };
 
   const handlePartHover = (partInfo) => {
@@ -98,11 +146,17 @@ function App() {
             neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
             neighborhoodInfo={pinnedNeighborhood}
             onBack={() => {
-              setIsPinned(false);
-              setPinnedNeighborhood(null);
-              setIsHovering(false);
-              setSelectedNeighborhood(null);
-              setSelectedNeighborhoodGeoJSON(null);
+              // Use browser back instead of direct state change
+              if (!isNavigatingBack) {
+                window.history.back();
+              } else {
+                // If already navigating back, just update state
+                setIsPinned(false);
+                setPinnedNeighborhood(null);
+                setIsHovering(false);
+                setSelectedNeighborhood(null);
+                setSelectedNeighborhoodGeoJSON(null);
+              }
             }}
           />
         ) : (
@@ -111,11 +165,17 @@ function App() {
             selectedPart={selectedPart}
             partGeoJSON={selectedPartGeoJSON}
             onPartBack={() => {
-              setSelectedPart(null);
-              setSelectedPartGeoJSON(null);
-              setSelectedNeighborhoodGeoJSON(null);
-              setIsPinned(false);
-              setPinnedNeighborhood(null);
+              // Use browser back instead of direct state change
+              if (!isNavigatingBack) {
+                window.history.back();
+              } else {
+                // If already navigating back, just update state
+                setSelectedPart(null);
+                setSelectedPartGeoJSON(null);
+                setSelectedNeighborhoodGeoJSON(null);
+                setIsPinned(false);
+                setPinnedNeighborhood(null);
+              }
             }}
             onNeighborhoodHover={handleNeighborhoodHover}
             onNeighborhoodLeave={handleNeighborhoodLeave}
