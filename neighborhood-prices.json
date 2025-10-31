@@ -1,0 +1,169 @@
+{
+  "neighborhoods": [
+    {
+      "name": "Ahuntsic–Cartierville",
+      "singleFamilyPrice": "$925,254",
+      "condoPrice": "$454,766"
+    },
+    {
+      "name": "Anjou",
+      "singleFamilyPrice": "$663,484",
+      "condoPrice": "$408,311"
+    },
+    {
+      "name": "Baie-D'Urfé",
+      "singleFamilyPrice": "$1,368,573",
+      "condoPrice": "$409,167"
+    },
+    {
+      "name": "Beaconsfield",
+      "singleFamilyPrice": "$1,099,557",
+      "condoPrice": "$598,207"
+    },
+    {
+      "name": "Côte-des-Neiges–Notre-Dame-de-Grâce",
+      "singleFamilyPrice": "$1,300,643",
+      "condoPrice": "$638,206"
+    },
+    {
+      "name": "Côte-Saint-Luc",
+      "singleFamilyPrice": "$1,062,534",
+      "condoPrice": "$593,227"
+    },
+    {
+      "name": "Dollard-des-Ormeaux",
+      "singleFamilyPrice": "$856,376",
+      "condoPrice": "$510,087"
+    },
+    {
+      "name": "Dorval",
+      "singleFamilyPrice": "$841,643",
+      "condoPrice": "$471,933"
+    },
+    {
+      "name": "Hampstead",
+      "singleFamilyPrice": "$2,043,529",
+      "condoPrice": null
+    },
+    {
+      "name": "Kirkland",
+      "singleFamilyPrice": "$1,001,748",
+      "condoPrice": "$445,900"
+    },
+    {
+      "name": "Lachine",
+      "singleFamilyPrice": "$709,795",
+      "condoPrice": "$442,303"
+    },
+    {
+      "name": "LaSalle",
+      "singleFamilyPrice": "$741,563",
+      "condoPrice": "$482,885"
+    },
+    {
+      "name": "Le Plateau-Mont-Royal",
+      "singleFamilyPrice": "$1,426,896",
+      "condoPrice": "$601,763"
+    },
+    {
+      "name": "Le Sud-Ouest",
+      "singleFamilyPrice": "$994,154",
+      "condoPrice": "$562,967"
+    },
+    {
+      "name": "L'Île-Bizard–Sainte-Geneviève",
+      "singleFamilyPrice": "$790,279",
+      "condoPrice": "$317,041"
+    },
+    {
+      "name": "Mercier–Hochelaga-Maisonneuve",
+      "singleFamilyPrice": "$640,848",
+      "condoPrice": "$437,624"
+    },
+    {
+      "name": "Montréal-Est",
+      "singleFamilyPrice": "$472,029",
+      "condoPrice": "$443,914"
+    },
+    {
+      "name": "Mont-Royal",
+      "singleFamilyPrice": "$1,945,424",
+      "condoPrice": "$717,450"
+    },
+    {
+      "name": "Montréal-Nord",
+      "singleFamilyPrice": "$574,645",
+      "condoPrice": "$357,707"
+    },
+    {
+      "name": "Montreal West",
+      "singleFamilyPrice": "$1,294,438",
+      "condoPrice": "$545,750"
+    },
+    {
+      "name": "Outremont",
+      "singleFamilyPrice": "$2,486,311",
+      "condoPrice": "$890,180"
+    },
+    {
+      "name": "Pointe-Claire",
+      "singleFamilyPrice": "$841,327",
+      "condoPrice": "$604,366"
+    },
+    {
+      "name": "Pierrefonds-Roxboro",
+      "singleFamilyPrice": "$697,948",
+      "condoPrice": "$397,809"
+    },
+    {
+      "name": "Rivière-des-Prairies–Pointe-aux-Trembles",
+      "singleFamilyPrice": "$577,476",
+      "condoPrice": "$359,954"
+    },
+    {
+      "name": "Rosemont–La Petite-Patrie",
+      "singleFamilyPrice": "$1,116,252",
+      "condoPrice": "$605,966"
+    },
+    {
+      "name": "Saint-Laurent",
+      "singleFamilyPrice": "$981,078",
+      "condoPrice": "$510,564"
+    },
+    {
+      "name": "Saint-Léonard",
+      "singleFamilyPrice": "$831,250",
+      "condoPrice": "$442,919"
+    },
+    {
+      "name": "Sainte-Anne-de-Bellevue",
+      "singleFamilyPrice": "$680,967",
+      "condoPrice": "$795,545"
+    },
+    {
+      "name": "Senneville",
+      "singleFamilyPrice": "$1,550,500",
+      "condoPrice": null
+    },
+    {
+      "name": "Verdun",
+      "singleFamilyPrice": "$1,312,365",
+      "condoPrice": "$663,826"
+    },
+    {
+      "name": "Ville-Marie",
+      "singleFamilyPrice": "$1,454,040",
+      "condoPrice": "$587,067"
+    },
+    {
+      "name": "Villeray–Saint-Michel–Parc-Extension",
+      "singleFamilyPrice": "$761,569",
+      "condoPrice": "$531,565"
+    },
+    {
+      "name": "Westmount",
+      "singleFamilyPrice": "$2,514,254",
+      "condoPrice": "$1,285,899"
+    }
+  ]
+}
