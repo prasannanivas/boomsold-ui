@@ -330,6 +330,26 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
   return (
     <div className="montreal-map-container">
+      {/* Top Heading */}
+      <h1
+        style={{
+          position: "fixed",
+          top: "30px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          fontSize: "2.5rem",
+          fontWeight: 700,
+          color: "#2d3436",
+          textAlign: "center",
+          margin: 0,
+          textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+          pointerEvents: "none",
+        }}
+      >
+        Select a part of the city
+      </h1>
+
       {/* Side Legend */}
       <div
         style={{
@@ -439,6 +459,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         <h2
           style={{
             position: "fixed",
+            width: "90%",
             top: "7.5%",
             left: "50%",
             transform: "translateX(-50%)",

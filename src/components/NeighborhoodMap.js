@@ -239,7 +239,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const calculateZoomLevel = (area) => {
     // Area thresholds (in km²)
     // These values are tuned for Montreal neighborhoods
-    if (area > 50) return 10; // Very large (RDP, Île-Bizard)
+    if (area > 50) return 11; // Very large (RDP, Île-Bizard)
     if (area > 40) return 11; // Large (St-Laurent, Ahuntsic)
     if (area > 30) return 12; // Medium-large
     if (area > 20) return 13; // Medium
@@ -679,6 +679,140 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
             </p>
           </div>
         </section>
+        {/* Average Prices Section */}
+        {(neighborhoodInfo?.singleFamilyPrice ||
+          neighborhoodInfo?.condoPrice) && (
+          <section className="neighborhood-prices-section">
+            <div
+              className="neighborhood-section-card"
+              style={{ padding: "16px" }}
+            >
+              <h2
+                className="neighborhood-section-title"
+                style={{ fontSize: "18px", marginBottom: "8px" }}
+              >
+                💰 Average Property Prices
+              </h2>
+
+              <div
+                style={{
+                  marginTop: "12px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: "12px",
+                }}
+              >
+                {neighborhoodInfo?.singleFamilyPrice && (
+                  <div
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "12px",
+                      padding: "16px 12px",
+                      textAlign: "center",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+                      border: "2px solid #FFD700",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 20px rgba(255,215,0,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow =
+                        "0 2px 10px rgba(0,0,0,0.06)";
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "32px",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      🏠
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        color: "#666",
+                        marginBottom: "6px",
+                        fontWeight: "700",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      Single Family Home
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "24px",
+                        fontWeight: "900",
+                        color: "#2d3436",
+                      }}
+                    >
+                      {neighborhoodInfo.singleFamilyPrice}
+                    </div>
+                  </div>
+                )}
+
+                {neighborhoodInfo?.condoPrice && (
+                  <div
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "12px",
+                      padding: "16px 12px",
+                      textAlign: "center",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+                      border: "2px solid #4ECDC4",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 20px rgba(78,205,196,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow =
+                        "0 2px 10px rgba(0,0,0,0.06)";
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "32px",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      🏢
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        color: "#666",
+                        marginBottom: "6px",
+                        fontWeight: "700",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      Condo Price
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "24px",
+                        fontWeight: "900",
+                        color: "#2d3436",
+                      }}
+                    >
+                      {neighborhoodInfo.condoPrice}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="neighborhood-map-section">
           <div className="neighborhood-map-container-wrapper">
@@ -687,7 +821,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               zoom={maxZoom || 14}
               minZoom={11}
               maxZoom={18}
-              style={{ height: "60vh", minHeight: "420px", width: "100%" }}
+              style={{ height: "50vh", minHeight: "350px", width: "100%" }}
               zoomControl={true}
               scrollWheelZoom={false}
               doubleClickZoom={true}
@@ -724,149 +858,17 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           </div>
         </section>
 
-        {/* Average Prices Section */}
-        {(neighborhoodInfo?.singleFamilyPrice ||
-          neighborhoodInfo?.condoPrice) && (
-          <section className="neighborhood-prices-section">
-            <div className="neighborhood-section-card">
-              <h2 className="neighborhood-section-title">
-                💰 Average Property Prices
-              </h2>
-              <p className="neighborhood-section-description">
-                Get an overview of typical property values in this neighborhood.
-              </p>
-
-              <div
-                style={{
-                  marginTop: "24px",
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                  gap: "20px",
-                }}
-              >
-                {neighborhoodInfo?.singleFamilyPrice && (
-                  <div
-                    style={{
-                      backgroundColor: "#ffffff",
-                      borderRadius: "16px",
-                      padding: "32px 24px",
-                      textAlign: "center",
-                      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                      border: "3px solid #FFD700",
-                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-4px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 8px 30px rgba(255,215,0,0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 20px rgba(0,0,0,0.08)";
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "56px",
-                        marginBottom: "16px",
-                      }}
-                    >
-                      🏠
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "14px",
-                        color: "#666",
-                        marginBottom: "12px",
-                        fontWeight: "700",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      Average Single Family Home Price
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "36px",
-                        fontWeight: "900",
-                        color: "#2d3436",
-                        textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      {neighborhoodInfo.singleFamilyPrice}
-                    </div>
-                  </div>
-                )}
-
-                {neighborhoodInfo?.condoPrice && (
-                  <div
-                    style={{
-                      backgroundColor: "#ffffff",
-                      borderRadius: "16px",
-                      padding: "32px 24px",
-                      textAlign: "center",
-                      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                      border: "3px solid #4ECDC4",
-                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-4px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 8px 30px rgba(78,205,196,0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 20px rgba(0,0,0,0.08)";
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "56px",
-                        marginBottom: "16px",
-                      }}
-                    >
-                      🏢
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "14px",
-                        color: "#666",
-                        marginBottom: "12px",
-                        fontWeight: "700",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      Average Condo Price
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "36px",
-                        fontWeight: "900",
-                        color: "#2d3436",
-                        textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      {neighborhoodInfo.condoPrice}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
         <section className="neighborhood-walkability-section">
-          <div className="neighborhood-section-card">
-            <h2 className="neighborhood-section-title">
+          <div
+            className="neighborhood-section-card"
+            style={{ padding: "16px" }}
+          >
+            <h2
+              className="neighborhood-section-title"
+              style={{ fontSize: "18px", marginBottom: "8px" }}
+            >
               Walkability & Mobility Scores
             </h2>
-            <p className="neighborhood-section-description">
-              Scroll through to understand how walkable, bike-friendly, and
-              transit-ready this neighborhood is.
-            </p>
             <WalkabilityScoresBadge
               walkabilityScores={walkabilityScores}
               enhancedScores={enhancedScores}

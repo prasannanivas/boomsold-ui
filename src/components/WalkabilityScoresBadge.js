@@ -5,10 +5,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
   return (
     <div
       style={{
-        marginTop: "24px",
+        marginTop: "12px",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-        gap: "20px",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "12px",
         width: "100%",
       }}
     >
@@ -16,28 +16,28 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       <div
         style={{
           backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          border: "3px solid #FFD700",
+          borderRadius: "12px",
+          padding: "16px 12px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+          border: "2px solid #FFD700",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-4px)";
-          e.currentTarget.style.boxShadow = "0 8px 30px rgba(255,215,0,0.3)";
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.3)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
         }}
       >
         {/* Icon */}
         <div
           style={{
-            fontSize: "48px",
-            marginBottom: "12px",
+            fontSize: "32px",
+            marginBottom: "8px",
             textAlign: "center",
           }}
         >
@@ -47,13 +47,13 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Title */}
         <div
           style={{
-            fontSize: "14px",
+            fontSize: "11px",
             fontWeight: "700",
             color: "#666",
             textTransform: "uppercase",
-            letterSpacing: "1px",
+            letterSpacing: "0.5px",
             textAlign: "center",
-            marginBottom: "16px",
+            marginBottom: "10px",
           }}
         >
           Walk Score
@@ -62,12 +62,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score */}
         <div
           style={{
-            fontSize: "56px",
+            fontSize: "36px",
             fontWeight: "900",
             color: getWalkScoreColor(walkabilityScores.walkScore),
             textAlign: "center",
-            marginBottom: "16px",
-            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+            marginBottom: "10px",
           }}
         >
           {walkabilityScores.walkScore}
@@ -77,12 +76,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         <div
           style={{
             width: "100%",
-            height: "12px",
+            height: "8px",
             backgroundColor: "#f0f0f0",
-            borderRadius: "6px",
+            borderRadius: "4px",
             overflow: "hidden",
-            border: "2px solid #e0e0e0",
-            marginBottom: "12px",
+            border: "1px solid #e0e0e0",
+            marginBottom: "8px",
           }}
         >
           <div
@@ -93,7 +92,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                 walkabilityScores.walkScore
               )}, ${getWalkScoreColor(walkabilityScores.walkScore)}dd)`,
               transition: "width 0.8s ease",
-              boxShadow: `0 0 10px ${getWalkScoreColor(
+              boxShadow: `0 0 8px ${getWalkScoreColor(
                 walkabilityScores.walkScore
               )}80`,
             }}
@@ -103,7 +102,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score Label */}
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "10px",
             fontWeight: "600",
             color: "#888",
             textAlign: "center",
@@ -123,28 +122,28 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       <div
         style={{
           backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          border: "3px solid #4ECDC4",
+          borderRadius: "12px",
+          padding: "16px 12px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+          border: "2px solid #4ECDC4",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-4px)";
-          e.currentTarget.style.boxShadow = "0 8px 30px rgba(78,205,196,0.3)";
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(78,205,196,0.3)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
         }}
       >
         {/* Icon */}
         <div
           style={{
-            fontSize: "48px",
-            marginBottom: "12px",
+            fontSize: "32px",
+            marginBottom: "8px",
             textAlign: "center",
           }}
         >
@@ -154,13 +153,13 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Title */}
         <div
           style={{
-            fontSize: "14px",
+            fontSize: "11px",
             fontWeight: "700",
             color: "#666",
             textTransform: "uppercase",
-            letterSpacing: "1px",
+            letterSpacing: "0.5px",
             textAlign: "center",
-            marginBottom: "16px",
+            marginBottom: "10px",
           }}
         >
           Transit Score
@@ -169,12 +168,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score */}
         <div
           style={{
-            fontSize: "56px",
+            fontSize: "36px",
             fontWeight: "900",
             color: getWalkScoreColor(walkabilityScores.transitScore),
             textAlign: "center",
-            marginBottom: "16px",
-            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+            marginBottom: "10px",
           }}
         >
           {walkabilityScores.transitScore}
@@ -184,12 +182,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         <div
           style={{
             width: "100%",
-            height: "12px",
+            height: "8px",
             backgroundColor: "#f0f0f0",
-            borderRadius: "6px",
+            borderRadius: "4px",
             overflow: "hidden",
-            border: "2px solid #e0e0e0",
-            marginBottom: "12px",
+            border: "1px solid #e0e0e0",
+            marginBottom: "8px",
           }}
         >
           <div
@@ -200,7 +198,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                 walkabilityScores.transitScore
               )}, ${getWalkScoreColor(walkabilityScores.transitScore)}dd)`,
               transition: "width 0.8s ease",
-              boxShadow: `0 0 10px ${getWalkScoreColor(
+              boxShadow: `0 0 8px ${getWalkScoreColor(
                 walkabilityScores.transitScore
               )}80`,
             }}
@@ -210,11 +208,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score Label */}
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "10px",
             fontWeight: "600",
             color: "#888",
             textAlign: "center",
-            marginBottom: enhancedScores?.transitDetails ? "12px" : "0",
+            marginBottom: enhancedScores?.transitDetails ? "8px" : "0",
           }}
         >
           {walkabilityScores.transitScore >= 90
@@ -230,27 +228,27 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {enhancedScores?.transitDetails && (
           <div
             style={{
-              marginTop: "12px",
-              padding: "12px",
+              marginTop: "8px",
+              padding: "8px",
               backgroundColor: "rgba(78, 205, 196, 0.1)",
-              borderRadius: "8px",
-              border: "2px solid rgba(78, 205, 196, 0.3)",
+              borderRadius: "6px",
+              border: "1px solid rgba(78, 205, 196, 0.3)",
             }}
           >
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "9px",
                 color: "#333",
                 fontWeight: 600,
-                marginBottom: "4px",
+                marginBottom: "3px",
               }}
             >
-              <span style={{ marginRight: "6px" }}>🚌</span>
+              <span style={{ marginRight: "4px" }}>🚌</span>
               {enhancedScores.transitDetails.summary}
             </div>
             <div
               style={{
-                fontSize: "10px",
+                fontSize: "8px",
                 color: "#666",
               }}
             >
@@ -264,28 +262,28 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       <div
         style={{
           backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          border: "3px solid #FF6B6B",
+          borderRadius: "12px",
+          padding: "16px 12px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+          border: "2px solid #FF6B6B",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-4px)";
-          e.currentTarget.style.boxShadow = "0 8px 30px rgba(255,107,107,0.3)";
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,107,107,0.3)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
         }}
       >
         {/* Icon */}
         <div
           style={{
-            fontSize: "48px",
-            marginBottom: "12px",
+            fontSize: "32px",
+            marginBottom: "8px",
             textAlign: "center",
           }}
         >
@@ -295,13 +293,13 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Title */}
         <div
           style={{
-            fontSize: "14px",
+            fontSize: "11px",
             fontWeight: "700",
             color: "#666",
             textTransform: "uppercase",
-            letterSpacing: "1px",
+            letterSpacing: "0.5px",
             textAlign: "center",
-            marginBottom: "16px",
+            marginBottom: "10px",
           }}
         >
           Bike Score
@@ -310,12 +308,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score */}
         <div
           style={{
-            fontSize: "56px",
+            fontSize: "36px",
             fontWeight: "900",
             color: getWalkScoreColor(walkabilityScores.bikeScore),
             textAlign: "center",
-            marginBottom: "16px",
-            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+            marginBottom: "10px",
           }}
         >
           {walkabilityScores.bikeScore}
@@ -325,12 +322,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         <div
           style={{
             width: "100%",
-            height: "12px",
+            height: "8px",
             backgroundColor: "#f0f0f0",
-            borderRadius: "6px",
+            borderRadius: "4px",
             overflow: "hidden",
-            border: "2px solid #e0e0e0",
-            marginBottom: "12px",
+            border: "1px solid #e0e0e0",
+            marginBottom: "8px",
           }}
         >
           <div
@@ -341,7 +338,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                 walkabilityScores.bikeScore
               )}, ${getWalkScoreColor(walkabilityScores.bikeScore)}dd)`,
               transition: "width 0.8s ease",
-              boxShadow: `0 0 10px ${getWalkScoreColor(
+              boxShadow: `0 0 8px ${getWalkScoreColor(
                 walkabilityScores.bikeScore
               )}80`,
             }}
@@ -351,11 +348,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score Label */}
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "10px",
             fontWeight: "600",
             color: "#888",
             textAlign: "center",
-            marginBottom: enhancedScores?.bikeDetails ? "12px" : "0",
+            marginBottom: enhancedScores?.bikeDetails ? "8px" : "0",
           }}
         >
           {walkabilityScores.bikeScore >= 90
@@ -371,21 +368,21 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {enhancedScores?.bikeDetails && (
           <div
             style={{
-              marginTop: "12px",
-              padding: "12px",
+              marginTop: "8px",
+              padding: "8px",
               backgroundColor: "rgba(255, 107, 107, 0.1)",
-              borderRadius: "8px",
-              border: "2px solid rgba(255, 107, 107, 0.3)",
+              borderRadius: "6px",
+              border: "1px solid rgba(255, 107, 107, 0.3)",
             }}
           >
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "9px",
                 color: "#333",
                 fontWeight: 600,
               }}
             >
-              <span style={{ marginRight: "6px" }}>🚴</span>
+              <span style={{ marginRight: "4px" }}>🚴</span>
               {enhancedScores.bikeDetails.description}
             </div>
           </div>
@@ -396,28 +393,28 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       <div
         style={{
           backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          border: "3px solid #9B59B6",
+          borderRadius: "12px",
+          padding: "16px 12px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+          border: "2px solid #9B59B6",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-4px)";
-          e.currentTarget.style.boxShadow = "0 8px 30px rgba(155,89,182,0.3)";
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(155,89,182,0.3)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
         }}
       >
         {/* Icon */}
         <div
           style={{
-            fontSize: "48px",
-            marginBottom: "12px",
+            fontSize: "32px",
+            marginBottom: "8px",
             textAlign: "center",
           }}
         >
@@ -427,13 +424,13 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Title */}
         <div
           style={{
-            fontSize: "14px",
+            fontSize: "11px",
             fontWeight: "700",
             color: "#666",
             textTransform: "uppercase",
-            letterSpacing: "1px",
+            letterSpacing: "0.5px",
             textAlign: "center",
-            marginBottom: "16px",
+            marginBottom: "10px",
           }}
         >
           Overall Score
@@ -442,12 +439,11 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score */}
         <div
           style={{
-            fontSize: "56px",
+            fontSize: "36px",
             fontWeight: "900",
             color: getWalkScoreColor(walkabilityScores.accessibilityScore),
             textAlign: "center",
-            marginBottom: "16px",
-            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+            marginBottom: "10px",
           }}
         >
           {walkabilityScores.accessibilityScore}
@@ -457,12 +453,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         <div
           style={{
             width: "100%",
-            height: "12px",
+            height: "8px",
             backgroundColor: "#f0f0f0",
-            borderRadius: "6px",
+            borderRadius: "4px",
             overflow: "hidden",
-            border: "2px solid #e0e0e0",
-            marginBottom: "12px",
+            border: "1px solid #e0e0e0",
+            marginBottom: "8px",
           }}
         >
           <div
@@ -475,7 +471,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                 walkabilityScores.accessibilityScore
               )}dd)`,
               transition: "width 0.8s ease",
-              boxShadow: `0 0 10px ${getWalkScoreColor(
+              boxShadow: `0 0 8px ${getWalkScoreColor(
                 walkabilityScores.accessibilityScore
               )}80`,
             }}
@@ -485,7 +481,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         {/* Score Label */}
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "10px",
             fontWeight: "600",
             color: "#888",
             textAlign: "center",
@@ -506,30 +502,30 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
         style={{
           gridColumn: "1 / -1",
           backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          border: "3px solid #FFD700",
-          marginTop: "8px",
+          borderRadius: "12px",
+          padding: "16px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+          border: "2px solid #FFD700",
+          marginTop: "4px",
         }}
       >
         <div
           style={{
             display: "flex",
             alignItems: "flex-start",
-            gap: "16px",
+            gap: "12px",
           }}
         >
-          <div style={{ fontSize: "36px" }}>💡</div>
+          <div style={{ fontSize: "24px" }}>💡</div>
           <div style={{ flex: 1 }}>
             <p
               style={{
                 margin: 0,
-                fontSize: "14px",
+                fontSize: "12px",
                 color: "#333",
                 fontStyle: "italic",
                 fontWeight: 500,
-                lineHeight: "1.6",
+                lineHeight: "1.5",
               }}
             >
               {walkabilityScores.description}
@@ -538,20 +534,20 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             {/* Data Source Attribution */}
             <div
               style={{
-                marginTop: "16px",
-                paddingTop: "16px",
-                borderTop: "2px solid #f0f0f0",
+                marginTop: "12px",
+                paddingTop: "12px",
+                borderTop: "1px solid #f0f0f0",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                gap: "12px",
+                gap: "8px",
               }}
             >
               <p
                 style={{
                   margin: 0,
-                  fontSize: "11px",
+                  fontSize: "9px",
                   color: "#888",
                   fontWeight: 500,
                 }}
@@ -576,16 +572,16 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "9px",
                     color: "#000",
                     textDecoration: "none",
                     fontWeight: 700,
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "6px",
-                    padding: "8px 16px",
+                    gap: "4px",
+                    padding: "6px 12px",
                     backgroundColor: "#FFD700",
-                    borderRadius: "8px",
+                    borderRadius: "6px",
                     transition: "all 0.2s ease",
                   }}
                   onMouseEnter={(e) => {

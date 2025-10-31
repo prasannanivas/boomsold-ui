@@ -43,12 +43,12 @@
 
 .selected-part-label {
   position: fixed;
-  top: 10%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2000;
-  font-size: 4rem;
-  font-weight: 900;
+  font-size: 3rem;
+  font-weight: 700;
   color: #FFD700;
   text-transform: uppercase;
   letter-spacing: 8px;

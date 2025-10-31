@@ -417,50 +417,46 @@ const MontrealMap = ({
     }, 160);
   }, [montrealData, applyInitialHiddenState, getFeatureLayers]);
 
-  // Load both GeoJSON, CSV data, and POIs
+  // Load both GeoJSON, JSON price data, and POIs
   useEffect(() => {
     // If partGeoJSON is provided, use it directly instead of loading and filtering
     if (partGeoJSON) {
       Promise.all([
         Promise.resolve(partGeoJSON), // Use the pre-filtered and rotated GeoJSON
-        fetch(process.env.PUBLIC_URL + "/boomsold.live data - Sheet1.csv").then(
-          (response) => response.text()
+        fetch(process.env.PUBLIC_URL + "/neighborhood-prices.json").then(
+          (response) => response.json()
         ),
         fetch(process.env.PUBLIC_URL + "/assets/montreal_pois.json").then(
           (response) => response.json()
         ),
       ])
-        .then(([geoJsonData, csvData, poisData]) => {
-          // Parse CSV data
-          const csvLines = csvData.split("\n");
-          const headers = csvLines[0].split(",").map((h) => h.trim());
-          const singleFamilyRow = csvLines[1].split(",");
-          const condoRow = csvLines[2].split(",");
-
-          // Create neighborhood mapping with CSV data
+        .then(([geoJsonData, priceData, poisData]) => {
+          // Create neighborhood mapping from JSON data
           const neighborhoodMapping = {};
 
-          // Process CSV data and create mapping
-          headers.slice(1).forEach((csvName, index) => {
-            if (csvName && csvName.trim()) {
-              const geoJsonName = nameMapping[csvName.trim()];
-              const singleFamilyPrice = singleFamilyRow[index + 1];
-              const condoPrice = condoRow[index + 1];
+          // Process JSON data and create mapping
+          priceData.neighborhoods.forEach((neighborhood) => {
+            const geoJsonName =
+              nameMapping[neighborhood.name] || neighborhood.name;
+            const singleFamilyPrice = neighborhood.singleFamilyPrice;
+            const condoPrice = neighborhood.condoPrice;
 
-              if (geoJsonName && singleFamilyPrice) {
-                const formattedPrice = parsePrice(singleFamilyPrice);
-                const color = getPriceColor(singleFamilyPrice);
+            if (geoJsonName && singleFamilyPrice) {
+              const rawSingleFamily = singleFamilyPrice.replace(/[$,]/g, "");
+              const rawCondo = condoPrice
+                ? condoPrice.replace(/[$,]/g, "")
+                : null;
+              const color = getPriceColor(rawSingleFamily);
 
-                neighborhoodMapping[geoJsonName] = {
-                  initials: generateInitials(geoJsonName),
-                  color: color,
-                  price: formattedPrice,
-                  singleFamilyPrice: parsePrice(singleFamilyPrice),
-                  condoPrice: condoPrice ? parsePrice(condoPrice) : null,
-                  rawSingleFamily: singleFamilyPrice,
-                  rawCondo: condoPrice,
-                };
-              }
+              neighborhoodMapping[geoJsonName] = {
+                initials: generateInitials(geoJsonName),
+                color: color,
+                price: singleFamilyPrice,
+                singleFamilyPrice: singleFamilyPrice,
+                condoPrice: condoPrice,
+                rawSingleFamily: rawSingleFamily,
+                rawCondo: rawCondo,
+              };
             }
           });
 
@@ -479,8 +475,13 @@ const MontrealMap = ({
           geoJsonData.features.forEach((feature) => {
             const boroughName = feature.properties.nom_arr;
             const neighborhoodName = feature.properties.nom_qr;
+            const municipalityName = feature.properties.nom_mun;
             const partDirection = feature.properties.part; // Get the part (East, West, South, North)
-            const areaData = neighborhoodMapping[boroughName];
+
+            // Try to match by borough first, then by municipality/neighborhood for independent cities
+            const lookupName =
+              boroughName || municipalityName || neighborhoodName;
+            const areaData = neighborhoodMapping[lookupName];
 
             // Calculate geographic area from geometry
             const areaInKm2 = calculateFeatureArea(feature.geometry);
@@ -499,7 +500,7 @@ const MontrealMap = ({
               );
               feature.properties.pricePerSqft =
                 Math.floor(Math.random() * 200) + 300; // Store as consistent value
-              feature.properties.name = boroughName;
+              feature.properties.name = lookupName; // Use lookupName instead of boroughName
               feature.properties.neighborhood = neighborhoodName;
               feature.properties.rawSingleFamily = areaData.rawSingleFamily;
               feature.properties.rawCondo = areaData.rawCondo;
@@ -574,14 +575,14 @@ const MontrealMap = ({
       fetch(
         process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
       ).then((response) => response.json()),
-      fetch(process.env.PUBLIC_URL + "/boomsold.live data - Sheet1.csv").then(
-        (response) => response.text()
+      fetch(process.env.PUBLIC_URL + "/neighborhood-prices.json").then(
+        (response) => response.json()
       ),
       fetch(process.env.PUBLIC_URL + "/assets/montreal_pois.json").then(
         (response) => response.json()
       ),
     ])
-      .then(([geoJsonData, csvData, poisData]) => {
+      .then(([geoJsonData, priceData, poisData]) => {
         // Filter by selected part if provided
         let filteredGeoJsonData = geoJsonData;
         if (selectedPart) {
@@ -593,36 +594,32 @@ const MontrealMap = ({
           };
         }
 
-        // Parse CSV data
-        const csvLines = csvData.split("\n");
-        const headers = csvLines[0].split(",").map((h) => h.trim());
-        const singleFamilyRow = csvLines[1].split(",");
-        const condoRow = csvLines[2].split(",");
-
-        // Create neighborhood mapping with CSV data
+        // Create neighborhood mapping from JSON data
         const neighborhoodMapping = {};
 
-        // Process CSV data and create mapping
-        headers.slice(1).forEach((csvName, index) => {
-          if (csvName && csvName.trim()) {
-            const geoJsonName = nameMapping[csvName.trim()];
-            const singleFamilyPrice = singleFamilyRow[index + 1];
-            const condoPrice = condoRow[index + 1];
+        // Process JSON data and create mapping
+        priceData.neighborhoods.forEach((neighborhood) => {
+          const geoJsonName =
+            nameMapping[neighborhood.name] || neighborhood.name;
+          const singleFamilyPrice = neighborhood.singleFamilyPrice;
+          const condoPrice = neighborhood.condoPrice;
 
-            if (geoJsonName && singleFamilyPrice) {
-              const formattedPrice = parsePrice(singleFamilyPrice);
-              const color = getPriceColor(singleFamilyPrice);
+          if (geoJsonName && singleFamilyPrice) {
+            const rawSingleFamily = singleFamilyPrice.replace(/[$,]/g, "");
+            const rawCondo = condoPrice
+              ? condoPrice.replace(/[$,]/g, "")
+              : null;
+            const color = getPriceColor(rawSingleFamily);
 
-              neighborhoodMapping[geoJsonName] = {
-                initials: generateInitials(geoJsonName),
-                color: color,
-                price: formattedPrice,
-                singleFamilyPrice: parsePrice(singleFamilyPrice),
-                condoPrice: condoPrice ? parsePrice(condoPrice) : null,
-                rawSingleFamily: singleFamilyPrice,
-                rawCondo: condoPrice,
-              };
-            }
+            neighborhoodMapping[geoJsonName] = {
+              initials: generateInitials(geoJsonName),
+              color: color,
+              price: singleFamilyPrice,
+              singleFamilyPrice: singleFamilyPrice,
+              condoPrice: condoPrice,
+              rawSingleFamily: rawSingleFamily,
+              rawCondo: rawCondo,
+            };
           }
         });
 
@@ -637,8 +634,13 @@ const MontrealMap = ({
         filteredGeoJsonData.features.forEach((feature) => {
           const boroughName = feature.properties.nom_arr;
           const neighborhoodName = feature.properties.nom_qr;
+          const municipalityName = feature.properties.nom_mun;
           const partDirection = feature.properties.part; // Get the part (East, West, South, North)
-          const areaData = neighborhoodMapping[boroughName];
+
+          // Try to match by borough first, then by municipality/neighborhood for independent cities
+          const lookupName =
+            boroughName || municipalityName || neighborhoodName;
+          const areaData = neighborhoodMapping[lookupName];
 
           // Calculate geographic area from geometry
           const areaInKm2 = calculateFeatureArea(feature.geometry);
@@ -657,7 +659,7 @@ const MontrealMap = ({
             );
             feature.properties.pricePerSqft =
               Math.floor(Math.random() * 200) + 300; // Store as consistent value
-            feature.properties.name = boroughName;
+            feature.properties.name = lookupName; // Use lookupName instead of boroughName
             feature.properties.neighborhood = neighborhoodName;
             feature.properties.rawSingleFamily = areaData.rawSingleFamily;
             feature.properties.rawCondo = areaData.rawCondo;
@@ -1345,7 +1347,11 @@ const MontrealMap = ({
         style={{ background: "transparent" }}
       >
         <h2 className="selected-part-label">
-          {selectedPart && `${selectedPart} Montreal`}
+          {selectedPart === "South"
+            ? "Central/South of Montreal"
+            : selectedPart === "West"
+            ? "West Island"
+            : `Montreal ${selectedPart}`}
         </h2>
         <MapContainer
           center={center}
