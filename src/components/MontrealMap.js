@@ -265,6 +265,7 @@ const MontrealMap = ({
       // Get part-specific zoom level
       const partZoomLevels = {
         North: 11.5,
+        Central: 12.5,
         South: 12,
         East: 12.5,
         West: 12,
@@ -1326,7 +1327,8 @@ const MontrealMap = ({
 
     const partConfigs = {
       North: { center: [45.58, -73.48], zoom: 11.5 + zoomAdjustment },
-      South: { center: [45.52, -73.55], zoom: 11.5 + zoomAdjustment },
+      South: { center: [45.48, -73.55], zoom: 11.5 + zoomAdjustment },
+      Central: { center: [45.56, -73.62], zoom: 11.5 + zoomAdjustment },
       East: { center: [45.54, -73.45], zoom: 12 + zoomAdjustment },
       West: { center: [45.58, -73.85], zoom: 12 + zoomAdjustment },
     };

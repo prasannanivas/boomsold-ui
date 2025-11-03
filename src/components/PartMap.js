@@ -15,6 +15,7 @@ const getColorByPart = (part) => {
     South: "#F59E0B", // Rich Amber
     East: "#10B981", // Emerald Green
     West: "#3B82F6", // Sapphire Blue
+    Central: "#10B981", // Emerald Green
   };
   return colorMap[part] || "#8B5CF6";
 };
@@ -25,6 +26,7 @@ const getPartDisplayName = (part) => {
     South: "City Center/ South of the island",
     West: "West Island",
     North: "Montreal North",
+    Central: "Central North",
   };
   return nameMap[part] || part;
 };
@@ -36,6 +38,7 @@ const aggregateByPart = (geoJsonData) => {
     South: { features: [], color: "#F59E0B" },
     East: { features: [], color: "#10B981" },
     West: { features: [], color: "#3B82F6" },
+    Central: { features: [], color: "#10B981" },
   };
 
   // Group features by part
@@ -440,6 +443,28 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               Montreal North
             </span>
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              transform: hoveredPart === "Central" ? "scale(1.15)" : "scale(1)",
+              transition: "transform 0.2s ease-out",
+            }}
+          >
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                backgroundColor: "#10B981",
+                borderRadius: "3px",
+              }}
+            />
+            <span style={{ fontSize: "14px", color: "#333" }}>
+              Central Montreal
+            </span>
+          </div>
         </div>
 
         <p
@@ -455,7 +480,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       </div>
 
       {/* Hovered Part Name - Above the Map */}
-      {hoveredPartName && (
+      {/* {hoveredPartName && (
         <h2
           style={{
             position: "fixed",
@@ -488,7 +513,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         >
           {getPartDisplayName(hoveredPartName)}
         </h2>
-      )}
+      )} */}
 
       <div
         className="custom-montreal-map"
@@ -552,7 +577,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
           {Object.entries(partCenters).map(([partName, center]) => {
             // Only show South, West, and North
-            if (!["South", "West", "North"].includes(partName)) return null;
+            if (!["South", "West", "North", "Central"].includes(partName))
+              return null;
 
             const displayName = getPartDisplayName(partName);
 
@@ -567,6 +593,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             } else if (partName === "South") {
               // Move South left
               adjustedLng -= 0.07; // Move left
+            } else if (partName === "Central") {
+              // Move West down and left
+              adjustedLat += 0.02; // Move down
+              adjustedLng -= 0.09; // Move left
             }
 
             // Create custom icon with white text

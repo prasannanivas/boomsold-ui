@@ -3729,7 +3729,7 @@
         "no_arr": "24",
         "nom_arr": "Rosemont–La Petite-Patrie",
         "nom_mun": "Montréal",
-        "part": "South",
+        "part": "Central",
         "nb_log": null,
         "merged_from": 7
       },
@@ -5556,7 +5556,7 @@
         "nom_qr": "Sault-au-Récollet, Saint-Sulpice, Nicolas-Viel, La Visitation, Nouveau-Bordeaux, Cartierville",
         "no_arr": "23",
         "nom_arr": "Ahuntsic-Cartierville",
-        "part": "South",
+        "part": "Central",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 6
@@ -17780,7 +17780,7 @@
         "nom_qr": "Lorimier, Saint-Louis, Parc-Lafontaine, Parc-Laurier, Mile End, Milton-Parc",
         "no_arr": "21",
         "nom_arr": "Le Plateau-Mont-Royal",
-        "part": "South",
+        "part": "Central",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 6
@@ -19108,7 +19108,7 @@
       "properties": {
         "no_qr": "74",
         "nom_qr": "Outremont",
-        "part": "South",
+        "part": "Central",
         "no_arr": "05",
         "nom_arr": "Outremont",
         "nom_mun": "Montréal"
@@ -19770,7 +19770,7 @@
         "nom_qr": "Chameran/Montpellier, Grenet, Dutrisac, Bois-Francs, Du College/Hodge",
         "no_arr": "15",
         "nom_arr": "Saint-Laurent",
-        "part": "South",
+        "part": "Central",
         "nom_mun": "Montréal",
         "nb_log": null,
         "merged_from": 5
@@ -50292,7 +50292,7 @@
         "nom_qr": "Mont-Royal",
         "no_arr": null,
         "nom_arr": null,
-        "part": "South",
+        "part": "Central",
         "nom_mun": "Mont-Royal"
       },
       "geometry": {
