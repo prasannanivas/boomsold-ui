@@ -135,6 +135,45 @@
   box-shadow: 0 30px 60px rgba(255, 215, 0, 0.2);
 }
 
+/* Override MontrealMap.css tile layer hiding for NeighborhoodMap */
+.neighborhood-detail-map .leaflet-tile-pane {
+  display: block !important;
+}
+
+.neighborhood-detail-map .leaflet-tile {
+  display: block !important;
+}
+
+.neighborhood-detail-map .leaflet-layer {
+  opacity: 1 !important;
+}
+
+/* Ensure the base map tiles are visible */
+.neighborhood-leaflet-map .leaflet-tile-pane {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.neighborhood-leaflet-map .leaflet-tile {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.neighborhood-leaflet-map .leaflet-layer {
+  opacity: 1 !important;
+}
+
+/* Ensure overlay pane (GeoJSON) is on top */
+.neighborhood-leaflet-map .leaflet-overlay-pane {
+  z-index: 400 !important;
+  opacity: 1 !important;
+}
+
+/* Ensure tile pane is below overlay */
+.neighborhood-leaflet-map .leaflet-tile-pane {
+  z-index: 200 !important;
+}
+
 /* Walkability Section */
 .neighborhood-walkability-section {
   margin-bottom: 20px;
@@ -409,6 +448,18 @@
   will-change: transform;
 }
 
+.poi-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.poi-item-card.selected {
+  border: 3px solid #FFD700 !important;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4) !important;
+  transform: scale(1.02);
+}
+
 .poi-item-card::before {
   content: '';
   position: absolute;
@@ -419,6 +470,43 @@
   background: linear-gradient(180deg, #FFD700 0%, #FFC700 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+
+.poi-item-card:hover::before {
+  opacity: 1;
+}
+
+/* Custom POI Marker */
+.custom-poi-marker {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Leaflet Popup Customization */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  min-width: 200px;
 }
 
 

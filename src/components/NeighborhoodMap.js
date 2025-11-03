@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, GeoJSON } from "react-leaflet";
+import React, { useState, useEffect, useRef } from "react";
+import { MapContainer, GeoJSON, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
@@ -69,6 +69,9 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const [currentZoom, setCurrentZoom] = useState(14);
   const [selectedPOICategory, setSelectedPOICategory] = useState(null);
   const [hoveredPOI, setHoveredPOI] = useState(null);
+  const [selectedPOI, setSelectedPOI] = useState(null); // Track clicked POI
+  const [originalGeoJSON, setOriginalGeoJSON] = useState(null); // Store original unrotated GeoJSON
+  const mapSectionRef = useRef(null); // Reference to map section for scrolling
   const [poiCategories, setPOICategories] = useState({
     parks: [],
     schools: [],
@@ -87,9 +90,95 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   // Get enhanced scores (transit and bike details)
   const enhancedScores = enhancedWalkScores[neighborhoodName] || null;
 
+  // Create custom icons for POI markers
+  const createPOIIcon = (category) => {
+    const iconMap = {
+      parks: "🌳",
+      schools: "🎓",
+      hospitals: "🏥",
+      restaurants: "🍽️",
+      sports: "🏟️",
+    };
+
+    return L.divIcon({
+      className: "custom-poi-marker",
+      html: `<div style="font-size: 32px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">${iconMap[category]}</div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+  };
+
+  // Handle POI click - scroll to map and mark location
+  const handlePOIClick = (poi, category) => {
+    console.log("🎯 POI Clicked:", poi.name, "Category:", category);
+    console.log("🗺️ Map instance:", map);
+    console.log("📍 POI Coordinates:", poi.lat, poi.lon);
+    console.log("📜 Map section ref:", mapSectionRef.current);
+
+    if (!map || !poi.lat || !poi.lon) {
+      console.warn("❌ Cannot navigate - missing map or coordinates");
+      return;
+    }
+
+    // Set the selected POI
+    setSelectedPOI({ ...poi, category });
+
+    // Scroll to map section first
+    if (mapSectionRef.current) {
+      mapSectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+
+    // Just pan to POI location smoothly without changing zoom
+    // This keeps the neighborhood in view
+    setTimeout(() => {
+      map.panTo([poi.lat, poi.lon], {
+        animate: true,
+        duration: 1.0,
+      });
+    }, 300);
+  };
+
+  // Load original unrotated GeoJSON for outline display
+  useEffect(() => {
+    fetch(
+      process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
+    )
+      .then((response) => response.json())
+      .then((geoJsonData) => {
+        // Filter to only the current neighborhood by matching the name
+        const filteredData = {
+          type: "FeatureCollection",
+          features: geoJsonData.features.filter((feature) => {
+            const featureName =
+              feature.properties.name ||
+              feature.properties.nom_arr ||
+              feature.properties.nom_qr;
+            return featureName === neighborhoodName;
+          }),
+        };
+        setOriginalGeoJSON(filteredData);
+      })
+      .catch((error) => {
+        console.error("Error loading original GeoJSON:", error);
+      });
+  }, [neighborhoodName]);
+
   // Load POI data and filter by neighborhood bounds
   useEffect(() => {
     const loadPOIs = async () => {
+      // Wait for originalGeoJSON to be loaded first
+      if (
+        !originalGeoJSON ||
+        !originalGeoJSON.features ||
+        !originalGeoJSON.features.length
+      ) {
+        console.log("⏳ Waiting for originalGeoJSON to load...");
+        return;
+      }
+
       try {
         const [
           parksDataRaw,
@@ -115,43 +204,64 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           ).then((res) => res.json()),
         ]);
 
-        // Get neighborhood bounds
-        if (
-          !neighborhoodGeoJSON ||
-          !neighborhoodGeoJSON.features ||
-          !neighborhoodGeoJSON.features.length
-        ) {
-          return;
-        }
+        // USE ORIGINAL GEOJSON (not rotated) for point-in-polygon test
+        const feature = originalGeoJSON.features[0];
 
-        const feature = neighborhoodGeoJSON.features[0];
-        let allCoords = [];
+        console.log(`🔍 Starting POI filtering for ${neighborhoodName}`);
+        console.log(`📐 Using ORIGINAL (unrotated) GeoJSON for filtering`);
+        console.log(`📐 Geometry type: ${feature.geometry.type}`);
 
-        if (feature.geometry.type === "MultiPolygon") {
-          feature.geometry.coordinates.forEach((poly) => {
-            poly.forEach((ring) => {
-              allCoords = allCoords.concat(ring);
-            });
-          });
-        } else if (feature.geometry.type === "Polygon") {
-          feature.geometry.coordinates.forEach((ring) => {
-            allCoords = allCoords.concat(ring);
-          });
-        }
-
-        // Helper function to check if point is in neighborhood
+        // Helper function to check if point is STRICTLY inside the neighborhood polygon
         const isPointInNeighborhood = (lat, lon) => {
-          // Simple bounding box check for now
-          const lats = allCoords.map((c) => c[1]);
-          const lngs = allCoords.map((c) => c[0]);
-          const minLat = Math.min(...lats);
-          const maxLat = Math.max(...lats);
-          const minLng = Math.min(...lngs);
-          const maxLng = Math.max(...lngs);
+          // Ray casting algorithm for point-in-polygon test
+          // This works for both Polygon and MultiPolygon
+          let inside = false;
 
-          return (
-            lat >= minLat && lat <= maxLat && lon >= minLng && lon <= maxLng
-          );
+          const testPoint = [lon, lat]; // [lng, lat] format
+
+          if (feature.geometry.type === "MultiPolygon") {
+            // Test against all polygons in the MultiPolygon
+            for (const poly of feature.geometry.coordinates) {
+              const ring = poly[0]; // Outer ring
+              if (pointInPolygon(testPoint, ring)) {
+                inside = true;
+                break;
+              }
+            }
+          } else if (feature.geometry.type === "Polygon") {
+            const ring = feature.geometry.coordinates[0]; // Outer ring
+            inside = pointInPolygon(testPoint, ring);
+          }
+
+          return inside;
+        };
+
+        // Ray casting algorithm to determine if point is inside polygon
+        const pointInPolygon = (point, polygon) => {
+          const x = point[0];
+          const y = point[1];
+          let inside = false;
+
+          for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            const xi = polygon[i][0];
+            const yi = polygon[i][1];
+            const xj = polygon[j][0];
+            const yj = polygon[j][1];
+
+            // Ray casting: check if ray crosses polygon edge
+            const yiAbovePoint = yi > y;
+            const yjAbovePoint = yj > y;
+            const edgeCrossesRay = yiAbovePoint !== yjAbovePoint;
+
+            if (edgeCrossesRay) {
+              const xIntersection = ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+              if (x < xIntersection) {
+                inside = !inside;
+              }
+            }
+          }
+
+          return inside;
         };
 
         // Filter POIs by neighborhood bounds
@@ -183,20 +293,29 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           sports,
         });
 
-        console.log("POIs loaded for neighborhood:", {
-          parks: parks.length,
-          schools: schools.length,
-          hospitals: hospitals.length,
-          restaurants: restaurants.length,
-          sports: sports.length,
-        });
+        console.log(
+          "✅ POIs filtered (STRICT polygon containment) for neighborhood:",
+          {
+            parks: parks.length,
+            schools: schools.length,
+            hospitals: hospitals.length,
+            restaurants: restaurants.length,
+            sports: sports.length,
+            total:
+              parks.length +
+              schools.length +
+              hospitals.length +
+              restaurants.length +
+              sports.length,
+          }
+        );
       } catch (error) {
         console.error("Error loading POIs:", error);
       }
     };
 
     loadPOIs();
-  }, [neighborhoodGeoJSON]);
+  }, [originalGeoJSON, neighborhoodName]);
 
   // Calculate area of a polygon using shoelace formula and convert to km²
   const calculatePolygonArea = (coords) => {
@@ -247,17 +366,18 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     return 13; // Very small (Westmount, Hampstead)
   };
 
-  // Calculate center and bounds from GeoJSON
+  // Calculate center and bounds from ORIGINAL (unrotated) GeoJSON
   const getNeighborhoodBounds = () => {
+    // Use originalGeoJSON for accurate geographic centering
     if (
-      !neighborhoodGeoJSON ||
-      !neighborhoodGeoJSON.features ||
-      !neighborhoodGeoJSON.features.length
+      !originalGeoJSON ||
+      !originalGeoJSON.features ||
+      !originalGeoJSON.features.length
     ) {
       return { center: [45.56, -73.62], bounds: null, maxZoom: 14 };
     }
 
-    const feature = neighborhoodGeoJSON.features[0];
+    const feature = originalGeoJSON.features[0];
     let allCoords = [];
 
     if (feature.geometry.type === "MultiPolygon") {
@@ -295,7 +415,9 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     console.log(
       `Neighborhood: ${feature.properties.name}, Area: ${area.toFixed(
         1
-      )} km², Max Zoom: ${maxZoom}`
+      )} km², Max Zoom: ${maxZoom}, Center: [${centerLat.toFixed(
+        6
+      )}, ${centerLng.toFixed(6)}]`
     );
 
     return { center: [centerLat, centerLng], bounds, maxZoom };
@@ -303,15 +425,85 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
   const { center, bounds, maxZoom } = getNeighborhoodBounds();
 
-  // Yellow Glowing style like BoomSold Logo
-  const getNeighborhoodStyle = () => ({
-    fillColor: "#FFD700", // Bright gold yellow like logo burst
+  // Outline-only style for the neighborhood (no fill, just borders)
+  const getNeighborhoodOutlineStyle = () => ({
+    fillColor: "transparent", // No fill
     weight: 4, // Bold black borders
     opacity: 1,
     color: "#000000", // Black borders
-    fillOpacity: 0.9,
+    fillOpacity: 0, // Completely transparent fill
     lineJoin: "round",
     lineCap: "round",
+  });
+
+  // Create an inverse mask layer to dim everything outside the neighborhood
+  const createInverseMaskGeoJSON = () => {
+    if (
+      !originalGeoJSON ||
+      !originalGeoJSON.features ||
+      !originalGeoJSON.features.length
+    ) {
+      return null;
+    }
+
+    const feature = originalGeoJSON.features[0];
+
+    // Create a large rectangle covering the entire map view
+    // Montreal approximate bounds: lat [45.4, 45.7], lng [-73.95, -73.45]
+    const outerBounds = [
+      [-73.95, 45.4], // SW
+      [-73.95, 45.7], // NW
+      [-73.45, 45.7], // NE
+      [-73.45, 45.4], // SE
+      [-73.95, 45.4], // Close polygon
+    ];
+
+    // Create a MultiPolygon with the outer bounds and the neighborhood as a hole
+    let inverseMask;
+
+    if (feature.geometry.type === "Polygon") {
+      inverseMask = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            outerBounds,
+            ...feature.geometry.coordinates, // Add neighborhood as holes
+          ],
+        },
+      };
+    } else if (feature.geometry.type === "MultiPolygon") {
+      // For MultiPolygon, add all polygons as holes
+      const holes = [];
+      feature.geometry.coordinates.forEach((poly) => {
+        holes.push(...poly);
+      });
+
+      inverseMask = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Polygon",
+          coordinates: [outerBounds, ...holes],
+        },
+      };
+    }
+
+    return {
+      type: "FeatureCollection",
+      features: [inverseMask],
+    };
+  };
+
+  const inverseMaskGeoJSON = createInverseMaskGeoJSON();
+
+  // Style for the inverse mask (dimmed overlay)
+  const getInverseMaskStyle = () => ({
+    fillColor: "#000000",
+    fillOpacity: 0.3, // 30% black overlay
+    weight: 0,
+    opacity: 0,
   });
 
   // Feature interaction handlers
@@ -420,17 +612,19 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     }
   };
 
-  // Fit bounds when map is created (optional - for fine-tuning)
+  // Fit bounds when map is created and originalGeoJSON is loaded
   useEffect(() => {
-    if (map && bounds) {
+    if (map && bounds && originalGeoJSON) {
       setTimeout(() => {
+        console.log("🎯 Fitting map to neighborhood bounds:", bounds);
         map.fitBounds(bounds, {
           padding: [50, 50],
-          animate: false,
+          animate: true,
+          duration: 0.5,
         });
-      }, 100);
+      }, 200);
     }
-  }, [map, bounds]);
+  }, [map, bounds, originalGeoJSON]);
 
   if (!neighborhoodGeoJSON) {
     return (
@@ -596,12 +790,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               key={`${poi.id}-${index}`}
               className={`poi-item-card ${
                 hoveredPOI?.id === poi.id ? "hovered" : ""
-              }`}
+              } ${selectedPOI?.id === poi.id ? "selected" : ""}`}
               style={{
                 backgroundColor:
                   hoveredPOI?.id === poi.id ? info.color : undefined,
                 color: hoveredPOI?.id === poi.id ? "#fff" : undefined,
               }}
+              onClick={() => handlePOIClick(poi, selectedPOICategory)}
             >
               <div className="poi-item-name">
                 {poi.name || poi.tags?.name || "Unnamed"}
@@ -814,8 +1009,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           </section>
         )}
 
-        <section className="neighborhood-map-section">
-          <div className="neighborhood-map-container-wrapper">
+        <section className="neighborhood-map-section" ref={mapSectionRef}>
+          <div className="neighborhood-map-container-wrapper neighborhood-detail-map">
             <MapContainer
               center={center}
               zoom={maxZoom || 14}
@@ -832,28 +1027,88 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               fadeAnimation={true}
               markerZoomAnimation={true}
               attributionControl={false}
-              whenCreated={(mapInstance) => {
-                setMap(mapInstance);
+              className="neighborhood-leaflet-map"
+              ref={(mapInstance) => {
+                if (mapInstance && !map) {
+                  setMap(mapInstance);
+                  console.log("✅ Map instance created and stored");
 
-                // Log center and zoom on zoom change
-                mapInstance.on("zoomend", () => {
-                  const zoom = mapInstance.getZoom();
-                  const center = mapInstance.getCenter();
-                  setCurrentZoom(zoom);
-                  console.log("📍 Neighborhood Center:", {
-                    lat: center.lat.toFixed(6),
-                    lng: center.lng.toFixed(6),
+                  // Log center and zoom on zoom change
+                  mapInstance.on("zoomend", () => {
+                    const zoom = mapInstance.getZoom();
+                    const center = mapInstance.getCenter();
+                    setCurrentZoom(zoom);
+                    console.log("📍 Neighborhood Center:", {
+                      lat: center.lat.toFixed(6),
+                      lng: center.lng.toFixed(6),
+                    });
+                    console.log("🔍 Zoom:", zoom.toFixed(2));
                   });
-                  console.log("🔍 Zoom:", zoom.toFixed(2));
-                });
+                }
               }}
             >
-              {/* GeoJSON: Only selected neighborhood */}
-              <GeoJSON
-                data={neighborhoodGeoJSON}
-                style={getNeighborhoodStyle}
-                onEachFeature={onEachFeature}
+              {/* Base Layer: Real map from OpenStreetMap */}
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                maxZoom={19}
               />
+
+              {/* Dimmed overlay for everything outside the neighborhood */}
+              {inverseMaskGeoJSON && (
+                <GeoJSON
+                  data={inverseMaskGeoJSON}
+                  style={getInverseMaskStyle}
+                />
+              )}
+
+              {/* Overlay: Neighborhood outline only (using original unrotated GeoJSON) */}
+              {originalGeoJSON && (
+                <GeoJSON
+                  data={originalGeoJSON}
+                  style={getNeighborhoodOutlineStyle}
+                  onEachFeature={onEachFeature}
+                />
+              )}
+
+              {/* Marker for selected POI */}
+              {selectedPOI && selectedPOI.lat && selectedPOI.lon && (
+                <Marker
+                  position={[selectedPOI.lat, selectedPOI.lon]}
+                  icon={createPOIIcon(selectedPOI.category)}
+                >
+                  <Popup>
+                    <div style={{ padding: "8px" }}>
+                      <h3
+                        style={{
+                          margin: "0 0 8px 0",
+                          fontSize: "16px",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {selectedPOI.name ||
+                          selectedPOI.tags?.name ||
+                          "Unnamed"}
+                      </h3>
+                      {selectedPOI.address && (
+                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                          📍 {selectedPOI.address}
+                        </p>
+                      )}
+                      {selectedPOI.cuisine && (
+                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                          🍴 {selectedPOI.cuisine}
+                        </p>
+                      )}
+                      {selectedPOI.sport && (
+                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                          ⚽ {selectedPOI.sport}
+                        </p>
+                      )}
+                    </div>
+                  </Popup>
+                </Marker>
+              )}
             </MapContainer>
           </div>
         </section>

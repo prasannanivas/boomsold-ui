@@ -1244,7 +1244,7 @@ const MontrealMap = ({
           feature.properties.name || feature.properties.nom_arr;
         const filteredGeoJSON = {
           type: "FeatureCollection",
-          features: montrealData.features.filter(
+          features: montrealDataTop.features.filter(
             (f) =>
               (f.properties.name || f.properties.nom_arr) ===
               clickedNeighborhoodName
