@@ -32,14 +32,19 @@ const getPartDisplayName = (part) => {
   return nameMap[part] || part;
 };
 
+// Yellow color variations inspired by Boomsold branding
+const getYellowShadeByPart = (part) => {
+  return "#FFD700";
+};
+
 // Function to aggregate neighborhoods by part and merge geometries
 const aggregateByPart = (geoJsonData) => {
   const partMap = {
-    North: { features: [], color: "#8B5CF6" },
-    South: { features: [], color: "#F59E0B" },
-    East: { features: [], color: "#10B981" },
-    West: { features: [], color: "#3B82F6" },
-    Central: { features: [], color: "#10B981" },
+    North: { features: [], color: getYellowShadeByPart("North") },
+    South: { features: [], color: getYellowShadeByPart("South") },
+    East: { features: [], color: getYellowShadeByPart("East") },
+    West: { features: [], color: getYellowShadeByPart("West") },
+    Central: { features: [], color: getYellowShadeByPart("Central") },
   };
 
   // Group features by part
@@ -219,28 +224,34 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     }
   }, [map, partData, isMobile]);
 
-  // Style function for parts - NO BORDERS
+  // Style function for parts - Yellow variations with no visible borders, shadows provide separation
   const getPartStyle = (feature) => {
+    const partColor = feature.properties.color || "#FFD700";
     return {
-      fillColor: feature.properties.color || "#4DD0E1",
-      weight: 0, // NO BORDER
-      opacity: 0,
-      color: "transparent", // Transparent border
-      fillOpacity: 0.85,
+      fillColor: partColor,
+      weight: 0, // No borders at all
+      opacity: 0, // No border opacity
+      color: "transparent", // Transparent borders
+      fillOpacity: 0.9,
       lineJoin: "round",
       lineCap: "round",
     };
   };
 
-  // Hover style - still no borders, just opacity change
-  const getPartHoverStyle = () => ({
-    weight: 0, // NO BORDER
-    color: "transparent",
-    fillOpacity: 0.95,
-    opacity: 0,
-    lineJoin: "round",
-    lineCap: "round",
-  });
+  // Hover style - Brighter version with no borders, only shadow effects
+  const getPartHoverStyle = (feature) => {
+    const partColor = feature.properties.color || "#FFD700";
+    // Make hover color lighter/brighter with no borders
+    return {
+      weight: 0, // No borders on hover either
+      color: "white", // Transparent borders on hover
+      fillOpacity: 1,
+      opacity: 0, // No border opacity on hover
+      fillColor: partColor,
+      lineJoin: "round",
+      lineCap: "round",
+    };
+  };
 
   // Handle part interactions
   const onEachPart = (feature, layer) => {
@@ -249,14 +260,12 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     // Mouse over - highlight
     layer.on({
       mouseover: () => {
-        layer.setStyle(getPartHoverStyle());
+        layer.setStyle(getPartHoverStyle(feature));
         layer.bringToFront();
 
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, -3px)";
-          pathElement.style.filter =
-            "drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))";
           pathElement.style.transition = "all 0.2s ease-out";
           pathElement.style.zIndex = "1000";
         }
@@ -279,7 +288,6 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, 0)";
-          pathElement.style.filter = "none";
           pathElement.style.transition = "all 0.2s ease-out";
           pathElement.style.zIndex = "auto";
         }
@@ -368,7 +376,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   }
 
   return (
-    <div className="montreal-map-container">
+    <div className="part-map-container">
       {/* Top Heading */}
       <h1
         className="part-map-heading"

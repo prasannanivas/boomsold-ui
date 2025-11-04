@@ -4,6 +4,9 @@ const ProfessionalHeader = () => {
   return (
     <div className="professional-header">
       <div className="header-content">
+        <div className="header-title">
+          <h1>Montreal Real Estate Map</h1>
+        </div>
         <div className="brand-section">
           <img
             src={
