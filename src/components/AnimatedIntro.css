@@ -172,18 +172,28 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .animated-intro {
+    height: 100vh;
+    height: 100dvh;
+  }
+
   .boomsold-logo {
-    max-width: 300px;
+    max-width: 280px;
   }
 
   .animated-intro.moving-up .logo-container {
-    transform: translateY(-35vh) translateX(-40vw) scale(0.25);
+    transform: translateY(-42vh) translateX(-38vw) scale(0.28);
+  }
+
+  .animated-intro.final-position .logo-container {
+    transform: translateY(-44vh) translateX(-40vw) scale(0.26);
+    top: 15px;
   }
 
   .logo-fixed {
-    max-width: 100px;
-    top: 15px;
-    left: 15px;
+    max-width: 110px;
+    top: 12px;
+    left: 12px;
   }
 
   .particle {
@@ -193,17 +203,52 @@
 }
 
 @media (max-width: 480px) {
+  .animated-intro {
+    height: 100vh;
+    height: 100dvh;
+  }
+
   .boomsold-logo {
-    max-width: 250px;
+    max-width: 220px;
+  }
+
+  .logo-container {
+    max-width: 90%;
   }
 
   .animated-intro.moving-up .logo-container {
-    transform: translateY(-30vh) translateX(-35vw) scale(0.2);
+    transform: translateY(-38vh) translateX(-35vw) scale(0.24);
+  }
+
+  .animated-intro.final-position .logo-container {
+    transform: translateY(-42vh) translateX(-38vw) scale(0.22);
+    top: 10px;
+    left: 10px;
+  }
+
+  .logo-fixed {
+    max-width: 90px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .background-animation {
+    display: none;
+    /* Hide for better performance */
+  }
+}
+
+/* Landscape mode for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .boomsold-logo {
+    max-width: 200px;
+  }
+
+  .animated-intro.moving-up .logo-container {
+    transform: translateY(-35vh) translateX(-42vw) scale(0.2);
   }
 
   .logo-fixed {
     max-width: 80px;
-    top: 10px;
-    left: 10px;
   }
 }

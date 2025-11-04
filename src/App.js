@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import "./mobile-optimizations.css";
 import MontrealMap from "./components/MontrealMap";
 import PartMap from "./components/PartMap";
 import NeighborhoodMap from "./components/NeighborhoodMap";

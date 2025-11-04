@@ -593,44 +593,151 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .neighborhood-map-container {
-    padding: 20px 12px;
+    padding: 15px 12px;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .neighborhood-header-card {
-    padding: 16px;
-  }
-
-  .neighborhood-title-group h1 {
-    font-size: 22px;
-  }
-
-  .neighborhood-section-card {
-    padding: 16px;
-  }
-
-  .neighborhood-section-title {
-    font-size: 18px;
-  }
-
-  .poi-category-button {
-    min-width: 120px;
-    font-size: 13px;
-  }
-
-  .poi-list-grid {
-    grid-template-columns: 1fr;
-    max-height: 320px;
-  }
-}
-
-@media (max-width: 480px) {
-  .neighborhood-back-button {
-    font-size: 14px;
-    padding: 10px 18px;
+    padding: 14px;
   }
 
   .neighborhood-title-group h1 {
     font-size: 20px;
+  }
+
+  .neighborhood-subtitle {
+    font-size: 14px;
+  }
+
+  .neighborhood-price-badge {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .neighborhood-section-card {
+    padding: 14px;
+  }
+
+  .neighborhood-section-title {
+    font-size: 17px;
+  }
+
+  .neighborhood-section-description {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .poi-category-button {
+    min-width: 110px;
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+
+  .poi-category-icon {
+    font-size: 18px;
+  }
+
+  .poi-category-count {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .poi-list-grid {
+    grid-template-columns: 1fr;
+    max-height: 300px;
+    height: 300px;
+  }
+
+  .poi-list-title {
+    font-size: 17px;
+  }
+
+  .poi-list-icon {
+    font-size: 24px;
+  }
+
+  .neighborhood-back-button {
+    padding: 10px 20px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .neighborhood-back-icon {
+    font-size: 18px;
+  }
+
+  .neighborhood-map-container-wrapper {
+    margin-bottom: 16px;
+  }
+
+  .neighborhood-description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .neighborhood-map-container {
+    padding: 12px 10px;
+  }
+
+  .neighborhood-map-wrapper {
+    width: 100%;
+  }
+
+  .neighborhood-back-button {
+    font-size: 14px;
+    padding: 9px 16px;
+    margin-bottom: 16px;
+    gap: 6px;
+  }
+
+  .neighborhood-back-icon {
+    font-size: 16px;
+  }
+
+  .neighborhood-header-card {
+    padding: 12px;
+    gap: 5px;
+  }
+
+  .neighborhood-title-group h1 {
+    font-size: 18px;
+  }
+
+  .neighborhood-subtitle {
+    font-size: 13px;
+    margin-top: 3px;
+  }
+
+  .neighborhood-price-badge {
+    padding: 8px 14px;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .neighborhood-description {
+    font-size: 12px;
+  }
+
+  .neighborhood-section-card {
+    padding: 12px;
+  }
+
+  .neighborhood-section-title {
+    font-size: 16px;
+    padding-left: 12px;
+  }
+
+  .neighborhood-section-title::before {
+    width: 3px;
+    height: 16px;
+  }
+
+  .neighborhood-section-description {
+    font-size: 12px;
+    margin-bottom: 18px;
   }
 
   .poi-category-panel {
@@ -638,8 +745,106 @@
   }
 
   .poi-category-button {
-    min-width: 100px;
-    padding: 8px 12px;
+    min-width: calc(50% - 4px);
+    padding: 8px 10px;
+    font-size: 11px;
+    flex: 1;
+  }
+
+  .poi-category-content {
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .poi-category-icon {
+    font-size: 16px;
+  }
+
+  .poi-category-count {
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-left: 4px;
+  }
+
+  .poi-category-hint {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+
+  .poi-list-container {
+    margin-top: 18px;
+  }
+
+  .poi-list-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .poi-list-title {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .poi-list-icon {
+    font-size: 22px;
+  }
+
+  .poi-list-close-button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .poi-list-grid {
+    grid-template-columns: 1fr;
+    max-height: 280px;
+    height: 280px;
+    gap: 8px;
+    padding: 6px 3px;
+  }
+
+  .poi-item-card {
+    padding: 10px;
+    font-size: 11px;
+    min-height: 50px;
+  }
+
+  .poi-item-name {
     font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .poi-item-detail {
+    font-size: 10px;
+    gap: 3px;
+  }
+
+  .poi-list-footer {
+    margin-top: 12px;
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .poi-list-empty {
+    padding: 36px 16px;
+    font-size: 13px;
+  }
+
+  /* Map height adjustment for mobile */
+  .neighborhood-leaflet-map {
+    height: 300px !important;
+    min-height: 300px;
+  }
+
+  .neighborhood-map-container-wrapper {
+    margin-bottom: 14px;
+  }
+
+  /* Better touch targets for map controls */
+  .neighborhood-leaflet-map .leaflet-control-zoom a {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
   }
 }

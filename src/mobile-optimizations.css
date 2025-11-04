@@ -1,0 +1,161 @@
+/* Mobile Optimizations for BoomSold.live */
+/* This file contains additional mobile-specific enhancements */
+
+/* Prevent pull-to-refresh on mobile browsers */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Smooth scrolling for all mobile interactions */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better tap highlighting */
+a,
+button,
+.clickable {
+  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.3);
+}
+
+/* Prevent text selection on interactive elements */
+.leaflet-container,
+.leaflet-interactive,
+button,
+.clickable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Mobile-specific scrollbar styling */
+@media (max-width: 768px) {
+
+  /* Thinner scrollbars for mobile */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.5);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.7);
+  }
+}
+
+/* Improve touch target sizes */
+@media (max-width: 768px) {
+
+  button,
+  a,
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px;
+  }
+}
+
+/* Safe area for notched devices (iPhone X and later) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Landscape mode optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .logo-fixed {
+    max-width: 70px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .help-button {
+    width: 44px;
+    height: 44px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* High DPI displays (Retina) optimizations */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+  /* Sharper images and better rendering */
+  img,
+  svg {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support for mobile */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  /* Optional: Add dark mode styles if needed */
+  /* Currently commented out to maintain the current design */
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+
+  /* Enable GPU acceleration for smoother animations */
+  .leaflet-container,
+  .leaflet-interactive,
+  .neighborhood-overlay,
+  .help-guide-overlay {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  /* Optimize rendering */
+  .leaflet-tile-pane {
+    will-change: transform;
+  }
+}
+
+/* Fix for iOS Safari bottom bar */
+@supports (-webkit-touch-callout: none) {
+  .map-container {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Prevent iOS zoom on double-tap */
+@media (max-width: 768px) {
+  * {
+    touch-action: manipulation;
+  }
+
+  /* Allow pinch-zoom only on map */
+  .leaflet-container {
+    touch-action: pinch-zoom;
+  }
+}

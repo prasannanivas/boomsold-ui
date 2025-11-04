@@ -113,6 +113,46 @@
     max-height: calc(100vh - 100px);
     border-width: 2px;
   }
+
+  .logo-fixed {
+    width: 80px;
+    top: 8px;
+    left: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    height: 100vh;
+    height: 100dvh;
+    /* Dynamic viewport height for mobile browsers */
+  }
+
+  .map-container {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .neighborhood-overlay {
+    width: calc(100vw - 20px);
+    right: 10px;
+    left: 10px;
+    top: 10px;
+    bottom: auto;
+    max-height: calc(100vh - 80px);
+    border-width: 2px;
+    border-radius: 12px;
+  }
+
+  .logo-fixed {
+    width: 70px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .logo-fixed:hover {
+    transform: scale(1.05);
+  }
 }
 
 /* Remove default margins and padding */

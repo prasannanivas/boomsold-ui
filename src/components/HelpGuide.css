@@ -282,30 +282,154 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
   .help-guide-content {
-    padding: 2rem 1.5rem;
-    max-width: 95%;
+    padding: 2.5rem 1.8rem;
+    max-width: 92%;
+    max-height: 85vh;
   }
 
   .help-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.6rem;
+  }
+
+  .help-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .help-steps {
+    gap: 1.2rem;
+    margin-bottom: 1.8rem;
   }
 
   .help-step {
     flex-direction: column;
     gap: 1rem;
+    padding: 1.2rem;
   }
 
   .help-step-number {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
+  }
+
+  .help-step-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .help-step-content p {
+    font-size: 0.95rem;
+  }
+
+  .help-get-started {
+    font-size: 1.2rem;
+    padding: 0.9rem 1.8rem;
+  }
+
+  .help-close-button {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    top: 1.2rem;
+    right: 1.2rem;
   }
 
   .help-button {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
+    bottom: 24px;
+    right: 24px;
+    font-size: 1.6rem;
+  }
+
+  /* Move help button higher to avoid filter button on MontrealMap */
+  .montreal-map-container~* .help-button,
+  body:has(.montreal-map-container) .help-button {
+    bottom: 90px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .help-guide-overlay {
+    padding: 10px;
+  }
+
+  .help-guide-content {
+    padding: 2rem 1.2rem;
+    max-width: 95%;
+    max-height: 90vh;
+    border: 4px solid #000000;
+    box-shadow:
+      0 0 0 6px #FFD700,
+      0 30px 80px rgba(0, 0, 0, 0.5),
+      0 0 100px rgba(255, 215, 0, 0.6);
+  }
+
+  .help-title {
+    font-size: 1.6rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .help-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .help-steps {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .help-step {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  .help-step-number {
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+
+  .help-step-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .help-step-content p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .help-get-started {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    letter-spacing: 1.5px;
+  }
+
+  .help-close-button {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    top: 1rem;
+    right: 1rem;
+    border: 2px solid #FFD700;
+  }
+
+  .help-button {
+    width: 46px;
+    height: 46px;
     bottom: 20px;
     right: 20px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    border: 2px solid #FFD700;
+  }
+
+  /* Move help button higher to avoid filter button on MontrealMap */
+  body:has(.montreal-map-container) .help-button {
+    bottom: 85px !important;
   }
 }

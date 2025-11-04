@@ -4,6 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
 import "./PremiumEffects.css";
+import "./PartMap.css";
 import { rotateGeoJSON } from "./Utils";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
@@ -99,6 +100,17 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const [hoveredPart, setHoveredPart] = useState(null); // Track which part is hovered
   const geoJsonLayerRef = useRef(null);
   const [partCenters, setPartCenters] = useState({}); // Store center coordinates for each part
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
+
+  // Detect mobile on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Load and aggregate GeoJSON data by part
   useEffect(() => {
@@ -113,15 +125,11 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         // Aggregate by part
         const aggregated = aggregateByPart(geoJsonData);
 
-        // Rotate for visual appeal
+        // Rotate for visual appeal ONLY ON DESKTOP
         const centerPoint = { lat: 45.48, lng: -73.62 };
-        const rotatedData = rotateGeoJSON(
-          aggregated,
-          335,
-          centerPoint,
-          1.3,
-          1.3
-        );
+        const rotatedData = isMobile
+          ? aggregated // No rotation on mobile
+          : rotateGeoJSON(aggregated, 335, centerPoint, 1.3, 1.3); // Rotate on desktop
 
         // Calculate centers for each part
         const centers = {};
@@ -157,18 +165,50 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         console.error("Error loading part data:", error);
         setIsLoading(false);
       });
-  }, []);
+  }, [isMobile]);
 
   // Fit map to bounds when data loads or window resizes
   useEffect(() => {
     if (map && partData) {
       const fitMapBounds = () => {
         const bounds = L.geoJSON(partData).getBounds();
-        map.fitBounds(bounds, {
-          padding: [20, 20],
-          animate: false,
-          maxZoom: 10.8,
-        });
+
+        // On mobile, adjust to use full screen width
+        if (isMobile) {
+          // Get the screen dimensions
+          const screenWidth = window.innerWidth;
+          const screenHeight = window.innerHeight;
+
+          // Calculate the aspect ratio
+          const mapWidth = bounds.getEast() - bounds.getWest();
+          const mapHeight = bounds.getNorth() - bounds.getSouth();
+          const mapAspectRatio = mapWidth;
+          const screenAspectRatio = screenWidth;
+
+          // Extend bounds to fill full width while maintaining map visibility
+          let extendedBounds = bounds;
+
+          if (screenAspectRatio < mapAspectRatio) {
+            // Screen is narrower than map - fit to width
+            const center = bounds.getCenter();
+            const heightToAdd = (mapWidth / screenAspectRatio - mapHeight) / 2;
+            extendedBounds = L.latLngBounds(
+              [bounds.getSouth() - heightToAdd, bounds.getWest()],
+              [bounds.getNorth() + heightToAdd, bounds.getEast()]
+            );
+          }
+
+          map.fitBounds(extendedBounds, {
+            padding: [0, 0],
+            animate: false,
+          });
+        } else {
+          map.fitBounds(bounds, {
+            padding: [20, 20],
+            animate: false,
+            maxZoom: 10.8,
+          });
+        }
       };
 
       fitMapBounds();
@@ -177,7 +217,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       window.addEventListener("resize", fitMapBounds);
       return () => window.removeEventListener("resize", fitMapBounds);
     }
-  }, [map, partData]);
+  }, [map, partData, isMobile]);
 
   // Style function for parts - NO BORDERS
   const getPartStyle = (feature) => {
@@ -293,13 +333,9 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         // Rotate the filtered GeoJSON for this part
         const centerPoint = { lat: 45.48, lng: -73.62 };
-        const rotatedPartData = rotateGeoJSON(
-          filteredData,
-          335,
-          centerPoint,
-          1.2,
-          1
-        );
+        const rotatedPartData = isMobile
+          ? filteredData // No rotation on mobile
+          : rotateGeoJSON(filteredData, 335, centerPoint, 1.2, 1); // Rotate on desktop
 
         // Trigger callback with part name and filtered GeoJSON
         if (onPartClick) {
@@ -335,6 +371,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     <div className="montreal-map-container">
       {/* Top Heading */}
       <h1
+        className="part-map-heading"
         style={{
           position: "fixed",
           top: "30px",
@@ -355,6 +392,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
       {/* Side Legend */}
       <div
+        className="part-map-legend"
         style={{
           position: "fixed",
           right: 40,
@@ -381,6 +419,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <div
+            className="legend-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -403,6 +442,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           </div>
 
           <div
+            className="legend-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -423,6 +463,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           </div>
 
           <div
+            className="legend-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -445,6 +486,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           </div>
 
           <div
+            className="legend-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -468,6 +510,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         </div>
 
         <p
+          className="legend-hint"
           style={{
             margin: "15px 0 0 0",
             fontSize: "12px",
@@ -520,18 +563,18 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{ background: "transparent" }}
       >
         <MapContainer
-          center={[45.56, -73.62]}
-          zoom={10.8}
+          center={isMobile ? [45.56, -73.78] : [45.56, -73.62]}
+          zoom={isMobile ? 10.5 : 10.8}
           style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={false}
-          scrollWheelZoom={false}
-          doubleClickZoom={false}
-          touchZoom={false}
+          zoomControl={isMobile} // Enable zoom control on mobile
+          scrollWheelZoom={isMobile} // Enable scroll wheel zoom on mobile
+          doubleClickZoom={isMobile} // Enable double click zoom on mobile
+          touchZoom={isMobile} // Enable touch zoom on mobile
           boxZoom={false}
           keyboard={false}
-          dragging={false}
-          zoomAnimation={false}
-          fadeAnimation={false}
+          dragging={isMobile} // Enable dragging on mobile
+          zoomAnimation={true}
+          fadeAnimation={true}
           markerZoomAnimation={false}
           attributionControl={false}
           preferCanvas={false}
@@ -544,11 +587,21 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               }
             });
 
-            // Disable all zoom and pan interactions
-            mapInstance.dragging.disable();
-            mapInstance.touchZoom.disable();
-            mapInstance.doubleClickZoom.disable();
-            mapInstance.scrollWheelZoom.disable();
+            // Enable/disable interactions based on device
+            if (isMobile) {
+              // Enable all zoom and pan interactions on mobile
+              mapInstance.dragging.enable();
+              mapInstance.touchZoom.enable();
+              mapInstance.doubleClickZoom.enable();
+              mapInstance.scrollWheelZoom.enable();
+            } else {
+              // Disable all zoom and pan interactions on desktop
+              mapInstance.dragging.disable();
+              mapInstance.touchZoom.disable();
+              mapInstance.doubleClickZoom.disable();
+              mapInstance.scrollWheelZoom.disable();
+            }
+
             mapInstance.boxZoom.disable();
             mapInstance.keyboard.disable();
             if (mapInstance.tap) mapInstance.tap.disable();
@@ -556,11 +609,41 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             // Fit to bounds when data is loaded
             if (partData) {
               const bounds = L.geoJSON(partData).getBounds();
-              mapInstance.fitBounds(bounds, {
-                padding: [20, 20],
-                animate: false,
-                maxZoom: 10.8,
-              });
+              if (isMobile) {
+                // Get the screen dimensions
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                // Calculate the aspect ratio
+                const mapWidth = bounds.getEast() - bounds.getWest();
+                const mapHeight = bounds.getNorth() - bounds.getSouth();
+                const mapAspectRatio = mapWidth / mapHeight;
+                const screenAspectRatio = screenWidth / screenHeight;
+
+                // Extend bounds to fill full width
+                let extendedBounds = bounds;
+
+                if (screenAspectRatio < mapAspectRatio) {
+                  // Screen is narrower - fit to width
+                  const heightToAdd =
+                    (mapWidth / screenAspectRatio - mapHeight) / 2;
+                  extendedBounds = L.latLngBounds(
+                    [bounds.getSouth() - heightToAdd, bounds.getWest()],
+                    [bounds.getNorth() + heightToAdd, bounds.getEast()]
+                  );
+                }
+
+                mapInstance.fitBounds(extendedBounds, {
+                  padding: [0, 0],
+                  animate: false,
+                });
+              } else {
+                mapInstance.fitBounds(bounds, {
+                  padding: [20, 20],
+                  animate: false,
+                  maxZoom: 10.8,
+                });
+              }
             }
           }}
         >

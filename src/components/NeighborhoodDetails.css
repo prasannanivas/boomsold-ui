@@ -521,3 +521,162 @@
     font-size: 1.3rem;
   }
 }
+
+@media (max-width: 768px) {
+  .neighborhood-details {
+    padding: 0.8rem 1rem 1.2rem 1rem;
+    height: auto;
+    max-height: calc(100vh - 100px);
+  }
+
+  .logo-container {
+    padding: 0.4rem 0 0.6rem 0;
+    margin-bottom: 0.4rem;
+  }
+
+  .boomsold-logo {
+    max-width: 120px;
+  }
+
+  .neighborhood-name {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .details-placeholder h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .details-placeholder p {
+    font-size: 0.95rem;
+  }
+
+  .amenities-section {
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .amenity-item {
+    font-size: 1rem;
+  }
+
+  .pricing-section .detail-item {
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .detail-label {
+    font-size: 0.7rem;
+  }
+
+  .detail-value {
+    font-size: 1.1rem;
+  }
+
+  .detail-value.price {
+    font-size: 1.3rem;
+  }
+
+  .pin-indicator {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .unpin-button {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .neighborhood-details {
+    padding: 0.6rem 0.8rem 1rem 0.8rem;
+  }
+
+  .logo-container {
+    padding: 0.3rem 0 0.5rem 0;
+    margin-bottom: 0.3rem;
+  }
+
+  .boomsold-logo {
+    max-width: 100px;
+  }
+
+  .neighborhood-name {
+    font-size: 0.9rem;
+    letter-spacing: 0.8px;
+  }
+
+  .details-placeholder h2 {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .details-placeholder p {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .amenities-section {
+    padding: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .amenity-item {
+    font-size: 0.9rem;
+    gap: 3px;
+  }
+
+  .pricing-section .detail-item {
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-label {
+    font-size: 0.65rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .detail-value {
+    font-size: 1rem;
+  }
+
+  .detail-value.price {
+    font-size: 1.2rem;
+  }
+
+  .pin-controls {
+    gap: 0.4rem;
+  }
+
+  .pin-indicator {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .unpin-button {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .area-info {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+  }
+
+  .area-text {
+    font-size: 0.7rem;
+  }
+
+  .instructions {
+    padding: 0.8rem;
+  }
+
+  .instructions li {
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+  }
+}

@@ -1,0 +1,45 @@
+/* Quick Mobile Breakpoint Reference */
+/* Use this as a guide when adding new styles */
+
+/* ========================================
+   DESKTOP (Default - No Media Query)
+   ======================================== */
+- Width:>768px - All existing styles - Full-size layouts - Hover effects enabled - Full animations
+/* ========================================
+   TABLET / MOBILE
+   @media (max-width: 768px)
+   ======================================== */
+- Width: 481px - 768px - Medium adjustments - Touch-optimized (44px targets) - Reduced glow effects - Simplified animations
+/* ========================================
+   SMALL MOBILE
+   @media (max-width: 480px)
+   ======================================== */
+- Width: ≤ 480px - Aggressive optimization - Maximum simplification - Minimal animations - Full-width layouts - Larger touch targets (min 44px)
+/* ========================================
+   LANDSCAPE MODE
+   @media (max-width: 768px) and (orientation: landscape)
+   ======================================== */
+- Horizontal layout optimizations - Compact vertical spacing - Reduced logo sizes
+/* ========================================
+   TOUCH DEVICES
+   @media (hover: none) and (pointer: coarse)
+   ======================================== */
+- Remove hover effects - Increase touch targets - Optimize for finger interaction
+/* ========================================
+   HIGH DPI (Retina)
+   @media (-webkit-min-device-pixel-ratio: 2)
+   ======================================== */
+- Sharper rendering - Crisp edges for images
+/* ========================================
+   REDUCED MOTION
+   @media (prefers-reduced-motion: reduce)
+   ======================================== */
+- Minimal/no animations - Instant transitions - Accessibility consideration
+/* ========================================
+   COMMON MOBILE DEVICE WIDTHS
+   ======================================== */
+iPhone SE: 375px iPhone 12/13/14: 390px iPhone Pro Max: 428px Galaxy S21: 360px iPad: 768px iPad Pro: 1024px
+/* ========================================
+   MOBILE OPTIMIZATION CHECKLIST
+   ======================================== */
+✅ Font size readable (min 14px) ✅ Touch targets 44px minimum ✅ No horizontal scroll ✅ Proper viewport height (100dvh) ✅ GPU acceleration (translateZ) ✅ Optimized animations ✅ Safe area support ✅ -webkit-overflow-scrolling: touch

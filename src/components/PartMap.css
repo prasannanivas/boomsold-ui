@@ -1,0 +1,218 @@
+/* PartMap Mobile Responsive Styles */
+
+/* Tablet and below - 768px */
+@media (max-width: 768px) {
+  .part-map-heading {
+    top: 15px !important;
+    font-size: 1.8rem !important;
+    padding: 0 15px;
+    width: 90%;
+  }
+
+  .part-map-legend {
+    right: 15px !important;
+    bottom: 80px !important;
+    padding: 15px !important;
+    min-width: 150px !important;
+    max-width: 200px;
+  }
+
+  .part-map-legend h3 {
+    font-size: 14px !important;
+    margin: 0 0 10px 0 !important;
+  }
+
+  .legend-item {
+    gap: 8px !important;
+  }
+
+  .legend-item>div {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .legend-item span {
+    font-size: 12px !important;
+  }
+
+  .legend-hint {
+    font-size: 11px !important;
+    margin: 10px 0 0 0 !important;
+  }
+
+  /* Part label adjustments for tablet */
+  .part-label-icon>div {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+}
+
+/* Mobile - 480px */
+@media (max-width: 480px) {
+  .part-map-heading {
+    top: 10px !important;
+    font-size: 1.4rem !important;
+    padding: 0 10px;
+    width: 95%;
+  }
+
+  .part-map-legend {
+    right: 10px !important;
+    bottom: 60px !important;
+    padding: 12px !important;
+    min-width: 130px !important;
+    max-width: 160px;
+  }
+
+  .part-map-legend h3 {
+    font-size: 13px !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  .legend-item {
+    gap: 6px !important;
+  }
+
+  .legend-item>div {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .legend-item span {
+    font-size: 11px !important;
+    line-height: 1.2;
+  }
+
+  .legend-hint {
+    font-size: 10px !important;
+    margin: 8px 0 0 0 !important;
+  }
+
+  /* Part label adjustments for mobile */
+  .part-label-icon>div {
+    font-size: 8px !important;
+    letter-spacing: 0.5px !important;
+  }
+}
+
+/* Small Mobile - 375px */
+@media (max-width: 375px) {
+  .part-map-heading {
+    top: 8px !important;
+    font-size: 1.2rem !important;
+    padding: 0 8px;
+  }
+
+  .part-map-legend {
+    right: 8px !important;
+    bottom: 50px !important;
+    padding: 10px !important;
+    min-width: 120px !important;
+    max-width: 140px;
+  }
+
+  .part-map-legend h3 {
+    font-size: 12px !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .legend-item {
+    gap: 5px !important;
+  }
+
+  .legend-item>div {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .legend-item span {
+    font-size: 10px !important;
+    line-height: 1.1;
+  }
+
+  .legend-hint {
+    font-size: 9px !important;
+    margin: 6px 0 0 0 !important;
+  }
+
+  /* Part label adjustments for small mobile */
+  .part-label-icon>div {
+    font-size: 7px !important;
+    letter-spacing: 0.3px !important;
+  }
+}
+
+/* Extra Small Mobile - 320px */
+@media (max-width: 320px) {
+  .part-map-heading {
+    top: 5px !important;
+    font-size: 1rem !important;
+    padding: 0 5px;
+  }
+
+  .part-map-legend {
+    right: 5px !important;
+    bottom: 40px !important;
+    padding: 8px !important;
+    min-width: 110px !important;
+    max-width: 130px;
+  }
+
+  .part-map-legend h3 {
+    font-size: 11px !important;
+    margin: 0 0 5px 0 !important;
+  }
+
+  .legend-item {
+    gap: 4px !important;
+  }
+
+  .legend-item>div {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .legend-item span {
+    font-size: 9px !important;
+    line-height: 1.1;
+  }
+
+  .legend-hint {
+    font-size: 8px !important;
+    margin: 5px 0 0 0 !important;
+  }
+
+  /* Part label adjustments for extra small mobile */
+  .part-label-icon>div {
+    font-size: 6px !important;
+    letter-spacing: 0.2px !important;
+  }
+}
+
+/* Landscape mode optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .part-map-heading {
+    top: 5px !important;
+    font-size: 1.2rem !important;
+  }
+
+  .part-map-legend {
+    bottom: 30px !important;
+    padding: 8px !important;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .part-map-legend h3 {
+    font-size: 12px !important;
+    margin: 0 0 5px 0 !important;
+  }
+
+  .legend-item span {
+    font-size: 10px !important;
+  }
+
+  .legend-hint {
+    font-size: 9px !important;
+  }
+}

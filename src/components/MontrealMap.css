@@ -618,6 +618,282 @@
     transform: translate(0, -2px) !important;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   }
+
+  .selected-part-label {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    top: 8%;
+  }
+
+  .montreal-flag-banner {
+    padding: 4px 16px;
+  }
+
+  .montreal-flag {
+    height: 35px;
+    width: 52px;
+  }
+
+  .montreal-label {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .brand-logo {
+    height: 24px;
+  }
+
+  /* Tablet: Hide header */
+  .professional-header {
+    display: none !important;
+  }
+
+  /* Tablet: Reposition back button to avoid logo overlap */
+  .montreal-map-container button[style*="Back to Parts"] {
+    top: 15px !important;
+    left: 15px !important;
+    transform: none !important;
+    font-size: 18px !important;
+    padding: 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    min-width: 40px !important;
+  }
+
+  /* Hide text, keep only arrow on tablet */
+  .montreal-map-container button[style*="Back to Parts"] span:last-child {
+    display: none !important;
+  }
+
+  /* Make arrow bigger on tablet */
+  .montreal-map-container button[style*="Back to Parts"] span:first-child {
+    font-size: 22px !important;
+  }
+
+  /* Tablet: Reposition Filters button */
+  .montreal-map-container button[style*="Filters"] {
+    bottom: 25px !important;
+    right: 25px !important;
+    left: auto !important;
+  }
+
+  /* Adjust part label for tablet */
+  .selected-part-label {
+    top: 15px !important;
+    font-size: 1.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .montreal-map-container {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Hide header on mobile */
+  .professional-header {
+    display: none !important;
+  }
+
+  .brand-logo {
+    height: 20px;
+  }
+
+  .montreal-flag-banner {
+    display: none !important;
+  }
+
+  .montreal-flag {
+    height: 30px;
+    width: 45px;
+  }
+
+  .montreal-label {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+  }
+
+  .selected-part-label {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    top: 15px !important;
+  }
+
+  .custom-montreal-map {
+    height: calc(100vh - 120px);
+  }
+
+  .map-title-overlay {
+    display: none;
+    /* Hide on very small screens */
+  }
+
+  /* Adjust tooltip sizes for mobile */
+  .tooltip-zoom-6 {
+    font-size: 4px !important;
+  }
+
+  .tooltip-zoom-7 {
+    font-size: 5px !important;
+  }
+
+  .tooltip-zoom-8 {
+    font-size: 6px !important;
+  }
+
+  .tooltip-zoom-9 {
+    font-size: 7px !important;
+  }
+
+  .tooltip-zoom-10 {
+    font-size: 9px !important;
+  }
+
+  .tooltip-zoom-11 {
+    font-size: 11px !important;
+  }
+
+  .tooltip-zoom-12 {
+    font-size: 13px !important;
+  }
+
+  .tooltip-zoom-13 {
+    font-size: 15px !important;
+  }
+
+  .tooltip-zoom-14 {
+    font-size: 17px !important;
+  }
+
+  .tooltip-zoom-15 {
+    font-size: 19px !important;
+  }
+
+  .tooltip-zoom-16 {
+    font-size: 21px !important;
+  }
+
+  .tooltip-zoom-17 {
+    font-size: 23px !important;
+  }
+
+  .tooltip-zoom-18 {
+    font-size: 25px !important;
+  }
+
+  .part-label {
+    font-size: 0.55em !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  /* Better touch targets */
+  .leaflet-control-zoom a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 24px !important;
+  }
+
+  /* Mobile: Reposition back button to avoid logo overlap */
+  .montreal-map-container button[style*="Back to Parts"] {
+    top: 15px !important;
+    left: 15px !important;
+    transform: none !important;
+    font-size: 18px !important;
+    padding: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    min-width: 36px !important;
+  }
+
+  /* Hide text, keep only arrow on mobile */
+  .montreal-map-container button[style*="Back to Parts"] span:last-child {
+    display: none !important;
+  }
+
+  /* Make arrow bigger */
+  .montreal-map-container button[style*="Back to Parts"] span:first-child {
+    font-size: 20px !important;
+  }
+
+  /* Mobile: Reposition Filters button to bottom-right */
+  .montreal-map-container button[style*="Filters"] {
+    bottom: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    border-radius: 50px !important;
+  }
+
+  /* Mobile: Adjust filter panel position */
+  .montreal-map-container>div[style*="position: fixed"][style*="bottom: 100px"] {
+    bottom: 80px !important;
+    right: 10px !important;
+    left: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    min-width: auto !important;
+    width: calc(100vw - 20px) !important;
+  }
+
+  /* Adjust selected part label to avoid overlap */
+  .selected-part-label {
+    top: 15px !important;
+    font-size: 1.2rem !important;
+    letter-spacing: 2px !important;
+  }
+
+  /* Fix neighborhood label positioning on mobile - keep them within bounds */
+  .custom-tooltip {
+    font-size: 10px !important;
+    max-width: 120px !important;
+    text-align: center !important;
+    word-wrap: break-word !important;
+  }
+
+  /* Ensure tooltips are centered properly on mobile */
+  .leaflet-tooltip {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .leaflet-tooltip-top,
+  .leaflet-tooltip-bottom,
+  .leaflet-tooltip-left,
+  .leaflet-tooltip-right {
+    margin: 0 !important;
+  }
+
+  /* Reduce label sizes further on small screens */
+  .tooltip-zoom-6,
+  .tooltip-zoom-7,
+  .tooltip-zoom-8 {
+    font-size: 3px !important;
+  }
+
+  .tooltip-zoom-9,
+  .tooltip-zoom-10 {
+    font-size: 6px !important;
+  }
+
+  .tooltip-zoom-11,
+  .tooltip-zoom-12 {
+    font-size: 9px !important;
+  }
+
+  .tooltip-zoom-13,
+  .tooltip-zoom-14 {
+    font-size: 11px !important;
+  }
+
+  .tooltip-zoom-15,
+  .tooltip-zoom-16,
+  .tooltip-zoom-17,
+  .tooltip-zoom-18 {
+    font-size: 13px !important;
+  }
 }
 
 /* Montreal Flag Color Animation - Starts after falling animation, faster fade */
