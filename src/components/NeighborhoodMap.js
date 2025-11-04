@@ -68,7 +68,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const [map, setMap] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(14);
   const [selectedPOICategory, setSelectedPOICategory] = useState(null);
-  const [hoveredPOI, setHoveredPOI] = useState(null);
   const [selectedPOI, setSelectedPOI] = useState(null); // Track clicked POI
   const [originalGeoJSON, setOriginalGeoJSON] = useState(null); // Store original unrotated GeoJSON
   const mapSectionRef = useRef(null); // Reference to map section for scrolling
@@ -448,14 +447,14 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
     const feature = originalGeoJSON.features[0];
 
-    // Create a large rectangle covering the entire map view
-    // Montreal approximate bounds: lat [45.4, 45.7], lng [-73.95, -73.45]
+    // Create a much larger rectangle covering the entire map view and beyond
+    // Extended bounds to cover all screen sizes
     const outerBounds = [
-      [-73.95, 45.4], // SW
-      [-73.95, 45.7], // NW
-      [-73.45, 45.7], // NE
-      [-73.45, 45.4], // SE
-      [-73.95, 45.4], // Close polygon
+      [-74.5, 45.0], // SW - Extended further
+      [-74.5, 46.0], // NW - Extended further
+      [-72.5, 46.0], // NE - Extended further
+      [-72.5, 45.0], // SE - Extended further
+      [-74.5, 45.0], // Close polygon
     ];
 
     // Create a MultiPolygon with the outer bounds and the neighborhood as a hole
@@ -789,13 +788,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
             <div
               key={`${poi.id}-${index}`}
               className={`poi-item-card ${
-                hoveredPOI?.id === poi.id ? "hovered" : ""
-              } ${selectedPOI?.id === poi.id ? "selected" : ""}`}
-              style={{
-                backgroundColor:
-                  hoveredPOI?.id === poi.id ? info.color : undefined,
-                color: hoveredPOI?.id === poi.id ? "#fff" : undefined,
-              }}
+                selectedPOI?.id === poi.id ? "selected" : ""
+              }`}
               onClick={() => handlePOIClick(poi, selectedPOICategory)}
             >
               <div className="poi-item-name">
@@ -906,17 +900,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       textAlign: "center",
                       boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
                       border: "2px solid #FFD700",
-                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 20px rgba(255,215,0,0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 2px 10px rgba(0,0,0,0.06)";
                     }}
                   >
                     <div
@@ -960,17 +943,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       textAlign: "center",
                       boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
                       border: "2px solid #4ECDC4",
-                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 20px rgba(78,205,196,0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 2px 10px rgba(0,0,0,0.06)";
                     }}
                   >
                     <div

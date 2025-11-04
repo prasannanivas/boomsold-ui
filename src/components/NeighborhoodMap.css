@@ -128,11 +128,6 @@
   box-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
   background: #fff;
   border: 3px solid #FFD700;
-  transition: all 0.3s ease;
-}
-
-.neighborhood-map-container-wrapper:hover {
-  box-shadow: 0 30px 60px rgba(255, 215, 0, 0.2);
 }
 
 /* Override MontrealMap.css tile layer hiding for NeighborhoodMap */
@@ -172,6 +167,18 @@
 /* Ensure tile pane is below overlay */
 .neighborhood-leaflet-map .leaflet-tile-pane {
   z-index: 200 !important;
+}
+
+/* Remove hover effects on map polygons */
+.neighborhood-leaflet-map .leaflet-interactive:hover {
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+
+.neighborhood-leaflet-map .leaflet-interactive {
+  transition: none !important;
+  cursor: default !important;
 }
 
 /* Walkability Section */
