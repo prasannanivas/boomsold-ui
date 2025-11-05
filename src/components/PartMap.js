@@ -117,7 +117,26 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Load and aggregate GeoJSON data by part
+  // Reset hover states on component mount
+  useEffect(() => {
+    // Ensure clean state when component mounts
+    setHoveredPartName(null);
+    setHoveredPart(null);
+  }, []);
+
+  // Cleanup hover states when component unmounts
+  useEffect(() => {
+    return () => {
+      // Reset hover states when component is unmounted
+      setHoveredPartName(null);
+      setHoveredPart(null);
+
+      // Call onPartLeave to clean up parent component state
+      if (onPartLeave) {
+        onPartLeave();
+      }
+    };
+  }, [onPartLeave]); // Load and aggregate GeoJSON data by part
   useEffect(() => {
     fetch(
       process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
@@ -266,7 +285,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, -3px)";
-          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.transition = "none";
           pathElement.style.zIndex = "1000";
         }
 
@@ -288,7 +307,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         const pathElement = layer.getElement();
         if (pathElement) {
           pathElement.style.transform = "translate(0, 0)";
-          pathElement.style.transition = "all 0.2s ease-out";
+          pathElement.style.transition = "none";
           pathElement.style.zIndex = "auto";
         }
 
@@ -302,6 +321,19 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       },
       click: () => {
         console.log(`Clicked on ${feature.properties.part}`);
+
+        // Reset hover states before navigation
+        setHoveredPartName(null);
+        setHoveredPart(null);
+
+        // Reset any lingering hover styles
+        layer.setStyle(originalStyle);
+        const pathElement = layer.getElement();
+        if (pathElement) {
+          pathElement.style.transform = "translate(0, 0)";
+          pathElement.style.transition = "none";
+          pathElement.style.zIndex = "auto";
+        }
 
         // Get bounds of this part
         let allCoords = [];
@@ -377,158 +409,54 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
   return (
     <div className="part-map-container">
+      {/* BoomSold Logo - Top Right */}
+      <div
+        style={{
+          position: "fixed",
+          top: "5%",
+          right: "20px",
+          width: "150px",
+          height: "100px",
+          zIndex: 1000,
+        }}
+      >
+        <img
+          src={
+            process.env.PUBLIC_URL +
+            "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
+          }
+          alt="Boom Sold Logo"
+          className="boomsold-logo"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Montreal Island Header */}
+      <h2 className="selected-part-label">Montreal Island</h2>
+
       {/* Top Heading */}
-      <h1
+      <h2
         className="part-map-heading"
         style={{
           position: "fixed",
-          top: "30px",
+          top: "15%",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1000,
-          fontSize: "2.5rem",
-          fontWeight: 700,
+          fontSize: "1.8rem",
+          fontWeight: 300,
           color: "#2d3436",
           textAlign: "center",
           margin: 0,
           textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
           pointerEvents: "none",
+          fontFamily: "'Nunito', sans-serif",
         }}
       >
         Select a part of the city
-      </h1>
+      </h2>
 
       {/* Side Legend */}
-      <div
-        className="part-map-legend"
-        style={{
-          position: "fixed",
-          right: 40,
-          bottom: 150,
-          backgroundColor: "rgba(255, 255, 255, 0.95)",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-          zIndex: 1000,
-          minWidth: "180px",
-        }}
-      >
-        <h3
-          style={{
-            margin: "0 0 15px 0",
-            fontSize: "16px",
-            fontWeight: 600,
-            color: "#333",
-          }}
-        >
-          Montreal
-          {/* <MontrealSvg /> */}
-        </h3>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <div
-            className="legend-item"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              transform: hoveredPart === "South" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#F59E0B",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>
-              City Center/ South
-            </span>
-          </div>
-
-          <div
-            className="legend-item"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              transform: hoveredPart === "West" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#3B82F6",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>West Island</span>
-          </div>
-
-          <div
-            className="legend-item"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              transform: hoveredPart === "North" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#8B5CF6",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>
-              Montreal North
-            </span>
-          </div>
-
-          <div
-            className="legend-item"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              transform: hoveredPart === "Central" ? "scale(1.15)" : "scale(1)",
-              transition: "transform 0.2s ease-out",
-            }}
-          >
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#10B981",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "14px", color: "#333" }}>
-              Central Montreal
-            </span>
-          </div>
-        </div>
-
-        <p
-          className="legend-hint"
-          style={{
-            margin: "15px 0 0 0",
-            fontSize: "12px",
-            color: "#666",
-            fontStyle: "italic",
-          }}
-        >
-          Click a region to explore
-        </p>
-      </div>
 
       {/* Hovered Part Name - Above the Map */}
       {/* {hoveredPartName && (
@@ -690,25 +618,28 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               adjustedLng -= 0.09; // Move left
             }
 
-            // Create custom icon with white text
+            // Create custom icon with styled text matching MontrealMap
             const textIcon = L.divIcon({
               className: "part-label-icon",
               html: `
                 <div style="
-                  color: white;
-                  font-size: 12px;
-                  font-weight: 700;
+                  color: #000000;
+                  font-size: 14px;
+                  font-weight: 900;
                   text-transform: uppercase;
-                  letter-spacing: 2px;
+                  letter-spacing: 1.5px;
                   text-shadow: 
-                    2px 2px 4px rgba(0,0,0,0.8),
-                    -1px -1px 2px rgba(0,0,0,0.8),
-                    1px -1px 2px rgba(0,0,0,0.8),
-                    -1px 1px 2px rgba(0,0,0,0.8);
+                    0 0 8px rgba(255, 215, 0, 0.9),
+                    0 0 12px rgba(255, 215, 0, 0.8),
+                    1px 1px 2px rgba(0, 0, 0, 0.3);
                   white-space: nowrap;
                   pointer-events: none;
-                  font-family: 'Arial', sans-serif;
+                  font-family: 'Nunito', sans-serif;
                   transform: translate(-50%, -50%);
+                  background: transparent;
+                  padding: 4px 8px;
+                  border-radius: 6px;
+                  text-align: center;
                 ">
                   ${displayName}
                 </div>

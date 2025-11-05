@@ -837,7 +837,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         {onBack && (
           <button onClick={onBack} className="neighborhood-back-button">
             <span className="neighborhood-back-icon">←</span>
-            <span>Back to All Neighborhoods</span>
+            <span>Back</span>
           </button>
         )}
 
@@ -856,11 +856,11 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                   </p>
                 )}
               </div>
-              {neighborhoodInfo?.averagePrice && (
+              {/* {neighborhoodInfo?.averagePrice && (
                 <div className="neighborhood-price-badge">
                   {neighborhoodInfo.averagePrice}
                 </div>
-              )}
+              )} */}
             </div>
             <p className="neighborhood-description">
               Explore the neighborhood outline, mobility scores, and nearby

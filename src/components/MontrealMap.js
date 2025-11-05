@@ -1065,9 +1065,20 @@ const MontrealMap = ({
             } else if (name.includes("Dorval")) {
               lat -= 0.008; // Move Dorval down
             } else if (name.includes("Senneville")) {
-              lng -= 0.015; // Move Senneville left
+              lat += 0.007; // Move Senneville down
+              lng -= 0.01; // Move Senneville left
             } else if (name.includes("Lachine")) {
-              lng -= 0.01; // Move Lachine left
+              lng -= 0.015; // Move Lachine a little more left
+            } else if (name.includes("LaSalle")) {
+              lng -= 0.01; // Move LaSalle a little left
+              lat += 0.006; // Move LaSalle a little up
+            } else if (name.includes("Kirkland")) {
+              lat += 0.004; // Move Kirkland a little up
+            } else if (name.includes("Pierrefonds")) {
+              lng -= 0.05; // Move Pierrefonds left
+              lat -= 0.008; // Move Pierrefonds down
+            } else if (name.includes("Mont-Royal")) {
+              lng += 0.008; // Move Mont-Royal a little right
             } else if (
               name.includes("Côte-des-Neiges") ||
               name.includes("Notre-Dame-de-Grâce") ||
@@ -1134,6 +1145,9 @@ const MontrealMap = ({
           pathElement.style.transition = "none";
           pathElement.style.zIndex = "1000";
           pathElement.setAttribute("data-hovering", "true");
+          // Force black border to persist
+          pathElement.style.stroke = "#000000";
+          pathElement.style.strokeWidth = "6";
         }
 
         if (onNeighborhoodHover) {
@@ -1199,6 +1213,9 @@ const MontrealMap = ({
           pathElement.style.filter = "none";
           pathElement.style.transition = "none";
           pathElement.style.zIndex = "auto";
+          // Reset border to original white
+          pathElement.style.stroke = "#FFFFFF";
+          pathElement.style.strokeWidth = "6";
         }
 
         if (onNeighborhoodLeave) {
@@ -1405,7 +1422,7 @@ const MontrealMap = ({
             border: "2px solid #FFD700",
             borderRadius: "8px",
             fontSize: "16px",
-            fontWeight: 900,
+            fontWeight: 700,
             cursor: "pointer",
             boxShadow:
               "0 0 15px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.15)",
@@ -1413,11 +1430,12 @@ const MontrealMap = ({
             display: "flex",
             alignItems: "center",
             gap: "8px",
-            fontFamily: "'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
+            fontFamily:
+              "'DM Serif Display', 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
           }}
         >
           <span style={{ fontSize: "20px" }}>←</span>
-          <span>Back to Parts</span>
+          <span>Back</span>
         </button>
       )}
 

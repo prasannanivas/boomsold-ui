@@ -498,7 +498,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       </div>
 
       {/* Description Card - Full Width */}
-      <div
+      {/* <div
         style={{
           gridColumn: "1 / -1",
           backgroundColor: "#ffffff",
@@ -532,7 +532,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             </p>
 
             {/* Data Source Attribution */}
-            <div
+      {/* <div
               style={{
                 marginTop: "12px",
                 paddingTop: "12px",
@@ -596,10 +596,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
                   View Full Analysis →
                 </a>
               )}
-            </div>
+            </div> 
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
