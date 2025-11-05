@@ -131,6 +131,7 @@ const neighborhoodAbbreviations = {
   "Sainte-Anne-de-Bellevue": "Ste-Anne",
   "Ste-Anne": "Ste-Anne",
   Senneville: "Senneville",
+  "Montréal-Ouest": "Mtl-Ouest",
   Verdun: "Verdun",
   "Ville-Marie": "Ville-Marie",
   "Villeray–Saint-Michel–Parc-Extension": "Villeray-St-Michel-Park X",
@@ -1085,7 +1086,8 @@ const MontrealMap = ({
               name.includes("CDN") ||
               name.includes("NDG")
             ) {
-              lng += 0.008; // Move CDN-NDG right
+              lng += 0.001; // Move CDN-NDG right
+              lat -= 0.015; // Move CDN-NDG up
             } else if (
               name.includes("Sud-Ouest") ||
               name.includes("Le Sud-Ouest")
@@ -1445,9 +1447,11 @@ const MontrealMap = ({
       >
         <h2 className="selected-part-label">
           {selectedPart === "South"
-            ? "Central/South of Montreal"
+            ? "downtown/ Center South"
             : selectedPart === "West"
             ? "West Island"
+            : selectedPart === "North"
+            ? "Montreal East/North"
             : `Montreal ${selectedPart}`}
         </h2>
         <MapContainer

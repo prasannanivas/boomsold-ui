@@ -166,17 +166,12 @@ function App() {
             selectedPart={selectedPart}
             partGeoJSON={selectedPartGeoJSON}
             onPartBack={() => {
-              // Use browser back instead of direct state change
-              if (!isNavigatingBack) {
-                window.history.back();
-              } else {
-                // If already navigating back, just update state
-                setSelectedPart(null);
-                setSelectedPartGeoJSON(null);
-                setSelectedNeighborhoodGeoJSON(null);
-                setIsPinned(false);
-                setPinnedNeighborhood(null);
-              }
+              // Always go back to PartMap directly
+              setSelectedPart(null);
+              setSelectedPartGeoJSON(null);
+              setSelectedNeighborhoodGeoJSON(null);
+              setIsPinned(false);
+              setPinnedNeighborhood(null);
             }}
             onNeighborhoodHover={handleNeighborhoodHover}
             onNeighborhoodLeave={handleNeighborhoodLeave}

@@ -24,9 +24,9 @@ const getColorByPart = (part) => {
 // Get display name for each part
 const getPartDisplayName = (part) => {
   const nameMap = {
-    South: "City Center/ South of the island",
+    South: "Downtown/ Center South",
     West: "West Island",
-    North: "Montreal North",
+    North: "Montreal East/ North",
     Central: "Central North",
   };
   return nameMap[part] || part;
