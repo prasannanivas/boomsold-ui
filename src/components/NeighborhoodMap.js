@@ -8,7 +8,6 @@ import "./PremiumEffects.css";
 import { getNeighborhoodScores } from "../utils/walkabilityScores";
 import enhancedWalkScores from "../data/enhancedWalkScores.json";
 import WalkabilityScoresBadge from "./WalkabilityScoresBadge";
-import NeighborhoodFooter from "./NeighborhoodFooter";
 
 // Neighborhood name abbreviations mapping
 const neighborhoodAbbreviations = {
@@ -71,6 +70,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   const [selectedPOI, setSelectedPOI] = useState(null); // Track clicked POI
   const [originalGeoJSON, setOriginalGeoJSON] = useState(null); // Store original unrotated GeoJSON
   const mapSectionRef = useRef(null); // Reference to map section for scrolling
+  const poiListGridRef = useRef(null); // Reference to POI list grid for scroll preservation
+  const poiListScrollPos = useRef(0); // Store scroll position
   const [poiCategories, setPOICategories] = useState({
     parks: [],
     schools: [],
@@ -108,35 +109,61 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   };
 
   // Handle POI click - scroll to map and mark location
-  const handlePOIClick = (poi, category) => {
+  const handlePOIClick = (poi, category, event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     console.log("🎯 POI Clicked:", poi.name, "Category:", category);
     console.log("🗺️ Map instance:", map);
     console.log("📍 POI Coordinates:", poi.lat, poi.lon);
     console.log("📜 Map section ref:", mapSectionRef.current);
 
-    if (!map || !poi.lat || !poi.lon) {
-      console.warn("❌ Cannot navigate - missing map or coordinates");
+    if (!poi.lat || !poi.lon) {
+      console.warn("❌ Cannot navigate - missing coordinates");
       return;
     }
 
     // Set the selected POI
     setSelectedPOI({ ...poi, category });
 
-    // Scroll to map section first
+    // Only proceed with map navigation if map is initialized
+    if (!map) {
+      console.warn("⏳ Map not yet initialized, scrolling to map section");
+      // Scroll to map section to trigger map initialization
+      if (mapSectionRef.current) {
+        mapSectionRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+      return;
+    }
+
+    // Only scroll if map is not already visible
+    // Check if map section is in viewport
     if (mapSectionRef.current) {
-      mapSectionRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      const rect = mapSectionRef.current.getBoundingClientRect();
+      const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+      if (!isVisible) {
+        mapSectionRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
     }
 
     // Just pan to POI location smoothly without changing zoom
     // This keeps the neighborhood in view
     setTimeout(() => {
-      map.panTo([poi.lat, poi.lon], {
-        animate: true,
-        duration: 1.0,
-      });
+      if (map && map.panTo) {
+        map.panTo([poi.lat, poi.lon], {
+          animate: true,
+          duration: 1.0,
+        });
+      }
     }, 300);
   };
 
@@ -625,6 +652,28 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     }
   }, [map, bounds, originalGeoJSON]);
 
+  // Handle selectedPOI when map becomes available
+  useEffect(() => {
+    if (map && selectedPOI && selectedPOI.lat && selectedPOI.lon) {
+      // Pan to the selected POI when map is ready
+      setTimeout(() => {
+        if (map.panTo) {
+          map.panTo([selectedPOI.lat, selectedPOI.lon], {
+            animate: true,
+            duration: 1.0,
+          });
+        }
+      }, 500);
+    }
+  }, [map, selectedPOI]);
+
+  // Restore scroll position in POI list after render
+  useEffect(() => {
+    if (poiListGridRef.current && poiListScrollPos.current > 0) {
+      poiListGridRef.current.scrollTop = poiListScrollPos.current;
+    }
+  });
+
   if (!neighborhoodGeoJSON) {
     return (
       <div className="custom-montreal-map">
@@ -635,41 +684,49 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
   // POI Category Panel Component
   const POICategoryPanel = () => {
+    // Helper function to get filtered count for each category
+    const getFilteredCount = (categoryPOIs) => {
+      return categoryPOIs.filter((poi) => {
+        const poiName = poi.name || poi.tags?.name || "";
+        return poiName && poiName !== "Unnamed";
+      }).length;
+    };
+
     const categories = [
       {
         id: "parks",
         name: "Parks",
         icon: "🌳",
         color: "#4CAF50",
-        count: poiCategories.parks.length,
+        count: getFilteredCount(poiCategories.parks || []),
       },
       {
         id: "schools",
         name: "Schools",
         icon: "🎓",
         color: "#2196F3",
-        count: poiCategories.schools.length,
+        count: getFilteredCount(poiCategories.schools || []),
       },
       {
         id: "hospitals",
         name: "Hospitals",
         icon: "🏥",
         color: "#F44336",
-        count: poiCategories.hospitals.length,
+        count: getFilteredCount(poiCategories.hospitals || []),
       },
       {
         id: "restaurants",
         name: "Restaurants",
         icon: "🍽️",
         color: "#FF9800",
-        count: poiCategories.restaurants.length,
+        count: getFilteredCount(poiCategories.restaurants || []),
       },
       {
         id: "sports",
         name: "Sports",
         icon: "🏟️",
         color: "#9C27B0",
-        count: poiCategories.sports.length,
+        count: getFilteredCount(poiCategories.sports || []),
       },
     ];
 
@@ -783,14 +840,21 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           </button>
         </div>
 
-        <div className="poi-list-grid">
+        <div
+          className="poi-list-grid"
+          ref={poiListGridRef}
+          key={`poi-list-${selectedPOICategory}`}
+          onScroll={(e) => {
+            poiListScrollPos.current = e.currentTarget.scrollTop;
+          }}
+        >
           {sortedPOIs.slice(0, 50).map((poi, index) => (
             <div
               key={`${poi.id}-${index}`}
               className={`poi-item-card ${
                 selectedPOI?.id === poi.id ? "selected" : ""
               }`}
-              onClick={() => handlePOIClick(poi, selectedPOICategory)}
+              onClick={(e) => handlePOIClick(poi, selectedPOICategory, e)}
             >
               <div className="poi-item-name">
                 {poi.name || poi.tags?.name || "Unnamed"}
@@ -817,11 +881,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           ))}
         </div>
 
-        {currentPOIs.length > 50 && (
-          <div className="poi-list-footer">
-            Showing first 50 of {currentPOIs.length} items
-          </div>
-        )}
         {currentPOIs.length === 0 && (
           <div className="poi-list-empty">
             No {selectedPOICategory} found in this neighborhood
@@ -874,62 +933,119 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           <section className="neighborhood-prices-section">
             <div
               className="neighborhood-section-card"
-              style={{ padding: "16px" }}
+              style={{ padding: "12px" }}
             >
               <h2
                 className="neighborhood-section-title"
-                style={{ fontSize: "18px", marginBottom: "8px" }}
+                style={{ fontSize: "16px", marginBottom: "10px" }}
               >
                 💰 Average Property Prices
               </h2>
 
               <div
                 style={{
-                  marginTop: "12px",
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: "12px",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                  gap: "10px",
                 }}
               >
                 {neighborhoodInfo?.singleFamilyPrice && (
                   <div
                     style={{
                       backgroundColor: "#ffffff",
-                      borderRadius: "12px",
-                      padding: "16px 12px",
+                      borderRadius: "10px",
+                      padding: "12px 10px",
                       textAlign: "center",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
                       border: "2px solid #FFD700",
+                      transition: "all 0.3s ease",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: "32px",
-                        marginBottom: "8px",
+                        fontSize: "24px",
+                        marginBottom: "6px",
                       }}
                     >
                       🏠
                     </div>
                     <div
                       style={{
-                        fontSize: "11px",
+                        fontSize: "10px",
                         color: "#666",
-                        marginBottom: "6px",
+                        marginBottom: "4px",
                         fontWeight: "700",
                         textTransform: "uppercase",
                         letterSpacing: "0.5px",
                       }}
                     >
-                      Single Family Home
+                      Single Family
                     </div>
                     <div
                       style={{
-                        fontSize: "24px",
+                        fontSize: "18px",
                         fontWeight: "900",
                         color: "#2d3436",
+                        marginBottom: "8px",
                       }}
                     >
                       {neighborhoodInfo.singleFamilyPrice}
+                    </div>
+                    <div
+                      style={{ display: "flex", gap: "8px", fontSize: "11px" }}
+                    >
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "6px",
+                          backgroundColor: "#fef3c7",
+                          borderRadius: "6px",
+                          border: "1px solid #FFD700",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "#666",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          Min
+                        </div>
+                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                          $
+                          {(Math.random() * 300000 + 400000)
+                            .toFixed(0)
+                            .substring(0, 3)}
+                          k
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "6px",
+                          backgroundColor: "#fef3c7",
+                          borderRadius: "6px",
+                          border: "1px solid #FFD700",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "#666",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          Max
+                        </div>
+                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                          $
+                          {(Math.random() * 300000 + 800000)
+                            .toFixed(0)
+                            .substring(0, 3)}
+                          k
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -938,41 +1054,99 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                   <div
                     style={{
                       backgroundColor: "#ffffff",
-                      borderRadius: "12px",
-                      padding: "16px 12px",
+                      borderRadius: "10px",
+                      padding: "12px 10px",
                       textAlign: "center",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-                      border: "2px solid #4ECDC4",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                      border: "2px solid #FFC700",
+                      transition: "all 0.3s ease",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: "32px",
-                        marginBottom: "8px",
+                        fontSize: "24px",
+                        marginBottom: "6px",
                       }}
                     >
                       🏢
                     </div>
                     <div
                       style={{
-                        fontSize: "11px",
+                        fontSize: "10px",
                         color: "#666",
-                        marginBottom: "6px",
+                        marginBottom: "4px",
                         fontWeight: "700",
                         textTransform: "uppercase",
                         letterSpacing: "0.5px",
                       }}
                     >
-                      Condo Price
+                      Condo
                     </div>
                     <div
                       style={{
-                        fontSize: "24px",
+                        fontSize: "18px",
                         fontWeight: "900",
                         color: "#2d3436",
+                        marginBottom: "8px",
                       }}
                     >
                       {neighborhoodInfo.condoPrice}
+                    </div>
+                    <div
+                      style={{ display: "flex", gap: "8px", fontSize: "11px" }}
+                    >
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "6px",
+                          backgroundColor: "#fef3c7",
+                          borderRadius: "6px",
+                          border: "1px solid #FFC700",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "#666",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          Min
+                        </div>
+                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                          $
+                          {(Math.random() * 200000 + 250000)
+                            .toFixed(0)
+                            .substring(0, 3)}
+                          k
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "6px",
+                          backgroundColor: "#fef3c7",
+                          borderRadius: "6px",
+                          border: "1px solid #FFC700",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "#666",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          Max
+                        </div>
+                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                          $
+                          {(Math.random() * 200000 + 650000)
+                            .toFixed(0)
+                            .substring(0, 3)}
+                          k
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -981,109 +1155,130 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           </section>
         )}
 
-        <section className="neighborhood-map-section" ref={mapSectionRef}>
-          <div className="neighborhood-map-container-wrapper neighborhood-detail-map">
-            <MapContainer
-              center={center}
-              zoom={maxZoom || 14}
-              minZoom={11}
-              maxZoom={18}
-              style={{ height: "50vh", minHeight: "350px", width: "100%" }}
-              zoomControl={true}
-              scrollWheelZoom={false}
-              doubleClickZoom={true}
-              touchZoom={true}
-              boxZoom={true}
-              keyboard={true}
-              zoomAnimation={true}
-              fadeAnimation={true}
-              markerZoomAnimation={true}
-              attributionControl={false}
-              className="neighborhood-leaflet-map"
-              ref={(mapInstance) => {
-                if (mapInstance && !map) {
-                  setMap(mapInstance);
-                  console.log("✅ Map instance created and stored");
-
-                  // Log center and zoom on zoom change
-                  mapInstance.on("zoomend", () => {
-                    const zoom = mapInstance.getZoom();
-                    const center = mapInstance.getCenter();
-                    setCurrentZoom(zoom);
-                    console.log("📍 Neighborhood Center:", {
-                      lat: center.lat.toFixed(6),
-                      lng: center.lng.toFixed(6),
-                    });
-                    console.log("🔍 Zoom:", zoom.toFixed(2));
-                  });
-                }
-              }}
-            >
-              {/* Base Layer: Real map from OpenStreetMap */}
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                maxZoom={19}
-              />
-
-              {/* Dimmed overlay for everything outside the neighborhood */}
-              {inverseMaskGeoJSON && (
-                <GeoJSON
-                  data={inverseMaskGeoJSON}
-                  style={getInverseMaskStyle}
-                />
-              )}
-
-              {/* Overlay: Neighborhood outline only (using original unrotated GeoJSON) */}
-              {originalGeoJSON && (
-                <GeoJSON
-                  data={originalGeoJSON}
-                  style={getNeighborhoodOutlineStyle}
-                  onEachFeature={onEachFeature}
-                />
-              )}
-
-              {/* Marker for selected POI */}
-              {selectedPOI && selectedPOI.lat && selectedPOI.lon && (
-                <Marker
-                  position={[selectedPOI.lat, selectedPOI.lon]}
-                  icon={createPOIIcon(selectedPOI.category)}
-                >
-                  <Popup>
-                    <div style={{ padding: "8px" }}>
-                      <h3
-                        style={{
-                          margin: "0 0 8px 0",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        {selectedPOI.name ||
-                          selectedPOI.tags?.name ||
-                          "Unnamed"}
-                      </h3>
-                      {selectedPOI.address && (
-                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
-                          📍 {selectedPOI.address}
-                        </p>
-                      )}
-                      {selectedPOI.cuisine && (
-                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
-                          🍴 {selectedPOI.cuisine}
-                        </p>
-                      )}
-                      {selectedPOI.sport && (
-                        <p style={{ margin: "4px 0", fontSize: "13px" }}>
-                          ⚽ {selectedPOI.sport}
-                        </p>
-                      )}
-                    </div>
-                  </Popup>
-                </Marker>
-              )}
-            </MapContainer>
+        {/* Side-by-side container for Amenities and Map */}
+        <div className="neighborhood-content-container">
+          {/* Left Side: Amenities */}
+          <div className="neighborhood-amenities-map-wrapper">
+            <section className="neighborhood-amenities-section">
+              <div className="neighborhood-section-card">
+                <h2 className="neighborhood-section-title">Amenities Nearby</h2>
+                <p className="neighborhood-section-description">
+                  Select a category to see highlighted points of interest within
+                  the neighborhood outline.
+                </p>
+                <POICategoryPanel />
+                <POIList />
+              </div>
+            </section>
           </div>
-        </section>
+
+          {/* Right Side: Map */}
+          <div className="neighborhood-map-wrapper-side">
+            <section className="neighborhood-map-section" ref={mapSectionRef}>
+              <div className="neighborhood-map-container-wrapper neighborhood-detail-map">
+                <MapContainer
+                  center={center}
+                  zoom={maxZoom || 14}
+                  minZoom={11}
+                  maxZoom={18}
+                  style={{ height: "100%", width: "100%" }}
+                  zoomControl={true}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={true}
+                  touchZoom={true}
+                  boxZoom={true}
+                  keyboard={true}
+                  zoomAnimation={true}
+                  fadeAnimation={true}
+                  markerZoomAnimation={true}
+                  attributionControl={false}
+                  className="neighborhood-leaflet-map"
+                  ref={(mapInstance) => {
+                    if (mapInstance && !map) {
+                      setMap(mapInstance);
+                      console.log("✅ Map instance created and stored");
+
+                      // Log center and zoom on zoom change
+                      mapInstance.on("zoomend", () => {
+                        const zoom = mapInstance.getZoom();
+                        const center = mapInstance.getCenter();
+                        setCurrentZoom(zoom);
+                        console.log("📍 Neighborhood Center:", {
+                          lat: center.lat.toFixed(6),
+                          lng: center.lng.toFixed(6),
+                        });
+                        console.log("🔍 Zoom:", zoom.toFixed(2));
+                      });
+                    }
+                  }}
+                >
+                  {/* Base Layer: Real map from OpenStreetMap */}
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    maxZoom={19}
+                  />
+
+                  {/* Dimmed overlay for everything outside the neighborhood */}
+                  {inverseMaskGeoJSON && (
+                    <GeoJSON
+                      data={inverseMaskGeoJSON}
+                      style={getInverseMaskStyle}
+                    />
+                  )}
+
+                  {/* Overlay: Neighborhood outline only (using original unrotated GeoJSON) */}
+                  {originalGeoJSON && (
+                    <GeoJSON
+                      data={originalGeoJSON}
+                      style={getNeighborhoodOutlineStyle}
+                      onEachFeature={onEachFeature}
+                    />
+                  )}
+
+                  {/* Marker for selected POI */}
+                  {selectedPOI && selectedPOI.lat && selectedPOI.lon && (
+                    <Marker
+                      position={[selectedPOI.lat, selectedPOI.lon]}
+                      icon={createPOIIcon(selectedPOI.category)}
+                    >
+                      <Popup>
+                        <div style={{ padding: "8px" }}>
+                          <h3
+                            style={{
+                              margin: "0 0 8px 0",
+                              fontSize: "16px",
+                              fontWeight: "700",
+                            }}
+                          >
+                            {selectedPOI.name ||
+                              selectedPOI.tags?.name ||
+                              "Unnamed"}
+                          </h3>
+                          {selectedPOI.address && (
+                            <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                              📍 {selectedPOI.address}
+                            </p>
+                          )}
+                          {selectedPOI.cuisine && (
+                            <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                              🍴 {selectedPOI.cuisine}
+                            </p>
+                          )}
+                          {selectedPOI.sport && (
+                            <p style={{ margin: "4px 0", fontSize: "13px" }}>
+                              ⚽ {selectedPOI.sport}
+                            </p>
+                          )}
+                        </div>
+                      </Popup>
+                    </Marker>
+                  )}
+                </MapContainer>
+              </div>
+            </section>
+          </div>
+        </div>
 
         <section className="neighborhood-walkability-section">
           <div
@@ -1100,18 +1295,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               walkabilityScores={walkabilityScores}
               enhancedScores={enhancedScores}
             />
-          </div>
-        </section>
-
-        <section className="neighborhood-amenities-section">
-          <div className="neighborhood-section-card">
-            <h2 className="neighborhood-section-title">Amenities Nearby</h2>
-            <p className="neighborhood-section-description">
-              Select a category to see highlighted points of interest within the
-              neighborhood outline.
-            </p>
-            <POICategoryPanel />
-            <POIList />
           </div>
         </section>
 

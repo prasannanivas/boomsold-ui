@@ -1152,6 +1152,67 @@ const MontrealMap = ({
           pathElement.style.strokeWidth = "6";
         }
 
+        // Calculate real POI counts for this neighborhood
+        let polygonLatLngs = [];
+        if (feature.geometry.type === "MultiPolygon") {
+          polygonLatLngs = feature.geometry.coordinates[0][0].map((coord) => [
+            coord[1],
+            coord[0],
+          ]);
+        } else if (feature.geometry.type === "Polygon") {
+          polygonLatLngs = feature.geometry.coordinates[0].map((coord) => [
+            coord[1],
+            coord[0],
+          ]);
+        }
+
+        let parkCount = 0;
+        let schoolCount = 0;
+        let hospitalCount = 0;
+        let restaurantCount = 0;
+        let sportsCount = 0;
+
+        allPois.forEach((poi) => {
+          const amenity = poi.tags?.amenity;
+          const leisure = poi.tags?.leisure;
+          const sport = poi.tags?.sport;
+
+          let lat, lon;
+          if (poi.type === "node") {
+            lat = poi.lat;
+            lon = poi.lon;
+          } else if (
+            (poi.type === "way" || poi.type === "relation") &&
+            poi.center
+          ) {
+            lat = poi.center.lat;
+            lon = poi.center.lon;
+          }
+
+          if (
+            lat &&
+            lon &&
+            polygonLatLngs.length > 0 &&
+            isPointInPolygon([lat, lon], polygonLatLngs)
+          ) {
+            if (leisure === "park" || amenity === "park") parkCount++;
+            else if (amenity === "school") schoolCount++;
+            else if (amenity === "hospital") hospitalCount++;
+            else if (
+              amenity === "restaurant" ||
+              amenity === "cafe" ||
+              amenity === "fast_food"
+            )
+              restaurantCount++;
+            else if (
+              leisure === "sports_centre" ||
+              leisure === "stadium" ||
+              sport
+            )
+              sportsCount++;
+          }
+        });
+
         if (onNeighborhoodHover) {
           onNeighborhoodHover({
             // Basic Information
@@ -1177,6 +1238,13 @@ const MontrealMap = ({
             pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
             marketTrend: `↗ +${feature.properties.priceChange}%`,
             area: feature.properties.area, // Geographic area in km²
+
+            // POI Counts (calculated from real data)
+            parkCount,
+            schoolCount,
+            hospitalCount,
+            restaurantCount,
+            sportsCount,
 
             // Raw Data (for debugging/complete info)
             rawProperties: {

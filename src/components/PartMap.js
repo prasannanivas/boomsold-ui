@@ -431,8 +431,45 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         />
       </div>
 
+      {/* Info Bubble - Bottom Right */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: isMobile ? "20px" : "10%",
+          right: isMobile ? "15px" : "5%",
+          width: isMobile ? "280px" : "320px",
+          height: "auto",
+          zIndex: 1000,
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "#FFD700",
+            color: "#000000",
+            padding: isMobile ? "15px 18px" : "20px 24px",
+            borderRadius: "20px",
+            boxShadow:
+              "0 4px 20px rgba(255, 215, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)",
+            fontFamily: "'Nunito', sans-serif",
+            fontSize: isMobile ? "13px" : "14px",
+            lineHeight: "1.6",
+            textAlign: "center",
+            border: "2px solid rgba(0, 0, 0, 0.1)",
+            boxSizing: "border-box",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 600 }}>
+            We are here to simplify your real estate search. Select a
+            neighborhood to discover average home prices, amenities nearby and
+            more.
+          </p>
+        </div>
+      </div>
+
       {/* Montreal Island Header */}
-      <h2 className="selected-part-label">Montreal Island</h2>
+      <h2 className="selected-part-label">Welcome to Montreal</h2>
 
       {/* Top Heading */}
       <h2
