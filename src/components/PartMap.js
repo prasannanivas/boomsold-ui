@@ -535,8 +535,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{ background: "transparent" }}
       >
         <MapContainer
-          center={isMobile ? [45.68, -73.78] : [45.56, -73.62]}
-          zoom={isMobile ? 9.8 : 10.8}
+          center={isMobile ? [45.65, -73.74] : [45.56, -73.62]}
+          zoom={isMobile ? 9.5 : 10.8}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={isMobile} // Enable zoom control on mobile
           //scrollWheelZoom={isMobile} // Enable scroll wheel zoom on mobile
@@ -544,7 +544,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           touchZoom={isMobile} // Enable touch zoom on mobile
           boxZoom={false}
           keyboard={false}
-          dragging={isMobile} // Enable dragging on mobile
+          // dragging={isMobile} // Enable dragging on mobile
           zoomAnimation={true}
           fadeAnimation={true}
           markerZoomAnimation={false}
@@ -564,10 +564,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             // Enable/disable interactions based on device
             if (isMobile) {
               // Enable all zoom and pan interactions on mobile
-              mapInstance.dragging.enable();
-              mapInstance.touchZoom.enable();
+              // mapInstance.dragging.enable();
+              // mapInstance.touchZoom.enable();
               mapInstance.doubleClickZoom.enable();
-              mapInstance.scrollWheelZoom.enable();
+              // mapInstance.scrollWheelZoom.enable();
 
               // Remove any max bounds to allow free panning
               mapInstance.setMaxBounds(null);

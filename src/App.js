@@ -131,7 +131,7 @@ function App() {
       {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 
       {/* Help Guide for first-time users */}
-      <HelpGuide />
+      {/* <HelpGuide /> */}
 
       <div className="map-container">
         {selectedPart === null ? (

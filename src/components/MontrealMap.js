@@ -166,6 +166,7 @@ const MontrealMap = ({
   const [useTopView, setUseTopView] = useState(false); // when zoomed in, use unrotated data
   const [map, setMap] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
 
   const [parkMarkers, setParkMarkers] = useState([]);
   const [schoolMarkers, setSchoolMarkers] = useState([]);
@@ -203,6 +204,7 @@ const MontrealMap = ({
 
   // Filter state
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [showNeighborhoodList, setShowNeighborhoodList] = useState(false); // Neighborhood list toggle
   const [filters, setFilters] = useState({
     showBoroughs: true,
     showSuburbs: true,
@@ -218,6 +220,16 @@ const MontrealMap = ({
   useEffect(() => {
     pinnedRef.current = pinnedNeighborhood;
   }, [pinnedNeighborhood]);
+
+  // Handle window resize for mobile detection
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [isLoadingMarkers, setIsLoadingMarkers] = useState(false);
 
   const [allPois, setAllPois] = useState([]);
@@ -1017,8 +1029,8 @@ const MontrealMap = ({
     // Ensure layer is added to map before applying styling
     setTimeout(applyStyle, 100);
 
-    // Add permanent tooltip with dynamic font size based on zoom
-    if (feature.properties && feature.properties.name) {
+    // Add permanent tooltip with dynamic font size based on zoom (desktop only)
+    if (feature.properties && feature.properties.name && !isMobile) {
       const abbreviatedName = getAbbreviatedName(feature.properties.name);
 
       const updateTooltip = () => {
@@ -1412,12 +1424,28 @@ const MontrealMap = ({
     // Adjust zoom based on screen size
     const zoomAdjustment = isMobile ? -0.5 : isTablet ? -0.3 : 0;
 
+    // Mobile-specific center adjustments (push North/East down)
     const partConfigs = {
-      North: { center: [45.58, -73.48], zoom: 11.5 + zoomAdjustment },
-      South: { center: [45.48, -73.55], zoom: 11.5 + zoomAdjustment },
-      Central: { center: [45.56, -73.62], zoom: 11.5 + zoomAdjustment },
-      East: { center: [45.54, -73.45], zoom: 12 + zoomAdjustment },
-      West: { center: [45.58, -73.85], zoom: 12 + zoomAdjustment },
+      North: {
+        center: isMobile ? [45.78, -73.58] : [45.58, -73.48],
+        zoom: 11.5 + zoomAdjustment,
+      },
+      South: {
+        center: isMobile ? [45.49, -73.62] : [45.48, -73.55],
+        zoom: 11.5 + zoomAdjustment,
+      },
+      Central: {
+        center: isMobile ? [45.58, -73.67] : [45.56, -73.62],
+        zoom: 11.5 + zoomAdjustment,
+      },
+      East: {
+        center: isMobile ? [45.2, -73.45] : [45.54, -73.45],
+        zoom: isMobile ? 11 + zoomAdjustment : 12 + zoomAdjustment,
+      },
+      West: {
+        center: isMobile ? [45.48, -73.9] : [45.58, -73.85],
+        zoom: isMobile ? 11 : 12 + zoomAdjustment,
+      },
     };
 
     if (selectedPart && partConfigs[selectedPart]) {
@@ -1452,7 +1480,7 @@ const MontrealMap = ({
 
   if (!montrealData) {
     return (
-      <div className="custom-montreal-map">
+      <div className="mm-custom-montreal-map">
         <div
           style={{
             display: "flex",
@@ -1483,15 +1511,15 @@ const MontrealMap = ({
           onClick={onPartBack}
           style={{
             position: "fixed",
-            top: "10%",
-            left: "5%",
+            top: isMobile ? "2%" : "10%",
+            left: isMobile ? "3%" : "5%",
             zIndex: 1000,
-            padding: "12px 24px",
+            padding: isMobile ? "8px 16px" : "12px 24px",
             backgroundColor: "#FFD700",
             color: "#000000ff",
             border: "2px solid #FFD700",
-            borderRadius: "8px",
-            fontSize: "16px",
+            borderRadius: isMobile ? "6px" : "8px",
+            fontSize: isMobile ? "12px" : "16px",
             fontWeight: 700,
             cursor: "pointer",
             boxShadow:
@@ -1499,21 +1527,24 @@ const MontrealMap = ({
             transition: "all 0.2s ease",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: isMobile ? "4px" : "8px",
             fontFamily:
               "'DM Serif Display', 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
           }}
         >
-          <span style={{ fontSize: "20px" }}>←</span>
+          <span style={{ fontSize: isMobile ? "14px" : "20px" }}>←</span>
           <span>Back</span>
         </button>
       )}
 
       <div
-        className="custom-montreal-map"
+        className="mm-custom-montreal-map"
         style={{ background: "transparent" }}
       >
-        <h2 className="selected-part-label">
+        <h2
+          className="selected-part-label"
+          style={isMobile && { marginTop: "10vh" }}
+        >
           {selectedPart === "South"
             ? "downtown/ Center South"
             : selectedPart === "West"
@@ -1529,7 +1560,7 @@ const MontrealMap = ({
           minZoom={selectedPart ? 10 : 6}
           maxZoom={22}
           style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={true}
+          zoomControl={isMobile}
           scrollWheelZoom={false}
           doubleClickZoom={true}
           touchZoom={true}
@@ -1541,6 +1572,12 @@ const MontrealMap = ({
           attributionControl={false}
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
+
+            // Add custom zoom control with custom position
+            const zoomControl = L.control.zoom({
+              position: "topleft",
+            });
+            zoomControl.addTo(mapInstance);
 
             // Remove any default tile layers
             mapInstance.eachLayer((layer) => {
@@ -1592,61 +1629,286 @@ const MontrealMap = ({
           />
         </MapContainer>
 
+        {/* Logo and Neighborhood List Container */}
         <div
           style={{
             position: "fixed",
-            top: "5%",
-            right: "20px",
-            width: "150px",
-            height: "100px",
+            top: isMobile ? "2%" : "5%",
+            right: isMobile ? "10px" : "20px",
+            width: isMobile ? "100px" : "150px",
             zIndex: 1000,
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}
         >
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
-            }
-            alt="Boom Sold Logo"
-            className="boomsold-logo"
-            style={{ width: "100%", height: "100%" }}
-          />
+          {/* BoomSold Logo */}
+          <div
+            style={{
+              width: "100%",
+              height: isMobile ? "60px" : "100px",
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "8px",
+              padding: "5px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
+              }
+              alt="Boom Sold Logo"
+              className="boomsold-logo"
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          </div>
         </div>
 
-        {/* Filter Button */}
-        <button
-          onClick={() => setShowFilterPanel(!showFilterPanel)}
-          style={{
-            position: "fixed",
-            bottom: "30px",
-            left: "30px",
-            zIndex: 1000,
-            padding: "12px 20px",
-            backgroundColor: "#FFD700",
-            color: "#000000",
-            border: "2px solid #FFD700",
-            borderRadius: "50px",
-            fontSize: "16px",
-            fontWeight: 700,
-            cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
-            transition: "all 0.3s ease",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = "#FFC107";
-            e.target.style.transform = "scale(1.05)";
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = "#FFD700";
-            e.target.style.transform = "scale(1)";
-          }}
-        >
-          <span style={{ fontSize: "18px" }}>🔍</span>
-          <span>Filters</span>
-        </button>
+        {/* Neighborhood List - Mobile Only - Below Map */}
+        {isMobile && montrealData && (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "90%",
+              maxWidth: "400px",
+              zIndex: 1000,
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "12px",
+              padding: "12px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+              fontSize: "11px",
+            }}
+          >
+            <div
+              onClick={() => setShowNeighborhoodList(!showNeighborhoodList)}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                cursor: "pointer",
+                margin: "0 0 8px 0",
+                borderBottom: "2px solid #FFD700",
+                paddingBottom: "8px",
+              }}
+            >
+              <h4
+                style={{
+                  margin: 0,
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#000",
+                }}
+              >
+                Neighborhoods (
+                {getFilteredData()?.features.filter(
+                  (f, i, arr) =>
+                    arr.findIndex(
+                      (item) =>
+                        (item.properties.name || item.properties.nom_arr) ===
+                        (f.properties.name || f.properties.nom_arr)
+                    ) === i
+                ).length || 0}
+                )
+              </h4>
+              <span
+                style={{
+                  fontSize: "18px",
+                  fontWeight: 700,
+                  color: "#FFD700",
+                  transition: "transform 0.3s ease",
+                  transform: showNeighborhoodList
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
+              >
+                ▼
+              </span>
+            </div>
+
+            {showNeighborhoodList && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "4px",
+                  maxHeight: "250px",
+                  overflowY: "auto",
+                }}
+              >
+                {getFilteredData()
+                  ?.features.map((f) => ({
+                    name: f.properties.name || f.properties.nom_arr,
+                    feature: f,
+                  }))
+                  .filter(
+                    (item, index, self) =>
+                      self.findIndex((i) => i.name === item.name) === index
+                  )
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((item, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        // Trigger click on the neighborhood
+                        if (onNeighborhoodClick && item.feature) {
+                          const feature = item.feature;
+
+                          // Get the map instance
+                          let leafletMap = map;
+                          if (!leafletMap && geoJsonLayerRef.current?._map) {
+                            leafletMap = geoJsonLayerRef.current._map;
+                            setMap(leafletMap);
+                          }
+
+                          // Filter GeoJSON to only show clicked neighborhood
+                          const filteredGeoJSON = {
+                            type: "FeatureCollection",
+                            features: montrealDataTop.features.filter(
+                              (f) =>
+                                (f.properties.name || f.properties.nom_arr) ===
+                                item.name
+                            ),
+                          };
+
+                          // Zoom to neighborhood bounds
+                          if (feature.geometry?.coordinates && leafletMap) {
+                            let allCoords = [];
+                            if (feature.geometry.type === "MultiPolygon") {
+                              feature.geometry.coordinates.forEach((poly) =>
+                                poly.forEach((ring) => allCoords.push(...ring))
+                              );
+                            } else if (feature.geometry.type === "Polygon") {
+                              feature.geometry.coordinates.forEach((ring) =>
+                                allCoords.push(...ring)
+                              );
+                            }
+                            const lats = allCoords.map((c) => c[1]);
+                            const lngs = allCoords.map((c) => c[0]);
+                            const bounds = [
+                              [Math.min(...lats), Math.min(...lngs)],
+                              [Math.max(...lats), Math.max(...lngs)],
+                            ];
+                            leafletMap.fitBounds(bounds, {
+                              maxZoom: 15,
+                              padding: [50, 50],
+                            });
+                          }
+
+                          // Call the click handler
+                          onNeighborhoodClick({
+                            name:
+                              feature.properties.name ||
+                              feature.properties.nom_arr,
+                            neighborhood:
+                              feature.properties.neighborhood ||
+                              feature.properties.nom_qr,
+                            municipality:
+                              feature.properties.municipality ||
+                              feature.properties.nom_mun,
+                            neighborhoodId: feature.properties.no_qr,
+                            boroughId: feature.properties.no_arr,
+                            neighborhoodCode: feature.properties.value,
+                            averagePrice: feature.properties.avgPrice,
+                            singleFamilyPrice:
+                              feature.properties.singleFamilyPrice,
+                            condoPrice: feature.properties.condoPrice,
+                            dwellingCount: feature.properties.nb_log,
+                            listingCount: feature.properties.listingCount,
+                            pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
+                            marketTrend: `↗ +${feature.properties.priceChange}%`,
+                            area: feature.properties.area,
+                            scope: feature.properties.scope,
+                            rawProperties: {
+                              no_qr: feature.properties.no_qr,
+                              nom_qr: feature.properties.nom_qr,
+                              no_arr: feature.properties.no_arr,
+                              nom_arr: feature.properties.nom_arr,
+                              nom_mun: feature.properties.nom_mun,
+                              nb_log: feature.properties.nb_log,
+                              rawSingleFamily:
+                                feature.properties.rawSingleFamily,
+                              rawCondo: feature.properties.rawCondo,
+                            },
+                            description: `Detailed property exploration for ${item.name}`,
+                            isClickEvent: true,
+                            filteredGeoJSON: filteredGeoJSON,
+                          });
+
+                          // Close the list after selection
+                          setShowNeighborhoodList(false);
+                        }
+                      }}
+                      style={{
+                        padding: "8px 10px",
+                        backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
+                        borderRadius: "6px",
+                        fontSize: "11px",
+                        color: "#333",
+                        fontWeight: 500,
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                        border: "1px solid transparent",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#FFD700";
+                        e.currentTarget.style.borderColor = "#FFC107";
+                        e.currentTarget.style.transform = "scale(1.02)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          index % 2 === 0 ? "#f9f9f9" : "#fff";
+                        e.currentTarget.style.borderColor = "transparent";
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    >
+                      {getAbbreviatedName(item.name)}
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Filter Button - Hidden on Mobile */}
+        {!isMobile && (
+          <button
+            onClick={() => setShowFilterPanel(!showFilterPanel)}
+            style={{
+              position: "fixed",
+              bottom: "30px",
+              left: "30px",
+              zIndex: 1000,
+              padding: "12px 20px",
+              backgroundColor: "#FFD700",
+              color: "#000000",
+              border: "2px solid #FFD700",
+              borderRadius: "50px",
+              fontSize: "16px",
+              fontWeight: 700,
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = "#FFC107";
+              e.target.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "#FFD700";
+              e.target.style.transform = "scale(1)";
+            }}
+          >
+            <span style={{ fontSize: "18px" }}>🔍</span>
+            <span>Filters</span>
+          </button>
+        )}
 
         {/* Filter Panel */}
         {showFilterPanel && (
