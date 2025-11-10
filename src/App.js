@@ -20,6 +20,7 @@ function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [introComplete, setIntroComplete] = useState(false);
   const [isNavigatingBack, setIsNavigatingBack] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
 
   React.useEffect(() => {
     console.log("Pinned neighborhood changed:", pinnedNeighborhood);
@@ -131,7 +132,7 @@ function App() {
       {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 
       {/* Help Guide for first-time users */}
-      {/* <HelpGuide /> */}
+      {!isMobile && <HelpGuide />}
 
       <div className="map-container">
         {selectedPart === null ? (
@@ -182,7 +183,7 @@ function App() {
           />
         )}
         {/* Floating neighborhood details overlay - only show on MontrealMap, not NeighborhoodMap */}
-        {selectedPart !== null && !isPinned && (
+        {!isMobile && selectedPart !== null && !isPinned && (
           <div
             className={`neighborhood-overlay ${
               isHovering && selectedNeighborhood ? "visible" : ""

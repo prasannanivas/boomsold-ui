@@ -1543,7 +1543,7 @@ const MontrealMap = ({
       >
         <h2
           className="selected-part-label"
-          style={isMobile && { marginTop: "10vh" }}
+          style={isMobile ? { marginTop: "10vh" } : {}}
         >
           {selectedPart === "South"
             ? "downtown/ Center South"
@@ -1647,10 +1647,9 @@ const MontrealMap = ({
             style={{
               width: "100%",
               height: isMobile ? "60px" : "100px",
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
+
               borderRadius: "8px",
               padding: "5px",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
             }}
           >
             <img
