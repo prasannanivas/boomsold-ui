@@ -106,6 +106,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const geoJsonLayerRef = useRef(null);
   const [partCenters, setPartCenters] = useState({}); // Store center coordinates for each part
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
+  const [userHasPanned, setUserHasPanned] = useState(false); // Track if user has manually panned
+  const [initialBoundsFitted, setInitialBoundsFitted] = useState(false); // Track if initial bounds have been set
 
   // Detect mobile on resize
   useEffect(() => {
@@ -152,7 +154,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         // Rotate for visual appeal ONLY ON DESKTOP
         const centerPoint = { lat: 45.48, lng: -73.62 };
         const rotatedData = isMobile
-          ? aggregated // No rotation on mobile
+          ? rotateGeoJSON(aggregated, 0, centerPoint, 1.3, 1.8) // Mobile: compress X axis (1.2), stretch Y axis (1.8)
           : rotateGeoJSON(aggregated, 335, centerPoint, 1.3, 1.3); // Rotate on desktop
 
         // Calculate centers for each part
@@ -193,39 +195,20 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
   // Fit map to bounds when data loads or window resizes
   useEffect(() => {
-    if (map && partData) {
+    if (map && partData && !userHasPanned && !initialBoundsFitted) {
       const fitMapBounds = () => {
         const bounds = L.geoJSON(partData).getBounds();
 
         // On mobile, adjust to use full screen width
         if (isMobile) {
-          // Get the screen dimensions
-          const screenWidth = window.innerWidth;
-          const screenHeight = window.innerHeight;
-
-          // Calculate the aspect ratio
-          const mapWidth = bounds.getEast() - bounds.getWest();
-          const mapHeight = bounds.getNorth() - bounds.getSouth();
-          const mapAspectRatio = mapWidth;
-          const screenAspectRatio = screenWidth;
-
-          // Extend bounds to fill full width while maintaining map visibility
-          let extendedBounds = bounds;
-
-          if (screenAspectRatio < mapAspectRatio) {
-            // Screen is narrower than map - fit to width
-            const center = bounds.getCenter();
-            const heightToAdd = (mapWidth / screenAspectRatio - mapHeight) / 2;
-            extendedBounds = L.latLngBounds(
-              [bounds.getSouth() - heightToAdd, bounds.getWest()],
-              [bounds.getNorth() + heightToAdd, bounds.getEast()]
-            );
-          }
-
-          map.fitBounds(extendedBounds, {
+          // No padding for mobile - just fit to bounds
+          map.fitBounds(bounds, {
             padding: [0, 0],
             animate: false,
           });
+
+          // Mark that initial bounds have been fitted for mobile
+          setInitialBoundsFitted(true);
         } else {
           map.fitBounds(bounds, {
             padding: [20, 20],
@@ -237,11 +220,17 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
       fitMapBounds();
 
-      // Fit bounds on window resize
-      window.addEventListener("resize", fitMapBounds);
-      return () => window.removeEventListener("resize", fitMapBounds);
+      // Only add resize listener for desktop
+      if (!isMobile) {
+        const handleResize = () => {
+          fitMapBounds();
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }
     }
-  }, [map, partData, isMobile]);
+  }, [map, partData, isMobile, userHasPanned, initialBoundsFitted]);
 
   // Style function for parts - Yellow variations with no visible borders, shadows provide separation
   const getPartStyle = (feature) => {
@@ -374,7 +363,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         // Rotate the filtered GeoJSON for this part
         const centerPoint = { lat: 45.48, lng: -73.62 };
         const rotatedPartData = isMobile
-          ? filteredData // No rotation on mobile
+          ? rotateGeoJSON(filteredData, 0, centerPoint, 1.2, 1.8) // Mobile: compress X axis (1.2), stretch Y axis (1.8)
           : rotateGeoJSON(filteredData, 335, centerPoint, 1.2, 1); // Rotate on desktop
 
         // Trigger callback with part name and filtered GeoJSON
@@ -413,10 +402,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       <div
         style={{
           position: "fixed",
-          top: "5%",
-          right: "20px",
-          width: "150px",
-          height: "100px",
+          top: isMobile ? "2%" : "5%",
+          right: isMobile ? "10px" : "20px",
+          width: isMobile ? "100px" : "150px",
+          height: isMobile ? "65px" : "100px",
           zIndex: 1000,
         }}
       >
@@ -432,55 +421,65 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       </div>
 
       {/* Info Bubble - Bottom Right */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: isMobile ? "20px" : "10%",
-          right: isMobile ? "15px" : "5%",
-          width: isMobile ? "280px" : "320px",
-          height: "auto",
-          zIndex: 1000,
-        }}
-      >
+      {!isMobile && (
         <div
           style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#FFD700",
-            color: "#000000",
-            padding: isMobile ? "15px 18px" : "20px 24px",
-            borderRadius: "20px",
-            boxShadow:
-              "0 4px 20px rgba(255, 215, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)",
-            fontFamily: "'Nunito', sans-serif",
-            fontSize: isMobile ? "13px" : "14px",
-            lineHeight: "1.6",
-            textAlign: "center",
-            border: "2px solid rgba(0, 0, 0, 0.1)",
-            boxSizing: "border-box",
+            position: "fixed",
+            bottom: "10%",
+            right: "5%",
+            width: "320px",
+            height: "auto",
+            zIndex: 1000,
           }}
         >
-          <p style={{ margin: 0, fontWeight: 600 }}>
-            We are here to simplify your real estate search. Select a
-            neighborhood to discover average home prices, amenities nearby and
-            more.
-          </p>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#FFD700",
+              color: "#000000",
+              padding: "20px 24px",
+              borderRadius: "20px",
+              boxShadow:
+                "0 4px 20px rgba(255, 215, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)",
+              fontFamily: "'Nunito', sans-serif",
+              fontSize: "14px",
+              lineHeight: "1.6",
+              textAlign: "center",
+              border: "2px solid rgba(0, 0, 0, 0.1)",
+              boxSizing: "border-box",
+            }}
+          >
+            <p style={{ margin: 0, fontWeight: 600 }}>
+              We are here to simplify your real estate search. Select a
+              neighborhood to discover average home prices, amenities nearby and
+              more.
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Montreal Island Header */}
-      <h2 className="selected-part-label">Welcome to Montreal</h2>
+      <h2
+        className="selected-part-label"
+        style={{
+          fontSize: isMobile ? "1.2rem" : undefined,
+          top: isMobile ? "8%" : undefined,
+        }}
+      >
+        Welcome to Montreal
+      </h2>
 
       {/* Top Heading */}
       <h2
         className="part-map-heading"
         style={{
           position: "fixed",
-          top: "15%",
+          top: isMobile ? "10%" : "15%",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1000,
-          fontSize: "1.8rem",
+          fontSize: isMobile ? "1.2rem" : "1.8rem",
           fontWeight: 300,
           color: "#2d3436",
           textAlign: "center",
@@ -536,11 +535,11 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{ background: "transparent" }}
       >
         <MapContainer
-          center={isMobile ? [45.56, -73.78] : [45.56, -73.62]}
-          zoom={isMobile ? 10.5 : 10.8}
+          center={isMobile ? [45.68, -73.78] : [45.56, -73.62]}
+          zoom={isMobile ? 9.8 : 10.8}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={isMobile} // Enable zoom control on mobile
-          scrollWheelZoom={isMobile} // Enable scroll wheel zoom on mobile
+          //scrollWheelZoom={isMobile} // Enable scroll wheel zoom on mobile
           doubleClickZoom={isMobile} // Enable double click zoom on mobile
           touchZoom={isMobile} // Enable touch zoom on mobile
           boxZoom={false}
@@ -551,6 +550,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           markerZoomAnimation={false}
           attributionControl={false}
           preferCanvas={false}
+          maxBounds={null} // Allow free panning without bounds restriction
+          maxBoundsViscosity={0.0} // Allow going beyond bounds smoothly
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
             // Remove any default tile layers
@@ -567,6 +568,14 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               mapInstance.touchZoom.enable();
               mapInstance.doubleClickZoom.enable();
               mapInstance.scrollWheelZoom.enable();
+
+              // Remove any max bounds to allow free panning
+              mapInstance.setMaxBounds(null);
+
+              // Track when user pans the map
+              mapInstance.on("dragstart", () => {
+                setUserHasPanned(true);
+              });
             } else {
               // Disable all zoom and pan interactions on desktop
               mapInstance.dragging.disable();
@@ -579,44 +588,14 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             mapInstance.keyboard.disable();
             if (mapInstance.tap) mapInstance.tap.disable();
 
-            // Fit to bounds when data is loaded
-            if (partData) {
+            // Fit to bounds when data is loaded (only on desktop or initial load)
+            if (partData && !isMobile) {
               const bounds = L.geoJSON(partData).getBounds();
-              if (isMobile) {
-                // Get the screen dimensions
-                const screenWidth = window.innerWidth;
-                const screenHeight = window.innerHeight;
-
-                // Calculate the aspect ratio
-                const mapWidth = bounds.getEast() - bounds.getWest();
-                const mapHeight = bounds.getNorth() - bounds.getSouth();
-                const mapAspectRatio = mapWidth / mapHeight;
-                const screenAspectRatio = screenWidth / screenHeight;
-
-                // Extend bounds to fill full width
-                let extendedBounds = bounds;
-
-                if (screenAspectRatio < mapAspectRatio) {
-                  // Screen is narrower - fit to width
-                  const heightToAdd =
-                    (mapWidth / screenAspectRatio - mapHeight) / 2;
-                  extendedBounds = L.latLngBounds(
-                    [bounds.getSouth() - heightToAdd, bounds.getWest()],
-                    [bounds.getNorth() + heightToAdd, bounds.getEast()]
-                  );
-                }
-
-                mapInstance.fitBounds(extendedBounds, {
-                  padding: [0, 0],
-                  animate: false,
-                });
-              } else {
-                mapInstance.fitBounds(bounds, {
-                  padding: [20, 20],
-                  animate: false,
-                  maxZoom: 10.8,
-                });
-              }
+              mapInstance.fitBounds(bounds, {
+                padding: [20, 20],
+                animate: false,
+                maxZoom: 10.8,
+              });
             }
           }}
         >
@@ -631,34 +610,35 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
           {/* Add text labels for each part */}
 
-          {Object.entries(partCenters).map(([partName, center]) => {
-            // Only show South, West, and North
-            if (!["South", "West", "North", "Central"].includes(partName))
-              return null;
+          {!isMobile &&
+            Object.entries(partCenters).map(([partName, center]) => {
+              // Only show South, West, and North on desktop
+              if (!["South", "West", "North", "Central"].includes(partName))
+                return null;
 
-            const displayName = getPartDisplayName(partName);
+              const displayName = getPartDisplayName(partName);
 
-            // Adjust positions for each part
-            let adjustedLat = center.lat;
-            let adjustedLng = center.lng;
+              // Adjust positions for each part
+              let adjustedLat = center.lat;
+              let adjustedLng = center.lng;
 
-            if (partName === "North") {
-              // Move North up and left
-              adjustedLat += 0.03; // Move up
-              adjustedLng -= 0.05; // Move left
-            } else if (partName === "South") {
-              // Move South left
-              adjustedLng -= 0.07; // Move left
-            } else if (partName === "Central") {
-              // Move West down and left
-              adjustedLat += 0.02; // Move down
-              adjustedLng -= 0.09; // Move left
-            }
+              if (partName === "North") {
+                // Move North up and left
+                adjustedLat += 0.03; // Move up
+                adjustedLng -= 0.05; // Move left
+              } else if (partName === "South") {
+                // Move South left
+                adjustedLng -= 0.07; // Move left
+              } else if (partName === "Central") {
+                // Move West down and left
+                adjustedLat += 0.02; // Move down
+                adjustedLng -= 0.09; // Move left
+              }
 
-            // Create custom icon with styled text matching MontrealMap
-            const textIcon = L.divIcon({
-              className: "part-label-icon",
-              html: `
+              // Create custom icon with styled text matching MontrealMap
+              const textIcon = L.divIcon({
+                className: "part-label-icon",
+                html: `
                 <div style="
                   color: #000000;
                   font-size: 14px;
@@ -681,21 +661,100 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   ${displayName}
                 </div>
               `,
-              iconSize: [0, 0],
-              iconAnchor: [0, 0],
-            });
+                iconSize: [0, 0],
+                iconAnchor: [0, 0],
+              });
 
-            return (
-              <Marker
-                key={partName}
-                position={[adjustedLat, adjustedLng]}
-                icon={textIcon}
-                interactive={false}
-              />
-            );
-          })}
+              return (
+                <Marker
+                  key={partName}
+                  position={[adjustedLat, adjustedLng]}
+                  icon={textIcon}
+                  interactive={false}
+                />
+              );
+            })}
         </MapContainer>
       </div>
+
+      {/* Mobile Bottom Navigation for Parts */}
+      {isMobile && (
+        <div className="mobile-parts-nav">
+          {["South", "West", "North", "Central"].map((partName) => {
+            const feature = partData?.features.find(
+              (f) => f.properties.part === partName
+            );
+
+            if (!feature) return null;
+
+            return (
+              <button
+                key={partName}
+                className="part-nav-button"
+                onClick={() => {
+                  // Simulate the click event
+                  const partFeature = feature;
+
+                  // Get bounds of this part
+                  let allCoords = [];
+                  if (partFeature.geometry.type === "MultiPolygon") {
+                    partFeature.geometry.coordinates.forEach((poly) => {
+                      poly.forEach((ring) => {
+                        allCoords = allCoords.concat(ring);
+                      });
+                    });
+                  } else if (partFeature.geometry.type === "Polygon") {
+                    partFeature.geometry.coordinates.forEach((ring) => {
+                      allCoords = allCoords.concat(ring);
+                    });
+                  }
+
+                  const lats = allCoords.map((c) => c[1]);
+                  const lngs = allCoords.map((c) => c[0]);
+                  const southWest = [Math.min(...lats), Math.min(...lngs)];
+                  const northEast = [Math.max(...lats), Math.max(...lngs)];
+                  const bounds = [
+                    [southWest[0], southWest[1]],
+                    [northEast[0], northEast[1]],
+                  ];
+
+                  if (map) {
+                    map.fitBounds(bounds, { maxZoom: 13, padding: [50, 50] });
+                  }
+
+                  // Filter GeoJSON for this part and rotate it
+                  const filteredData = {
+                    ...fullGeoJsonData,
+                    features: fullGeoJsonData.features.filter(
+                      (f) => f.properties.part === partName
+                    ),
+                  };
+
+                  // Rotate the filtered GeoJSON for this part
+                  const centerPoint = { lat: 45.48, lng: -73.62 };
+                  const rotatedPartData = rotateGeoJSON(
+                    filteredData,
+                    0,
+                    centerPoint,
+                    1.2,
+                    1.8
+                  );
+
+                  // Trigger callback with part name and filtered GeoJSON
+                  if (onPartClick) {
+                    onPartClick({
+                      partName: partName,
+                      geoJSON: rotatedPartData,
+                    });
+                  }
+                }}
+              >
+                {getPartDisplayName(partName)}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
