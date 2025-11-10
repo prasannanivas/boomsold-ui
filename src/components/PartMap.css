@@ -30,15 +30,6 @@
   transition: none;
 }
 
-/* Mobile - Enhanced border visibility */
-@media (max-width: 768px) {
-  .part-map-container .leaflet-interactive {
-    filter:
-      drop-shadow(3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px -3px 0px rgba(255, 255, 255, 1)) drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(0px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(0px -3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(-3px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(2px 0px 0px rgba(0, 0, 0, 0.5)) drop-shadow(-2px 0px 0px rgba(0, 0, 0, 0.5)) drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.5)) drop-shadow(0px -2px 0px rgba(0, 0, 0, 0.5));
-    transition: none;
-  }
-}
-
 
 /* Default shadow effects for PartMap only - extra thick white line separation + evenly distributed yellowish black shadow
 .part-map-container .leaflet-interactive {
@@ -55,13 +46,23 @@
   stroke-linecap: round;
 }
 
-/* Mobile - Add visible stroke to SVG paths */
+/* Mobile - Add visible stroke to SVG paths and enhanced borders */
 @media (max-width: 768px) {
+
+  /* Add stroke directly to SVG paths */
   .part-map-container .leaflet-overlay-pane svg path {
-    stroke: rgba(0, 0, 0, 0.8) !important;
-    stroke-width: 2 !important;
-    stroke-linejoin: round;
-    stroke-linecap: round;
+    stroke: #000000 !important;
+    stroke-width: 4px !important;
+    stroke-linejoin: round !important;
+    stroke-linecap: round !important;
+    paint-order: stroke fill !important;
+  }
+
+  /* Add white inner stroke for separation effect */
+  .part-map-container .leaflet-interactive {
+    filter:
+      drop-shadow(0px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.3)) !important;
+    transition: none !important;
   }
 }
 
