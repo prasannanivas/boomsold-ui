@@ -939,7 +939,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                 className="neighborhood-section-title"
                 style={{ fontSize: "16px", marginBottom: "10px" }}
               >
-                💰 Average Property Prices
+                💰 AVERAGE PROPERTY PRICES
               </h2>
 
               <div
@@ -1161,7 +1161,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           <div className="neighborhood-amenities-map-wrapper">
             <section className="neighborhood-amenities-section">
               <div className="neighborhood-section-card">
-                <h2 className="neighborhood-section-title">Amenities Nearby</h2>
+                <h2 className="neighborhood-section-title">AMENITIES NEARBY</h2>
                 <p className="neighborhood-section-description">
                   Select a category to see highlighted points of interest within
                   the neighborhood outline.
@@ -1289,7 +1289,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               className="neighborhood-section-title"
               style={{ fontSize: "18px", marginBottom: "8px" }}
             >
-              Walkability & Mobility Scores
+              WALKABILITY & MOBILITY SCORES
             </h2>
             <WalkabilityScoresBadge
               walkabilityScores={walkabilityScores}

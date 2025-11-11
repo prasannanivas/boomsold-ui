@@ -92,7 +92,7 @@
   margin: 0;
   font-size: 22px;
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: #222;
   background: linear-gradient(135deg, #2a2924 0%, #000 100%);
   -webkit-background-clip: text;
