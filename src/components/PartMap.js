@@ -322,9 +322,13 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         // Rotate the filtered GeoJSON for this part
         const centerPoint = { lat: 45.48, lng: -73.62 };
-        const rotatedPartData = isMobile
-          ? rotateGeoJSON(filteredData, 0, centerPoint, 1.2, 1.8) // Mobile: compress X axis (1.2), stretch Y axis (1.8)
-          : rotateGeoJSON(filteredData, 335, centerPoint, 1.2, 1); // Rotate on desktop
+        const rotatedPartData = rotateGeoJSON(
+          filteredData,
+          335,
+          centerPoint,
+          1.2,
+          1
+        ); // Same rotation for both mobile and desktop
 
         // Trigger callback with part name and filtered GeoJSON
         if (onPartClick) {
@@ -700,11 +704,11 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   const centerPoint = { lat: 45.48, lng: -73.62 };
                   const rotatedPartData = rotateGeoJSON(
                     filteredData,
-                    0,
+                    335,
                     centerPoint,
                     1.2,
-                    1.8
-                  );
+                    1
+                  ); // Same rotation for both mobile and desktop
 
                   // Trigger callback with part name and filtered GeoJSON
                   if (onPartClick) {

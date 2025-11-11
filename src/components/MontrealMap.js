@@ -162,49 +162,25 @@ const MontrealMap = ({
   const [montrealDataTop, setMontrealDataTop] = useState(null); // unrotated (top view)
 
   const [currentZoom, setCurrentZoom] = useState(10);
-  const [useSatellite, setUseSatellite] = useState(false);
-  const [useTopView, setUseTopView] = useState(false); // when zoomed in, use unrotated data
+  // Removed unused satellite/top-view toggles
   const [map, setMap] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
 
-  const [parkMarkers, setParkMarkers] = useState([]);
-  const [schoolMarkers, setSchoolMarkers] = useState([]);
-  const [hospitalMarkers, setHospitalMarkers] = useState([]);
-
-  // Custom icons
-  const treeIcon = L.icon({
-    iconUrl: process.env.PUBLIC_URL + "/assets/park-icon.png",
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-    tooltipAnchor: [16, -16],
-  });
-  const schoolIcon = L.icon({
-    iconUrl: process.env.PUBLIC_URL + "/assets/school-icon.png",
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-    tooltipAnchor: [16, -16],
-  });
-  const hospitalIcon = L.icon({
-    iconUrl: process.env.PUBLIC_URL + "/assets/hospital-icon.png",
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-    tooltipAnchor: [16, -16],
-  });
+  // Removed unused POI markers state
 
   const [shouldAnimateNeighborhoods, setShouldAnimateNeighborhoods] =
     useState(false);
 
+  // Local PIN state (name of pinned neighborhood). Independent of parent props for now.
+  const [localPinnedName, setLocalPinnedName] = useState(null);
+
   // Right-side panel state
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const [parkImageLoading, setParkImageLoading] = useState(false);
+  // Removed unused right-side panel state
 
   // Filter state
   const [showFilterPanel, setShowFilterPanel] = useState(false);
-  const [showNeighborhoodList, setShowNeighborhoodList] = useState(false); // Neighborhood list toggle
+  const [showNeighborhoodList, setShowNeighborhoodList] = useState(true); // Neighborhood list toggle
   const [filters, setFilters] = useState({
     showBoroughs: true,
     showSuburbs: true,
@@ -230,7 +206,7 @@ const MontrealMap = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [isLoadingMarkers, setIsLoadingMarkers] = useState(false);
+  // Removed unused marker loading state
 
   const [allPois, setAllPois] = useState([]);
 
@@ -349,36 +325,7 @@ const MontrealMap = ({
     [getFeatureLayers]
   );
 
-  const splitAmenityMarkers = (elements, polygonLatLngs) => {
-    const schools = [];
-    const hospitals = [];
-
-    const addIfInside = (lat, lon, name, amenity) => {
-      if (lat && lon && isPointInPolygon([lat, lon], polygonLatLngs)) {
-        const item = { lat, lon, name: name || amenity };
-        if (amenity === "school") schools.push(item);
-        if (amenity === "hospital") hospitals.push(item);
-      }
-    };
-
-    elements.forEach((el) => {
-      const amenity = el.tags && el.tags.amenity;
-      if (amenity !== "school" && amenity !== "hospital") return;
-
-      let lat, lon;
-      if (el.type === "node") {
-        lat = el.lat;
-        lon = el.lon;
-      } else if ((el.type === "way" || el.type === "relation") && el.center) {
-        lat = el.center.lat;
-        lon = el.center.lon;
-      }
-      const name = el.tags && (el.tags.name || el.tags["name:en"]);
-      addIfInside(lat, lon, name, amenity);
-    });
-
-    return { schools, hospitals };
-  };
+  // Removed unused splitAmenityMarkers helper
 
   // Neighborhood animations
   const triggerNeighborhoodAnimations = useCallback(() => {
@@ -889,20 +836,42 @@ const MontrealMap = ({
 
   // Style function - Yellow Glowing Like BoomSold Logo Burst
   const getFeatureStyle = (feature) => {
-    // Yellow glowing neighborhoods like logo burst background
-    return {
+    const name = feature?.properties?.name || feature?.properties?.nom_arr;
+    const isPinnedActive = !!localPinnedName;
+    const isPinnedFeature = isPinnedActive && localPinnedName === name;
+
+    const base = {
       fillColor: "#FFD700", // Bright gold yellow like logo burst
-      weight: 6, // Thicker borders to create gap effect
+      weight: isMobile ? 0.3 : 6,
       opacity: 1,
-      color: "#FFFFFF", // White borders to create visible gap
+      color: isMobile ? "#000000" : "#FFFFFF",
       fillOpacity: 0.9,
       lineJoin: "round",
       lineCap: "round",
     };
+
+    if (isPinnedActive) {
+      if (isPinnedFeature) {
+        return {
+          ...base,
+          weight: isMobile ? 1 : 7,
+          fillOpacity: 1,
+          color: "#000000", // emphasize border
+        };
+      }
+      // Dim non-pinned neighborhoods
+      return {
+        ...base,
+        fillOpacity: 0.25,
+        color: "#CCCCCC",
+        fillColor: "#D4D4A5", // muted yellow/grey
+      };
+    }
+    return base;
   };
 
   const getHoverStyle = () => ({
-    weight: 6, // Match the default weight
+    weight: isMobile ? 3 : 6, // Match the default weight based on device
     color: "#000000", // Black border on hover
     fillOpacity: 1,
     opacity: 1,
@@ -943,69 +912,9 @@ const MontrealMap = ({
   }, [montrealData, filters]);
 
   // -------- Google Images + Wikipedia helpers --------
-  const fetchFirstGoogleImage = async (query) => {
-    const key = process.env.REACT_APP_GOOGLE_API_KEY;
-    const cx = process.env.REACT_APP_GOOGLE_CSE_ID;
-    if (!key || !cx) return null;
-    try {
-      const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(
-        query
-      )}&searchType=image&num=1&cx=${cx}&key=${key}`;
-      const res = await fetch(url);
-      if (!res.ok) return null;
-      const data = await res.json();
-      const item = data.items && data.items[0];
-      return item ? item.link : null;
-    } catch {
-      return null;
-    }
-  };
+  // Removed unused external image fetch helpers
 
-  const fetchWikipediaImage = async (query) => {
-    try {
-      const searchRes = await fetch(
-        `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
-          query
-        )}&format=json&origin=*`
-      );
-      const searchData = await searchRes.json();
-      if (searchData?.query?.search?.length > 0) {
-        const pageTitle = searchData.query.search[0].title;
-        const pageRes = await fetch(
-          `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${encodeURIComponent(
-            pageTitle
-          )}&origin=*`
-        );
-        const pageData = await pageRes.json();
-        const pages = pageData.query && pageData.query.pages;
-        if (pages) {
-          const firstPage = Object.values(pages)[0];
-          if (firstPage?.original?.source) return firstPage.original.source;
-        }
-      }
-    } catch {
-      // ignore
-    }
-    return null;
-  };
-
-  const getPlaceImage = async (name, typeHint) => {
-    const googleQuery = `${name} Montreal ${typeHint || ""}`.trim();
-    const fromGoogle = await fetchFirstGoogleImage(googleQuery);
-    if (fromGoogle) return fromGoogle;
-
-    const fromWiki = await fetchWikipediaImage(`${name} Montreal`);
-    if (fromWiki) return fromWiki;
-
-    const fallbackMap = {
-      park: "/assets/park-photo.jpg",
-      school: "/assets/school-photo.jpg",
-      hospital: "/assets/hospital-photo.jpg",
-    };
-    return (
-      process.env.PUBLIC_URL + (fallbackMap[typeHint] || "/assets/no-image.png")
-    );
-  };
+  // Removed unused getPlaceImage helper
   // ---------------------------------------------------
 
   // Feature interaction handlers
@@ -1034,6 +943,8 @@ const MontrealMap = ({
       const abbreviatedName = getAbbreviatedName(feature.properties.name);
 
       const updateTooltip = () => {
+        // Guard against updates after unmount or layer removal
+        // if (!map || !layer || !layer._map) return;
         const zoom = map ? map.getZoom() : currentZoom;
         const clampedZoom = Math.max(6, Math.min(21, Math.round(zoom)));
         const zoomClass = `custom-tooltip tooltip-zoom-${clampedZoom}`;
@@ -1140,6 +1051,15 @@ const MontrealMap = ({
         updateTooltip();
         if (map) {
           map.on("zoomend", updateTooltip);
+          // Detach listener when this layer is removed to avoid updates on unmounted DOM
+          layer.on("remove", () => {
+            try {
+              if (map) map.off("zoomend", updateTooltip);
+              layer.unbindTooltip();
+            } catch (e) {
+              // ignore
+            }
+          });
         }
       }, 100);
     }
@@ -1153,15 +1073,18 @@ const MontrealMap = ({
 
         const pathElement = layer.getElement();
         if (pathElement) {
-          pathElement.style.transform = "translate(0, -3px)";
-          pathElement.style.filter =
-            "drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))";
+          pathElement.style.transform = isMobile
+            ? "translate(0, 0)"
+            : "translate(0, -3px)"; // No projection on mobile
+          pathElement.style.filter = isMobile
+            ? "none" // No shadow on mobile
+            : "drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))"; // Full shadow on desktop
           pathElement.style.transition = "none";
           pathElement.style.zIndex = "1000";
           pathElement.setAttribute("data-hovering", "true");
           // Force black border to persist
           pathElement.style.stroke = "#000000";
-          pathElement.style.strokeWidth = "6";
+          pathElement.style.strokeWidth = isMobile ? "1" : "6"; // Match the reduced border width on mobile
         }
 
         // Calculate real POI counts for this neighborhood
@@ -1315,28 +1238,11 @@ const MontrealMap = ({
           leafletMap = geoJsonLayerRef.current._map;
           setMap(leafletMap);
         }
-
-        // Check if clicking the same pinned neighborhood to unpin
-
-        console.log(
-          "Pinned neighborhood:",
-          pinnedNeighborhood,
-          "Clicked feature:",
-          feature.properties.name
-        );
-        const currentPinned = pinnedRef.current;
-        const isSameNeighborhood =
-          currentPinned && currentPinned.name === feature.properties.name;
-        if (isSameNeighborhood) {
-          // Unpin: reset view and reload full data
-          leafletMap.setView([45.56, -73.62], 10.8); // Reset to original view
-          if (onNeighborhoodClick) {
-            onNeighborhoodClick({
-              isUnpin: true,
-              name: feature.properties.name || feature.properties.nom_arr,
-            });
-          }
-          return;
+        // If clicking the currently pinned neighborhood, unpin but continue to navigate into it
+        let wasPinnedSame = false;
+        if (localPinnedName && localPinnedName === feature.properties.name) {
+          setLocalPinnedName(null);
+          wasPinnedSame = true; // don't reset view; proceed below
         }
 
         // Filter GeoJSON to only show clicked neighborhood
@@ -1410,7 +1316,16 @@ const MontrealMap = ({
             }`,
             isClickEvent: true,
             filteredGeoJSON: filteredGeoJSON, // Pass filtered GeoJSON
+            // Inform parent what happened with pin state
+            isPin: !wasPinnedSame,
+            wasPinnedUnpinned: wasPinnedSame,
           });
+          // Only set pin if it wasn't already pinned (we just unpinned above)
+          if (!wasPinnedSame) {
+            setLocalPinnedName(
+              feature.properties.name || feature.properties.nom_arr
+            );
+          }
         }
       },
     });
@@ -1427,23 +1342,23 @@ const MontrealMap = ({
     // Mobile-specific center adjustments (push North/East down)
     const partConfigs = {
       North: {
-        center: isMobile ? [45.78, -73.58] : [45.58, -73.48],
-        zoom: 11.5 + zoomAdjustment,
+        center: isMobile ? [45.65, -73.48] : [45.58, -73.48], // Moved up for mobile (was 45.78)
+        zoom: isMobile ? 11.6 + zoomAdjustment : 12 + zoomAdjustment,
       },
       South: {
-        center: isMobile ? [45.49, -73.62] : [45.48, -73.55],
-        zoom: 11.5 + zoomAdjustment,
+        center: isMobile ? [45.5, -73.62] : [45.48, -73.55],
+        zoom: isMobile ? 11.7 + zoomAdjustment : 12.2 + zoomAdjustment,
       },
       Central: {
         center: isMobile ? [45.58, -73.67] : [45.56, -73.62],
-        zoom: 11.5 + zoomAdjustment,
+        zoom: isMobile ? 11.5 + zoomAdjustment : 12 + zoomAdjustment,
       },
       East: {
         center: isMobile ? [45.2, -73.45] : [45.54, -73.45],
         zoom: isMobile ? 11 + zoomAdjustment : 12 + zoomAdjustment,
       },
       West: {
-        center: isMobile ? [45.48, -73.9] : [45.58, -73.85],
+        center: isMobile ? [45.62, -73.88] : [45.58, -73.85], // Moved down for mobile (was 45.48)
         zoom: isMobile ? 11 : 12 + zoomAdjustment,
       },
     };
@@ -1458,12 +1373,31 @@ const MontrealMap = ({
 
   const { center, zoom } = getPartConfig();
 
-  const placeTypeLabel =
-    (selectedPlace &&
-      { park: "Park", school: "School", hospital: "Hospital" }[
-        selectedPlace.type
-      ]) ||
-    "Place";
+  // Removed unused placeTypeLabel
+
+  // Cleanup on unmount: remove map listeners and unbind tooltips
+  useEffect(() => {
+    const localMap = map;
+    const localLayerGroup = geoJsonLayerRef.current;
+    return () => {
+      try {
+        if (localMap) localMap.off();
+      } catch (e) {
+        // ignore
+      }
+      if (localLayerGroup) {
+        try {
+          localLayerGroup.eachLayer((layer) => {
+            try {
+              layer.unbindTooltip();
+            } catch (e) {}
+          });
+        } catch (e) {
+          // ignore
+        }
+      }
+    };
+  }, [map]);
 
   // Add resize listener for responsive behavior
   useEffect(() => {
@@ -1559,6 +1493,9 @@ const MontrealMap = ({
           zoom={zoom}
           minZoom={selectedPart ? 10 : 6}
           maxZoom={22}
+          /* Allow fractional zoom levels (default Leaflet zoomSnap=1 forces integers) */
+          zoomSnap={0.1}
+          zoomDelta={0.2}
           style={{ height: "100%", width: "100%", background: "transparent" }}
           zoomControl={isMobile}
           scrollWheelZoom={false}
@@ -1572,6 +1509,13 @@ const MontrealMap = ({
           attributionControl={false}
           whenCreated={(mapInstance) => {
             setMap(mapInstance);
+
+            // Ensure runtime options permit fractional zoom even for programmatic flyTo / fitBounds
+            mapInstance.options.zoomSnap = 0.1;
+            mapInstance.options.zoomDelta = 0.2;
+            // Optional: smoother animation easing
+            mapInstance.options.zoomAnimation = true;
+            mapInstance.options.zoomAnimationThreshold = 8;
 
             // Add custom zoom control with custom position
             const zoomControl = L.control.zoom({
@@ -1625,7 +1569,7 @@ const MontrealMap = ({
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
             ref={geoJsonLayerRef}
-            key={JSON.stringify(filters)} // Force re-render when filters change
+            key={JSON.stringify(filters) + (localPinnedName || "none")} // Force re-render when filters or pin state change
           />
         </MapContainer>
 
@@ -1797,6 +1741,12 @@ const MontrealMap = ({
                             });
                           }
 
+                          // If clicking the currently pinned item from the list, unpin first (but still navigate)
+                          const wasPinnedSame = localPinnedName === item.name;
+                          if (wasPinnedSame) {
+                            setLocalPinnedName(null);
+                          }
+
                           // Call the click handler
                           onNeighborhoodClick({
                             name:
@@ -1835,6 +1785,7 @@ const MontrealMap = ({
                             description: `Detailed property exploration for ${item.name}`,
                             isClickEvent: true,
                             filteredGeoJSON: filteredGeoJSON,
+                            wasPinnedUnpinned: wasPinnedSame,
                           });
 
                           // Close the list after selection
@@ -1851,6 +1802,9 @@ const MontrealMap = ({
                         cursor: "pointer",
                         transition: "all 0.2s ease",
                         border: "1px solid transparent",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = "#FFD700";
@@ -1864,7 +1818,31 @@ const MontrealMap = ({
                         e.currentTarget.style.transform = "scale(1)";
                       }}
                     >
-                      {getAbbreviatedName(item.name)}
+                      <span>{getAbbreviatedName(item.name)}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering zoom click
+                          if (localPinnedName === item.name) {
+                            setLocalPinnedName(null);
+                          } else {
+                            setLocalPinnedName(item.name);
+                          }
+                        }}
+                        style={{
+                          backgroundColor:
+                            localPinnedName === item.name ? "#000" : "#FFD700",
+                          color:
+                            localPinnedName === item.name ? "#FFD700" : "#000",
+                          border: "1px solid #FFC107",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          fontWeight: 700,
+                          padding: "4px 6px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {localPinnedName === item.name ? "Unpin" : "Pin"}
+                      </button>
                     </div>
                   ))}
               </div>
