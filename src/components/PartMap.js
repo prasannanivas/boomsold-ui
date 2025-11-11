@@ -6,6 +6,7 @@ import "./MontrealMap.css";
 import "./PremiumEffects.css";
 import "./PartMap.css";
 import { rotateGeoJSON } from "./Utils";
+import MontrealMapImage from "../data/Montreal-map.png";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
 
@@ -106,8 +107,6 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const geoJsonLayerRef = useRef(null);
   const [partCenters, setPartCenters] = useState({}); // Store center coordinates for each part
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
-  const [userHasPanned, setUserHasPanned] = useState(false); // Track if user has manually panned
-  const [initialBoundsFitted, setInitialBoundsFitted] = useState(false); // Track if initial bounds have been set
 
   // Detect mobile on resize
   useEffect(() => {
@@ -192,45 +191,6 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         setIsLoading(false);
       });
   }, [isMobile]);
-
-  // Fit map to bounds when data loads or window resizes
-  useEffect(() => {
-    if (map && partData && !userHasPanned && !initialBoundsFitted) {
-      const fitMapBounds = () => {
-        const bounds = L.geoJSON(partData).getBounds();
-
-        // On mobile, adjust to use full screen width
-        if (isMobile) {
-          // No padding for mobile - just fit to bounds
-          map.fitBounds(bounds, {
-            padding: [0, 0],
-            animate: false,
-          });
-
-          // Mark that initial bounds have been fitted for mobile
-          setInitialBoundsFitted(true);
-        } else {
-          map.fitBounds(bounds, {
-            padding: [20, 20],
-            animate: false,
-            maxZoom: 10.8,
-          });
-        }
-      };
-
-      fitMapBounds();
-
-      // Only add resize listener for desktop
-      if (!isMobile) {
-        const handleResize = () => {
-          fitMapBounds();
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-      }
-    }
-  }, [map, partData, isMobile, userHasPanned, initialBoundsFitted]);
 
   // Style function for parts - Yellow variations with no visible borders, shadows provide separation
   const getPartStyle = (feature) => {
@@ -534,84 +494,85 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         className="custom-montreal-map"
         style={{ background: "transparent" }}
       >
-        <MapContainer
-          center={isMobile ? [45.65, -73.74] : [45.56, -73.62]}
-          zoom={isMobile ? 9.5 : 10.8}
-          style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={isMobile} // Enable zoom control on mobile
-          //scrollWheelZoom={isMobile} // Enable scroll wheel zoom on mobile
-          doubleClickZoom={isMobile} // Enable double click zoom on mobile
-          touchZoom={isMobile} // Enable touch zoom on mobile
-          boxZoom={false}
-          keyboard={false}
-          // dragging={isMobile} // Enable dragging on mobile
-          zoomAnimation={true}
-          fadeAnimation={true}
-          markerZoomAnimation={false}
-          attributionControl={false}
-          preferCanvas={false}
-          maxBounds={null} // Allow free panning without bounds restriction
-          maxBoundsViscosity={0.0} // Allow going beyond bounds smoothly
-          whenCreated={(mapInstance) => {
-            setMap(mapInstance);
-            // Remove any default tile layers
-            mapInstance.eachLayer((layer) => {
-              if (layer instanceof L.TileLayer) {
-                mapInstance.removeLayer(layer);
-              }
-            });
-
-            // Enable/disable interactions based on device
-            if (isMobile) {
-              // Enable all zoom and pan interactions on mobile
-              // mapInstance.dragging.enable();
-              // mapInstance.touchZoom.enable();
-              mapInstance.doubleClickZoom.enable();
-              // mapInstance.scrollWheelZoom.enable();
-
-              // Remove any max bounds to allow free panning
-              mapInstance.setMaxBounds(null);
-
-              // Track when user pans the map
-              mapInstance.on("dragstart", () => {
-                setUserHasPanned(true);
+        {isMobile ? (
+          // Mobile view - Static image
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={MontrealMapImage}
+              alt="Montreal Map"
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "100%",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        ) : (
+          // Desktop view - Interactive map
+          <MapContainer
+            center={[45.56, -73.62]}
+            zoom={10.8}
+            style={{ height: "100%", width: "100%", background: "transparent" }}
+            zoomControl={false}
+            boxZoom={false}
+            keyboard={false}
+            zoomAnimation={true}
+            fadeAnimation={true}
+            markerZoomAnimation={false}
+            attributionControl={false}
+            preferCanvas={false}
+            maxBounds={null}
+            maxBoundsViscosity={0.0}
+            whenCreated={(mapInstance) => {
+              setMap(mapInstance);
+              // Remove any default tile layers
+              mapInstance.eachLayer((layer) => {
+                if (layer instanceof L.TileLayer) {
+                  mapInstance.removeLayer(layer);
+                }
               });
-            } else {
+
               // Disable all zoom and pan interactions on desktop
               mapInstance.dragging.disable();
               mapInstance.touchZoom.disable();
               mapInstance.doubleClickZoom.disable();
               mapInstance.scrollWheelZoom.disable();
-            }
+              mapInstance.boxZoom.disable();
+              mapInstance.keyboard.disable();
+              if (mapInstance.tap) mapInstance.tap.disable();
 
-            mapInstance.boxZoom.disable();
-            mapInstance.keyboard.disable();
-            if (mapInstance.tap) mapInstance.tap.disable();
+              // Fit to bounds when data is loaded
+              if (partData) {
+                const bounds = L.geoJSON(partData).getBounds();
+                mapInstance.fitBounds(bounds, {
+                  padding: [20, 20],
+                  animate: false,
+                  maxZoom: 10.8,
+                });
+              }
+            }}
+          >
+            {partData && (
+              <GeoJSON
+                data={partData}
+                style={getPartStyle}
+                onEachFeature={onEachPart}
+                ref={geoJsonLayerRef}
+              />
+            )}
 
-            // Fit to bounds when data is loaded (only on desktop or initial load)
-            if (partData && !isMobile) {
-              const bounds = L.geoJSON(partData).getBounds();
-              mapInstance.fitBounds(bounds, {
-                padding: [20, 20],
-                animate: false,
-                maxZoom: 10.8,
-              });
-            }
-          }}
-        >
-          {partData && (
-            <GeoJSON
-              data={partData}
-              style={getPartStyle}
-              onEachFeature={onEachPart}
-              ref={geoJsonLayerRef}
-            />
-          )}
-
-          {/* Add text labels for each part */}
-
-          {!isMobile &&
-            Object.entries(partCenters).map(([partName, center]) => {
+            {/* Add text labels for each part */}
+            {Object.entries(partCenters).map(([partName, center]) => {
               // Only show South, West, and North on desktop
               if (!["South", "West", "North", "Central"].includes(partName))
                 return null;
@@ -625,14 +586,18 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               if (partName === "North") {
                 // Move North up and left
                 adjustedLat += 0.03; // Move up
-                adjustedLng -= 0.05; // Move left
+                adjustedLng -= 0.08; // Move left (increased from 0.05)
               } else if (partName === "South") {
                 // Move South left
                 adjustedLng -= 0.07; // Move left
               } else if (partName === "Central") {
-                // Move West down and left
+                // Move West Island down and left
                 adjustedLat += 0.02; // Move down
                 adjustedLng -= 0.09; // Move left
+              } else if (partName === "West") {
+                // Move West Island down and left
+                adjustedLat += 0.02; // Move down
+                adjustedLng -= 0.05; // Move left
               }
 
               // Create custom icon with styled text matching MontrealMap
@@ -674,7 +639,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 />
               );
             })}
-        </MapContainer>
+          </MapContainer>
+        )}
       </div>
 
       {/* Mobile Bottom Navigation for Parts */}
