@@ -180,7 +180,7 @@ const MontrealMap = ({
 
   // Filter state
   const [showFilterPanel, setShowFilterPanel] = useState(false);
-  const [showNeighborhoodList, setShowNeighborhoodList] = useState(true); // Neighborhood list toggle
+  const [showNeighborhoodList, setShowNeighborhoodList] = useState(false); // Neighborhood list toggle
   const [filters, setFilters] = useState({
     showBoroughs: true,
     showSuburbs: true,
@@ -1678,7 +1678,7 @@ const MontrealMap = ({
                   display: "flex",
                   flexDirection: "column",
                   gap: "4px",
-                  maxHeight: "250px",
+                  maxHeight: "20vh",
                   overflowY: "auto",
                 }}
               >
