@@ -6,7 +6,7 @@ import "./MontrealMap.css";
 import "./PremiumEffects.css";
 import "./PartMap.css";
 import { rotateGeoJSON } from "./Utils";
-import MontrealMapImage from "../data/Montreal-map.png";
+import MontrealMapImage from "../data/Montreal-map-textremoved.png";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
 
@@ -20,6 +20,19 @@ const getColorByPart = (part) => {
     Central: "#10B981", // Emerald Green
   };
   return colorMap[part] || "#8B5CF6";
+};
+
+// Component to update map zoom dynamically
+const ZoomUpdater = ({ zoomLevel }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (map && zoomLevel) {
+      map.setZoom(zoomLevel, { animate: false });
+    }
+  }, [map, zoomLevel]);
+
+  return null;
 };
 
 // Get display name for each part
@@ -107,16 +120,89 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const geoJsonLayerRef = useRef(null);
   const [partCenters, setPartCenters] = useState({}); // Store center coordinates for each part
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
+  const [zoomLevel, setZoomLevel] = useState(10.8); // Dynamic zoom level
+  const mobileMapImageRef = useRef(null); // Ref for mobile map image
+  const [arrowPositions, setArrowPositions] = useState(null); // Store calculated arrow positions
 
-  // Detect mobile on resize
+  // Calculate responsive font size for mobile buttons
+  const calculateButtonFontSize = useCallback(() => {
+    const width = window.innerWidth;
+    // Base font size: 9.5px for 375px width (typical mobile) - made smaller
+    // Scale proportionally with screen width
+    const baseFontSize = 9.5;
+    const baseWidth = 375;
+    const fontSize = Math.max(
+      8,
+      Math.min(11, (width / baseWidth) * baseFontSize)
+    );
+    return fontSize;
+  }, []);
+
+  // Calculate optimal zoom level based on window dimensions with 0.1 granularity
+  const calculateZoomLevel = useCallback(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Base zoom calculation - larger screens get more zoom
+    // This formula adjusts zoom based on viewport area with 0.1 increments
+    const area = width * height;
+    let zoom;
+
+    // More granular zoom levels based on area
+    if (area < 400000) {
+      zoom = 9.0;
+    } else if (area < 500000) {
+      zoom = 9.2;
+    } else if (area < 600000) {
+      zoom = 9.4;
+    } else if (area < 700000) {
+      zoom = 9.6;
+    } else if (area < 800000) {
+      zoom = 9.8;
+    } else if (area < 900000) {
+      zoom = 10.0;
+    } else if (area < 1000000) {
+      zoom = 10.2;
+    } else if (area < 1100000) {
+      zoom = 10.4;
+    } else if (area < 1200000) {
+      zoom = 10.5;
+    } else if (area < 1300000) {
+      zoom = 10.6;
+    } else if (area < 1400000) {
+      zoom = 10.7;
+    } else if (area < 1500000) {
+      zoom = 10.8;
+    } else if (area < 1600000) {
+      zoom = 10.9;
+    } else if (area < 1800000) {
+      zoom = 11.0;
+    } else if (area < 2000000) {
+      zoom = 11.1;
+    } else if (area < 2200000) {
+      zoom = 11.2;
+    } else {
+      zoom = 11.3;
+    }
+
+    console.log(`Calculated zoom level: ${zoom} for area: ${area}`);
+
+    return zoom;
+  }, []);
+
+  // Detect mobile and calculate zoom on resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
+      setZoomLevel(calculateZoomLevel());
     };
+
+    // Initial calculation
+    setZoomLevel(calculateZoomLevel());
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [calculateZoomLevel]);
 
   // Reset hover states on component mount
   useEffect(() => {
@@ -137,7 +223,137 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         onPartLeave();
       }
     };
-  }, [onPartLeave]); // Load and aggregate GeoJSON data by part
+  }, [onPartLeave]);
+
+  // Calculate arrow positions based on image dimensions and position
+  const calculateArrowPositions = useCallback(() => {
+    if (!mobileMapImageRef.current || !isMobile) return;
+
+    const img = mobileMapImageRef.current;
+    const rect = img.getBoundingClientRect();
+    const containerRect = img.parentElement.getBoundingClientRect();
+
+    // Calculate positions as percentages relative to the container
+    // These are approximate positions on the map image for each part
+    const positions = {
+      West: {
+        // Point to left-center area of map (West Island) - now below map
+        target: {
+          x:
+            ((rect.left - containerRect.left + rect.width * 0.2) /
+              containerRect.width) *
+            100,
+          y:
+            ((rect.top - containerRect.top + rect.height * 0.4) /
+              containerRect.height) *
+            100,
+        },
+        label: {
+          x: 15,
+          y: 60,
+        },
+      },
+      Central: {
+        // Point to center-top area (Central North)
+        target: {
+          x:
+            ((rect.left - containerRect.left + rect.width * 0.5) /
+              containerRect.width) *
+            100,
+          y:
+            ((rect.top - containerRect.top + rect.height * 0.3) /
+              containerRect.height) *
+            100,
+        },
+        label: {
+          x: 50,
+          y: 16,
+        },
+      },
+      North: {
+        // Point to right-top area (Montreal East/North) - moved closer
+        target: {
+          x:
+            ((rect.left - containerRect.left + rect.width * 0.75) /
+              containerRect.width) *
+            100,
+          y:
+            ((rect.top - containerRect.top + rect.height * 0.11) /
+              containerRect.height) *
+            100,
+        },
+        label: {
+          x: 92,
+          y: 28,
+        },
+      },
+      South: {
+        // Point to center-bottom area (Downtown/Center South) - moved closer and right
+        target: {
+          x:
+            ((rect.left - containerRect.left + rect.width * 0.65) /
+              containerRect.width) *
+            100,
+          y:
+            ((rect.top - containerRect.top + rect.height * 0.95) /
+              containerRect.height) *
+            100,
+        },
+        label: {
+          x: 70,
+          y: 80,
+        },
+      },
+    };
+
+    setArrowPositions(positions);
+  }, [isMobile]);
+
+  // Calculate arrow positions on image load and window resize
+  useEffect(() => {
+    if (isMobile && mobileMapImageRef.current) {
+      const img = mobileMapImageRef.current;
+
+      const handleImageLoad = () => {
+        // Use setTimeout to ensure DOM is fully settled
+        setTimeout(() => {
+          calculateArrowPositions();
+        }, 100);
+      };
+
+      const handleResize = () => {
+        calculateArrowPositions();
+      };
+
+      if (img.complete) {
+        // Image already loaded, calculate immediately and after a short delay
+        calculateArrowPositions();
+        setTimeout(() => {
+          calculateArrowPositions();
+        }, 200);
+      } else {
+        img.addEventListener("load", handleImageLoad);
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        img.removeEventListener("load", handleImageLoad);
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, [isMobile, calculateArrowPositions]);
+
+  // Force re-calculation after partData is loaded
+  useEffect(() => {
+    if (isMobile && partData && mobileMapImageRef.current) {
+      setTimeout(() => {
+        calculateArrowPositions();
+      }, 300);
+    }
+  }, [isMobile, partData, calculateArrowPositions]);
+
+  // Load and aggregate GeoJSON data by part
   useEffect(() => {
     fetch(
       process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
@@ -152,9 +368,13 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         // Rotate for visual appeal ONLY ON DESKTOP
         const centerPoint = { lat: 45.48, lng: -73.62 };
-        const rotatedData = isMobile
-          ? rotateGeoJSON(aggregated, 0, centerPoint, 1.3, 1.8) // Mobile: compress X axis (1.2), stretch Y axis (1.8)
-          : rotateGeoJSON(aggregated, 335, centerPoint, 1.3, 1.3); // Rotate on desktop
+        const rotatedData = rotateGeoJSON(
+          aggregated,
+          335,
+          centerPoint,
+          1.3,
+          1.3
+        ); // Rotate on desktop
 
         // Calculate centers for each part
         const centers = {};
@@ -341,6 +561,71 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     });
   };
 
+  // Handle mobile part click - same logic as desktop click
+  const handleMobilePartClick = (partName) => {
+    console.log(`Mobile clicked on ${partName}`);
+
+    // Find the feature for this part
+    const feature = partData?.features.find(
+      (f) => f.properties.part === partName
+    );
+
+    if (!feature) return;
+
+    // Get bounds of this part
+    let allCoords = [];
+    if (feature.geometry.type === "MultiPolygon") {
+      feature.geometry.coordinates.forEach((poly) => {
+        poly.forEach((ring) => {
+          allCoords = allCoords.concat(ring);
+        });
+      });
+    } else if (feature.geometry.type === "Polygon") {
+      feature.geometry.coordinates.forEach((ring) => {
+        allCoords = allCoords.concat(ring);
+      });
+    }
+
+    const lats = allCoords.map((c) => c[1]);
+    const lngs = allCoords.map((c) => c[0]);
+    const southWest = [Math.min(...lats), Math.min(...lngs)];
+    const northEast = [Math.max(...lats), Math.max(...lngs)];
+    const bounds = [
+      [southWest[0], southWest[1]],
+      [northEast[0], northEast[1]],
+    ];
+
+    if (map) {
+      map.fitBounds(bounds, { maxZoom: 13, padding: [50, 50] });
+    }
+
+    // Filter GeoJSON for this part and rotate it
+    const filteredData = {
+      ...fullGeoJsonData,
+      features: fullGeoJsonData.features.filter(
+        (f) => f.properties.part === partName
+      ),
+    };
+
+    // Rotate the filtered GeoJSON for this part
+    const centerPoint = { lat: 45.48, lng: -73.62 };
+    const rotatedPartData = rotateGeoJSON(
+      filteredData,
+      335,
+      centerPoint,
+      1.2,
+      1
+    );
+
+    // Trigger callback with part name and filtered GeoJSON
+    if (onPartClick) {
+      onPartClick({
+        partName: partName,
+        geoJSON: rotatedPartData,
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="custom-montreal-map">
@@ -424,29 +709,20 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       )}
 
       {/* Montreal Island Header */}
-      <h2
-        className="selected-part-label"
-        style={{
-          fontSize: isMobile ? "1.2rem" : undefined,
-          top: isMobile ? "8%" : undefined,
-        }}
-      >
-        Welcome to Montreal
-      </h2>
+      <h2 className="pm-selected-part-label">Welcome to Montreal</h2>
 
       {/* Top Heading */}
       <h2
         className="part-map-heading"
         style={{
           position: "fixed",
-          top: isMobile ? "10%" : "15%",
-          left: "50%",
-          transform: "translateX(-50%)",
+          top: isMobile ? "14vh" : "15%",
+          width: "100%",
+          textAlign: "center",
           zIndex: 1000,
           fontSize: isMobile ? "1.2rem" : "1.8rem",
           fontWeight: 300,
           color: "#2d3436",
-          textAlign: "center",
           margin: 0,
           textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
           pointerEvents: "none",
@@ -499,7 +775,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{ background: "transparent" }}
       >
         {isMobile ? (
-          // Mobile view - Static image
+          // Mobile view - Static image with interactive labels
           <div
             style={{
               width: "100%",
@@ -508,9 +784,11 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               justifyContent: "center",
               alignItems: "center",
               overflow: "hidden",
+              position: "relative",
             }}
           >
             <img
+              ref={mobileMapImageRef}
               src={MontrealMapImage}
               alt="Montreal Map"
               style={{
@@ -520,23 +798,270 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 objectFit: "contain",
               }}
             />
+
+            {/* Interactive labels with arrows */}
+            {arrowPositions && (
+              <svg
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  pointerEvents: "none",
+                }}
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+              >
+                {/* Arrow to West Island - now pointing up from below */}
+                <line
+                  x1={arrowPositions.West.label.x}
+                  y1={arrowPositions.West.label.y - 2}
+                  x2={arrowPositions.West.target.x}
+                  y2={arrowPositions.West.target.y}
+                  stroke="rgba(0, 0, 0, 0.5)"
+                  strokeWidth="0.12"
+                  strokeLinecap="round"
+                  markerEnd="url(#arrowhead)"
+                />
+                {/* Arrow to Central North */}
+                <line
+                  x1={arrowPositions.Central.label.x}
+                  y1={arrowPositions.Central.label.y + 5}
+                  x2={arrowPositions.Central.target.x}
+                  y2={arrowPositions.Central.target.y}
+                  stroke="rgba(0, 0, 0, 0.5)"
+                  strokeWidth="0.12"
+                  strokeLinecap="round"
+                  markerEnd="url(#arrowhead)"
+                />
+                {/* Arrow to Montreal East/North */}
+                <line
+                  x1={arrowPositions.North.label.x - 8}
+                  y1={arrowPositions.North.label.y}
+                  x2={arrowPositions.North.target.x}
+                  y2={arrowPositions.North.target.y}
+                  stroke="rgba(0, 0, 0, 0.5)"
+                  strokeWidth="0.12"
+                  strokeLinecap="round"
+                  markerEnd="url(#arrowhead)"
+                />
+                {/* Arrow to Downtown/Center South */}
+                <line
+                  x1={arrowPositions.South.label.x}
+                  y1={arrowPositions.South.label.y - 2}
+                  x2={arrowPositions.South.target.x}
+                  y2={arrowPositions.South.target.y}
+                  stroke="rgba(0, 0, 0, 0.5)"
+                  strokeWidth="0.12"
+                  strokeLinecap="round"
+                  markerEnd="url(#arrowhead)"
+                />
+
+                {/* Arrowhead marker definition */}
+                <defs>
+                  <marker
+                    id="arrowhead"
+                    markerWidth="10"
+                    markerHeight="10"
+                    refX="5"
+                    refY="3"
+                    orient="auto"
+                    markerUnits="strokeWidth"
+                  >
+                    <path
+                      d="M 0 0 Q 8 3 0 6 Q 4 3 0 0"
+                      fill="rgba(0, 0, 0, 0.4)"
+                      stroke="none"
+                    />
+                  </marker>
+                </defs>
+              </svg>
+            )}
+
+            {/* Clickable text labels */}
+            {/* West Island Label - moved below map */}
+            <div
+              onClick={() => handleMobilePartClick("West")}
+              style={{
+                position: "absolute",
+                left: "15%",
+                bottom: "40%",
+                transform: "translateX(-50%)",
+                fontSize: `${calculateButtonFontSize()}px`,
+                fontWeight: 500,
+                fontFamily: "'Jost', sans-serif",
+                color: "#000000",
+                backgroundColor: "#FFD700",
+                padding: `${calculateButtonFontSize() * 0.6}px ${
+                  calculateButtonFontSize() * 1
+                }px`,
+                borderRadius: "10px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                cursor: "pointer",
+                zIndex: 10,
+                textAlign: "center",
+                border: "1px solid #000000",
+
+                textTransform: "uppercase",
+                letterSpacing: "0.3px",
+                pointerEvents: "auto",
+                transition: "all 0.2s ease",
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform =
+                  "translateX(-50%) scale(0.95)";
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = "translateX(-50%) scale(1)";
+              }}
+            >
+              West
+              <br />
+              Island
+            </div>
+
+            {/* Central North Label */}
+            <div
+              onClick={() => handleMobilePartClick("Central")}
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "20%",
+                transform: "translateX(-50%)",
+                fontSize: `${calculateButtonFontSize()}px`,
+                fontWeight: 500,
+                color: "#000000",
+                backgroundColor: "#FFD700",
+                padding: `${calculateButtonFontSize() * 0.6}px ${
+                  calculateButtonFontSize() * 1
+                }px`,
+                borderRadius: "10px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                cursor: "pointer",
+                zIndex: 10,
+                textAlign: "center",
+                border: "1px solid #000000",
+                fontFamily: "'Jost', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "0.3px",
+                pointerEvents: "auto",
+                transition: "all 0.2s ease",
+                whiteSpace: "nowrap",
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform =
+                  "translateX(-50%) scale(0.95)";
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = "translateX(-50%) scale(1)";
+              }}
+            >
+              Central North
+            </div>
+
+            {/* Montreal East/North Label */}
+            <div
+              onClick={() => handleMobilePartClick("North")}
+              style={{
+                position: "absolute",
+                right: "8%",
+                top: "28%",
+                transform: "translateY(-50%)",
+                fontSize: `${calculateButtonFontSize()}px`,
+                fontWeight: 500,
+                color: "#000000",
+                backgroundColor: "#FFD700",
+                padding: `${calculateButtonFontSize() * 0.6}px ${
+                  calculateButtonFontSize() * 1
+                }px`,
+                borderRadius: "10px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                cursor: "pointer",
+                zIndex: 10,
+                textAlign: "center",
+                border: "1px solid #000000",
+                fontFamily: "'Jost', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "0.3px",
+                pointerEvents: "auto",
+                transition: "all 0.2s ease",
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform =
+                  "translateY(-50%) scale(0.95)";
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = "translateY(-50%) scale(1)";
+              }}
+            >
+              Montreal
+              <br />
+              East/North
+            </div>
+
+            {/* Downtown/Center South Label */}
+            <div
+              onClick={() => handleMobilePartClick("South")}
+              style={{
+                position: "absolute",
+                left: "68%",
+                bottom: "22%",
+                transform: "translateX(-50%)",
+                fontSize: `${calculateButtonFontSize()}px`,
+                fontWeight: 500,
+                color: "#000000",
+                backgroundColor: "#FFD700",
+                padding: `${calculateButtonFontSize() * 0.6}px ${
+                  calculateButtonFontSize() * 1
+                }px`,
+                borderRadius: "10px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                cursor: "pointer",
+                zIndex: 10,
+                textAlign: "center",
+                border: "1px solid #000000",
+                fontFamily: "'Jost', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "0.3px",
+                pointerEvents: "auto",
+                transition: "all 0.2s ease",
+                whiteSpace: "nowrap",
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform =
+                  "translateX(-50%) scale(0.95)";
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = "translateX(-50%) scale(1)";
+              }}
+            >
+              Downtown/
+              <br />
+              Center South
+            </div>
           </div>
         ) : (
           // Desktop view - Interactive map
           <MapContainer
             center={[45.56, -73.62]}
-            zoom={10.8}
+            zoom={zoomLevel}
             style={{ height: "100%", width: "100%", background: "transparent" }}
             zoomControl={false}
+            scrollWheelZoom={false}
+            doubleClickZoom={false}
+            touchZoom={false}
             boxZoom={false}
             keyboard={false}
-            zoomAnimation={true}
+            zoomAnimation={false}
             fadeAnimation={true}
             markerZoomAnimation={false}
             attributionControl={false}
             preferCanvas={false}
             maxBounds={null}
             maxBoundsViscosity={0.0}
+            zoomSnap={0.1}
+            zoomDelta={0.1}
             whenCreated={(mapInstance) => {
               setMap(mapInstance);
               // Remove any default tile layers
@@ -546,7 +1071,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 }
               });
 
-              // Disable all zoom and pan interactions on desktop
+              // Disable all zoom and pan interactions completely
               mapInstance.dragging.disable();
               mapInstance.touchZoom.disable();
               mapInstance.doubleClickZoom.disable();
@@ -555,17 +1080,21 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               mapInstance.keyboard.disable();
               if (mapInstance.tap) mapInstance.tap.disable();
 
+              // Disable zoom animation to prevent any zoom changes
+              mapInstance._zoomAnimated = false;
+
               // Fit to bounds when data is loaded
               if (partData) {
                 const bounds = L.geoJSON(partData).getBounds();
                 mapInstance.fitBounds(bounds, {
                   padding: [20, 20],
                   animate: false,
-                  maxZoom: 10.8,
+                  maxZoom: zoomLevel,
                 });
               }
             }}
           >
+            <ZoomUpdater zoomLevel={zoomLevel} />
             {partData && (
               <GeoJSON
                 data={partData}
@@ -582,6 +1111,22 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 return null;
 
               const displayName = getPartDisplayName(partName);
+
+              // Calculate font size based on zoom level
+              // Base font size at zoom 10.5, scale proportionally
+              const baseFontSize = 14;
+              const baseZoom = 10.5;
+              const fontSize = Math.round(
+                baseFontSize * (zoomLevel / baseZoom)
+              );
+
+              // Calculate letter spacing based on zoom
+              const baseLetterSpacing = 1.5;
+              const letterSpacing = baseLetterSpacing * (zoomLevel / baseZoom);
+
+              // Calculate padding based on zoom
+              const basePadding = 4;
+              const padding = Math.round(basePadding * (zoomLevel / baseZoom));
 
               // Adjust positions for each part
               let adjustedLat = center.lat;
@@ -610,10 +1155,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 html: `
                 <div style="
                   color: #000000;
-                  font-size: 14px;
+                  font-size: ${fontSize}px;
                   font-weight: 900;
                   text-transform: uppercase;
-                  letter-spacing: 1.5px;
+                  letter-spacing: ${letterSpacing}px;
                   text-shadow: 
                     0 0 8px rgba(255, 215, 0, 0.9),
                     0 0 12px rgba(255, 215, 0, 0.8),
@@ -623,7 +1168,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   font-family: 'Nunito', sans-serif;
                   transform: translate(-50%, -50%);
                   background: transparent;
-                  padding: 4px 8px;
+                  padding: ${padding}px ${padding * 2}px;
                   border-radius: 6px;
                   text-align: center;
                 ">
@@ -636,7 +1181,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
               return (
                 <Marker
-                  key={partName}
+                  key={`${partName}-${zoomLevel}`}
                   position={[adjustedLat, adjustedLng]}
                   icon={textIcon}
                   interactive={false}
@@ -646,85 +1191,6 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           </MapContainer>
         )}
       </div>
-
-      {/* Mobile Bottom Navigation for Parts */}
-      {isMobile && (
-        <div className="mobile-parts-nav">
-          {["South", "West", "North", "Central"].map((partName) => {
-            const feature = partData?.features.find(
-              (f) => f.properties.part === partName
-            );
-
-            if (!feature) return null;
-
-            return (
-              <button
-                key={partName}
-                className="part-nav-button"
-                onClick={() => {
-                  // Simulate the click event
-                  const partFeature = feature;
-
-                  // Get bounds of this part
-                  let allCoords = [];
-                  if (partFeature.geometry.type === "MultiPolygon") {
-                    partFeature.geometry.coordinates.forEach((poly) => {
-                      poly.forEach((ring) => {
-                        allCoords = allCoords.concat(ring);
-                      });
-                    });
-                  } else if (partFeature.geometry.type === "Polygon") {
-                    partFeature.geometry.coordinates.forEach((ring) => {
-                      allCoords = allCoords.concat(ring);
-                    });
-                  }
-
-                  const lats = allCoords.map((c) => c[1]);
-                  const lngs = allCoords.map((c) => c[0]);
-                  const southWest = [Math.min(...lats), Math.min(...lngs)];
-                  const northEast = [Math.max(...lats), Math.max(...lngs)];
-                  const bounds = [
-                    [southWest[0], southWest[1]],
-                    [northEast[0], northEast[1]],
-                  ];
-
-                  if (map) {
-                    map.fitBounds(bounds, { maxZoom: 13, padding: [50, 50] });
-                  }
-
-                  // Filter GeoJSON for this part and rotate it
-                  const filteredData = {
-                    ...fullGeoJsonData,
-                    features: fullGeoJsonData.features.filter(
-                      (f) => f.properties.part === partName
-                    ),
-                  };
-
-                  // Rotate the filtered GeoJSON for this part
-                  const centerPoint = { lat: 45.48, lng: -73.62 };
-                  const rotatedPartData = rotateGeoJSON(
-                    filteredData,
-                    335,
-                    centerPoint,
-                    1.2,
-                    1
-                  ); // Same rotation for both mobile and desktop
-
-                  // Trigger callback with part name and filtered GeoJSON
-                  if (onPartClick) {
-                    onPartClick({
-                      partName: partName,
-                      geoJSON: rotatedPartData,
-                    });
-                  }
-                }}
-              >
-                {getPartDisplayName(partName)}
-              </button>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 };

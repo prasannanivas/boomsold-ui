@@ -49,6 +49,17 @@
 /* Mobile - Add visible stroke to SVG paths and enhanced borders */
 @media (max-width: 768px) {
 
+
+  .pm-selected-part-label {
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    text-align: center;
+    z-index: 2000;
+    font-size: 24px;
+
+  }
+
   /* Add stroke directly to SVG paths */
   .part-map-container .leaflet-overlay-pane svg path {
     stroke: #000000 !important;
