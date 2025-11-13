@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/boomsold-ui/static/css/main.e2982205.css",
-    "main.js": "/boomsold-ui/static/js/main.c7aa5698.js",
+    "main.css": "/boomsold-ui/static/css/main.c56275be.css",
+    "main.js": "/boomsold-ui/static/js/main.23dd3334.js",
     "static/js/453.0a794063.chunk.js": "/boomsold-ui/static/js/453.0a794063.chunk.js",
-    "static/media/Montreal-map.png": "/boomsold-ui/static/media/Montreal-map.3a9f98f0b12460e23ad0.png",
+    "static/media/Montreal-map-textremoved.png": "/boomsold-ui/static/media/Montreal-map-textremoved.3a2233e3c8c0eef9138c.png",
     "index.html": "/boomsold-ui/index.html",
-    "main.e2982205.css.map": "/boomsold-ui/static/css/main.e2982205.css.map",
-    "main.c7aa5698.js.map": "/boomsold-ui/static/js/main.c7aa5698.js.map",
+    "main.c56275be.css.map": "/boomsold-ui/static/css/main.c56275be.css.map",
+    "main.23dd3334.js.map": "/boomsold-ui/static/js/main.23dd3334.js.map",
     "453.0a794063.chunk.js.map": "/boomsold-ui/static/js/453.0a794063.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2982205.css",
-    "static/js/main.c7aa5698.js"
+    "static/css/main.c56275be.css",
+    "static/js/main.23dd3334.js"
   ]
 }
