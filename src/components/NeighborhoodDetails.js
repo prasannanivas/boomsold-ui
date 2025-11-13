@@ -6,6 +6,16 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
     return <></>;
   }
 
+  // Debug: Log the neighborhood object to see what we're receiving
+  console.log("🏘️ NeighborhoodDetails received:", {
+    name: neighborhood.name,
+    parkCount: neighborhood.parkCount,
+    schoolCount: neighborhood.schoolCount,
+    hospitalCount: neighborhood.hospitalCount,
+    restaurantCount: neighborhood.restaurantCount,
+    sportsCount: neighborhood.sportsCount,
+  });
+
   // Helper function to render emoji density based on count
   const renderAmenityDensity = (count, emoji) => {
     if (!count || count === 0) return null;
@@ -76,6 +86,30 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
               {renderAmenityDensity(neighborhood.hospitalCount, "🏥")}
               {renderAmenityDensity(neighborhood.restaurantCount, "🍽️")}
               {renderAmenityDensity(neighborhood.sportsCount, "⚽")}
+            </div>
+
+            {/* Amenities Legend */}
+            <div className="amenities-legend">
+              <div className="legend-item">
+                <span className="legend-emoji">🌳</span>
+                <span className="legend-label">Parks</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">🏫</span>
+                <span className="legend-label">Schools</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">🏥</span>
+                <span className="legend-label">Hospitals</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">🍽️</span>
+                <span className="legend-label">Restaurants</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">⚽</span>
+                <span className="legend-label">Sports</span>
+              </div>
             </div>
           </div>
 

@@ -123,6 +123,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const [zoomLevel, setZoomLevel] = useState(10.8); // Dynamic zoom level
   const mobileMapImageRef = useRef(null); // Ref for mobile map image
   const [arrowPositions, setArrowPositions] = useState(null); // Store calculated arrow positions
+  const [showArrows, setShowArrows] = useState(false); // Control arrow visibility
 
   // Calculate responsive font size for mobile buttons
   const calculateButtonFontSize = useCallback(() => {
@@ -144,48 +145,39 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     const height = window.innerHeight;
 
     // Base zoom calculation - larger screens get more zoom
-    // This formula adjusts zoom based on viewport area with 0.1 increments
-    const area = width * height;
+    // Width has 2x weight, height has 1x weight (width is more important for horizontal map)
+    const weightedScore = width * 2 + height * 1;
     let zoom;
 
-    // More granular zoom levels based on area
-    if (area < 400000) {
-      zoom = 9.0;
-    } else if (area < 500000) {
-      zoom = 9.2;
-    } else if (area < 600000) {
-      zoom = 9.4;
-    } else if (area < 700000) {
-      zoom = 9.6;
-    } else if (area < 800000) {
-      zoom = 9.8;
-    } else if (area < 900000) {
+    if (weightedScore < 2400) {
       zoom = 10.0;
-    } else if (area < 1000000) {
+    } else if (weightedScore < 2600) {
       zoom = 10.2;
-    } else if (area < 1100000) {
+    } else if (weightedScore < 2800) {
       zoom = 10.4;
-    } else if (area < 1200000) {
+    } else if (weightedScore < 3000) {
       zoom = 10.5;
-    } else if (area < 1300000) {
+    } else if (weightedScore < 3200) {
       zoom = 10.6;
-    } else if (area < 1400000) {
+    } else if (weightedScore < 3400) {
       zoom = 10.7;
-    } else if (area < 1500000) {
+    } else if (weightedScore < 3600) {
+      zoom = 10.7;
+    } else if (weightedScore < 3800) {
       zoom = 10.8;
-    } else if (area < 1600000) {
+    } else if (weightedScore < 4000) {
+      zoom = 10.8;
+    } else if (weightedScore < 4200) {
       zoom = 10.9;
-    } else if (area < 1800000) {
-      zoom = 11.0;
-    } else if (area < 2000000) {
-      zoom = 11.1;
-    } else if (area < 2200000) {
-      zoom = 11.2;
+    } else if (weightedScore < 4400) {
+      zoom = 10.9;
     } else {
-      zoom = 11.3;
+      zoom = 11;
     }
 
-    console.log(`Calculated zoom level: ${zoom} for area: ${area}`);
+    console.log(
+      `Calculated zoom level: ${zoom} for weighted score: ${weightedScore} (width: ${width}, height: ${height})`
+    );
 
     return zoom;
   }, []);
@@ -232,6 +224,9 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     const img = mobileMapImageRef.current;
     const rect = img.getBoundingClientRect();
     const containerRect = img.parentElement.getBoundingClientRect();
+
+    // Only calculate if image has actual dimensions
+    if (rect.width === 0 || rect.height === 0) return;
 
     // Calculate positions as percentages relative to the container
     // These are approximate positions on the map image for each part
@@ -307,6 +302,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     };
 
     setArrowPositions(positions);
+    // Show arrows after positions are calculated
+    setTimeout(() => {
+      setShowArrows(true);
+    }, 50);
   }, [isMobile]);
 
   // Calculate arrow positions on image load and window resize
@@ -314,20 +313,25 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     if (isMobile && mobileMapImageRef.current) {
       const img = mobileMapImageRef.current;
 
+      // Hide arrows initially when recalculating
+      setShowArrows(false);
+
       const handleImageLoad = () => {
-        // Use setTimeout to ensure DOM is fully settled
+        // Use setTimeout to ensure DOM is fully settled and image is rendered
+        setTimeout(() => {
+          calculateArrowPositions();
+        }, 150);
+      };
+
+      const handleResize = () => {
+        setShowArrows(false);
         setTimeout(() => {
           calculateArrowPositions();
         }, 100);
       };
 
-      const handleResize = () => {
-        calculateArrowPositions();
-      };
-
-      if (img.complete) {
-        // Image already loaded, calculate immediately and after a short delay
-        calculateArrowPositions();
+      if (img.complete && img.naturalWidth > 0) {
+        // Image already loaded, calculate after a delay to ensure proper rendering
         setTimeout(() => {
           calculateArrowPositions();
         }, 200);
@@ -347,9 +351,10 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   // Force re-calculation after partData is loaded
   useEffect(() => {
     if (isMobile && partData && mobileMapImageRef.current) {
+      setShowArrows(false);
       setTimeout(() => {
         calculateArrowPositions();
-      }, 300);
+      }, 350);
     }
   }, [isMobile, partData, calculateArrowPositions]);
 
@@ -676,7 +681,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             position: "fixed",
             bottom: "10%",
             right: "5%",
-            width: "320px",
+            maxWidth: "20%",
             height: "auto",
             zIndex: 1000,
           }}
@@ -685,7 +690,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             style={{
               width: "100%",
               height: "100%",
-              backgroundColor: "#FFD700",
+              backgroundColor: "#ffd90025",
               color: "#000000",
               padding: "20px 24px",
               borderRadius: "20px",
@@ -699,7 +704,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               boxSizing: "border-box",
             }}
           >
-            <p style={{ margin: 0, fontWeight: 600 }}>
+            <p style={{ fontSize: 14, margin: 0, fontWeight: 600 }}>
               We are here to simplify your real estate search. Select a
               neighborhood to discover average home prices, amenities nearby and
               more.
@@ -717,7 +722,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{
           position: "fixed",
           top: isMobile ? "14vh" : "15%",
-          width: "100%",
+          width: isMobile ? "100%" : "90vw",
           textAlign: "center",
           zIndex: 1000,
           fontSize: isMobile ? "1.2rem" : "1.8rem",
@@ -800,7 +805,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             />
 
             {/* Interactive labels with arrows */}
-            {arrowPositions && (
+            {arrowPositions && showArrows && (
               <svg
                 style={{
                   position: "absolute",
@@ -809,6 +814,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   width: "100%",
                   height: "100%",
                   pointerEvents: "none",
+                  opacity: 1,
+                  transition: "opacity 0.3s ease-in",
                 }}
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
@@ -1112,21 +1119,28 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
               const displayName = getPartDisplayName(partName);
 
-              // Calculate font size based on zoom level
-              // Base font size at zoom 10.5, scale proportionally
-              const baseFontSize = 14;
+              // Calculate font size based on zoom level - smaller for smaller zoom
+              // Base font size at zoom 10.5, scale proportionally with smaller minimum
+              const baseFontSize = 12; // Reduced from 14
               const baseZoom = 10.5;
-              const fontSize = Math.round(
-                baseFontSize * (zoomLevel / baseZoom)
+              const fontSize = Math.max(
+                8, // Minimum font size
+                Math.round(baseFontSize * (zoomLevel / baseZoom))
               );
 
               // Calculate letter spacing based on zoom
-              const baseLetterSpacing = 1.5;
-              const letterSpacing = baseLetterSpacing * (zoomLevel / baseZoom);
+              const baseLetterSpacing = 1.2; // Reduced from 1.5
+              const letterSpacing = Math.max(
+                0.5, // Minimum letter spacing
+                baseLetterSpacing * (zoomLevel / baseZoom)
+              );
 
               // Calculate padding based on zoom
-              const basePadding = 4;
-              const padding = Math.round(basePadding * (zoomLevel / baseZoom));
+              const basePadding = 3; // Reduced from 4
+              const padding = Math.max(
+                2, // Minimum padding
+                Math.round(basePadding * (zoomLevel / baseZoom))
+              );
 
               // Adjust positions for each part
               let adjustedLat = center.lat;

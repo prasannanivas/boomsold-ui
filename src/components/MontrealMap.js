@@ -1148,6 +1148,21 @@ const MontrealMap = ({
           }
         });
 
+        console.log(
+          `🗺️ Calculated POI counts for ${
+            feature.properties.name || feature.properties.nom_arr
+          }:`,
+          {
+            parkCount,
+            schoolCount,
+            hospitalCount,
+            restaurantCount,
+            sportsCount,
+            allPoisLength: allPois.length,
+            polygonLatLngsLength: polygonLatLngs.length,
+          }
+        );
+
         if (onNeighborhoodHover) {
           onNeighborhoodHover({
             // Basic Information
