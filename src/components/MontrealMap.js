@@ -17,6 +17,101 @@ import MontrealSvg from "./MontrealSvg";
 
 import MaskedOutside from "./MaskedOutside.js";
 
+// Iconic Montreal locations with coordinates and logos
+const ICONIC_LOCATIONS = [
+  {
+    id: "airport",
+    name: "Montreal-Trudeau Airport",
+    coordinates: [45.4687293, -73.742497],
+    icon: "✈️",
+    description: "Montreal-Trudeau International Airport",
+    color: "#4A90E2",
+  },
+  {
+    id: "oratory",
+    name: "Saint Joseph's Oratory",
+    coordinates: [45.4920517, -73.6166992],
+    icon: "⛪",
+    description: "Saint Joseph's Oratory",
+    color: "#8B4513",
+  },
+  {
+    id: "bell-centre",
+    name: "Bell Centre",
+    coordinates: [45.4960358, -73.5692029],
+    icon: "🏒",
+    description: "Bell Centre - Montreal Canadiens",
+    color: "#AF1E2D",
+  },
+  {
+    id: "old-port",
+    name: "Old Port",
+    coordinates: [45.5042344, -73.5529866],
+    icon: "🎡",
+    description: "Old Port - Ferris Wheel",
+    color: "#FF6B6B",
+  },
+];
+
+// Create custom icon for iconic locations
+const createIconicLocationIcon = (location) => {
+  return L.divIcon({
+    className: "iconic-location-icon",
+    html: `
+      <div style="
+        font-size: 24px;
+        line-height: 1;
+        text-align: center;
+        pointer-events: none;
+      ">
+        ${location.icon}
+      </div>
+    `,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12],
+  });
+};
+
+// Apply rotation to iconic locations coordinates
+const rotateIconicLocations = (
+  locations,
+  rotationAngle,
+  centerPoint,
+  scaleX = 1,
+  scaleY = 1
+) => {
+  return locations.map((location) => {
+    const [lat, lng] = location.coordinates;
+
+    // Convert to radians
+    const angleRad = (rotationAngle * Math.PI) / 180;
+    const cos = Math.cos(angleRad);
+    const sin = Math.sin(angleRad);
+
+    // Translate to origin
+    const translatedLat = lat - centerPoint.lat;
+    const translatedLng = lng - centerPoint.lng;
+
+    // Rotate first (same as GeoJSON rotation logic)
+    const rotatedLng = translatedLng * cos - translatedLat * sin;
+    const rotatedLat = translatedLng * sin + translatedLat * cos;
+
+    // Apply scaling after rotation
+    const scaledLng = rotatedLng * scaleX;
+    const scaledLat = rotatedLat * scaleY;
+
+    // Translate back
+    const finalLat = scaledLat + centerPoint.lat;
+    const finalLng = scaledLng + centerPoint.lng;
+
+    return {
+      ...location,
+      coordinates: [finalLat, finalLng],
+    };
+  });
+};
+
 // Simple point-in-polygon algorithm for [lat, lng] arrays
 function isPointInPolygon(point, vs) {
   // point: [lat, lng], vs: array of [lat, lng]
@@ -209,6 +304,7 @@ const MontrealMap = ({
   // Removed unused marker loading state
 
   const [allPois, setAllPois] = useState([]);
+  const [iconicLocations, setIconicLocations] = useState([]); // Store rotated iconic locations
 
   const geoJsonLayerRef = useRef(null);
   const animationAttemptsRef = useRef(0);
@@ -563,6 +659,18 @@ const MontrealMap = ({
           // The data is already rotated from PartMap, use it directly
           setMontrealData(processedData);
           setMontrealDataTop(processedData); // For top view, use the same rotated data
+
+          // Rotate iconic locations with the same parameters used in PartMap
+          const centerPoint = { lat: 45.48, lng: -73.62 };
+          const rotatedIconicLocations = rotateIconicLocations(
+            ICONIC_LOCATIONS,
+            335,
+            centerPoint,
+            1.2,
+            1
+          );
+          setIconicLocations(rotatedIconicLocations);
+
           setAllPois(poisData.elements);
           setIsMapLoaded(true);
         })
@@ -734,9 +842,19 @@ const MontrealMap = ({
           1
         ); // 335° rotation, wider horizontally, shorter vertically
 
+        // Rotate iconic locations with the same parameters
+        const rotatedIconicLocations = rotateIconicLocations(
+          ICONIC_LOCATIONS,
+          335,
+          centerPoint,
+          1.2,
+          1
+        );
+
         // Keep both: rotated (default) and unrotated (top view)
         setMontrealData(rotatedData);
         setMontrealDataTop(processedData);
+        setIconicLocations(rotatedIconicLocations);
         setAllPois(poisData.elements);
         setIsMapLoaded(true);
       })
@@ -1586,6 +1704,15 @@ const MontrealMap = ({
             ref={geoJsonLayerRef}
             key={JSON.stringify(filters) + (localPinnedName || "none")} // Force re-render when filters or pin state change
           />
+
+          {/* Iconic location markers */}
+          {iconicLocations.map((location) => (
+            <Marker
+              key={location.id}
+              position={location.coordinates}
+              icon={createIconicLocationIcon(location)}
+            />
+          ))}
         </MapContainer>
 
         {/* Logo and Neighborhood List Container */}

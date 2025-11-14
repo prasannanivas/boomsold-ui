@@ -10,6 +10,42 @@ import MontrealMapImage from "../data/Montreal-map-textremoved.png";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
 
+// Iconic Montreal locations with coordinates and logos
+const ICONIC_LOCATIONS = [
+  {
+    id: "airport",
+    name: "Montreal-Trudeau Airport",
+    coordinates: [45.4687293, -73.742497],
+    icon: "✈️",
+    description: "Montreal-Trudeau International Airport",
+    color: "#4A90E2",
+  },
+  {
+    id: "oratory",
+    name: "Saint Joseph's Oratory",
+    coordinates: [45.4920517, -73.6166992],
+    icon: "⛪",
+    description: "Saint Joseph's Oratory",
+    color: "#8B4513",
+  },
+  {
+    id: "bell-centre",
+    name: "Bell Centre",
+    coordinates: [45.4960358, -73.5692029],
+    icon: "🏒",
+    description: "Bell Centre - Montreal Canadiens",
+    color: "#AF1E2D",
+  },
+  {
+    id: "old-port",
+    name: "Old Port",
+    coordinates: [45.5042344, -73.5529866],
+    icon: "🎡",
+    description: "Old Port - Ferris Wheel",
+    color: "#FF6B6B",
+  },
+];
+
 // Premium colors for each part - Luxurious palette
 const getColorByPart = (part) => {
   const colorMap = {
@@ -20,6 +56,65 @@ const getColorByPart = (part) => {
     Central: "#10B981", // Emerald Green
   };
   return colorMap[part] || "#8B5CF6";
+};
+
+// Create custom icon for iconic locations
+const createIconicLocationIcon = (location) => {
+  return L.divIcon({
+    className: "iconic-location-icon",
+    html: `
+      <div style="
+        font-size: 24px;
+        line-height: 1;
+        text-align: center;
+        pointer-events: none;
+      ">
+        ${location.icon}
+      </div>
+    `,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12],
+  });
+};
+
+// Apply rotation to iconic locations coordinates
+const rotateIconicLocations = (
+  locations,
+  rotationAngle,
+  centerPoint,
+  scaleX = 1,
+  scaleY = 1
+) => {
+  return locations.map((location) => {
+    const [lat, lng] = location.coordinates;
+
+    // Convert to radians
+    const angleRad = (rotationAngle * Math.PI) / 180;
+    const cos = Math.cos(angleRad);
+    const sin = Math.sin(angleRad);
+
+    // Translate to origin
+    const translatedLat = lat - centerPoint.lat;
+    const translatedLng = lng - centerPoint.lng;
+
+    // Rotate first (same as GeoJSON rotation logic)
+    const rotatedLng = translatedLng * cos - translatedLat * sin;
+    const rotatedLat = translatedLng * sin + translatedLat * cos;
+
+    // Apply scaling after rotation
+    const scaledLng = rotatedLng * scaleX;
+    const scaledLat = rotatedLat * scaleY;
+
+    // Translate back
+    const finalLat = scaledLat + centerPoint.lat;
+    const finalLng = scaledLng + centerPoint.lng;
+
+    return {
+      ...location,
+      coordinates: [finalLat, finalLng],
+    };
+  });
 };
 
 // Component to update map zoom dynamically
@@ -124,6 +219,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const mobileMapImageRef = useRef(null); // Ref for mobile map image
   const [arrowPositions, setArrowPositions] = useState(null); // Store calculated arrow positions
   const [showArrows, setShowArrows] = useState(false); // Control arrow visibility
+  const [iconicLocations, setIconicLocations] = useState([]); // Store rotated iconic locations
 
   // Calculate responsive font size for mobile buttons
   const calculateButtonFontSize = useCallback(() => {
@@ -381,6 +477,15 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           1.3
         ); // Rotate on desktop
 
+        // Rotate iconic locations with the same parameters
+        const rotatedIconicLocations = rotateIconicLocations(
+          ICONIC_LOCATIONS,
+          335,
+          centerPoint,
+          1.3,
+          1.3
+        );
+
         // Calculate centers for each part
         const centers = {};
         rotatedData.features.forEach((feature) => {
@@ -409,6 +514,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         setPartCenters(centers);
         setPartData(rotatedData);
+        setIconicLocations(rotatedIconicLocations);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -1202,6 +1308,48 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 />
               );
             })}
+
+            {/* Add iconic location markers */}
+            {iconicLocations.map((location) => (
+              <Marker
+                key={location.id}
+                position={location.coordinates}
+                icon={createIconicLocationIcon(location)}
+                eventHandlers={{
+                  click: (e) => {
+                    const marker = e.target;
+                    const popupContent = `
+                      <div style="text-align: center; font-family: 'Nunito', sans-serif;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">${location.icon}</div>
+                        <strong style="font-size: 16px; color: ${location.color};">${location.name}</strong>
+                        <div style="font-size: 14px; color: #666; margin-top: 4px;">${location.description}</div>
+                      </div>
+                    `;
+                    marker
+                      .bindPopup(popupContent, {
+                        maxWidth: 200,
+                        className: "iconic-location-popup",
+                      })
+                      .openPopup();
+                  },
+                  mouseover: (e) => {
+                    const marker = e.target;
+                    const tooltipContent = `
+                      <div style="text-align: center; font-family: 'Nunito', sans-serif;">
+                        <span style="font-size: 12px; font-weight: 600;">${location.name}</span>
+                      </div>
+                    `;
+                    marker
+                      .bindTooltip(tooltipContent, {
+                        permanent: false,
+                        direction: "top",
+                        offset: [0, -10],
+                      })
+                      .openTooltip();
+                  },
+                }}
+              />
+            ))}
           </MapContainer>
         )}
       </div>
