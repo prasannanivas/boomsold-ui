@@ -945,6 +945,117 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               }}
             />
 
+            {/* Clickable map regions - invisible overlays */}
+            {arrowPositions &&
+              showArrows &&
+              (() => {
+                // Calculate image center position
+                const img = mobileMapImageRef.current;
+                const rect = img.getBoundingClientRect();
+                const containerRect = img.parentElement.getBoundingClientRect();
+
+                // Image center Y position as percentage
+                const imageCenterY =
+                  ((rect.top - containerRect.top + rect.height / 2) /
+                    containerRect.height) *
+                  100;
+
+                return (
+                  <>
+                    {/* West Island clickable area - left side of map, top half */}
+                    <div
+                      onClick={() => handleMobilePartClick("West")}
+                      style={{
+                        position: "absolute",
+                        left: `${arrowPositions.West.target.x - 18}%`,
+                        top: `${
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                          100
+                        }%`,
+
+                        width: "32%",
+                        height: `${
+                          imageCenterY -
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                            100
+                        }%`,
+                        cursor: "pointer",
+                        zIndex: 5,
+                      }}
+                    />
+
+                    {/* Central North clickable area - center top, top half */}
+                    <div
+                      onClick={() => handleMobilePartClick("Central")}
+                      style={{
+                        position: "absolute",
+                        left: `${arrowPositions.Central.target.x - 10}%`,
+                        top: `${
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                          100
+                        }%`,
+                        width: "20%",
+                        height: `${
+                          imageCenterY -
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                            100
+                        }%`,
+                        cursor: "pointer",
+
+                        zIndex: 5,
+                      }}
+                    />
+
+                    {/* Montreal East/North clickable area - right top, top half */}
+                    <div
+                      onClick={() => handleMobilePartClick("North")}
+                      style={{
+                        position: "absolute",
+                        left: `${arrowPositions.North.target.x - 8}%`,
+                        top: `${
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                          100
+                        }%`,
+                        width: "26%",
+                        height: `${
+                          imageCenterY -
+                          ((rect.top - containerRect.top) /
+                            containerRect.height) *
+                            100
+                        }%`,
+                        cursor: "pointer",
+                        zIndex: 5,
+                      }}
+                    />
+
+                    {/* Downtown/Center South clickable area - bottom half from center */}
+                    <div
+                      onClick={() => handleMobilePartClick("South")}
+                      style={{
+                        position: "absolute",
+                        left: `${arrowPositions.South.target.x - 18}%`,
+                        top: `${imageCenterY}%`,
+                        width: "26%",
+                        height: `${
+                          ((rect.bottom - containerRect.top) /
+                            containerRect.height) *
+                            105 -
+                          imageCenterY
+                        }%`,
+                        cursor: "pointer",
+                        zIndex: 5,
+                        transform: "rotate(-265deg)",
+                      }}
+                    />
+                  </>
+                );
+              })()}
+
             {/* Interactive labels with arrows */}
             {arrowPositions && showArrows && (
               <svg
