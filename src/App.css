@@ -23,7 +23,7 @@
   position: fixed;
   bottom: 10%;
   right: 20px;
-  width: 380px;
+  width: 25vw;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 16px;

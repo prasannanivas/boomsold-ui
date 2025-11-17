@@ -32,14 +32,15 @@ const ICONIC_LOCATIONS = [
     id: "bell-centre",
     name: "Bell Centre",
     coordinates: [45.4960358, -73.5692029],
-    icon: "🏒",
+    icon: "image", // Special marker to use image
+    imageSrc: require("../data/Montreal_Canadiens.svg.png"),
     description: "Bell Centre - Montreal Canadiens",
     color: "#AF1E2D",
   },
   {
     id: "old-port",
     name: "Old Port",
-    coordinates: [45.5042344, -73.5529866],
+    coordinates: [45.519164, -73.534403],
     icon: "🎡",
     description: "Old Port - Ferris Wheel",
     color: "#FF6B6B",
@@ -60,6 +61,40 @@ const getColorByPart = (part) => {
 
 // Create custom icon for iconic locations
 const createIconicLocationIcon = (location) => {
+  // Check if this location uses an image instead of emoji
+  if (location.icon === "image" && location.imageSrc) {
+    return L.divIcon({
+      className: "iconic-location-icon",
+      html: `
+        <div style="
+          width: 22px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+        ">
+          <img 
+            src="${location.imageSrc}" 
+            alt="${location.name}"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+              filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+              border: 0;
+              border-radius: 50%;
+            "
+          />
+        </div>
+      `,
+      iconSize: [22, 22],
+      iconAnchor: [11, 11],
+      popupAnchor: [0, -11],
+    });
+  }
+
+  // Default emoji icon
   return L.divIcon({
     className: "iconic-location-icon",
     html: `

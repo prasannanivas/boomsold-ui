@@ -68,6 +68,24 @@
   text-align: center;
 }
 
+
+mm-selected-part-label {
+  position: fixed;
+  top: 5%;
+  width: 90vw;
+  text-align: center;
+  z-index: 2000;
+  font-size: 3rem;
+  font-weight: 700;
+  color: black;
+  /*  #FFD700; */
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  font-family: 'DM Serif Display', sans-serif;
+  pointer-events: none;
+  text-align: center;
+}
+
 @keyframes partLabelGlow {
 
   0%,

@@ -1,5 +1,4 @@
 import React from "react";
-import { getWalkScoreColor } from "../utils/walkabilityScores";
 
 const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
   return (
@@ -15,22 +14,22 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       {/* Walk Score Card */}
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#ffffffff",
           borderRadius: "12px",
           padding: "16px 12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-          border: "2px solid #FFD700",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          border: "3px solid #FFD700",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.3)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.5)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
         }}
       >
         {/* Icon */}
@@ -49,7 +48,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "11px",
             fontWeight: "700",
-            color: "#666",
+            color: "#453c0dff",
             textTransform: "uppercase",
             letterSpacing: "0.5px",
             textAlign: "center",
@@ -64,7 +63,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "36px",
             fontWeight: "900",
-            color: getWalkScoreColor(walkabilityScores.walkScore),
+            color: "#000000ff",
             textAlign: "center",
             marginBottom: "10px",
           }}
@@ -77,10 +76,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             width: "100%",
             height: "8px",
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#333333",
             borderRadius: "4px",
             overflow: "hidden",
-            border: "1px solid #e0e0e0",
+            border: "1px solid #FFD700",
             marginBottom: "8px",
           }}
         >
@@ -88,13 +87,9 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               width: `${walkabilityScores.walkScore}%`,
               height: "100%",
-              background: `linear-gradient(90deg, ${getWalkScoreColor(
-                walkabilityScores.walkScore
-              )}, ${getWalkScoreColor(walkabilityScores.walkScore)}dd)`,
+              background: "linear-gradient(90deg, #FFD700, #FFC700)",
               transition: "width 0.8s ease",
-              boxShadow: `0 0 8px ${getWalkScoreColor(
-                walkabilityScores.walkScore
-              )}80`,
+              boxShadow: "0 0 8px rgba(255,215,0,0.6)",
             }}
           />
         </div>
@@ -104,7 +99,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "10px",
             fontWeight: "600",
-            color: "#888",
+            color: "#000000ff",
             textAlign: "center",
           }}
         >
@@ -121,22 +116,22 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       {/* Transit Score Card */}
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#ffffffff",
           borderRadius: "12px",
           padding: "16px 12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-          border: "2px solid #4ECDC4",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          border: "3px solid #FFD700",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(78,205,196,0.3)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.5)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
         }}
       >
         {/* Icon */}
@@ -155,7 +150,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "11px",
             fontWeight: "700",
-            color: "#666",
+            color: "#2f2907ff",
             textTransform: "uppercase",
             letterSpacing: "0.5px",
             textAlign: "center",
@@ -170,7 +165,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "36px",
             fontWeight: "900",
-            color: getWalkScoreColor(walkabilityScores.transitScore),
+            color: "#000000ff",
             textAlign: "center",
             marginBottom: "10px",
           }}
@@ -183,10 +178,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             width: "100%",
             height: "8px",
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#333333",
             borderRadius: "4px",
             overflow: "hidden",
-            border: "1px solid #e0e0e0",
+            border: "1px solid #FFD700",
             marginBottom: "8px",
           }}
         >
@@ -194,13 +189,9 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               width: `${walkabilityScores.transitScore}%`,
               height: "100%",
-              background: `linear-gradient(90deg, ${getWalkScoreColor(
-                walkabilityScores.transitScore
-              )}, ${getWalkScoreColor(walkabilityScores.transitScore)}dd)`,
+              background: "linear-gradient(90deg, #FFD700, #FFC700)",
               transition: "width 0.8s ease",
-              boxShadow: `0 0 8px ${getWalkScoreColor(
-                walkabilityScores.transitScore
-              )}80`,
+              boxShadow: "0 0 8px rgba(255,215,0,0.6)",
             }}
           />
         </div>
@@ -210,7 +201,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "10px",
             fontWeight: "600",
-            color: "#888",
+            color: "#000000ff",
             textAlign: "center",
             marginBottom: enhancedScores?.transitDetails ? "8px" : "0",
           }}
@@ -230,15 +221,15 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               marginTop: "8px",
               padding: "8px",
-              backgroundColor: "rgba(78, 205, 196, 0.1)",
+              backgroundColor: "#FFD700",
               borderRadius: "6px",
-              border: "1px solid rgba(78, 205, 196, 0.3)",
+              border: "1px solid #FFC700",
             }}
           >
             <div
               style={{
                 fontSize: "9px",
-                color: "#333",
+                color: "#000000",
                 fontWeight: 600,
                 marginBottom: "3px",
               }}
@@ -249,7 +240,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             <div
               style={{
                 fontSize: "8px",
-                color: "#666",
+                color: "#000000",
               }}
             >
               {enhancedScores.transitDetails.description}
@@ -261,22 +252,22 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       {/* Bike Score Card */}
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#ffffffff",
           borderRadius: "12px",
           padding: "16px 12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-          border: "2px solid #FF6B6B",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          border: "3px solid #FFD700",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,107,107,0.3)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.5)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
         }}
       >
         {/* Icon */}
@@ -295,7 +286,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "11px",
             fontWeight: "700",
-            color: "#666",
+            color: "#1e1a04ff",
             textTransform: "uppercase",
             letterSpacing: "0.5px",
             textAlign: "center",
@@ -310,7 +301,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "36px",
             fontWeight: "900",
-            color: getWalkScoreColor(walkabilityScores.bikeScore),
+            color: "#000000ff",
             textAlign: "center",
             marginBottom: "10px",
           }}
@@ -323,10 +314,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             width: "100%",
             height: "8px",
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#333333",
             borderRadius: "4px",
             overflow: "hidden",
-            border: "1px solid #e0e0e0",
+            border: "1px solid #FFD700",
             marginBottom: "8px",
           }}
         >
@@ -334,13 +325,9 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               width: `${walkabilityScores.bikeScore}%`,
               height: "100%",
-              background: `linear-gradient(90deg, ${getWalkScoreColor(
-                walkabilityScores.bikeScore
-              )}, ${getWalkScoreColor(walkabilityScores.bikeScore)}dd)`,
+              background: "linear-gradient(90deg, #FFD700, #FFC700)",
               transition: "width 0.8s ease",
-              boxShadow: `0 0 8px ${getWalkScoreColor(
-                walkabilityScores.bikeScore
-              )}80`,
+              boxShadow: "0 0 8px rgba(255,215,0,0.6)",
             }}
           />
         </div>
@@ -350,7 +337,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "10px",
             fontWeight: "600",
-            color: "#888",
+            color: "#FFFFFF",
             textAlign: "center",
             marginBottom: enhancedScores?.bikeDetails ? "8px" : "0",
           }}
@@ -370,15 +357,15 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               marginTop: "8px",
               padding: "8px",
-              backgroundColor: "rgba(255, 107, 107, 0.1)",
+              backgroundColor: "#FFD700",
               borderRadius: "6px",
-              border: "1px solid rgba(255, 107, 107, 0.3)",
+              border: "1px solid #FFC700",
             }}
           >
             <div
               style={{
                 fontSize: "9px",
-                color: "#333",
+                color: "#000000",
                 fontWeight: 600,
               }}
             >
@@ -392,22 +379,22 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
       {/* Overall Accessibility Card */}
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#ffffffff",
           borderRadius: "12px",
           padding: "16px 12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-          border: "2px solid #9B59B6",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          border: "3px solid #FFD700",
           position: "relative",
           overflow: "hidden",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(155,89,182,0.3)";
+          e.currentTarget.style.boxShadow = "0 4px 20px rgba(255,215,0,0.5)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.06)";
+          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
         }}
       >
         {/* Icon */}
@@ -426,7 +413,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "11px",
             fontWeight: "700",
-            color: "#666",
+            color: "#272205ff",
             textTransform: "uppercase",
             letterSpacing: "0.5px",
             textAlign: "center",
@@ -441,7 +428,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "36px",
             fontWeight: "900",
-            color: getWalkScoreColor(walkabilityScores.accessibilityScore),
+            color: "#000000ff",
             textAlign: "center",
             marginBottom: "10px",
           }}
@@ -454,10 +441,10 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             width: "100%",
             height: "8px",
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#333333",
             borderRadius: "4px",
             overflow: "hidden",
-            border: "1px solid #e0e0e0",
+            border: "1px solid #FFD700",
             marginBottom: "8px",
           }}
         >
@@ -465,15 +452,9 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             style={{
               width: `${walkabilityScores.accessibilityScore}%`,
               height: "100%",
-              background: `linear-gradient(90deg, ${getWalkScoreColor(
-                walkabilityScores.accessibilityScore
-              )}, ${getWalkScoreColor(
-                walkabilityScores.accessibilityScore
-              )}dd)`,
+              background: "linear-gradient(90deg, #FFD700, #FFC700)",
               transition: "width 0.8s ease",
-              boxShadow: `0 0 8px ${getWalkScoreColor(
-                walkabilityScores.accessibilityScore
-              )}80`,
+              boxShadow: "0 0 8px rgba(255,215,0,0.6)",
             }}
           />
         </div>
@@ -483,7 +464,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           style={{
             fontSize: "10px",
             fontWeight: "600",
-            color: "#888",
+            color: "#000000ff",
             textAlign: "center",
           }}
         >

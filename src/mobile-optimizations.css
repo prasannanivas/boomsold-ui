@@ -122,6 +122,11 @@ button,
 /* Performance optimizations for mobile */
 @media (max-width: 768px) {
 
+
+  .neighborhood-overlay {
+    display: none;
+  }
+
   /* Enable GPU acceleration for smoother animations */
   .leaflet-container,
   .leaflet-interactive,

@@ -39,7 +39,8 @@ const ICONIC_LOCATIONS = [
     id: "bell-centre",
     name: "Bell Centre",
     coordinates: [45.4960358, -73.5692029],
-    icon: "🏒",
+    icon: "image", // Special marker to use image
+    imageSrc: require("../data/Montreal_Canadiens.svg.png"),
     description: "Bell Centre - Montreal Canadiens",
     color: "#AF1E2D",
   },
@@ -55,6 +56,40 @@ const ICONIC_LOCATIONS = [
 
 // Create custom icon for iconic locations
 const createIconicLocationIcon = (location) => {
+  // Check if this location uses an image instead of emoji
+  if (location.icon === "image" && location.imageSrc) {
+    return L.divIcon({
+      className: "iconic-location-icon",
+      html: `
+        <div style="
+          width: 22px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+        ">
+          <img 
+            src="${location.imageSrc}" 
+            alt="${location.name}"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+              filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+              border: 0;
+              border-radius: 50%;
+            "
+          />
+        </div>
+      `,
+      iconSize: [22, 22],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+    });
+  }
+
+  // Default emoji icon
   return L.divIcon({
     className: "iconic-location-icon",
     html: `
@@ -110,6 +145,19 @@ const rotateIconicLocations = (
       coordinates: [finalLat, finalLng],
     };
   });
+};
+
+// Component to update map zoom dynamically
+const ZoomUpdater = ({ zoomLevel }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (map && zoomLevel) {
+      map.setZoom(zoomLevel);
+    }
+  }, [map, zoomLevel]);
+
+  return null;
 };
 
 // Simple point-in-polygon algorithm for [lat, lng] arrays
@@ -257,6 +305,7 @@ const MontrealMap = ({
   const [montrealDataTop, setMontrealDataTop] = useState(null); // unrotated (top view)
 
   const [currentZoom, setCurrentZoom] = useState(10);
+  const [zoomLevel, setZoomLevel] = useState(10.8); // Dynamic zoom level based on dimensions
   // Removed unused satellite/top-view toggles
   const [map, setMap] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -275,7 +324,6 @@ const MontrealMap = ({
 
   // Filter state
   const [showFilterPanel, setShowFilterPanel] = useState(false);
-  const [showNeighborhoodList, setShowNeighborhoodList] = useState(false); // Neighborhood list toggle
   const [filters, setFilters] = useState({
     showBoroughs: true,
     showSuburbs: true,
@@ -292,14 +340,89 @@ const MontrealMap = ({
     pinnedRef.current = pinnedNeighborhood;
   }, [pinnedNeighborhood]);
 
-  // Handle window resize for mobile detection
+  // Calculate optimal zoom level based on window dimensions with 0.1 granularity
+  const calculateZoomLevel = useCallback(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Base zoom calculation - larger screens get more zoom
+    // Width has 2x weight, height has 1x weight (width is more important for horizontal map)
+    const weightedScore = width * 2 + height * 1;
+    let zoom;
+
+    if (weightedScore < 2400) {
+      zoom = 10.0; // Very small screens
+    } else if (weightedScore < 2600) {
+      zoom = 10.1;
+    } else if (weightedScore < 2800) {
+      zoom = 10.2;
+    } else if (weightedScore < 3000) {
+      zoom = 10.3;
+    } else if (weightedScore < 3200) {
+      zoom = 10.4;
+    } else if (weightedScore < 3400) {
+      zoom = 10.5;
+    } else if (weightedScore < 3600) {
+      zoom = 10.6;
+    } else if (weightedScore < 3800) {
+      zoom = 10.7;
+    } else if (weightedScore < 4000) {
+      zoom = 10.8;
+    } else if (weightedScore < 4200) {
+      zoom = 10.9;
+    } else if (weightedScore < 4400) {
+      zoom = 11.0;
+    } else if (weightedScore < 4600) {
+      zoom = 11.1;
+    } else if (weightedScore < 4800) {
+      zoom = 11.2;
+    } else if (weightedScore < 5000) {
+      zoom = 11.3;
+    } else if (weightedScore < 5200) {
+      zoom = 11.4;
+    } else if (weightedScore < 5400) {
+      zoom = 11.5;
+    } else if (weightedScore < 5600) {
+      zoom = 11.6;
+    } else if (weightedScore < 5800) {
+      zoom = 11.7;
+    } else if (weightedScore < 6000) {
+      zoom = 11.8;
+    } else if (weightedScore < 6200) {
+      zoom = 11.9;
+    } else {
+      zoom = 12.0; // Very large screens
+    }
+
+    console.log(
+      `Calculated zoom level: ${zoom} for weighted score: ${weightedScore} (width: ${width}, height: ${height})`
+    );
+
+    return zoom + 1;
+  }, []);
+
+  // Handle window resize for mobile detection and zoom calculation
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
+      setZoomLevel(calculateZoomLevel());
     };
+
+    // Initial calculation
+    setZoomLevel(calculateZoomLevel());
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [calculateZoomLevel]);
+
+  // Handle window resize for mobile detection (REMOVED - merged with above)
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   // Removed unused marker loading state
 
@@ -1500,9 +1623,9 @@ const MontrealMap = ({
       return partConfigs[selectedPart];
     }
 
-    // Default: full Montreal view
-    return { center: [45.56, -73.62], zoom: 10.8 + zoomAdjustment };
-  }, [selectedPart]);
+    // Default: full Montreal view using dynamic zoom level
+    return { center: [45.56, -73.62], zoom: zoomLevel };
+  }, [selectedPart, zoomLevel]);
 
   const { center, zoom } = getPartConfig();
 
@@ -1610,7 +1733,7 @@ const MontrealMap = ({
       >
         <h2
           className="selected-part-label"
-          style={isMobile ? { marginTop: "10vh" } : {}}
+          style={isMobile ? { marginTop: "10vh", width: "100%" } : {}}
         >
           {selectedPart === "South"
             ? "downtown/ Center South"
@@ -1620,100 +1743,318 @@ const MontrealMap = ({
             ? "Montreal East/North"
             : `Montreal ${selectedPart}`}
         </h2>
-        <MapContainer
-          center={center}
-          verticalFactor={0.5}
-          zoom={zoom}
-          minZoom={selectedPart ? 10 : 6}
-          maxZoom={22}
-          /* Allow fractional zoom levels (default Leaflet zoomSnap=1 forces integers) */
-          zoomSnap={0.1}
-          zoomDelta={0.2}
-          style={{ height: "100%", width: "100%", background: "transparent" }}
-          zoomControl={false} //{isMobile}
-          scrollWheelZoom={false}
-          doubleClickZoom={true}
-          touchZoom={true}
-          boxZoom={true}
-          keyboard={true}
-          zoomAnimation={true}
-          fadeAnimation={true}
-          markerZoomAnimation={true}
-          attributionControl={false}
-          whenCreated={(mapInstance) => {
-            setMap(mapInstance);
 
-            // Ensure runtime options permit fractional zoom even for programmatic flyTo / fitBounds
-            mapInstance.options.zoomSnap = 0.1;
-            mapInstance.options.zoomDelta = 0.2;
-            // Optional: smoother animation easing
-            mapInstance.options.zoomAnimation = true;
-            mapInstance.options.zoomAnimationThreshold = 8;
+        {isMobile && (
+          <h3
+            style={{
+              position: "fixed",
+              top: "15vh",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "90%",
+              maxWidth: "400px",
 
-            // Add custom zoom control with custom position
-            const zoomControl = L.control.zoom({
-              position: "topleft",
-            });
-            zoomControl.addTo(mapInstance);
+              borderRadius: "12px",
+              padding: "12px",
 
-            // Remove any default tile layers
-            mapInstance.eachLayer((layer) => {
-              if (layer instanceof L.TileLayer) {
-                mapInstance.removeLayer(layer);
-              }
-            });
+              fontSize: "11px",
+            }}
+          >
+            Please tap on a neighborhood to explore detailed real estate data,
+          </h3>
+        )}
 
-            // Disable scroll wheel zoom but keep touch zoom (pinch)
-            mapInstance.scrollWheelZoom.disable();
+        {/* Neighborhood List - Mobile Only - Below Map */}
+        {isMobile && montrealData && (
+          <div
+            style={{
+              position: "fixed",
+              top: "20vh",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "90%",
+              maxWidth: "400px",
+              zIndex: 1000,
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "12px",
+              padding: "12px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+              fontSize: "11px",
+              maxHeight: "70vh",
+              overflowY: "auto",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                margin: "0 0 8px 0",
+                borderBottom: "2px solid #FFD700",
+                paddingBottom: "8px",
+              }}
+            >
+              <h4
+                style={{
+                  margin: 0,
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#000",
+                }}
+              >
+                Neighborhoods (
+                {getFilteredData()?.features.filter(
+                  (f, i, arr) =>
+                    arr.findIndex(
+                      (item) =>
+                        (item.properties.name || item.properties.nom_arr) ===
+                        (f.properties.name || f.properties.nom_arr)
+                    ) === i
+                ).length || 0}
+                )
+              </h4>
+            </div>
 
-            // Log center and zoom on zoom change
-            mapInstance.on("zoomend", () => {
-              const zoom = mapInstance.getZoom();
-              const center = mapInstance.getCenter();
-              setCurrentZoom(zoom);
-              console.log("📍 Current Center:", {
-                lat: center.lat.toFixed(6),
-                lng: center.lng.toFixed(6),
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              }}
+            >
+              {getFilteredData()
+                ?.features.map((f) => ({
+                  name: f.properties.name || f.properties.nom_arr,
+                  feature: f,
+                }))
+                .filter(
+                  (item, index, self) =>
+                    self.findIndex((i) => i.name === item.name) === index
+                )
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      // Trigger click on the neighborhood
+                      if (onNeighborhoodClick && item.feature) {
+                        const feature = item.feature;
+
+                        // Get the map instance
+                        let leafletMap = map;
+                        if (!leafletMap && geoJsonLayerRef.current?._map) {
+                          leafletMap = geoJsonLayerRef.current._map;
+                          setMap(leafletMap);
+                        }
+
+                        // Filter GeoJSON to only show clicked neighborhood
+                        const filteredGeoJSON = {
+                          type: "FeatureCollection",
+                          features: montrealDataTop.features.filter(
+                            (f) =>
+                              (f.properties.name || f.properties.nom_arr) ===
+                              item.name
+                          ),
+                        };
+
+                        // Zoom to neighborhood bounds
+                        if (feature.geometry?.coordinates && leafletMap) {
+                          let allCoords = [];
+                          if (feature.geometry.type === "MultiPolygon") {
+                            feature.geometry.coordinates.forEach((poly) =>
+                              poly.forEach((ring) => allCoords.push(...ring))
+                            );
+                          } else if (feature.geometry.type === "Polygon") {
+                            feature.geometry.coordinates.forEach((ring) =>
+                              allCoords.push(...ring)
+                            );
+                          }
+                          const lats = allCoords.map((c) => c[1]);
+                          const lngs = allCoords.map((c) => c[0]);
+                          const bounds = [
+                            [Math.min(...lats), Math.min(...lngs)],
+                            [Math.max(...lats), Math.max(...lngs)],
+                          ];
+                          leafletMap.fitBounds(bounds, {
+                            maxZoom: 15,
+                            padding: [50, 50],
+                          });
+                        }
+
+                        // If clicking the currently pinned item from the list, unpin first (but still navigate)
+                        const wasPinnedSame = localPinnedName === item.name;
+                        if (wasPinnedSame) {
+                          setLocalPinnedName(null);
+                        }
+
+                        // Call the click handler
+                        onNeighborhoodClick({
+                          name:
+                            feature.properties.name ||
+                            feature.properties.nom_arr,
+                          neighborhood:
+                            feature.properties.neighborhood ||
+                            feature.properties.nom_qr,
+                          municipality:
+                            feature.properties.municipality ||
+                            feature.properties.nom_mun,
+                          neighborhoodId: feature.properties.no_qr,
+                          boroughId: feature.properties.no_arr,
+                          neighborhoodCode: feature.properties.value,
+                          averagePrice: feature.properties.avgPrice,
+                          singleFamilyPrice:
+                            feature.properties.singleFamilyPrice,
+                          condoPrice: feature.properties.condoPrice,
+                          dwellingCount: feature.properties.nb_log,
+                          listingCount: feature.properties.listingCount,
+                          pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
+                          marketTrend: `↗ +${feature.properties.priceChange}%`,
+                          area: feature.properties.area,
+                          scope: feature.properties.scope,
+                          rawProperties: {
+                            no_qr: feature.properties.no_qr,
+                            nom_qr: feature.properties.nom_qr,
+                            no_arr: feature.properties.no_arr,
+                            nom_arr: feature.properties.nom_arr,
+                            nom_mun: feature.properties.nom_mun,
+                            nb_log: feature.properties.nb_log,
+                            rawSingleFamily: feature.properties.rawSingleFamily,
+                            rawCondo: feature.properties.rawCondo,
+                          },
+                          description: `Detailed property exploration for ${item.name}`,
+                          isClickEvent: true,
+                          filteredGeoJSON: filteredGeoJSON,
+                          wasPinnedUnpinned: wasPinnedSame,
+                        });
+                      }
+                    }}
+                    style={{
+                      padding: "8px 10px",
+                      backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
+                      borderRadius: "6px",
+                      fontSize: "11px",
+                      color: "#333",
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                      border: "1px solid transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#FFD700";
+                      e.currentTarget.style.borderColor = "#FFC107";
+                      e.currentTarget.style.transform = "scale(1.02)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        index % 2 === 0 ? "#f9f9f9" : "#fff";
+                      e.currentTarget.style.borderColor = "transparent";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
+                  >
+                    {getAbbreviatedName(item.name)}
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
+
+        {!isMobile && (
+          <MapContainer
+            center={center}
+            verticalFactor={0.5}
+            zoom={zoom}
+            minZoom={selectedPart ? 10 : 6}
+            maxZoom={22}
+            /* Allow fractional zoom levels (default Leaflet zoomSnap=1 forces integers) */
+            zoomSnap={0.1}
+            zoomDelta={0.2}
+            style={{ height: "100%", width: "100%", background: "transparent" }}
+            zoomControl={false} //{isMobile}
+            scrollWheelZoom={false}
+            doubleClickZoom={true}
+            touchZoom={true}
+            boxZoom={true}
+            keyboard={true}
+            zoomAnimation={true}
+            fadeAnimation={true}
+            markerZoomAnimation={true}
+            attributionControl={false}
+            whenCreated={(mapInstance) => {
+              setMap(mapInstance);
+
+              // Ensure runtime options permit fractional zoom even for programmatic flyTo / fitBounds
+              mapInstance.options.zoomSnap = 0.1;
+              mapInstance.options.zoomDelta = 0.2;
+              // Optional: smoother animation easing
+              mapInstance.options.zoomAnimation = true;
+              mapInstance.options.zoomAnimationThreshold = 8;
+
+              // Add custom zoom control with custom position
+              const zoomControl = L.control.zoom({
+                position: "topleft",
               });
-              console.log("🔍 Current Zoom:", zoom.toFixed(2));
-            });
+              zoomControl.addTo(mapInstance);
 
-            // Log center on move
-            mapInstance.on("moveend", () => {
-              const center = mapInstance.getCenter();
-              const zoom = mapInstance.getZoom();
-              console.log("🗺️ Map Moved - Center:", {
-                lat: center.lat.toFixed(6),
-                lng: center.lng.toFixed(6),
+              // Remove any default tile layers
+              mapInstance.eachLayer((layer) => {
+                if (layer instanceof L.TileLayer) {
+                  mapInstance.removeLayer(layer);
+                }
               });
-              console.log("🔍 Zoom:", zoom.toFixed(2));
-            });
 
-            // if (shouldAnimateNeighborhoods && montrealData) {
-            //   setTimeout(() => {
-            //     triggerNeighborhoodAnimations();
-            //   }, 1000);
-            // }
-          }}
-        >
-          {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
-          <GeoJSON
-            data={getFilteredData() || montrealData}
-            style={getFeatureStyle}
-            onEachFeature={onEachFeature}
-            ref={geoJsonLayerRef}
-            key={JSON.stringify(filters) + (localPinnedName || "none")} // Force re-render when filters or pin state change
-          />
+              // Disable scroll wheel zoom but keep touch zoom (pinch)
+              mapInstance.scrollWheelZoom.disable();
 
-          {/* Iconic location markers */}
-          {iconicLocations.map((location) => (
-            <Marker
-              key={location.id}
-              position={location.coordinates}
-              icon={createIconicLocationIcon(location)}
+              // Log center and zoom on zoom change
+              mapInstance.on("zoomend", () => {
+                const zoom = mapInstance.getZoom();
+                const center = mapInstance.getCenter();
+                setCurrentZoom(zoom);
+                console.log("📍 Current Center:", {
+                  lat: center.lat.toFixed(6),
+                  lng: center.lng.toFixed(6),
+                });
+                console.log("🔍 Current Zoom:", zoom.toFixed(2));
+              });
+
+              // Log center on move
+              mapInstance.on("moveend", () => {
+                const center = mapInstance.getCenter();
+                const zoom = mapInstance.getZoom();
+                console.log("🗺️ Map Moved - Center:", {
+                  lat: center.lat.toFixed(6),
+                  lng: center.lng.toFixed(6),
+                });
+                console.log("🔍 Zoom:", zoom.toFixed(2));
+              });
+
+              // if (shouldAnimateNeighborhoods && montrealData) {
+              //   setTimeout(() => {
+              //     triggerNeighborhoodAnimations();
+              //   }, 1000);
+              // }
+            }}
+          >
+            <ZoomUpdater zoomLevel={zoomLevel} />
+            {/* GeoJSON: Top view (unrotated) when zoomed, else rotated */}
+            <GeoJSON
+              data={getFilteredData() || montrealData}
+              style={getFeatureStyle}
+              onEachFeature={onEachFeature}
+              ref={geoJsonLayerRef}
+              key={JSON.stringify(filters) + (localPinnedName || "none")} // Force re-render when filters or pin state change
             />
-          ))}
-        </MapContainer>
+
+            {/* Iconic location markers */}
+            {iconicLocations.map((location) => (
+              <Marker
+                key={location.id}
+                position={location.coordinates}
+                icon={createIconicLocationIcon(location)}
+              />
+            ))}
+          </MapContainer>
+        )}
 
         {/* Logo and Neighborhood List Container */}
         <div
@@ -1749,248 +2090,6 @@ const MontrealMap = ({
             />
           </div>
         </div>
-
-        {/* Neighborhood List - Mobile Only - Below Map */}
-        {isMobile && montrealData && (
-          <div
-            style={{
-              position: "fixed",
-              bottom: "20px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "90%",
-              maxWidth: "400px",
-              zIndex: 1000,
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              borderRadius: "12px",
-              padding: "12px",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
-              fontSize: "11px",
-            }}
-          >
-            <div
-              onClick={() => setShowNeighborhoodList(!showNeighborhoodList)}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                cursor: "pointer",
-                margin: "0 0 8px 0",
-                borderBottom: "2px solid #FFD700",
-                paddingBottom: "8px",
-              }}
-            >
-              <h4
-                style={{
-                  margin: 0,
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#000",
-                }}
-              >
-                Neighborhoods (
-                {getFilteredData()?.features.filter(
-                  (f, i, arr) =>
-                    arr.findIndex(
-                      (item) =>
-                        (item.properties.name || item.properties.nom_arr) ===
-                        (f.properties.name || f.properties.nom_arr)
-                    ) === i
-                ).length || 0}
-                )
-              </h4>
-              <span
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  color: "#FFD700",
-                  transition: "transform 0.3s ease",
-                  transform: showNeighborhoodList
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-                }}
-              >
-                ▼
-              </span>
-            </div>
-
-            {showNeighborhoodList && (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "4px",
-                  maxHeight: "20vh",
-                  overflowY: "auto",
-                }}
-              >
-                {getFilteredData()
-                  ?.features.map((f) => ({
-                    name: f.properties.name || f.properties.nom_arr,
-                    feature: f,
-                  }))
-                  .filter(
-                    (item, index, self) =>
-                      self.findIndex((i) => i.name === item.name) === index
-                  )
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((item, index) => (
-                    <div
-                      key={index}
-                      onClick={() => {
-                        // Trigger click on the neighborhood
-                        if (onNeighborhoodClick && item.feature) {
-                          const feature = item.feature;
-
-                          // Get the map instance
-                          let leafletMap = map;
-                          if (!leafletMap && geoJsonLayerRef.current?._map) {
-                            leafletMap = geoJsonLayerRef.current._map;
-                            setMap(leafletMap);
-                          }
-
-                          // Filter GeoJSON to only show clicked neighborhood
-                          const filteredGeoJSON = {
-                            type: "FeatureCollection",
-                            features: montrealDataTop.features.filter(
-                              (f) =>
-                                (f.properties.name || f.properties.nom_arr) ===
-                                item.name
-                            ),
-                          };
-
-                          // Zoom to neighborhood bounds
-                          if (feature.geometry?.coordinates && leafletMap) {
-                            let allCoords = [];
-                            if (feature.geometry.type === "MultiPolygon") {
-                              feature.geometry.coordinates.forEach((poly) =>
-                                poly.forEach((ring) => allCoords.push(...ring))
-                              );
-                            } else if (feature.geometry.type === "Polygon") {
-                              feature.geometry.coordinates.forEach((ring) =>
-                                allCoords.push(...ring)
-                              );
-                            }
-                            const lats = allCoords.map((c) => c[1]);
-                            const lngs = allCoords.map((c) => c[0]);
-                            const bounds = [
-                              [Math.min(...lats), Math.min(...lngs)],
-                              [Math.max(...lats), Math.max(...lngs)],
-                            ];
-                            leafletMap.fitBounds(bounds, {
-                              maxZoom: 15,
-                              padding: [50, 50],
-                            });
-                          }
-
-                          // If clicking the currently pinned item from the list, unpin first (but still navigate)
-                          const wasPinnedSame = localPinnedName === item.name;
-                          if (wasPinnedSame) {
-                            setLocalPinnedName(null);
-                          }
-
-                          // Call the click handler
-                          onNeighborhoodClick({
-                            name:
-                              feature.properties.name ||
-                              feature.properties.nom_arr,
-                            neighborhood:
-                              feature.properties.neighborhood ||
-                              feature.properties.nom_qr,
-                            municipality:
-                              feature.properties.municipality ||
-                              feature.properties.nom_mun,
-                            neighborhoodId: feature.properties.no_qr,
-                            boroughId: feature.properties.no_arr,
-                            neighborhoodCode: feature.properties.value,
-                            averagePrice: feature.properties.avgPrice,
-                            singleFamilyPrice:
-                              feature.properties.singleFamilyPrice,
-                            condoPrice: feature.properties.condoPrice,
-                            dwellingCount: feature.properties.nb_log,
-                            listingCount: feature.properties.listingCount,
-                            pricePerSqft: `$${feature.properties.pricePerSqft}/sq ft`,
-                            marketTrend: `↗ +${feature.properties.priceChange}%`,
-                            area: feature.properties.area,
-                            scope: feature.properties.scope,
-                            rawProperties: {
-                              no_qr: feature.properties.no_qr,
-                              nom_qr: feature.properties.nom_qr,
-                              no_arr: feature.properties.no_arr,
-                              nom_arr: feature.properties.nom_arr,
-                              nom_mun: feature.properties.nom_mun,
-                              nb_log: feature.properties.nb_log,
-                              rawSingleFamily:
-                                feature.properties.rawSingleFamily,
-                              rawCondo: feature.properties.rawCondo,
-                            },
-                            description: `Detailed property exploration for ${item.name}`,
-                            isClickEvent: true,
-                            filteredGeoJSON: filteredGeoJSON,
-                            wasPinnedUnpinned: wasPinnedSame,
-                          });
-
-                          // Close the list after selection
-                          setShowNeighborhoodList(false);
-                        }
-                      }}
-                      style={{
-                        padding: "8px 10px",
-                        backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
-                        borderRadius: "6px",
-                        fontSize: "11px",
-                        color: "#333",
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        border: "1px solid transparent",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#FFD700";
-                        e.currentTarget.style.borderColor = "#FFC107";
-                        e.currentTarget.style.transform = "scale(1.02)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor =
-                          index % 2 === 0 ? "#f9f9f9" : "#fff";
-                        e.currentTarget.style.borderColor = "transparent";
-                        e.currentTarget.style.transform = "scale(1)";
-                      }}
-                    >
-                      <span>{getAbbreviatedName(item.name)}</span>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent triggering zoom click
-                          if (localPinnedName === item.name) {
-                            setLocalPinnedName(null);
-                          } else {
-                            setLocalPinnedName(item.name);
-                          }
-                        }}
-                        style={{
-                          backgroundColor:
-                            localPinnedName === item.name ? "#000" : "#FFD700",
-                          color:
-                            localPinnedName === item.name ? "#FFD700" : "#000",
-                          border: "1px solid #FFC107",
-                          borderRadius: "4px",
-                          fontSize: "12px",
-                          fontWeight: 700,
-                          padding: "4px 6px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {localPinnedName === item.name ? "Unpin" : "Pin"}
-                      </button>
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Filter Button - Hidden on Mobile */}
         {!isMobile && (
