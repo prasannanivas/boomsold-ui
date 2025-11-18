@@ -1,0 +1,7661 @@
+[
+  {
+    "name": "CPE Pause Parents-Enfants",
+    "lat": 45.4565642,
+    "lon": -73.5677065,
+    "type": "kindergarten",
+    "address": "Rue Wellington",
+    "phone": "+1 514 768 7773",
+    "website": "https://www.centreppe.com/"
+  },
+  {
+    "name": "La Gard'École",
+    "lat": 45.5225891,
+    "lon": -73.5891462,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Au jardin des merveilles",
+    "lat": 45.5397911,
+    "lon": -73.6044225,
+    "type": "kindergarten",
+    "address": "Rue Saint-Zotique",
+    "phone": "+1-514-277-1773",
+    "website": "https://www.garderieaujardindesmerveilles.com/"
+  },
+  {
+    "name": "Les amis du jardin",
+    "lat": 45.5568853,
+    "lon": -73.5898183,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Coeur de Cannelle",
+    "lat": 45.5429997,
+    "lon": -73.5628508,
+    "type": "kindergarten",
+    "address": "Rue André-Laurendeau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Coeur Atout",
+    "lat": 45.547217,
+    "lon": -73.559916,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Michel",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Sablier",
+    "lat": 45.5324601,
+    "lon": -73.5715801,
+    "type": "kindergarten",
+    "address": "Rue Marie-Anne Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Phare, Enfants et Familles",
+    "lat": 45.544506,
+    "lon": -73.5674877,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": "https://phare-lighthouse.com/"
+  },
+  {
+    "name": "La Grande Ourse",
+    "lat": 45.552365,
+    "lon": -73.5654418,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Joseph Est",
+    "phone": "+1 5144397575",
+    "website": "https://garderiegrandeourse.com/"
+  },
+  {
+    "name": "CPE Les Poussineaux",
+    "lat": 45.3159692,
+    "lon": -73.3376573,
+    "type": "kindergarten",
+    "address": "Rue Pierre-Brault",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la Petite Enfance",
+    "lat": 45.5131367,
+    "lon": -73.5672447,
+    "type": "kindergarten",
+    "address": "Rue Ontario Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Fairmount",
+    "lat": 45.5227324,
+    "lon": -73.5953689,
+    "type": "childcare",
+    "address": "Avenue Fairmount Ouest",
+    "phone": "+1 514 274 4271",
+    "website": ""
+  },
+  {
+    "name": "Garderie Frimousse De Bellefeuille",
+    "lat": 45.7857633,
+    "lon": -74.0374335,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les P'tits de St-Vincent",
+    "lat": 45.6151232,
+    "lon": -73.6572445,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Narcisse",
+    "lat": 45.5561545,
+    "lon": -73.5415007,
+    "type": "childcare",
+    "address": "Rue de Rouen",
+    "phone": "+1-514-256-1131",
+    "website": "http://www.garderienarcisse.ca"
+  },
+  {
+    "name": "Garderie mini Trésor",
+    "lat": 45.425218,
+    "lon": -73.612547,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Mes premiers amis",
+    "lat": 45.5567824,
+    "lon": -73.5303388,
+    "type": "childcare",
+    "address": "Rue Sainte-Catherine Est",
+    "phone": "+1 514 619 1783",
+    "website": ""
+  },
+  {
+    "name": "CPE Halte-Répit Hochelaga-Maisonneuve",
+    "lat": 45.5556954,
+    "lon": -73.5306266,
+    "type": "kindergarten",
+    "address": "Rue Sainte-Catherine Est",
+    "phone": "+1 514 598 5357",
+    "website": "https://www.cpehalterepit.com/"
+  },
+  {
+    "name": "Garderie Les Petits Anges",
+    "lat": 45.5546484,
+    "lon": -73.531638,
+    "type": "childcare",
+    "address": "Rue Sainte-Catherine Est",
+    "phone": "+1-514-419-5997",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Jolis Canards Souriants",
+    "lat": 45.5542422,
+    "lon": -73.5319467,
+    "type": "childcare",
+    "address": "Rue Sainte-Catherine Est",
+    "phone": "+1-438-933-3388",
+    "website": ""
+  },
+  {
+    "name": "CPE de la Cöte",
+    "lat": 45.4965065,
+    "lon": -73.6219587,
+    "type": "childcare",
+    "address": "Chemin de la Côte-des-Neiges",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Metropolitain",
+    "lat": 45.4958043,
+    "lon": -73.6204969,
+    "type": "kindergarten",
+    "address": "Chemin de la Côte-des-Neiges",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "LaSalle des petits",
+    "lat": 45.4910499,
+    "lon": -73.5821861,
+    "type": "kindergarten",
+    "address": "Rue Sainte-Catherine Ouest",
+    "phone": "",
+    "website": "https://www.lasallecollege.com/about-us/facilities/lasalle-des-petits-daycare"
+  },
+  {
+    "name": "Garderie L'Abri",
+    "lat": 45.5595089,
+    "lon": -73.6581716,
+    "type": "kindergarten",
+    "address": "Rue Fleury Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Clair-Soleil de Mascouche",
+    "lat": 45.7301071,
+    "lon": -73.6565269,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Grenouille Rose",
+    "lat": 45.6680383,
+    "lon": -73.5427734,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Place des Enfants",
+    "lat": 45.5333194,
+    "lon": -73.610769,
+    "type": "childcare",
+    "address": "Rue Saint-Zotique Est",
+    "phone": "",
+    "website": "https://placedesenfants.ca/"
+  },
+  {
+    "name": "Les Petits Urbains",
+    "lat": 45.4925116,
+    "lon": -73.556598,
+    "type": "childcare",
+    "address": "Rue Smith",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bébé Miracle",
+    "lat": 45.5343161,
+    "lon": -73.6045594,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "+1 514 279 1771",
+    "website": ""
+  },
+  {
+    "name": "Garderie pouponnière Pré-maternelle",
+    "lat": 45.5457434,
+    "lon": -73.8631664,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Diamants",
+    "lat": 45.4709363,
+    "lon": -73.6357801,
+    "type": "childcare",
+    "address": "Avenue Somerled",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Sourires",
+    "lat": 45.4714829,
+    "lon": -73.6345797,
+    "type": "childcare",
+    "address": "Avenue Somerled",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mont-Royal",
+    "lat": 45.5186257,
+    "lon": -73.6451081,
+    "type": "childcare",
+    "address": "Boulevard Laird",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative Le Petit Castel",
+    "lat": 45.495373,
+    "lon": -73.8751583,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Sportifs",
+    "lat": 45.5320004,
+    "lon": -73.5652633,
+    "type": "childcare",
+    "address": "Avenue De Lorimier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Jardin d'Enfants NDG",
+    "lat": 45.4718714,
+    "lon": -73.6277903,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Fanfan Soleil",
+    "lat": 45.6436957,
+    "lon": -73.845449,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Envol",
+    "lat": 45.5330046,
+    "lon": -73.5669762,
+    "type": "childcare",
+    "address": "Rue Rachel Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Étoiles du Plateau",
+    "lat": 45.5328505,
+    "lon": -73.5671211,
+    "type": "childcare",
+    "address": "Rue Rachel Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Arc-en-Ciel",
+    "lat": 45.538426,
+    "lon": -73.5691583,
+    "type": "childcare",
+    "address": "Avenue du Mont-Royal Est",
+    "phone": "+1 514 419 8332",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Pirouette",
+    "lat": 45.5382567,
+    "lon": -73.569298,
+    "type": "childcare",
+    "address": "Avenue du Mont-Royal Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Amis De Lorraine",
+    "lat": 45.6747469,
+    "lon": -73.786524,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6821348,
+    "lon": -73.7910272,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Ma Fée Royale",
+    "lat": 45.5385435,
+    "lon": -73.569433,
+    "type": "childcare",
+    "address": "Avenue du Mont-Royal Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative",
+    "lat": 45.5813027,
+    "lon": -73.646964,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE la Petite Patrie",
+    "lat": 45.5323298,
+    "lon": -73.5969673,
+    "type": "childcare",
+    "address": "Boulevard Rosemont",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Turbulents Enr",
+    "lat": 45.5392217,
+    "lon": -73.6146071,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7873282,
+    "lon": -73.4051225,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7274894,
+    "lon": -73.6193159,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petites Cocinelles",
+    "lat": 45.7231781,
+    "lon": -73.7042071,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Place Crémazie",
+    "lat": 45.5411438,
+    "lon": -73.6404685,
+    "type": "kindergarten",
+    "address": "Boulevard Crémazie Ouest",
+    "phone": "+1-514-383-0171",
+    "website": ""
+  },
+  {
+    "name": "Orchard House",
+    "lat": 45.4733148,
+    "lon": -73.616282,
+    "type": "childcare",
+    "address": "Chemin de la côte Saint-Antoine",
+    "phone": "",
+    "website": "https://www.orchard-house.ca/"
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4066728,
+    "lon": -73.9208446,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Pre maternels nos petit amour",
+    "lat": 45.5982969,
+    "lon": -73.7241112,
+    "type": "kindergarten",
+    "address": "Boulevard des Laurentides",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Chouchou",
+    "lat": 45.4668685,
+    "lon": -73.5664928,
+    "type": "childcare",
+    "address": "Rue Wellington",
+    "phone": "+1 514-508-9855",
+    "website": ""
+  },
+  {
+    "name": "Académie l'Escargot Futé",
+    "lat": 45.5418629,
+    "lon": -73.6226072,
+    "type": "childcare",
+    "address": "Rue Villeray",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Assila inc.",
+    "lat": 45.4649457,
+    "lon": -73.5713165,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les petits athlètes",
+    "lat": 45.4687413,
+    "lon": -73.5710112,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les petits poussins",
+    "lat": 45.4690012,
+    "lon": -73.570984,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Zoukakou",
+    "lat": 45.3059948,
+    "lon": -73.8608764,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Trésors de Nemo inc.",
+    "lat": 45.6505681,
+    "lon": -73.8477806,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6374583,
+    "lon": -73.8395243,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les cristaux magiques",
+    "lat": 45.5431314,
+    "lon": -73.5462052,
+    "type": "kindergarten",
+    "address": "Rue Ontario Est",
+    "phone": "+1-514-605-3799",
+    "website": ""
+  },
+  {
+    "name": "Bébé magique",
+    "lat": 45.543034,
+    "lon": -73.5458586,
+    "type": "kindergarten",
+    "address": "Rue Ontario Est",
+    "phone": "+1-514-605-3799",
+    "website": ""
+  },
+  {
+    "name": "Ma 1ere pouponnière",
+    "lat": 45.552208,
+    "lon": -73.54016,
+    "type": "kindergarten",
+    "address": "Rue Ontario Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie 4257",
+    "lat": 45.5520263,
+    "lon": -73.5402732,
+    "type": "childcare",
+    "address": "Rue Ontario Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Préparatoire Le Boulier",
+    "lat": 45.5359092,
+    "lon": -73.7342892,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative Ducharme",
+    "lat": 45.5188867,
+    "lon": -73.6283171,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Amis de la Jungle",
+    "lat": 45.5468429,
+    "lon": -73.7755032,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "+1-450)-682-1414",
+    "website": "www.magarderie.com/garderie/20688-garderie-les-amis-de-la-jungle.html"
+  },
+  {
+    "name": "Lower Canada College Kindergarten",
+    "lat": 45.47002,
+    "lon": -73.6226656,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Chomedey",
+    "lat": 45.531064,
+    "lon": -73.7527072,
+    "type": "kindergarten",
+    "address": "Boulevard Samson",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les petits joyeux",
+    "lat": 45.447856,
+    "lon": -73.5727705,
+    "type": "kindergarten",
+    "address": "Rue de Verdun",
+    "phone": "+1-514-766-1566",
+    "website": ""
+  },
+  {
+    "name": "Garderie ABC Verdun",
+    "lat": 45.4508178,
+    "lon": -73.5724901,
+    "type": "kindergarten",
+    "address": "Rue de Verdun",
+    "phone": "+1-514-769-3341",
+    "website": ""
+  },
+  {
+    "name": "La forêt de Maple",
+    "lat": 45.4549393,
+    "lon": -73.5722355,
+    "type": "childcare",
+    "address": "Rue de Verdun",
+    "phone": "+1-514-316-4360",
+    "website": "https://laforetdemaple.com/"
+  },
+  {
+    "name": "Garderie Les Petits Oiseaux",
+    "lat": 45.4522964,
+    "lon": -73.5683547,
+    "type": "kindergarten",
+    "address": "Rue Woodland",
+    "phone": "+1-514-761-7361",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Les petits Trésors",
+    "lat": 45.4535424,
+    "lon": -73.5679807,
+    "type": "kindergarten",
+    "address": "Rue Wellington",
+    "phone": "+1-514-494-0439",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Lutins de Roussin",
+    "lat": 45.6411832,
+    "lon": -73.4904689,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Des Perséides",
+    "lat": 45.5090673,
+    "lon": -73.9814217,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.553648,
+    "lon": -73.6118004,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Sous la Bonne Étoile",
+    "lat": 45.5378574,
+    "lon": -73.5696719,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 521 5999",
+    "website": ""
+  },
+  {
+    "name": "CPE Château de Grand-Mère",
+    "lat": 45.5413308,
+    "lon": -73.6903908,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Îlot Câlin",
+    "lat": 45.524667,
+    "lon": -73.5753786,
+    "type": "childcare",
+    "address": "Rue Rachel Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les amis de St-Hubert",
+    "lat": 45.4897972,
+    "lon": -73.3876736,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Colibris",
+    "lat": 45.7052539,
+    "lon": -74.091477,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Lapins",
+    "lat": 45.4376601,
+    "lon": -73.5878767,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Centre De L'Exploration",
+    "lat": 45.4274997,
+    "lon": -73.5960496,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Au Galop",
+    "lat": 45.579494,
+    "lon": -73.6183624,
+    "type": "kindergarten",
+    "address": "43e Rue",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Service de garde L’Île des trésors",
+    "lat": 45.5360533,
+    "lon": -73.5548926,
+    "type": "childcare",
+    "address": "Rue Bercy",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Enfants De Tous Pays",
+    "lat": 45.526749,
+    "lon": -73.7109874,
+    "type": "kindergarten",
+    "address": "Rue Grenet",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Au Pays des Coccinelles",
+    "lat": 45.5216781,
+    "lon": -73.5115278,
+    "type": "kindergarten",
+    "address": "Rue Saint-Hélène",
+    "phone": "+1 450 679 2555",
+    "website": ""
+  },
+  {
+    "name": "CPE les Abeilles Bricoleuses",
+    "lat": 45.5474148,
+    "lon": -73.6702982,
+    "type": "kindergarten",
+    "address": "Rue Waverly",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE les Casinours",
+    "lat": 45.4871706,
+    "lon": -73.5528496,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE St-Georges et St-Joseph",
+    "lat": 45.4652091,
+    "lon": -73.8784849,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Académie des Petites Mains",
+    "lat": 45.4654085,
+    "lon": -73.801212,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Aimée",
+    "lat": 45.5190246,
+    "lon": -73.6976707,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie la Petite Maison Rouge",
+    "lat": 45.5192555,
+    "lon": -73.6979961,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Émelie",
+    "lat": 45.5196349,
+    "lon": -73.6974793,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre De La Petite Enfance Sol",
+    "lat": 45.5071038,
+    "lon": -73.6855028,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5219195,
+    "lon": -73.6922853,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la Petite Enfance Sepharade",
+    "lat": 45.498214,
+    "lon": -73.6787333,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie GAN OR",
+    "lat": 45.4984542,
+    "lon": -73.6784239,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Nitza",
+    "lat": 45.5015367,
+    "lon": -73.6815477,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Yvonne",
+    "lat": 45.5089807,
+    "lon": -73.6738776,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Génies de Saint-Laurent",
+    "lat": 45.5187009,
+    "lon": -73.6997525,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Bricole-Age",
+    "lat": 45.4739542,
+    "lon": -73.4431732,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Pinceau",
+    "lat": 45.5405774,
+    "lon": -73.7498806,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Agape",
+    "lat": 45.5402245,
+    "lon": -73.7494569,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Belle Aventure",
+    "lat": 45.5412657,
+    "lon": -73.7469651,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6509932,
+    "lon": -73.8477658,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Frisson De Colline",
+    "lat": 45.5201115,
+    "lon": -73.6155061,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Frimousses De Sainte-Dorothée",
+    "lat": 45.5240732,
+    "lon": -73.8027463,
+    "type": "kindergarten",
+    "address": "Boulevard Samson",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE chez nous chez vous",
+    "lat": 45.5371826,
+    "lon": -73.6187405,
+    "type": "childcare",
+    "address": "Rue de Castelnau Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Graffiti",
+    "lat": 45.5380009,
+    "lon": -73.6178524,
+    "type": "childcare",
+    "address": "Rue de Castelnau Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Gaderie Les Petits Écolos",
+    "lat": 45.5388402,
+    "lon": -73.6155802,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Evangeline",
+    "lat": 45.5247352,
+    "lon": -73.5661551,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Emilie",
+    "lat": 45.5068991,
+    "lon": -73.8275692,
+    "type": "childcare",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Garde Amis",
+    "lat": 45.4887905,
+    "lon": -73.5731917,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Tweetoons",
+    "lat": 45.5111851,
+    "lon": -73.8084788,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Lafontaine",
+    "lat": 45.5198235,
+    "lon": -73.5714538,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Communautaire",
+    "lat": 45.4685232,
+    "lon": -73.6238061,
+    "type": "childcare",
+    "address": "Avenue Hingston",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Yeshiva Levi Yitzchak",
+    "lat": 45.4929383,
+    "lon": -73.6426908,
+    "type": "childcare",
+    "address": "Avenue Plamondon",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Cocon du Bonheur",
+    "lat": 45.5718462,
+    "lon": -73.9112822,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie À chacun son histoire",
+    "lat": 45.5026061,
+    "lon": -73.468356,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Magie Rose",
+    "lat": 45.4964408,
+    "lon": -73.4865193,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Sous Une Pleuie",
+    "lat": 45.7592422,
+    "lon": -73.4829988,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Dawson",
+    "lat": 45.4886171,
+    "lon": -73.5880447,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Mila Inc.",
+    "lat": 45.5461356,
+    "lon": -73.5762523,
+    "type": "childcare",
+    "address": "Rue Masson",
+    "phone": "+1-514-376-5312",
+    "website": ""
+  },
+  {
+    "name": "Garderie Vendôme",
+    "lat": 45.468483,
+    "lon": -73.6275571,
+    "type": "childcare",
+    "address": "Grand-Boulevard",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Ptit Coin de Poucet",
+    "lat": 45.6355279,
+    "lon": -73.6044683,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Aventuriers d’Outremont",
+    "lat": 45.5155114,
+    "lon": -73.6288598,
+    "type": "kindergarten",
+    "address": "Chemin Bates",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Mini Trésors",
+    "lat": 45.5138811,
+    "lon": -73.6305449,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Ganorly",
+    "lat": 45.4987623,
+    "lon": -73.6340547,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Aux Petits Soins",
+    "lat": 45.4977819,
+    "lon": -73.6349843,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Service de garde des Saints Anges II",
+    "lat": 45.4983043,
+    "lon": -73.6352398,
+    "type": "childcare",
+    "address": "Avenue de Kent",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie des Colibris",
+    "lat": 45.4988469,
+    "lon": -73.6213115,
+    "type": "kindergarten",
+    "address": "Avenue Lacombe",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Kan Tsipor",
+    "lat": 45.493202,
+    "lon": -73.6356652,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie préscolaire Superkids",
+    "lat": 45.4913453,
+    "lon": -73.6304739,
+    "type": "kindergarten",
+    "address": "Avenue Victoria",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Petis Paons",
+    "lat": 45.4939688,
+    "lon": -73.6362902,
+    "type": "childcare",
+    "address": "Avenue Victoria",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Harmony",
+    "lat": 45.4979429,
+    "lon": -73.6448481,
+    "type": "childcare",
+    "address": "Avenue Victoria",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les premiers Pas",
+    "lat": 45.4785236,
+    "lon": -73.629388,
+    "type": "kindergarten",
+    "address": "Chemin de la Côte-Saint-Luc",
+    "phone": "",
+    "website": "https://www.garderielespremierspas.com/"
+  },
+  {
+    "name": "Garderie Éducative Snowdon",
+    "lat": 45.4844606,
+    "lon": -73.6318234,
+    "type": "kindergarten",
+    "address": "Boulevard Décarie",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Monde des Rêves",
+    "lat": 45.4181837,
+    "lon": -74.0489539,
+    "type": "kindergarten",
+    "address": "Chemin de l'Anse",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie le Paradis des bouts de chou",
+    "lat": 45.5448115,
+    "lon": -73.6151935,
+    "type": "kindergarten",
+    "address": "Rue De La Roche",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5445067,
+    "lon": -73.6148055,
+    "type": "kindergarten",
+    "address": "Rue Everett",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Ma Garderie",
+    "lat": 45.5458913,
+    "lon": -73.5517514,
+    "type": "childcare",
+    "address": "Rue Hochelaga",
+    "phone": "",
+    "website": "http://www.magarderie.com/garderie/35224-garderie-educative-joliette-inc-.html"
+  },
+  {
+    "name": "Capucine et Lulu",
+    "lat": 45.5391751,
+    "lon": -73.6053697,
+    "type": "childcare",
+    "address": "Rue Saint-Zotique",
+    "phone": "",
+    "website": "http://www.magarderie.com/garderie/78119-capucine-et-lulu.html"
+  },
+  {
+    "name": "CPE L'Éléphant Bleu",
+    "lat": 45.5382027,
+    "lon": -73.5604983,
+    "type": "childcare",
+    "address": "Rue Sherbrooke Est",
+    "phone": "+1-514-526-6463",
+    "website": "https://elephantbleu.ca/"
+  },
+  {
+    "name": "Enfance Pour Tous Beaumont",
+    "lat": 45.5268654,
+    "lon": -73.6197907,
+    "type": "kindergarten",
+    "address": "Avenue Beaumont",
+    "phone": "+1-514-439-3705",
+    "website": "https://enfancepourtous.ca/fr-CA/beaumont/"
+  },
+  {
+    "name": "Garderie La Chanterelle De Boucherville",
+    "lat": 45.6130282,
+    "lon": -73.4417838,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Jardin William",
+    "lat": 45.4885672,
+    "lon": -73.5659837,
+    "type": "kindergarten",
+    "address": "Rue William",
+    "phone": "+1-514-931-9455",
+    "website": "https://www.jardinwilliam.com"
+  },
+  {
+    "name": "Garderie Griffin",
+    "lat": 45.4904466,
+    "lon": -73.5658688,
+    "type": "childcare",
+    "address": "Rue Barré",
+    "phone": "+1-514-935-5577",
+    "website": "https://garderiegriffin.com"
+  },
+  {
+    "name": "Halte-garderie du PEC",
+    "lat": 45.5497772,
+    "lon": -73.5388574,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderi Les Petites Trésors",
+    "lat": 45.4293268,
+    "lon": -73.637414,
+    "type": "kindergarten",
+    "address": "Boulevard Newman",
+    "phone": "+1 514-903-2007",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Bons Élèves",
+    "lat": 45.4175292,
+    "lon": -73.6439014,
+    "type": "kindergarten",
+    "address": "90e Avenue",
+    "phone": "+1 514-365-1685",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Étoile d'Or",
+    "lat": 45.6780378,
+    "lon": -73.8865872,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre Éducatif Grandir en Qualité",
+    "lat": 45.5402873,
+    "lon": -73.6874045,
+    "type": "childcare",
+    "address": "Rue Dudemaine",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Petit Safari",
+    "lat": 45.511953,
+    "lon": -73.6917115,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "+1 514-994-4919",
+    "website": ""
+  },
+  {
+    "name": "CPE Charles W. McDougall de l'Hôpital Royal Victoria",
+    "lat": 45.4746367,
+    "lon": -73.6032895,
+    "type": "kindergarten",
+    "address": "Boulevard De Maisonneuve Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Service de Garde Saint-Arsène",
+    "lat": 45.5415577,
+    "lon": -73.6104577,
+    "type": "childcare",
+    "address": "Avenue Christophe-Colomb",
+    "phone": "",
+    "website": "https://st-arsene.cssdm.gouv.qc.ca/services/service-garde/"
+  },
+  {
+    "name": "Groupe d'entraide maternelle de la Petite Patrie",
+    "lat": 45.5400419,
+    "lon": -73.6070489,
+    "type": "childcare",
+    "address": "Avenue Christophe-Colomb",
+    "phone": "",
+    "website": "https://groupedentraidematernelle.org/"
+  },
+  {
+    "name": "Garderie Da-Do",
+    "lat": 45.4508432,
+    "lon": -73.5492511,
+    "type": "kindergarten",
+    "address": "Place des Jardins-des-Vosges",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Île des Soeurs - Installation La Ribouldingue",
+    "lat": 45.4666474,
+    "lon": -73.5510863,
+    "type": "kindergarten",
+    "address": "Chemin du Golf",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative L'Île des petits",
+    "lat": 45.4667713,
+    "lon": -73.5526382,
+    "type": "kindergarten",
+    "address": "Chemin du Golf",
+    "phone": "+1-514-342-1499",
+    "website": ""
+  },
+  {
+    "name": "Garderie au pays des z'amis",
+    "lat": 45.5437661,
+    "lon": -73.5982959,
+    "type": "childcare",
+    "address": "Avenue Papineau",
+    "phone": "",
+    "website": "https://garderie-au-pays-des-zamis.com/"
+  },
+  {
+    "name": "Garderie Éducative Diamant Vert",
+    "lat": 45.5576803,
+    "lon": -73.569595,
+    "type": "childcare",
+    "address": "Rue Masson",
+    "phone": "+1 514-507-6919",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Les Petits Koalas",
+    "lat": 45.5564544,
+    "lon": -73.5699975,
+    "type": "childcare",
+    "address": "Rue Masson",
+    "phone": "+1 514-728-1818",
+    "website": ""
+  },
+  {
+    "name": "Garderie International de Lasalle",
+    "lat": 45.434141,
+    "lon": -73.6490244,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie au Royaume des Petits de Rosemont",
+    "lat": 45.5534679,
+    "lon": -73.5719361,
+    "type": "childcare",
+    "address": "Rue Masson",
+    "phone": "+1 514-376-7511",
+    "website": ""
+  },
+  {
+    "name": "Garderie Thalie",
+    "lat": 45.5536257,
+    "lon": -73.5715058,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 438-333-0701",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative Le Grain Magique",
+    "lat": 45.55942,
+    "lon": -73.5716811,
+    "type": "childcare",
+    "address": "Rue Dandurand",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie au Royaume des Petits",
+    "lat": 45.5594178,
+    "lon": -73.5747541,
+    "type": "childcare",
+    "address": "Avenue Charlemagne",
+    "phone": "+1 514-259-2088",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative le Nid des Colombes",
+    "lat": 45.5579109,
+    "lon": -73.5723175,
+    "type": "childcare",
+    "address": "Rue Dandurand",
+    "phone": "+1 514-723-0222",
+    "website": ""
+  },
+  {
+    "name": "Garderie Petit Patrie",
+    "lat": 45.5570008,
+    "lon": -73.5732948,
+    "type": "childcare",
+    "address": "Rue Dandurand",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Boite aux 1000 Mots",
+    "lat": 45.5625022,
+    "lon": -73.5801704,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie 1-2-3 Soleil",
+    "lat": 45.5548526,
+    "lon": -73.5862362,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "+1 514 721 0007",
+    "website": "https://www.garderie1-2-3soleil.com/"
+  },
+  {
+    "name": "Garderie Éducative Mont-Sion",
+    "lat": 45.5562478,
+    "lon": -73.5731094,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 508 1281",
+    "website": ""
+  },
+  {
+    "name": "Service de Garde en Milieu Familiale",
+    "lat": 45.5513306,
+    "lon": -73.5749821,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 727 0053, +1 514 679 8381",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5994783,
+    "lon": -73.7242239,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6014688,
+    "lon": -73.7265109,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Fleurs de l'Avenir",
+    "lat": 45.6040479,
+    "lon": -73.729323,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "L'Académie des Petits Bonheurs",
+    "lat": 45.5953728,
+    "lon": -73.7209843,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Royaume de Vimont",
+    "lat": 45.608159,
+    "lon": -73.7329657,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les amis de Monteuil",
+    "lat": 45.6170081,
+    "lon": -73.7421522,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Nursery Les Petites Marionnettes",
+    "lat": 45.6181381,
+    "lon": -73.7422687,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Anges de l'avenir",
+    "lat": 45.6265613,
+    "lon": -73.7508001,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie le Petit Monde d'Auteil",
+    "lat": 45.6279319,
+    "lon": -73.7513241,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Explorateurs",
+    "lat": 45.618822,
+    "lon": -73.7440109,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Paradis des Laurentides",
+    "lat": 45.636942,
+    "lon": -73.7535239,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative Poupa",
+    "lat": 45.6450712,
+    "lon": -73.7530755,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Acadmie des Copains",
+    "lat": 45.6603834,
+    "lon": -73.7662924,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bichou",
+    "lat": 45.6416236,
+    "lon": -73.7855343,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5655321,
+    "lon": -73.7004176,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5732207,
+    "lon": -73.6863946,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5751628,
+    "lon": -73.6833073,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5624495,
+    "lon": -73.6917409,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Mini Minous",
+    "lat": 45.5626406,
+    "lon": -73.6919629,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5238017,
+    "lon": -73.5941312,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Tic Tac Toe",
+    "lat": 45.5598733,
+    "lon": -73.6863038,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Planète des Petits Ecolos",
+    "lat": 45.5592326,
+    "lon": -73.6897047,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative du Quartier",
+    "lat": 45.5591874,
+    "lon": -73.6904913,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5671202,
+    "lon": -73.5759823,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1-514-728-0202",
+    "website": ""
+  },
+  {
+    "name": "Mon Beau Château",
+    "lat": 45.5520037,
+    "lon": -73.5483701,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5487332,
+    "lon": -73.5840303,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 725 8893",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Jasmine & Aladin",
+    "lat": 45.5467421,
+    "lon": -73.585799,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 419 9661",
+    "website": "jasminealadin.com"
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5467701,
+    "lon": -73.5851956,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 623 6739",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bia Mel V",
+    "lat": 45.5226894,
+    "lon": -73.523417,
+    "type": "kindergarten",
+    "address": "Boulevard La Fayette",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5684817,
+    "lon": -73.5840335,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5663496,
+    "lon": -73.5863668,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Princes Sofia",
+    "lat": 45.5658188,
+    "lon": -73.5863589,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie Préscolaire de Rosemont",
+    "lat": 45.5775099,
+    "lon": -73.5761974,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Petits Trésors",
+    "lat": 45.567509,
+    "lon": -73.585336,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE aux Petites-Bulles",
+    "lat": 45.6047997,
+    "lon": -73.8351455,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5860678,
+    "lon": -73.8515628,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La P'tite Griffe",
+    "lat": 45.5615593,
+    "lon": -73.8869886,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5604666,
+    "lon": -73.8885511,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Studio 0-5",
+    "lat": 45.5203397,
+    "lon": -73.5488831,
+    "type": "childcare",
+    "address": "avenue Papineau",
+    "phone": "+1 438-476-3330",
+    "website": "https://m.facebook.com/cpestudio05"
+  },
+  {
+    "name": "La Maison Des Enfants",
+    "lat": 45.4940587,
+    "lon": -73.4833752,
+    "type": "childcare",
+    "address": "Boulevard Churchill",
+    "phone": "+1-450-923-8038",
+    "website": ""
+  },
+  {
+    "name": "Les Bambins du Plateau",
+    "lat": 45.5176344,
+    "lon": -73.5811947,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4721887,
+    "lon": -73.8322445,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Nursery L'académie De St-Michel",
+    "lat": 45.5631229,
+    "lon": -73.6085321,
+    "type": "childcare",
+    "address": "Boulevard Saint-Michel",
+    "phone": "+1-438-778-3839",
+    "website": "https://garderiestmichel.ca/"
+  },
+  {
+    "name": "Palais des précieux",
+    "lat": 45.6674569,
+    "lon": -73.756893,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.575944,
+    "lon": -73.714469,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5768818,
+    "lon": -73.7130165,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5789026,
+    "lon": -73.7104252,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5721708,
+    "lon": -73.7400391,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.599962,
+    "lon": -73.7326225,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6266748,
+    "lon": -73.8060677,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie au Pays Aladin",
+    "lat": 45.5505144,
+    "lon": -73.7110846,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5598783,
+    "lon": -73.713582,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Bambinerie",
+    "lat": 45.5958499,
+    "lon": -73.7891461,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre Préscolaire La Renaissance",
+    "lat": 45.6017429,
+    "lon": -73.7883153,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "+1-450-622-0744",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6099206,
+    "lon": -73.7915046,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6147211,
+    "lon": -73.785741,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6179819,
+    "lon": -73.7808991,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Anges Du Bonheur",
+    "lat": 45.4572082,
+    "lon": -73.5760884,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6073875,
+    "lon": -73.67618,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Les Moussaillons",
+    "lat": 45.5558821,
+    "lon": -73.6409541,
+    "type": "kindergarten",
+    "address": "Rue Legendre Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Petit monde du Collège Ahuntsic",
+    "lat": 45.5510994,
+    "lon": -73.6403345,
+    "type": "kindergarten",
+    "address": "Rue Saint-Hubert",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre Éducatif Les Petits Pandas",
+    "lat": 45.4462008,
+    "lon": -73.5774048,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5937804,
+    "lon": -73.6646848,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5971904,
+    "lon": -73.6587934,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5975399,
+    "lon": -73.6583954,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5421687,
+    "lon": -73.7267601,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5382917,
+    "lon": -73.7354575,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5378133,
+    "lon": -73.7352071,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5380552,
+    "lon": -73.7395374,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5375844,
+    "lon": -73.7434951,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5372547,
+    "lon": -73.7446906,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Bonbonnière",
+    "lat": 45.5643001,
+    "lon": -73.6552646,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5759575,
+    "lon": -73.7861575,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5711025,
+    "lon": -73.7834986,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5584095,
+    "lon": -73.7659521,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5491757,
+    "lon": -73.7577105,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "L'Académie des Minis Coup de Pouce",
+    "lat": 45.399021,
+    "lon": -74.0268011,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5484026,
+    "lon": -73.7569794,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5453167,
+    "lon": -73.7536069,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.545182,
+    "lon": -73.7533567,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5427379,
+    "lon": -73.7507223,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5399648,
+    "lon": -73.7262543,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5352431,
+    "lon": -73.7372118,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5326354,
+    "lon": -73.7523361,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5316901,
+    "lon": -73.7538564,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5263,
+    "lon": -73.7664636,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5463076,
+    "lon": -73.7608129,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5490661,
+    "lon": -73.7679541,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5613114,
+    "lon": -73.5763389,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5748791,
+    "lon": -73.7643933,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5793047,
+    "lon": -73.7946253,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5789213,
+    "lon": -73.8253567,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5901687,
+    "lon": -73.8152964,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5736413,
+    "lon": -73.8174078,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5714799,
+    "lon": -73.8202997,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.657977,
+    "lon": -73.5921295,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.663747,
+    "lon": -73.5820176,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5333851,
+    "lon": -73.7909131,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5209928,
+    "lon": -73.7931593,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5297414,
+    "lon": -73.8183735,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5293468,
+    "lon": -73.8196298,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif Les Fées Enchantées",
+    "lat": 45.5280316,
+    "lon": -73.8210511,
+    "type": "kindergarten",
+    "address": "Montée Gravel",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5531232,
+    "lon": -73.8562917,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5510452,
+    "lon": -73.858574,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5517529,
+    "lon": -73.8694247,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5732515,
+    "lon": -73.8718146,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5765337,
+    "lon": -73.8743213,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5779375,
+    "lon": -73.8814887,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.568118,
+    "lon": -73.8861003,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5684299,
+    "lon": -73.8853544,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.568525,
+    "lon": -73.8850758,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.666226,
+    "lon": -73.5518875,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mes Premiers Pas",
+    "lat": 45.5044699,
+    "lon": -73.6393897,
+    "type": "kindergarten",
+    "address": "Chemin de la Côte-des-Neiges",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4546821,
+    "lon": -73.7927628,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Coucou Caribou",
+    "lat": 45.4584881,
+    "lon": -73.3103249,
+    "type": "kindergarten",
+    "address": "Chemin de Chambly",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5651141,
+    "lon": -73.577719,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Grandir Ensemble",
+    "lat": 45.5638396,
+    "lon": -73.5784325,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "+1-514-728-1616",
+    "website": "https://www.garderiegrandirensemble.com/"
+  },
+  {
+    "name": "Académie Préscolaire Les Coccinelles",
+    "lat": 45.4524645,
+    "lon": -73.8871793,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5080791,
+    "lon": -73.8206904,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5074292,
+    "lon": -73.8194707,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5053072,
+    "lon": -73.8179502,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5044478,
+    "lon": -73.8170998,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4996614,
+    "lon": -73.8125816,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4911469,
+    "lon": -73.8034563,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4986095,
+    "lon": -73.8115957,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative L'echo du coeur",
+    "lat": 45.5654787,
+    "lon": -73.5920118,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1-514-373-7512",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les 5 Sens",
+    "lat": 45.5632507,
+    "lon": -73.5941661,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1-514-439-3232",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Djura",
+    "lat": 45.5615713,
+    "lon": -73.596126,
+    "type": "childcare",
+    "address": "Rue Jean-Talon Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre Éducatif Enfanthèque",
+    "lat": 45.4634703,
+    "lon": -73.5877629,
+    "type": "kindergarten",
+    "address": "Rue Laurendeau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducatie Les Futurs Génies",
+    "lat": 45.5463164,
+    "lon": -73.6729691,
+    "type": "childcare",
+    "address": "Boulevard Henri-Bourassa Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Petit Palais du Quartier",
+    "lat": 45.529279,
+    "lon": -73.7245407,
+    "type": "childcare",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": "https://www.garderiepetitpalais.com/"
+  },
+  {
+    "name": "Le chemin des petits enfants de Loulou",
+    "lat": 45.533299,
+    "lon": -73.6054775,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "+1 514 903 1030",
+    "website": "https://www.cpeloulou.com/"
+  },
+  {
+    "name": "Garderie Ô Petites Merveilles",
+    "lat": 45.5640455,
+    "lon": -73.5879304,
+    "type": "childcare",
+    "address": "Rue Bélanger",
+    "phone": "+1 514 891 0986",
+    "website": ""
+  },
+  {
+    "name": "garderie arbre à bijoux",
+    "lat": 45.5418705,
+    "lon": -73.6154682,
+    "type": "childcare",
+    "address": "Rue Saint-Hubert",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Monde de Les Petits Enfants",
+    "lat": 45.4522455,
+    "lon": -73.645494,
+    "type": "childcare",
+    "address": "Rue Milner",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La boîte magique",
+    "lat": 45.4572554,
+    "lon": -73.5894418,
+    "type": "childcare",
+    "address": "Rue Jolicoeur",
+    "phone": "+1 514 732 1432",
+    "website": "https://coeur-immacule-de-marie.cssdm.gouv.qc.ca/services/garde/"
+  },
+  {
+    "name": "CPE Technoflos",
+    "lat": 45.4948045,
+    "lon": -73.5642876,
+    "type": "kindergarten",
+    "address": "Rue Jean-D'Estrées",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6395933,
+    "lon": -73.8454337,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6398391,
+    "lon": -73.8426967,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "L'Univers de la Paix Gardérie",
+    "lat": 45.5322728,
+    "lon": -73.6064108,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "+1 514 657 3716",
+    "website": ""
+  },
+  {
+    "name": "Académie Josée Poirier",
+    "lat": 45.5401688,
+    "lon": -73.599231,
+    "type": "childcare",
+    "address": "Rue Beaubien Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Mes Premiers Pas",
+    "lat": 45.5716643,
+    "lon": -73.566839,
+    "type": "childcare",
+    "address": "Rue de Bellechasse",
+    "phone": "+1 514 727 2323",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4430969,
+    "lon": -73.7410417,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Ma Petite Ecole Beaubien",
+    "lat": 45.5866919,
+    "lon": -73.5610375,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Anges de Beaubien",
+    "lat": 45.5876312,
+    "lon": -73.5605661,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Petits Mains Magiques",
+    "lat": 45.5878387,
+    "lon": -73.5612282,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Mes Cheris",
+    "lat": 45.5884066,
+    "lon": -73.5608696,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.589925,
+    "lon": -73.5766046,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5894564,
+    "lon": -73.5767886,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les petits aventuriers",
+    "lat": 45.4581212,
+    "lon": -73.5956985,
+    "type": "childcare",
+    "address": "boulevard Monk",
+    "phone": "+15147683228",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5177081,
+    "lon": -73.4896123,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4995086,
+    "lon": -73.4252975,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4910778,
+    "lon": -73.4313157,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4768589,
+    "lon": -73.475546,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Moments Magiques",
+    "lat": 45.4757447,
+    "lon": -73.4722374,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4497958,
+    "lon": -73.4674554,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie",
+    "lat": 45.4555379,
+    "lon": -73.5673848,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4406653,
+    "lon": -73.7338664,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.439678,
+    "lon": -73.7366039,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4292377,
+    "lon": -73.8240658,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6577783,
+    "lon": -73.8545014,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.662082,
+    "lon": -73.8637249,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6628434,
+    "lon": -73.8643331,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6563315,
+    "lon": -73.7996088,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.671839,
+    "lon": -73.8781928,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.678631,
+    "lon": -73.8874673,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6793572,
+    "lon": -73.8883794,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.681412,
+    "lon": -73.8931432,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6819762,
+    "lon": -73.8940608,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.722447,
+    "lon": -73.6905738,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7235098,
+    "lon": -73.6826051,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7184345,
+    "lon": -73.6827221,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Royaume de Rachel",
+    "lat": 45.5230225,
+    "lon": -73.5768725,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.548803,
+    "lon": -73.6455588,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Trois Gamines",
+    "lat": 45.5485769,
+    "lon": -73.6447853,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7204084,
+    "lon": -73.6577016,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7105367,
+    "lon": -73.6533927,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie le coin des amis",
+    "lat": 45.5738828,
+    "lon": -73.5854068,
+    "type": "childcare",
+    "address": "Rue Jean-Talon Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Joyeuses Marguerites",
+    "lat": 45.5694686,
+    "lon": -73.5967125,
+    "type": "childcare",
+    "address": "Rue Villeray",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Parentèle de Laval",
+    "lat": 45.5641116,
+    "lon": -73.6938242,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7057571,
+    "lon": -73.6305862,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.707856,
+    "lon": -73.6287407,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7074595,
+    "lon": -73.6232217,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bélanger",
+    "lat": 45.5630144,
+    "lon": -73.5887372,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 721 0200",
+    "website": ""
+  },
+  {
+    "name": "Garderie les petits loups",
+    "lat": 45.5550209,
+    "lon": -73.5568905,
+    "type": "kindergarten",
+    "address": "boulevard Pie-IX",
+    "phone": "514-515-9970",
+    "website": "https://www.garderielespetitsloups.ca/"
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7371676,
+    "lon": -73.6115233,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7397018,
+    "lon": -73.6116942,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7399529,
+    "lon": -73.6110287,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Parcours des Petits Matelots",
+    "lat": 45.5556973,
+    "lon": -73.5956252,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 593 5969",
+    "website": ""
+  },
+  {
+    "name": "Garderie Câlin Doux",
+    "lat": 45.5516474,
+    "lon": -73.5991085,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 508 3737",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7108529,
+    "lon": -73.513099,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7523491,
+    "lon": -73.6128381,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7179893,
+    "lon": -73.511955,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Le Royaume des Coccinelles",
+    "lat": 45.5426054,
+    "lon": -73.6067479,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Pouponnière",
+    "lat": 45.5426966,
+    "lon": -73.6066638,
+    "type": "childcare",
+    "address": "Rue Bélanger",
+    "phone": "+1 514 999 4695",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5375583,
+    "lon": -73.9267507,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5431528,
+    "lon": -73.9139539,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.498867,
+    "lon": -73.9697206,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6962745,
+    "lon": -73.9165185,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7036369,
+    "lon": -73.9263159,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4775187,
+    "lon": -73.4762555,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4790945,
+    "lon": -73.4773008,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Rubis Magic",
+    "lat": 45.4893911,
+    "lon": -73.4723431,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.578943,
+    "lon": -73.581881,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Merveilles Rosemont",
+    "lat": 45.5494251,
+    "lon": -73.6006238,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 725 0254",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Saint-Barthélemy",
+    "lat": 45.5509268,
+    "lon": -73.599359,
+    "type": "childcare",
+    "address": "",
+    "phone": "+1 514 721 5454",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5511496,
+    "lon": -73.5991727,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Rossignols du Parc",
+    "lat": 45.5215159,
+    "lon": -73.6010985,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la petite enfance Patapouf Inc.",
+    "lat": 45.4840175,
+    "lon": -73.575669,
+    "type": "kindergarten",
+    "address": "Rue Vinet",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "P'tit Train Express",
+    "lat": 45.4937769,
+    "lon": -73.7053157,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'heure joyeuse",
+    "lat": 45.5135803,
+    "lon": -73.6832896,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Erika",
+    "lat": 45.5124055,
+    "lon": -73.6812757,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie des Marronniers",
+    "lat": 45.6022481,
+    "lon": -73.7062248,
+    "type": "kindergarten",
+    "address": "Montée Monette",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Merveilles du Royaume",
+    "lat": 45.6430895,
+    "lon": -73.5737198,
+    "type": "kindergarten",
+    "address": "Boulevard Maurice-Duplessis",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Le Pinceau",
+    "lat": 45.5122974,
+    "lon": -73.6921642,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Montessori International Blainville",
+    "lat": 45.6515068,
+    "lon": -73.7986795,
+    "type": "kindergarten",
+    "address": "Chemin du Bas-de-Sainte-Thérèse",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative bilingue Tic Tac Toc",
+    "lat": 45.4620051,
+    "lon": -74.0864484,
+    "type": "kindergarten",
+    "address": "Rue Notre-Dame",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Croque la Vie",
+    "lat": 45.461687,
+    "lon": -74.0870511,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "+14504154258",
+    "website": ""
+  },
+  {
+    "name": "CPE Au royaume des chérubins",
+    "lat": 45.6297091,
+    "lon": -73.3765148,
+    "type": "childcare",
+    "address": "Rue Jean Coutu",
+    "phone": "",
+    "website": "https://gw.micro-acces.com/auroyaumedescherubins/"
+  },
+  {
+    "name": "Garderie éducative O'Brien",
+    "lat": 45.5236237,
+    "lon": -73.6908304,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Petite École de Grandes Découvertes",
+    "lat": 45.5093547,
+    "lon": -73.6949175,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Antonietta",
+    "lat": 45.5067305,
+    "lon": -73.6927002,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Rita",
+    "lat": 45.5199961,
+    "lon": -73.6755699,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Luney Toons",
+    "lat": 45.5196183,
+    "lon": -73.6760401,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la Petite Enfance les Mousses Du Mont",
+    "lat": 45.5406491,
+    "lon": -73.350491,
+    "type": "kindergarten",
+    "address": "Montée Montarville",
+    "phone": "+14504414811",
+    "website": ""
+  },
+  {
+    "name": "La garderie Montarville Inc.",
+    "lat": 45.5264202,
+    "lon": -73.3396116,
+    "type": "childcare",
+    "address": "Rue Saint-Jacques",
+    "phone": "",
+    "website": "https://garderiemontarville.com/"
+  },
+  {
+    "name": "Jardin des Lilas",
+    "lat": 45.5290717,
+    "lon": -73.6690758,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Montpellier",
+    "lat": 45.529196,
+    "lon": -73.6683263,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les petites cellules",
+    "lat": 45.491989,
+    "lon": -73.7284186,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Shalom",
+    "lat": 45.4970636,
+    "lon": -73.6888659,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Brindami",
+    "lat": 45.4329973,
+    "lon": -73.647859,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4483759,
+    "lon": -73.6080901,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Mini Pegase",
+    "lat": 45.4370182,
+    "lon": -73.4725405,
+    "type": "childcare",
+    "address": "Boulevard Taschereau",
+    "phone": "",
+    "website": "https://www.garderieminipegase.com/"
+  },
+  {
+    "name": "Garderie Éducative Gros Câlin",
+    "lat": 45.455244,
+    "lon": -73.4916494,
+    "type": "childcare",
+    "address": "Avenue Stravinski",
+    "phone": "+1 514-560-0417",
+    "website": "https://garderieeducativegroscalin.com/"
+  },
+  {
+    "name": "Garderie éducative Les P'tits Anges D'Anjou",
+    "lat": 45.6051453,
+    "lon": -73.55483,
+    "type": "kindergarten",
+    "address": "Boulevard Joseph-Renaud",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Petits monstres rigolos",
+    "lat": 45.53798,
+    "lon": -73.6596787,
+    "type": "childcare",
+    "address": "Rue Meilleur",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Petite Académie",
+    "lat": 45.5272804,
+    "lon": -73.7202863,
+    "type": "childcare",
+    "address": "Boulevard Laurentien",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Bourgeons Iman",
+    "lat": 45.5295209,
+    "lon": -73.7226433,
+    "type": "childcare",
+    "address": "Boulevard Laurentien",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Fleur de Lys",
+    "lat": 45.5317967,
+    "lon": -73.7209291,
+    "type": "childcare",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": "https://garderiefleurdelys.ca/"
+  },
+  {
+    "name": "Garderie éducative Citronelle et ses amis Inc.",
+    "lat": 45.6023965,
+    "lon": -73.5318136,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie Montessori Brossard",
+    "lat": 45.456249,
+    "lon": -73.4791375,
+    "type": "childcare",
+    "address": "Boulevard de Rome",
+    "phone": "",
+    "website": "https://www.brossard-montessoriacademy.com/"
+  },
+  {
+    "name": "Garderie La Petite École de Brossard",
+    "lat": 45.455658,
+    "lon": -73.4915659,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5137577,
+    "lon": -73.5685938,
+    "type": "kindergarten",
+    "address": "Rue Sherbrooke Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Tout Doux",
+    "lat": 45.4562286,
+    "lon": -73.4414934,
+    "type": "kindergarten",
+    "address": "Avenue Cousin",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Claire Fontaine de Pincourt",
+    "lat": 45.3866407,
+    "lon": -73.9734079,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les enfants de l'île",
+    "lat": 45.3938347,
+    "lon": -73.9544343,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Alexandra",
+    "lat": 45.5329018,
+    "lon": -73.6209021,
+    "type": "kindergarten",
+    "address": "Rue Alexandra",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Bottine Filante",
+    "lat": 45.5411686,
+    "lon": -73.6099455,
+    "type": "kindergarten",
+    "address": "Avenue Christophe-Colomb",
+    "phone": "",
+    "website": "https://cpebottinefilante.org/"
+  },
+  {
+    "name": "CPE Champagneur",
+    "lat": 45.5203424,
+    "lon": -73.6133897,
+    "type": "childcare",
+    "address": "Avenue Duverger",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5941364,
+    "lon": -73.6633438,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5880294,
+    "lon": -73.5279323,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5881504,
+    "lon": -73.5282077,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Jardin Charmant",
+    "lat": 45.5574838,
+    "lon": -73.5456787,
+    "type": "childcare",
+    "address": "Avenue Bennett",
+    "phone": "+1 514 256 5548",
+    "website": ""
+  },
+  {
+    "name": "CPE La Ruche",
+    "lat": 45.5597786,
+    "lon": -73.544432,
+    "type": "childcare",
+    "address": "Rue Leclaire",
+    "phone": "+1-514-253-7736",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5996471,
+    "lon": -73.7174534,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "L'Enfant-Zoo",
+    "lat": 45.4276931,
+    "lon": -73.3089709,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Enfant des Neiges",
+    "lat": 45.479646,
+    "lon": -73.6295262,
+    "type": "kindergarten",
+    "address": "Rue Snowdon",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Ma petite école Snowdon",
+    "lat": 45.4821422,
+    "lon": -73.6275804,
+    "type": "kindergarten",
+    "address": "Rue Snowdon",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5388132,
+    "lon": -73.7817114,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Sherazad",
+    "lat": 45.5004488,
+    "lon": -73.6431965,
+    "type": "childcare",
+    "address": "Avenue de Courtrai",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Génies",
+    "lat": 45.5049903,
+    "lon": -73.6189509,
+    "type": "kindergarten",
+    "address": "Avenue Willowdale",
+    "phone": "",
+    "website": "https://www.lespetitsgenies.polymtl.ca"
+  },
+  {
+    "name": "CPE HEC",
+    "lat": 45.503385,
+    "lon": -73.6197351,
+    "type": "kindergarten",
+    "address": "Avenue Louis-Colin",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE HEC Installation Decelles",
+    "lat": 45.498302,
+    "lon": -73.6201506,
+    "type": "kindergarten",
+    "address": "Avenue Decelles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Fée des Neiges",
+    "lat": 45.4970895,
+    "lon": -73.6211586,
+    "type": "kindergarten",
+    "address": "Rue Jean-Brillant",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Gardien des Rêves",
+    "lat": 45.5001367,
+    "lon": -73.6329582,
+    "type": "kindergarten",
+    "address": "Avenue Van Horne",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE St. Mary",
+    "lat": 45.4956098,
+    "lon": -73.6241782,
+    "type": "childcare",
+    "address": "Avenue Lacombe",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE de Saint-Lambert",
+    "lat": 45.4997635,
+    "lon": -73.5028551,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7627184,
+    "lon": -73.4475658,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre De La Petite Enfance Bobino",
+    "lat": 45.3179876,
+    "lon": -73.9314478,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative La Petite École",
+    "lat": 45.7088684,
+    "lon": -73.9138627,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Explorateurs",
+    "lat": 45.5279478,
+    "lon": -73.935185,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Chez-Nous Chez-Vous",
+    "lat": 45.5457186,
+    "lon": -73.6366316,
+    "type": "kindergarten",
+    "address": "Rue Berri",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Palais Des P'Tits Prodiges Inc",
+    "lat": 45.705646,
+    "lon": -73.6841838,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.727644,
+    "lon": -73.6214061,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Petite Ardoise De Rosemère",
+    "lat": 45.6503815,
+    "lon": -73.7755905,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre À La Petite Enfance L'Arche De Noé",
+    "lat": 45.565958,
+    "lon": -73.8157159,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5736416,
+    "lon": -73.8174163,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Priouette",
+    "lat": 45.5792396,
+    "lon": -73.8128656,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Au Jardin des Petits Mozarts",
+    "lat": 45.578627,
+    "lon": -73.8048549,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6230387,
+    "lon": -73.974559,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Bedondaine",
+    "lat": 45.6256753,
+    "lon": -73.9737651,
+    "type": "kindergarten",
+    "address": "Rue Coursol",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Royaume des anges",
+    "lat": 45.6865901,
+    "lon": -73.7283874,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Peluche et Aventure",
+    "lat": 45.6224619,
+    "lon": -73.8208695,
+    "type": "kindergarten",
+    "address": "Rue Péladeau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Boîte a Bizous",
+    "lat": 45.3962301,
+    "lon": -73.5699398,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Chérubins",
+    "lat": 45.3763372,
+    "lon": -73.5412761,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Kateri III",
+    "lat": 45.3709216,
+    "lon": -73.5852488,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Copains D'Abord",
+    "lat": 45.5419755,
+    "lon": -73.3585742,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Patachou",
+    "lat": 45.3411258,
+    "lon": -73.7466792,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mère Framboise",
+    "lat": 45.4595107,
+    "lon": -73.8478358,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "C.P.E. Bedondaine, Pavillon l'Arc-en-ciel",
+    "lat": 45.623787,
+    "lon": -73.9760489,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Coeur d'Enfant III",
+    "lat": 45.7913403,
+    "lon": -74.0534066,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7707602,
+    "lon": -73.4486785,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Frimousses du Fort",
+    "lat": 45.4329666,
+    "lon": -73.3067152,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5147049,
+    "lon": -73.9794117,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.3117616,
+    "lon": -73.8771169,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Eileen Marie",
+    "lat": 45.4175619,
+    "lon": -74.0444532,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Pour Tous Les Amis",
+    "lat": 45.3878915,
+    "lon": -73.9907398,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Aux Milles Jeux",
+    "lat": 45.4705014,
+    "lon": -73.3780899,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Semeurs",
+    "lat": 45.4799497,
+    "lon": -73.4009952,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Petite Semence",
+    "lat": 45.5063136,
+    "lon": -73.4841775,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6008726,
+    "lon": -73.6550224,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Petite Station",
+    "lat": 45.544332,
+    "lon": -73.6478422,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Chez nous c'est chez vous",
+    "lat": 45.6732465,
+    "lon": -73.59402,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Julie Odette",
+    "lat": 45.5637078,
+    "lon": -73.6812245,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Lurons de Chomedey",
+    "lat": 45.5343636,
+    "lon": -73.7386213,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Petit Cheval",
+    "lat": 45.5614224,
+    "lon": -73.6105635,
+    "type": "childcare",
+    "address": "8e Avenue",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petites Souris",
+    "lat": 45.3835631,
+    "lon": -73.5981073,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Mille et un trésors",
+    "lat": 45.3862545,
+    "lon": -73.5933238,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE les Mousses Du Mont",
+    "lat": 45.5222302,
+    "lon": -73.3380724,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pratt",
+    "lat": 45.5543287,
+    "lon": -73.4849721,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Trésors Brillants",
+    "lat": 45.5285306,
+    "lon": -73.7250232,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7531912,
+    "lon": -73.4708174,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Sur le chemin de l'école",
+    "lat": 45.4695792,
+    "lon": -73.6280288,
+    "type": "kindergarten",
+    "address": "Avenue de Monkland",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Petits Soleils Enchantés",
+    "lat": 45.6716748,
+    "lon": -73.9333783,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5679345,
+    "lon": -73.9248073,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6374059,
+    "lon": -73.3000239,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Miel et Melon",
+    "lat": 45.6395357,
+    "lon": -73.3069549,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Jeannot",
+    "lat": 45.5723777,
+    "lon": -73.7044334,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.3159366,
+    "lon": -73.3376358,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Jardin des Frimousses - Installation Bellerose",
+    "lat": 45.4453384,
+    "lon": -73.6806974,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Oiselets",
+    "lat": 45.5889881,
+    "lon": -73.7802939,
+    "type": "kindergarten",
+    "address": "Boulevard des Oiseaux",
+    "phone": "+1-450-937-4047",
+    "website": "https://www.prematernellelesoiselets.ca"
+  },
+  {
+    "name": "Au Champ Fleuri",
+    "lat": 45.588189,
+    "lon": -73.7795175,
+    "type": "kindergarten",
+    "address": "Rue du Rouge-Gorge",
+    "phone": "+1-450-963-0231",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4460794,
+    "lon": -73.34154,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Trésors de Boisbriand",
+    "lat": 45.6011706,
+    "lon": -73.8383239,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Bécassine",
+    "lat": 45.5955473,
+    "lon": -73.5102789,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6212366,
+    "lon": -73.8629179,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Précieux Cargo",
+    "lat": 45.3893516,
+    "lon": -74.0429003,
+    "type": "kindergarten",
+    "address": "Boulevard de la Cité-des-Jeunes",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Soleil Levant",
+    "lat": 45.7614311,
+    "lon": -73.8049282,
+    "type": "kindergarten",
+    "address": "5e Avenue",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Cardio-Puces",
+    "lat": 45.5667487,
+    "lon": -73.573139,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4593018,
+    "lon": -73.5767608,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.3584573,
+    "lon": -73.4774599,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4092236,
+    "lon": -73.6834654,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Les Babioles",
+    "lat": 45.6922917,
+    "lon": -73.9081215,
+    "type": "kindergarten",
+    "address": "Boulevard Curé-Labelle",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Au Pied du Mont",
+    "lat": 45.5215318,
+    "lon": -73.3675054,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5196487,
+    "lon": -73.3917756,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Au pas de géant",
+    "lat": 45.4969782,
+    "lon": -73.4017916,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4892483,
+    "lon": -73.4123867,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5152564,
+    "lon": -73.4325123,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Royaume et séjour de l'enfant - Filles de Ste Marie de Leuca",
+    "lat": 45.5268124,
+    "lon": -73.4591276,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5348273,
+    "lon": -73.4490455,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Au pied de l'échelle",
+    "lat": 45.4458968,
+    "lon": -73.4497481,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pierre-Boucher",
+    "lat": 45.5440549,
+    "lon": -73.4638379,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pierre-Boucher Installation Jacques-Cartier",
+    "lat": 45.5365226,
+    "lon": -73.4608401,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4646466,
+    "lon": -73.4008051,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Laoura & Louiza-Maria",
+    "lat": 45.4595604,
+    "lon": -73.4196501,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Marmicelle",
+    "lat": 45.4599082,
+    "lon": -73.4192576,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative bilingue Académie Marie-Emmanuel",
+    "lat": 45.4698411,
+    "lon": -73.4344326,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les petits génies au berceau",
+    "lat": 45.4724698,
+    "lon": -73.4393276,
+    "type": "kindergarten",
+    "address": "Grande Allée",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5303454,
+    "lon": -73.9345085,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pierrot la lune - Installation Scaramouche",
+    "lat": 45.5279146,
+    "lon": -73.4695862,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative les Beaux Oursins",
+    "lat": 45.5244977,
+    "lon": -73.4691187,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mon Petit Édouard",
+    "lat": 45.5383124,
+    "lon": -73.4923099,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5092698,
+    "lon": -73.4715989,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les trésors de la mère",
+    "lat": 45.4728958,
+    "lon": -73.488827,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Jouer C Magique",
+    "lat": 45.4746631,
+    "lon": -73.4755428,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mouillepied",
+    "lat": 45.4995135,
+    "lon": -73.5091867,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Solleillerie",
+    "lat": 45.4985317,
+    "lon": -73.5142449,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les petits adultes",
+    "lat": 45.529385,
+    "lon": -73.503725,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Gardertie éducative Frimousses",
+    "lat": 45.4735299,
+    "lon": -73.4421302,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Au pied de l'échelle Baobab",
+    "lat": 45.4783324,
+    "lon": -73.4632644,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Petit Gazou",
+    "lat": 45.4881854,
+    "lon": -73.4346482,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.485928,
+    "lon": -73.4595244,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Grandir c'est magique",
+    "lat": 45.4900422,
+    "lon": -73.4655696,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Fauvettes Bleues",
+    "lat": 45.4938314,
+    "lon": -73.4647857,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie et Jardins d'enfants Montessori",
+    "lat": 45.4823258,
+    "lon": -73.4717543,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Bourgeonnière",
+    "lat": 45.4848846,
+    "lon": -73.4851747,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La petite école",
+    "lat": 45.4892246,
+    "lon": -73.4869778,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Petite Ecole De Saint-Canut",
+    "lat": 45.7077873,
+    "lon": -74.0956212,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Coeur d'Enfant",
+    "lat": 45.5253455,
+    "lon": -73.9578286,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Marc-Antoine",
+    "lat": 45.5225165,
+    "lon": -73.783838,
+    "type": "kindergarten",
+    "address": "Boulevard Samson",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Soleils du Monde",
+    "lat": 45.5253761,
+    "lon": -73.8031699,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les explorateurs",
+    "lat": 45.5273757,
+    "lon": -73.953941,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pirouette",
+    "lat": 45.5643888,
+    "lon": -73.8288188,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les petits anges de Brossard",
+    "lat": 45.4349308,
+    "lon": -73.4580498,
+    "type": "kindergarten",
+    "address": "Chemin des Prairies",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.440629,
+    "lon": -73.4423338,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Grande Echelle",
+    "lat": 45.4672683,
+    "lon": -73.3790015,
+    "type": "childcare",
+    "address": "Mountainview boulevard",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Au petit boulot",
+    "lat": 45.6343072,
+    "lon": -73.4432145,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie prémarternelle Le p'tit monde de Peggy",
+    "lat": 45.6146903,
+    "lon": -73.452085,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie prématernelle Les flomboyans",
+    "lat": 45.6077833,
+    "lon": -73.4525423,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie ABC du Boisé",
+    "lat": 45.6115655,
+    "lon": -73.4425307,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Vos Tout-Petits",
+    "lat": 45.5133354,
+    "lon": -73.476724,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Star Candiac",
+    "lat": 45.3761761,
+    "lon": -73.5059709,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Joyeuse Marmaille",
+    "lat": 45.3759766,
+    "lon": -73.5058499,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Joyeux Apprentis",
+    "lat": 45.4981709,
+    "lon": -73.4774214,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5001322,
+    "lon": -73.4789637,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Riverside",
+    "lat": 45.4954375,
+    "lon": -73.5130842,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Chértienne Les Petits Semeurs",
+    "lat": 45.5023204,
+    "lon": -73.4193207,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.518439,
+    "lon": -73.320384,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5890359,
+    "lon": -73.4245593,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5936437,
+    "lon": -73.4312995,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le petit Prince",
+    "lat": 45.5212738,
+    "lon": -73.5106377,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie au pays des coccinelles",
+    "lat": 45.5215098,
+    "lon": -73.5116576,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre La petite échelle (répit)",
+    "lat": 45.5207016,
+    "lon": -73.5079998,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Ma Licorne",
+    "lat": 45.5135432,
+    "lon": -73.484843,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pierrot La Lune",
+    "lat": 45.518184,
+    "lon": -73.4886367,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La pépinière",
+    "lat": 45.5197223,
+    "lon": -73.4864166,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Cygne enchanté",
+    "lat": 45.5255056,
+    "lon": -73.4836928,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Le clown sur la lune",
+    "lat": 45.5301417,
+    "lon": -73.4842946,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Ma Découverte",
+    "lat": 45.5283145,
+    "lon": -73.48877,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pomme-Soleil",
+    "lat": 45.5113628,
+    "lon": -73.4878497,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les coucous",
+    "lat": 45.5067282,
+    "lon": -73.4932396,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Bambini",
+    "lat": 45.5139972,
+    "lon": -73.4999616,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Tom Pouce",
+    "lat": 45.5175013,
+    "lon": -73.4983873,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie des Minis Athlètes",
+    "lat": 45.5191961,
+    "lon": -73.5024006,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Aux Quatre Soleils",
+    "lat": 45.5261402,
+    "lon": -73.5051451,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie ABC",
+    "lat": 45.5256425,
+    "lon": -73.4931553,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Aux Quatres Soleils",
+    "lat": 45.5261365,
+    "lon": -73.4925699,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Univers de Pigloo",
+    "lat": 45.5315993,
+    "lon": -73.4878036,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Chérubins de Médicis",
+    "lat": 45.5320909,
+    "lon": -73.4447233,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La maison des Enfants de Montessori de Longueuil",
+    "lat": 45.5447261,
+    "lon": -73.4528683,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative L'académie des futérusés",
+    "lat": 45.5518539,
+    "lon": -73.4839332,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Ses Amis",
+    "lat": 45.5521824,
+    "lon": -73.4843779,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5409913,
+    "lon": -73.4888466,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Pomme Soleil",
+    "lat": 45.5550791,
+    "lon": -73.4838182,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mon monde à moi",
+    "lat": 45.5762622,
+    "lon": -73.4778721,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Sur les traces de Bambi",
+    "lat": 45.5171367,
+    "lon": -73.4499847,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.554797,
+    "lon": -73.46376,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5263203,
+    "lon": -73.4600727,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Lupin",
+    "lat": 45.3053697,
+    "lon": -74.0549763,
+    "type": "kindergarten",
+    "address": "Chemin du Fleuve",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Mousses",
+    "lat": 45.3787857,
+    "lon": -73.9268436,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative L'Élite 3 Pincourt",
+    "lat": 45.3739369,
+    "lon": -73.9877293,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Tamaley",
+    "lat": 45.3869664,
+    "lon": -73.9670455,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les petites abeilles de l'île",
+    "lat": 45.3876531,
+    "lon": -73.9641548,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Éducaterre",
+    "lat": 45.3941608,
+    "lon": -73.954937,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Enfants de l'île",
+    "lat": 45.3933435,
+    "lon": -73.95895,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Dandie",
+    "lat": 45.393976,
+    "lon": -73.9580494,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Le Coin des Marmots",
+    "lat": 45.3946872,
+    "lon": -73.9561519,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5331626,
+    "lon": -73.4706811,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5368462,
+    "lon": -73.4746666,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5367834,
+    "lon": -73.4754592,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Pandamis",
+    "lat": 45.7608406,
+    "lon": -73.4785157,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.465817,
+    "lon": -73.346209,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5396622,
+    "lon": -73.4727427,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Mère Schtroumph",
+    "lat": 45.3765834,
+    "lon": -73.6097846,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Pissenlit",
+    "lat": 45.5526289,
+    "lon": -73.6584604,
+    "type": "kindergarten",
+    "address": "Rue Sauriol Est",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les petites Girouettes",
+    "lat": 45.7227358,
+    "lon": -73.5127709,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie préscolaire Les petites étoiles de la rive",
+    "lat": 45.3944523,
+    "lon": -73.5839017,
+    "type": "kindergarten",
+    "address": "Route 132",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Soleil souriant",
+    "lat": 45.3943903,
+    "lon": -73.5798616,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Mère Schtroumph - Installation Monchampignon",
+    "lat": 45.3753769,
+    "lon": -73.5848544,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Soleil Souriant",
+    "lat": 45.3623843,
+    "lon": -73.5671455,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Prairie Installation des mésanges",
+    "lat": 45.418628,
+    "lon": -73.4623852,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Prairie",
+    "lat": 45.414821,
+    "lon": -73.463036,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Le Tournesol",
+    "lat": 45.4695438,
+    "lon": -73.4946885,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les joyeux calinours",
+    "lat": 45.4933623,
+    "lon": -73.4733222,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE",
+    "lat": 45.5538282,
+    "lon": -73.8719835,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Petit Sentier",
+    "lat": 45.5520428,
+    "lon": -73.6721778,
+    "type": "kindergarten",
+    "address": "Grande Allée",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie le Petit Soleil Sainte-Catherine",
+    "lat": 45.3885939,
+    "lon": -73.559585,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Gardeire Les P'tites Bretelles",
+    "lat": 45.3692526,
+    "lon": -73.5721362,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif du Village de Vaudreuil-Dorion",
+    "lat": 45.4048864,
+    "lon": -74.0403943,
+    "type": "kindergarten",
+    "address": "Boulevard de la Gare",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Relève",
+    "lat": 45.3932033,
+    "lon": -74.0236519,
+    "type": "kindergarten",
+    "address": "Rue Paul-Gérin-Lajoie",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les petits soleils d'Isabelle",
+    "lat": 45.3782765,
+    "lon": -73.5033361,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE du Campus",
+    "lat": 45.4031213,
+    "lon": -73.9441303,
+    "type": "kindergarten",
+    "address": "Rue Maple",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Découverte de l'Enfance",
+    "lat": 45.5765388,
+    "lon": -73.8940349,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6386514,
+    "lon": -74.0269112,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les P'Tits Soleils Enchantés",
+    "lat": 45.6674934,
+    "lon": -73.9249653,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.3092955,
+    "lon": -73.9540916,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "West Island Montessori Academy",
+    "lat": 45.5105856,
+    "lon": -73.8084069,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'Océan Bleu",
+    "lat": 45.42536,
+    "lon": -73.4837656,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Familigarde LaSalle",
+    "lat": 45.4243478,
+    "lon": -73.6533426,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Soleil en soi",
+    "lat": 45.4184209,
+    "lon": -73.4950871,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Brin de génie",
+    "lat": 45.4158588,
+    "lon": -73.4880415,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Aladin",
+    "lat": 45.4148503,
+    "lon": -73.4899433,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les mille et un plaisirs",
+    "lat": 45.4146403,
+    "lon": -73.4842838,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Bobino",
+    "lat": 45.301118,
+    "lon": -73.8741572,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Jouer c'est magique",
+    "lat": 45.4128049,
+    "lon": -73.480256,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Au coin des Pierrots",
+    "lat": 45.4123333,
+    "lon": -73.4793521,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie Préscolaire Kreative Kidz",
+    "lat": 45.4117966,
+    "lon": -73.4781618,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Petits Touche à tout",
+    "lat": 45.4104926,
+    "lon": -73.4937569,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie ImaginAction",
+    "lat": 45.4072831,
+    "lon": -73.4978701,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Maison des Bambins",
+    "lat": 45.4044314,
+    "lon": -73.5082195,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Kateri II",
+    "lat": 45.3968896,
+    "lon": -73.528396,
+    "type": "kindergarten",
+    "address": "Chemin Saint-François-Xavier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Kateri I",
+    "lat": 45.3978733,
+    "lon": -73.528185,
+    "type": "kindergarten",
+    "address": "Chemin Saint-François-Xavier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Bouts de Papier",
+    "lat": 45.3936726,
+    "lon": -73.5486202,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Lumière de ma vie",
+    "lat": 45.3838388,
+    "lon": -73.5599911,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Bébékidz Saint-Constant",
+    "lat": 45.3741454,
+    "lon": -73.5699266,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les minis et les petits Touche à tout",
+    "lat": 45.3776856,
+    "lon": -73.5333508,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Amours de Marie-Claire",
+    "lat": 45.5068871,
+    "lon": -73.7671572,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les doux chatons",
+    "lat": 45.3795636,
+    "lon": -73.5507557,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie des mots magiques",
+    "lat": 45.3873112,
+    "lon": -73.5484072,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les petites souris - Installation La petite souris verte",
+    "lat": 45.3903043,
+    "lon": -73.5174852,
+    "type": "kindergarten",
+    "address": "Chemin Haendel",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Pinsons",
+    "lat": 45.3982144,
+    "lon": -73.4915419,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Pirouline",
+    "lat": 45.696823,
+    "lon": -73.5825847,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Bon Bon 2",
+    "lat": 45.5151669,
+    "lon": -73.7194458,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Bon Bon",
+    "lat": 45.516175,
+    "lon": -73.7184874,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La découverte c'est magique",
+    "lat": 45.7583109,
+    "lon": -73.8171917,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Bonheurs",
+    "lat": 45.6554235,
+    "lon": -73.8036574,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Cachalot",
+    "lat": 45.3447712,
+    "lon": -73.7632112,
+    "type": "kindergarten",
+    "address": "Boulevard Brisebois",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Château des Adorables",
+    "lat": 45.3727381,
+    "lon": -73.7359919,
+    "type": "kindergarten",
+    "address": "Boulevard Maple",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Notre Futur",
+    "lat": 45.368807,
+    "lon": -73.7104657,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Francis",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Cartierville",
+    "lat": 45.5261129,
+    "lon": -73.7044896,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7307314,
+    "lon": -73.6287856,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mamie Soleil",
+    "lat": 45.3484827,
+    "lon": -73.7045829,
+    "type": "kindergarten",
+    "address": "Boulevard Kennedy",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Tam-Tam",
+    "lat": 45.3529384,
+    "lon": -73.7513484,
+    "type": "kindergarten",
+    "address": "Boulevard Primeau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Nid d'Oiseau",
+    "lat": 45.3563659,
+    "lon": -73.7655752,
+    "type": "kindergarten",
+    "address": "Rue Principale",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Conte de Fée",
+    "lat": 45.3597178,
+    "lon": -73.7495719,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Les Petits Lapins 1 Et 2",
+    "lat": 45.3499171,
+    "lon": -73.7207553,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Jean-Baptiste",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie des Elfes - École des petits chevaliers",
+    "lat": 45.3493723,
+    "lon": -73.720886,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Gnomes - Installations La Forêt Enchantée et Le Jardin des Trésors",
+    "lat": 45.3629965,
+    "lon": -73.7075958,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderikiri",
+    "lat": 45.3607265,
+    "lon": -73.7125895,
+    "type": "kindergarten",
+    "address": "Rue Kepler",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Diana",
+    "lat": 45.3502224,
+    "lon": -73.7216438,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Jean-Baptiste",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Pré-Maternelle Les Coccinelles",
+    "lat": 45.356693,
+    "lon": -73.7175163,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Lutins - COOP de Châteauguay",
+    "lat": 45.3520132,
+    "lon": -73.7312521,
+    "type": "kindergarten",
+    "address": "Rue Saint-Eugène",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Zookakou",
+    "lat": 45.3615692,
+    "lon": -73.7402021,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie privée internationale",
+    "lat": 45.4034863,
+    "lon": -73.5752042,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Étoiles de la Rive-Sud",
+    "lat": 45.3948228,
+    "lon": -73.5837304,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Fleur de Pommier",
+    "lat": 45.4894162,
+    "lon": -74.0381918,
+    "type": "kindergarten",
+    "address": "Chemin d'Oka",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Whiteside Taylor",
+    "lat": 45.428762,
+    "lon": -73.8702234,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garedire Le Lys d'Or",
+    "lat": 45.6974392,
+    "lon": -73.9321098,
+    "type": "kindergarten",
+    "address": "Rue Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Petit Equipage II",
+    "lat": 45.695643,
+    "lon": -73.9247286,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre du Florès",
+    "lat": 45.6950387,
+    "lon": -73.923831,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le coin des enfants du parc",
+    "lat": 45.5219297,
+    "lon": -73.6178727,
+    "type": "kindergarten",
+    "address": "Avenue Manseau",
+    "phone": "+1-514-277-0818",
+    "website": ""
+  },
+  {
+    "name": "CPE La Grande Ourse, Étoile Filante",
+    "lat": 45.5767255,
+    "lon": -73.3079618,
+    "type": "kindergarten",
+    "address": "Rue Darwin",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Oursons",
+    "lat": 45.4298462,
+    "lon": -73.4632898,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Trésors de Marie-Claire",
+    "lat": 45.445578,
+    "lon": -73.8793129,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Au Petit Carrousel",
+    "lat": 45.4731577,
+    "lon": -73.8652796,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Petit Castel Vi",
+    "lat": 45.5040397,
+    "lon": -73.8787165,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Grande Ourse",
+    "lat": 45.5804232,
+    "lon": -73.3567061,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "L'atelier de Cléo",
+    "lat": 45.5981496,
+    "lon": -73.3555233,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie éducative de Sainte-Julie",
+    "lat": 45.5958963,
+    "lon": -73.3446389,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Julie-Soleil",
+    "lat": 45.5969762,
+    "lon": -73.3342215,
+    "type": "kindergarten",
+    "address": "Rue Principale",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5424056,
+    "lon": -73.4750698,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Petits Pas",
+    "lat": 45.5713599,
+    "lon": -73.3261862,
+    "type": "kindergarten",
+    "address": "Boulevard des Hauts-Bois",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif Mini-Mousses",
+    "lat": 45.5732584,
+    "lon": -73.3270822,
+    "type": "kindergarten",
+    "address": "Rue Norman-Bethune",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Les Jarinds de l'Avenir",
+    "lat": 45.5912245,
+    "lon": -73.3320851,
+    "type": "kindergarten",
+    "address": "Avenue Jules-Choquet",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Zukari",
+    "lat": 45.5791355,
+    "lon": -73.3476093,
+    "type": "kindergarten",
+    "address": "Boulevard Armand-Frappier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "À chacun son histoire",
+    "lat": 45.583782,
+    "lon": -73.3222248,
+    "type": "kindergarten",
+    "address": "Rue de Murano",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Adorable-Moi de Chambly",
+    "lat": 45.4549019,
+    "lon": -73.3008476,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Educative Tam-Tam",
+    "lat": 45.5439567,
+    "lon": -73.9191894,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE de l'Île-des-Soeurs",
+    "lat": 45.4564778,
+    "lon": -73.5487043,
+    "type": "kindergarten",
+    "address": "Rue de Gaspé",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Perle de L'Enfance - Centre éducatif de la Famille",
+    "lat": 45.4316601,
+    "lon": -73.8635681,
+    "type": "kindergarten",
+    "address": "Avenue Elm",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif À Ciel Ouvert",
+    "lat": 45.4371311,
+    "lon": -73.9221026,
+    "type": "kindergarten",
+    "address": "Rue Zénon-Gareau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Artistique Ildiko",
+    "lat": 45.4367683,
+    "lon": -73.3154355,
+    "type": "kindergarten",
+    "address": "Boulevard Anne-Le Seigneur",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7643901,
+    "lon": -73.9991412,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Tournesol",
+    "lat": 45.7812282,
+    "lon": -73.9994979,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Vanier",
+    "lat": 45.5181682,
+    "lon": -73.6762398,
+    "type": "kindergarten",
+    "address": "Boulevard de la Côte-Vertu",
+    "phone": "+1 514-744-2506",
+    "website": "https://www.vaniercollege.qc.ca/cpevanier/"
+  },
+  {
+    "name": "CPE Rosamie",
+    "lat": 45.5468263,
+    "lon": -73.8654191,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "École Ali Ibn Abi Talib",
+    "lat": 45.5284293,
+    "lon": -73.6529244,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5737759,
+    "lon": -73.7416534,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie et jardin d'enfants Montessori",
+    "lat": 45.4351406,
+    "lon": -73.8493573,
+    "type": "kindergarten",
+    "address": "Avenue Elm",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les petits anges",
+    "lat": 45.4370581,
+    "lon": -73.8147981,
+    "type": "kindergarten",
+    "address": "Avenue Lakeview",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bourke Ouest",
+    "lat": 45.4487103,
+    "lon": -73.7781816,
+    "type": "kindergarten",
+    "address": "Chemin Herron",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Service de garde Aeropuce",
+    "lat": 45.4536129,
+    "lon": -73.759223,
+    "type": "kindergarten",
+    "address": "Boulevard Stuart-Graham",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Vermouilleuse",
+    "lat": 45.5499968,
+    "lon": -73.5516989,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Domino",
+    "lat": 45.5036545,
+    "lon": -73.7824545,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Amis d'À...Bord!",
+    "lat": 45.6791869,
+    "lon": -73.7716487,
+    "type": "kindergarten",
+    "address": "Avenue de l'Érablière",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le loup, la lune et la tomate",
+    "lat": 45.7300664,
+    "lon": -73.49691,
+    "type": "kindergarten",
+    "address": "Chemin des Quarante-Arpents",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE André-Laurendeau",
+    "lat": 45.4360056,
+    "lon": -73.607528,
+    "type": "kindergarten",
+    "address": "Rue Lapierre",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.4611302,
+    "lon": -73.4597543,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Step By Step",
+    "lat": 45.4059193,
+    "lon": -73.6871675,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif du VIllage de Vaudreuil",
+    "lat": 45.3736695,
+    "lon": -74.0272691,
+    "type": "kindergarten",
+    "address": "Rue Chicoine",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Enfantasia II",
+    "lat": 45.4182175,
+    "lon": -74.0490607,
+    "type": "kindergarten",
+    "address": "Chemin de l'Anse",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Insipration Montessori",
+    "lat": 45.4178694,
+    "lon": -74.0495629,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éductaif À ciel ouvert Vaudreuil-Dorion",
+    "lat": 45.3924777,
+    "lon": -74.0394588,
+    "type": "kindergarten",
+    "address": "Rue Bill-Durnan",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie le Coin des Petits Amis",
+    "lat": 45.3986077,
+    "lon": -74.0256246,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "+1-450-455-3803",
+    "website": ""
+  },
+  {
+    "name": "L'Académie des étoiles du monde",
+    "lat": 45.4023423,
+    "lon": -74.0289552,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Maison Arc-en-Ciel II",
+    "lat": 45.4139792,
+    "lon": -74.0257148,
+    "type": "kindergarten",
+    "address": "Boulevard de la Cité-des-Jeunes",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Maison Arc-en-Ciel",
+    "lat": 45.4131299,
+    "lon": -74.0424368,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre régional des enfants de Vaudreuil",
+    "lat": 45.4005561,
+    "lon": -74.028519,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie L'univers en moi",
+    "lat": 45.3899136,
+    "lon": -74.0438921,
+    "type": "kindergarten",
+    "address": "Rue Émile-Bouchard",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Maisonnette",
+    "lat": 45.5552359,
+    "lon": -73.5399134,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Académie des petits apprentis",
+    "lat": 45.3773435,
+    "lon": -74.0503221,
+    "type": "kindergarten",
+    "address": "Rue Henry-Ford",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Rayons de SOleil",
+    "lat": 45.3899015,
+    "lon": -74.0156372,
+    "type": "kindergarten",
+    "address": "Avenue Saint-Charles",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la petite enfance Château des Neiges",
+    "lat": 45.4810742,
+    "lon": -73.6310426,
+    "type": "kindergarten",
+    "address": "Chemin Queen Mary",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Amiel Early Childhood Centre",
+    "lat": 45.4790519,
+    "lon": -73.6301526,
+    "type": "kindergarten",
+    "address": "Avenue Macdonald",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Des Petits Pas Snowdon",
+    "lat": 45.4903037,
+    "lon": -73.6449401,
+    "type": "childcare",
+    "address": "Boulevard Décarie",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Un monde juste pour nous 2",
+    "lat": 45.3827962,
+    "lon": -74.0108391,
+    "type": "kindergarten",
+    "address": "Boulevard Harwood",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie des Enfants Chouettes",
+    "lat": 45.3118848,
+    "lon": -74.0606022,
+    "type": "kindergarten",
+    "address": "Chemin Saint-Féréol",
+    "phone": "+1-450-452-2105",
+    "website": ""
+  },
+  {
+    "name": "Garderie Palace des Petits",
+    "lat": 45.5518371,
+    "lon": -73.6126847,
+    "type": "kindergarten",
+    "address": "Rue L.-O. David",
+    "phone": "+1-514-723-4848",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Zamis d'Ezou",
+    "lat": 45.5524032,
+    "lon": -73.6120255,
+    "type": "kindergarten",
+    "address": "Rue L.-O. David",
+    "phone": "+1-514-797-3021",
+    "website": "https://www.leszamisdezou.info/"
+  },
+  {
+    "name": "Twinklestar",
+    "lat": 45.5267085,
+    "lon": -73.3424522,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Saint-Marc",
+    "lat": 45.547723,
+    "lon": -73.611727,
+    "type": "kindergarten",
+    "address": "Rue Garnier",
+    "phone": "+1-514-274-1253",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Amis Des Schtroumpfs",
+    "lat": 45.5493204,
+    "lon": -73.6224145,
+    "type": "kindergarten",
+    "address": "Rue Jarry Est",
+    "phone": "+1-514-722-3313",
+    "website": "https://www.glads.ca/wp/"
+  },
+  {
+    "name": "Garderie Bébéveil",
+    "lat": 45.5515654,
+    "lon": -73.6201381,
+    "type": "kindergarten",
+    "address": "Rue Jarry Est",
+    "phone": "+1-514-654-3625",
+    "website": ""
+  },
+  {
+    "name": "Garderie Palace des Anges",
+    "lat": 45.5505365,
+    "lon": -73.6210905,
+    "type": "kindergarten",
+    "address": "Rue Jarry Est",
+    "phone": "+1-514-515-7819",
+    "website": ""
+  },
+  {
+    "name": "Garderie Un Monde Juste pour nous",
+    "lat": 45.3831255,
+    "lon": -74.0923296,
+    "type": "kindergarten",
+    "address": "Route de la Cité-des-Jeunes",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Les Jolies Coeurs",
+    "lat": 45.4241509,
+    "lon": -73.6504475,
+    "type": "kindergarten",
+    "address": "Avenue Lafleur",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les petits anges de Layla",
+    "lat": 45.5526214,
+    "lon": -73.6153768,
+    "type": "kindergarten",
+    "address": "Rue Tillemont",
+    "phone": "+1-514-508-2106",
+    "website": ""
+  },
+  {
+    "name": "CPE Au Coquelicot Géant",
+    "lat": 45.4107684,
+    "lon": -73.9498792,
+    "type": "kindergarten",
+    "address": "Boulevard des Anciens-Combattants",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5212695,
+    "lon": -73.9362888,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5278455,
+    "lon": -73.9438927,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5282428,
+    "lon": -73.93882,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie J'apprends et m'amuse",
+    "lat": 45.5543557,
+    "lon": -73.613861,
+    "type": "kindergarten",
+    "address": "Rue Tillemont",
+    "phone": "+1-514-308-0124",
+    "website": "https://japprendsetmamuse.ca/"
+  },
+  {
+    "name": "Garderie Coin d'Oiseaux",
+    "lat": 45.5556654,
+    "lon": -73.6707094,
+    "type": "kindergarten",
+    "address": "Rue Lajeunesse",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Coccinelles Chéries",
+    "lat": 45.5552482,
+    "lon": -73.6703668,
+    "type": "kindergarten",
+    "address": "Rue Berri",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Courants d'air",
+    "lat": 45.4786256,
+    "lon": -73.7268735,
+    "type": "kindergarten",
+    "address": "Boulevard de la Côte-Vertu",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Petit Équipage",
+    "lat": 45.6979229,
+    "lon": -73.9260025,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Luminou",
+    "lat": 45.479788,
+    "lon": -73.8732311,
+    "type": "kindergarten",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie et académie au jardin des petits",
+    "lat": 45.5849381,
+    "lon": -73.6051217,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Castillon",
+    "lat": 45.6594642,
+    "lon": -73.8120248,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5069717,
+    "lon": -73.8274598,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre éducatif Desousa",
+    "lat": 45.4999624,
+    "lon": -73.8390283,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6574686,
+    "lon": -73.4217375,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les P'tites Frimousses de la Merci",
+    "lat": 45.5471685,
+    "lon": -73.6885583,
+    "type": "kindergarten",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Tic Toc",
+    "lat": 45.4306487,
+    "lon": -73.6357206,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "+1 514-363-2002",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.435589,
+    "lon": -73.6279098,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le P'tit Terminus",
+    "lat": 45.4463863,
+    "lon": -73.6020079,
+    "type": "kindergarten",
+    "address": "Boulevard des Trinitaires",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Jacqueline",
+    "lat": 45.4321093,
+    "lon": -73.6404845,
+    "type": "kindergarten",
+    "address": "Rue Clément",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Île des Anges",
+    "lat": 45.541579,
+    "lon": -73.5936889,
+    "type": "kindergarten",
+    "address": "Avenue Papineau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Petits Carillons",
+    "lat": 45.5433781,
+    "lon": -73.5984141,
+    "type": "kindergarten",
+    "address": "Rue Marquette",
+    "phone": "",
+    "website": "https://cpe-lespetitscarillons.com/"
+  },
+  {
+    "name": "Bouge Petit",
+    "lat": 45.5433712,
+    "lon": -73.59764,
+    "type": "childcare",
+    "address": "Avenue Papineau",
+    "phone": "",
+    "website": "https://www.bougepetit.com/"
+  },
+  {
+    "name": "CPE Ami-Soleil",
+    "lat": 45.5458366,
+    "lon": -73.6048011,
+    "type": "kindergarten",
+    "address": "Rue Marquette",
+    "phone": "+1-514-729-9659",
+    "website": "https://cpe-amisoleil.com/"
+  },
+  {
+    "name": "CPE Les Gardelunes",
+    "lat": 45.5387159,
+    "lon": -73.6072473,
+    "type": "childcare",
+    "address": "Rue Saint-André",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Vol-au-Vent I et II",
+    "lat": 45.5094009,
+    "lon": -73.709382,
+    "type": "kindergarten",
+    "address": "Boulevard Poirier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie La Joconde",
+    "lat": 45.5099647,
+    "lon": -73.7083491,
+    "type": "kindergarten",
+    "address": "Boulevard Poirier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Joyeux Petits Anges",
+    "lat": 45.5814544,
+    "lon": -73.65159,
+    "type": "kindergarten",
+    "address": "Boulevard Henri-Bourassa Est",
+    "phone": "",
+    "website": "http://lesjoyeuxpetitsanges.com"
+  },
+  {
+    "name": "Garderie Pom'Cannelle",
+    "lat": 45.5352305,
+    "lon": -73.9016851,
+    "type": "kindergarten",
+    "address": "Chemin d'Oka",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative La Trottinette",
+    "lat": 45.6983774,
+    "lon": -73.9177181,
+    "type": "kindergarten",
+    "address": "Boulevard Curé-Labelle",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Rose des Vents",
+    "lat": 45.679448,
+    "lon": -73.872627,
+    "type": "kindergarten",
+    "address": "Rue de la Mairie",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Un Monde à découvrir",
+    "lat": 45.6637997,
+    "lon": -73.8554841,
+    "type": "kindergarten",
+    "address": "Rue Nicole",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6268056,
+    "lon": -73.8562786,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Apprentis Explorateurs",
+    "lat": 45.3378106,
+    "lon": -73.8116583,
+    "type": "kindergarten",
+    "address": "Rue des Galets",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative Haut comme 3 pommes",
+    "lat": 45.6319836,
+    "lon": -73.8318961,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5896967,
+    "lon": -73.7694567,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Harmonie Soleil",
+    "lat": 45.5984074,
+    "lon": -73.7649665,
+    "type": "kindergarten",
+    "address": "Rue des Cardinaux",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.549796,
+    "lon": -73.7278887,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6015276,
+    "lon": -73.7976215,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE NDG",
+    "lat": 45.4718476,
+    "lon": -73.6361537,
+    "type": "kindergarten",
+    "address": "Avenue Kensington",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Imagination Pre-School Dix30",
+    "lat": 45.4447495,
+    "lon": -73.4400446,
+    "type": "kindergarten",
+    "address": "Boulevard du Quartier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Marie-Quat'Poches",
+    "lat": 45.6474977,
+    "lon": -73.8258075,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Sainte-Rose",
+    "lat": 45.6284684,
+    "lon": -73.782057,
+    "type": "kindergarten",
+    "address": "Terrasse Dufferin",
+    "phone": "+1-450-625-0702",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5800996,
+    "lon": -73.7543867,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Youpi",
+    "lat": 45.5599519,
+    "lon": -73.7178814,
+    "type": "kindergarten",
+    "address": "Boulevard de l'Avenir",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Les Minis-Einstein",
+    "lat": 45.5889775,
+    "lon": -73.6054673,
+    "type": "childcare",
+    "address": "Rue Dujarié",
+    "phone": "+1-514-678-7288",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5525541,
+    "lon": -73.7061061,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5383628,
+    "lon": -73.6667024,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5339376,
+    "lon": -73.6407043,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Vallée des fleurs - Garderie éducative de l'École Armen-Québec",
+    "lat": 45.5175046,
+    "lon": -73.6674401,
+    "type": "kindergarten",
+    "address": "Rue Manoogian",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Petite École de Beaconou I et II",
+    "lat": 45.5080706,
+    "lon": -73.6680866,
+    "type": "kindergarten",
+    "address": "Avenue Sainte-Croix",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Au Royaume d'Alladin",
+    "lat": 45.566048,
+    "lon": -73.5997626,
+    "type": "kindergarten",
+    "address": "Rue Villeray",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie À moi mes enfants",
+    "lat": 45.5658479,
+    "lon": -73.599304,
+    "type": "kindergarten",
+    "address": "Avenue Léonard de Vinci",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre de la petite enfance Soleil Joyeux, Pavillon De Vinci",
+    "lat": 45.5665737,
+    "lon": -73.6018157,
+    "type": "kindergarten",
+    "address": "Avenue Léonard de Vinci",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Capricorne",
+    "lat": 45.5657472,
+    "lon": -73.6441386,
+    "type": "kindergarten",
+    "address": "Avenue Charland",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "La Maison intelligente des Petits Rois",
+    "lat": 45.491998,
+    "lon": -73.6268636,
+    "type": "kindergarten",
+    "address": "Rue Lavoie",
+    "phone": "",
+    "website": "https://www.omhm.qc.ca/sites/default/files/infochantier/Lettres%20locataires%20Info_v03.pdf"
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6705719,
+    "lon": -73.758504,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Pomme D'amour",
+    "lat": 45.6690537,
+    "lon": -73.7548771,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Orchidées de Ste-Do",
+    "lat": 45.5269355,
+    "lon": -73.8191887,
+    "type": "kindergarten",
+    "address": "Montée Gravel",
+    "phone": "",
+    "website": "https://garderieorchidees.com/"
+  },
+  {
+    "name": "CPE Domaine Saint-Sulpice",
+    "lat": 45.5608558,
+    "lon": -73.6451969,
+    "type": "kindergarten",
+    "address": "Rue Antoine-Déat",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5772167,
+    "lon": -73.5510829,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative de Chenille à Papillon",
+    "lat": 45.5811212,
+    "lon": -73.6032876,
+    "type": "childcare",
+    "address": "Boulevard Viau",
+    "phone": "+1-514-678-3378",
+    "website": "https://www.chenilleapapillon.ca/"
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.5954247,
+    "lon": -73.5303947,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie éducative bilingue les petits inventeurs de Villeray",
+    "lat": 45.5445459,
+    "lon": -73.6221893,
+    "type": "kindergarten",
+    "address": "Rue Saint-Hubert",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Petite Ruche Ensoleillée",
+    "lat": 45.5007806,
+    "lon": -73.9662363,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Ton Ami Pipo",
+    "lat": 45.5780958,
+    "lon": -73.9303849,
+    "type": "kindergarten",
+    "address": "Boulevard Léveillé",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7065902,
+    "lon": -73.5786926,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Bebekidz",
+    "lat": 45.6689947,
+    "lon": -73.4338525,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Jumello",
+    "lat": 45.6574044,
+    "lon": -73.7500163,
+    "type": "kindergarten",
+    "address": "Rue Bienville",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Coffre à Jouets",
+    "lat": 45.658917,
+    "lon": -73.768177,
+    "type": "kindergarten",
+    "address": "Boulevard Adolphe-Chapleau",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE des Câlins",
+    "lat": 45.6233505,
+    "lon": -73.6408665,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Guarderie Les Poussinots",
+    "lat": 45.7718955,
+    "lon": -73.7081544,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7760719,
+    "lon": -73.7243112,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.7881524,
+    "lon": -73.7604481,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie les Poussins de Lune",
+    "lat": 45.763013,
+    "lon": -73.7224119,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre De La Petite Enfance Contact Jardin-Soleil",
+    "lat": 45.7597021,
+    "lon": -73.7085143,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "C.P.E Les Jolis Minois",
+    "lat": 45.792421,
+    "lon": -73.7650169,
+    "type": "childcare",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Daycare",
+    "lat": 45.6968477,
+    "lon": -73.6158408,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Lieu des petits St-Michel",
+    "lat": 45.5722476,
+    "lon": -73.6279924,
+    "type": "kindergarten",
+    "address": "Boulevard Saint-Michel",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Mimi Pinson",
+    "lat": 45.6645422,
+    "lon": -73.4320394,
+    "type": "kindergarten",
+    "address": "Boulevard de la Marine",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Le Royaume de la Magie",
+    "lat": 45.6021762,
+    "lon": -73.5239804,
+    "type": "kindergarten",
+    "address": "Rue Sainte-Claire",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Mère Françoise",
+    "lat": 45.457723,
+    "lon": -73.8615463,
+    "type": "kindergarten",
+    "address": "Rue Hedgerow",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Populaire Saint-Michel",
+    "lat": 45.5600426,
+    "lon": -73.6114473,
+    "type": "kindergarten",
+    "address": "2e Avenue",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Trois p'tits tours - Installation Trois p'tits tours 1",
+    "lat": 45.5329153,
+    "lon": -73.7175881,
+    "type": "kindergarten",
+    "address": "Boulevard Gouin Ouest",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Garderie Éducative Les Beaux Sourires",
+    "lat": 45.5954122,
+    "lon": -73.5304003,
+    "type": "kindergarten",
+    "address": "Rue de Marseille",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les P'tits Amis de Savio",
+    "lat": 45.6078095,
+    "lon": -73.521587,
+    "type": "kindergarten",
+    "address": "Rue Sainte-Claire",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Aux Petits Soins",
+    "lat": 45.6064365,
+    "lon": -73.5613054,
+    "type": "kindergarten",
+    "address": "Avenue du Ronceray",
+    "phone": "+1-514-353-0550",
+    "website": ""
+  },
+  {
+    "name": "CPE Biscuits",
+    "lat": 45.4788425,
+    "lon": -73.5882365,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Le Hêtre",
+    "lat": 45.5478386,
+    "lon": -73.708957,
+    "type": "kindergarten",
+    "address": "Rue Laurier",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Les Mousses Du Mont",
+    "lat": 45.5406447,
+    "lon": -73.3503625,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Chez Picotine",
+    "lat": 45.4627536,
+    "lon": -73.572729,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE Enfants Soleil",
+    "lat": 45.4612958,
+    "lon": -73.5877363,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": "https://www.cpeenfantssoleil.org"
+  },
+  {
+    "name": "Garderie Éducative La Forêt Enchantée",
+    "lat": 45.5911265,
+    "lon": -73.6666617,
+    "type": "kindergarten",
+    "address": "Croissant de Callières",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "CPE La Cachette",
+    "lat": 45.6057377,
+    "lon": -73.7095677,
+    "type": "kindergarten",
+    "address": "Montée Monette",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "K.I.D.S. Technoparc",
+    "lat": 45.4795832,
+    "lon": -73.7653763,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Les Petites Étoiles De Carignan",
+    "lat": 45.45236,
+    "lon": -73.3143577,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  },
+  {
+    "name": "Centre De La Petite Enfance La Bricole",
+    "lat": 45.5141669,
+    "lon": -73.6697068,
+    "type": "kindergarten",
+    "address": "",
+    "phone": "",
+    "website": ""
+  }
+]
