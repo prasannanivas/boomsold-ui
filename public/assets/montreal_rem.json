@@ -1,0 +1,227 @@
+[
+  {
+    "name": "Kirkland",
+    "lat": 45.4403141,
+    "lon": -73.885608,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Canora",
+    "lat": 45.5139038,
+    "lon": -73.6343987,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Ville-de-Mont-Royal",
+    "lat": 45.5165342,
+    "lon": -73.6435536,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Anse-à-l'Orme",
+    "lat": 45.4315922,
+    "lon": -73.9099082,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Des Sources",
+    "lat": 45.4771212,
+    "lon": -73.7910578,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Marie-Curie",
+    "lat": 45.4800508,
+    "lon": -73.7602942,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "YUL-Aéroport-Montréal-Trudeau",
+    "lat": 45.4571284,
+    "lon": -73.7496191,
+    "operator": "CDPQ Infra",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Fairview-Pointe-Claire",
+    "lat": 45.459942,
+    "lon": -73.8353373,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Côte-de-Liesse",
+    "lat": 45.5218291,
+    "lon": -73.661868,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Île-des-Soeurs",
+    "lat": 45.47033,
+    "lon": -73.5388789,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Du Quartier",
+    "lat": 45.4466843,
+    "lon": -73.4333205,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Brossard",
+    "lat": 45.4380608,
+    "lon": -73.4305816,
+    "operator": "CDPQ Infra",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Panama",
+    "lat": 45.4649595,
+    "lon": -73.4703605,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "McGill",
+    "lat": 45.5025449,
+    "lon": -73.5723103,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Gare Centrale",
+    "lat": 45.4999265,
+    "lon": -73.5666874,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Montpellier",
+    "lat": 45.5248032,
+    "lon": -73.6722229,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Du Ruisseau",
+    "lat": 45.5289485,
+    "lon": -73.6901904,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Bois-Franc",
+    "lat": 45.5220141,
+    "lon": -73.7125326,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Pierrefonds-Roxboro",
+    "lat": 45.5097734,
+    "lon": -73.81191,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Île-Bigras",
+    "lat": 45.5199056,
+    "lon": -73.8529506,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Sainte-Dorothée",
+    "lat": 45.5234599,
+    "lon": -73.8624724,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Grand-Moulin",
+    "lat": 45.5372464,
+    "lon": -73.8879074,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Deux-Montagnes",
+    "lat": 45.5456833,
+    "lon": -73.9124135,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Sunnybrooke",
+    "lat": 45.5038395,
+    "lon": -73.7857006,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  },
+  {
+    "name": "Édouard-Montpetit",
+    "lat": 45.5103737,
+    "lon": -73.6120612,
+    "operator": "Pulsar",
+    "line": "REM",
+    "network": "REM",
+    "type": "rem"
+  }
+]

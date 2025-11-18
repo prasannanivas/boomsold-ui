@@ -1,0 +1,560 @@
+[
+  {
+    "name": "Pincourt–Terrasse-Vaudreuil",
+    "lat": 45.3871603,
+    "lon": -73.9917459,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Sainte-Thérèse",
+    "lat": 45.6359843,
+    "lon": -73.8341213,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Basile-le-Grand",
+    "lat": 45.5232827,
+    "lon": -73.3059124,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Bruno",
+    "lat": 45.5119931,
+    "lon": -73.3744884,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Longueuil–Saint-Hubert",
+    "lat": 45.5080094,
+    "lon": -73.4351724,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Gare de Saint-Lambert",
+    "lat": 45.4990295,
+    "lon": -73.5074207,
+    "operator": "VIA Rail;exo;Amtrak",
+    "line": "unknown",
+    "network": "VIA Rail;exo;Amtrak",
+    "type": "train"
+  },
+  {
+    "name": "Gare centrale de Montréal",
+    "lat": 45.500285,
+    "lon": -73.5671623,
+    "operator": "Via Rail;exo;Amtrak",
+    "line": "unknown",
+    "network": "VIA Rail;exo;Amtrak",
+    "type": "train"
+  },
+  {
+    "name": "Mascouche",
+    "lat": 45.7296023,
+    "lon": -73.5983235,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Repentigny",
+    "lat": 45.7356966,
+    "lon": -73.4859685,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Pointe-aux-Trembles",
+    "lat": 45.6747302,
+    "lon": -73.5062328,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Rivière-des-Prairies",
+    "lat": 45.6612348,
+    "lon": -73.5382343,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Anjou",
+    "lat": 45.6182795,
+    "lon": -73.5961726,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo;VIA Rail",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Léonard–Montréal-Nord",
+    "lat": 45.5997788,
+    "lon": -73.6162114,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Michel–Montréal-Nord",
+    "lat": 45.5828075,
+    "lon": -73.6304459,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Sauvé",
+    "lat": 45.5493788,
+    "lon": -73.6543477,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo;VIA Rail",
+    "type": "train"
+  },
+  {
+    "name": "Ahuntsic",
+    "lat": 45.5353705,
+    "lon": -73.6624703,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Jérôme",
+    "lat": 45.7731629,
+    "lon": -73.9990918,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Blainville",
+    "lat": 45.6721757,
+    "lon": -73.8658307,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Vimont",
+    "lat": 45.6038004,
+    "lon": -73.742706,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "De la Concorde",
+    "lat": 45.5601489,
+    "lon": -73.7098243,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Bois-de-Boulogne",
+    "lat": 45.5400698,
+    "lon": -73.675846,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Chabanel",
+    "lat": 45.536867,
+    "lon": -73.6572466,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Parc",
+    "lat": 45.5316387,
+    "lon": -73.6246656,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Montréal-Ouest",
+    "lat": 45.4536012,
+    "lon": -73.6418794,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Vendôme",
+    "lat": 45.4735495,
+    "lon": -73.6034976,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Candiac",
+    "lat": 45.3606104,
+    "lon": -73.5148067,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Delson",
+    "lat": 45.3668087,
+    "lon": -73.5408168,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Saint-Constant",
+    "lat": 45.3738557,
+    "lon": -73.5699762,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Sainte-Catherine",
+    "lat": 45.3820379,
+    "lon": -73.6000359,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "LaSalle",
+    "lat": 45.4257049,
+    "lon": -73.6567922,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Du Canal",
+    "lat": 45.4376261,
+    "lon": -73.6559462,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Vaudreuil",
+    "lat": 45.399407,
+    "lon": -74.0514805,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Dorion",
+    "lat": 45.3863926,
+    "lon": -74.0084813,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Sainte-Anne-de-Bellevue",
+    "lat": 45.4077564,
+    "lon": -73.9508005,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Beaconsfield",
+    "lat": 45.4348034,
+    "lon": -73.8481314,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Cedar Park",
+    "lat": 45.4424015,
+    "lon": -73.8199137,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Pointe-Claire",
+    "lat": 45.4473646,
+    "lon": -73.8030381,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Valois",
+    "lat": 45.4497165,
+    "lon": -73.7910242,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Pine Beach",
+    "lat": 45.4496012,
+    "lon": -73.7641579,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Dorval",
+    "lat": 45.4491959,
+    "lon": -73.7435177,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Lachine",
+    "lat": 45.4486681,
+    "lon": -73.7111856,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Longueuil–Université-de-Sherbrooke",
+    "lat": 45.5249263,
+    "lon": -73.5219251,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Viau",
+    "lat": 45.5611109,
+    "lon": -73.5473091,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Monk",
+    "lat": 45.4510439,
+    "lon": -73.5932019,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Charlevoix",
+    "lat": 45.4782496,
+    "lon": -73.5693705,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Préfontaine",
+    "lat": 45.5417253,
+    "lon": -73.5542369,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Du Collège",
+    "lat": 45.5084616,
+    "lon": -73.6728291,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Plamondon",
+    "lat": 45.4943703,
+    "lon": -73.6379309,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Laurier",
+    "lat": 45.5280804,
+    "lon": -73.5883784,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Rosemont",
+    "lat": 45.5314962,
+    "lon": -73.5973383,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Crémazie",
+    "lat": 45.5461436,
+    "lon": -73.6388375,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Langelier",
+    "lat": 45.5827257,
+    "lon": -73.5431577,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Pie IX",
+    "lat": 45.5541959,
+    "lon": -73.5515329,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Guy-Concordia",
+    "lat": 45.4953736,
+    "lon": -73.5798383,
+    "operator": "Société de transport de Montréal",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Île-Perrot",
+    "lat": 45.3961336,
+    "lon": -73.9651703,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Hays",
+    "lat": 45.3740801,
+    "lon": -73.5659975,
+    "operator": "Exo",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Barrington",
+    "lat": 45.3736546,
+    "lon": -73.5627097,
+    "operator": "Exo",
+    "line": "unknown",
+    "network": "Exo",
+    "type": "train"
+  },
+  {
+    "name": "Mirabel",
+    "lat": 45.7121541,
+    "lon": -73.9191598,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Baie-d'Urfé",
+    "lat": 45.4198747,
+    "lon": -73.9156092,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Beaurepaire",
+    "lat": 45.4274086,
+    "lon": -73.8870697,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Rosemère",
+    "lat": 45.6345663,
+    "lon": -73.7959015,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  },
+  {
+    "name": "Sainte-Rose",
+    "lat": 45.625284,
+    "lon": -73.7644249,
+    "operator": "exo",
+    "line": "unknown",
+    "network": "exo",
+    "type": "train"
+  }
+]

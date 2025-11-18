@@ -78,6 +78,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     hospitals: [],
     restaurants: [],
     sports: [],
+    metro: [],
+    trains: [],
+    rem: [],
+    daycares: [],
   });
 
   // Get walkability scores for the neighborhood
@@ -98,6 +102,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
       hospitals: "🏥",
       restaurants: "🍽️",
       sports: "🏟️",
+      metro: "🚇",
+      trains: "🚆",
+      rem: "⚡",
+      daycares: "👶",
     };
 
     return L.divIcon({
@@ -212,6 +220,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           hospitalsDataRaw,
           sportsDataRaw,
           restaurantDataRaw,
+          metroDataRaw,
+          trainsDataRaw,
+          remDataRaw,
+          daycaresDataRaw,
         ] = await Promise.all([
           fetch(process.env.PUBLIC_URL + "/assets/montreal_parks.json").then(
             (res) => res.json()
@@ -228,6 +240,18 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           fetch(
             process.env.PUBLIC_URL + "/assets/montreal_restaurants.json"
           ).then((res) => res.json()),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_metro.json").then(
+            (res) => res.json()
+          ),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_trains.json").then(
+            (res) => res.json()
+          ),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_rem.json").then(
+            (res) => res.json()
+          ),
+          fetch(process.env.PUBLIC_URL + "/assets/montreal_daycares.json").then(
+            (res) => res.json()
+          ),
         ]);
 
         // USE ORIGINAL GEOJSON (not rotated) for point-in-polygon test
@@ -311,12 +335,46 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           isPointInNeighborhood(poi.lat, poi.lon)
         );
 
+        // Filter transit and daycare data (they're already arrays, not wrapped in .elements)
+        // Add unique IDs based on coordinates since these POIs don't have native IDs
+        const metro = (metroDataRaw || [])
+          .filter((poi) => isPointInNeighborhood(poi.lat, poi.lon))
+          .map((poi, index) => ({
+            ...poi,
+            id: `metro-${poi.lat}-${poi.lon}-${index}`,
+          }));
+
+        const trains = (trainsDataRaw || [])
+          .filter((poi) => isPointInNeighborhood(poi.lat, poi.lon))
+          .map((poi, index) => ({
+            ...poi,
+            id: `train-${poi.lat}-${poi.lon}-${index}`,
+          }));
+
+        const rem = (remDataRaw || [])
+          .filter((poi) => isPointInNeighborhood(poi.lat, poi.lon))
+          .map((poi, index) => ({
+            ...poi,
+            id: `rem-${poi.lat}-${poi.lon}-${index}`,
+          }));
+
+        const daycares = (daycaresDataRaw || [])
+          .filter((poi) => isPointInNeighborhood(poi.lat, poi.lon))
+          .map((poi, index) => ({
+            ...poi,
+            id: `daycare-${poi.lat}-${poi.lon}-${index}`,
+          }));
+
         setPOICategories({
           parks,
           schools,
           hospitals,
           restaurants,
           sports,
+          metro,
+          trains,
+          rem,
+          daycares,
         });
 
         console.log(
@@ -327,12 +385,20 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
             hospitals: hospitals.length,
             restaurants: restaurants.length,
             sports: sports.length,
+            metro: metro.length,
+            trains: trains.length,
+            rem: rem.length,
+            daycares: daycares.length,
             total:
               parks.length +
               schools.length +
               hospitals.length +
               restaurants.length +
-              sports.length,
+              sports.length +
+              metro.length +
+              trains.length +
+              rem.length +
+              daycares.length,
           }
         );
       } catch (error) {
@@ -728,6 +794,34 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         color: "#9C27B0",
         count: getFilteredCount(poiCategories.sports || []),
       },
+      {
+        id: "metro",
+        name: "Metro",
+        icon: "🚇",
+        color: "#FF5722",
+        count: getFilteredCount(poiCategories.metro || []),
+      },
+      {
+        id: "trains",
+        name: "Trains",
+        icon: "🚆",
+        color: "#607D8B",
+        count: getFilteredCount(poiCategories.trains || []),
+      },
+      {
+        id: "rem",
+        name: "REM",
+        icon: "⚡",
+        color: "#00BCD4",
+        count: getFilteredCount(poiCategories.rem || []),
+      },
+      {
+        id: "daycares",
+        name: "Daycares",
+        icon: "👶",
+        color: "#E91E63",
+        count: getFilteredCount(poiCategories.daycares || []),
+      },
     ];
 
     return (
@@ -815,6 +909,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
       hospitals: { icon: "🏥", color: "#F44336" },
       restaurants: { icon: "🍽️", color: "#FF9800" },
       sports: { icon: "🏟️", color: "#9C27B0" },
+      metro: { icon: "🚇", color: "#FF5722" },
+      trains: { icon: "🚆", color: "#607D8B" },
+      rem: { icon: "⚡", color: "#00BCD4" },
+      daycares: { icon: "👶", color: "#E91E63" },
     };
 
     const info = categoryInfo[selectedPOICategory];
@@ -848,37 +946,64 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
             poiListScrollPos.current = e.currentTarget.scrollTop;
           }}
         >
-          {sortedPOIs.slice(0, 50).map((poi, index) => (
-            <div
-              key={`${poi.id}-${index}`}
-              className={`poi-item-card ${
-                selectedPOI?.id === poi.id ? "selected" : ""
-              }`}
-              onClick={(e) => handlePOIClick(poi, selectedPOICategory, e)}
-            >
-              <div className="poi-item-name">
-                {poi.name || poi.tags?.name || "Unnamed"}
+          {sortedPOIs.slice(0, 50).map((poi, index) => {
+            // Generate a consistent unique ID for comparison
+            const poiId = poi.id || `${selectedPOICategory}-${index}`;
+            const isSelected =
+              selectedPOI?.id === poiId ||
+              (selectedPOI?.name === poi.name &&
+                selectedPOI?.lat === poi.lat &&
+                selectedPOI?.lon === poi.lon);
+
+            return (
+              <div
+                key={poiId}
+                className={`poi-item-card ${isSelected ? "selected" : ""}`}
+                onClick={(e) => {
+                  // Ensure POI has an ID before passing to handler
+                  const poiWithId = { ...poi, id: poiId };
+                  handlePOIClick(poiWithId, selectedPOICategory, e);
+                }}
+              >
+                <div className="poi-item-name">
+                  {poi.name || poi.tags?.name || "Unnamed"}
+                </div>
+                {poi.address && (
+                  <div className="poi-item-detail">📍 {poi.address}</div>
+                )}
+                {poi.parkType && (
+                  <div className="poi-item-detail">🌳 {poi.parkType}</div>
+                )}
+                {poi.schoolType && (
+                  <div className="poi-item-detail">🎓 {poi.schoolType}</div>
+                )}
+                {poi.healthcareType && (
+                  <div className="poi-item-detail">🏥 {poi.healthcareType}</div>
+                )}
+                {poi.cuisine && (
+                  <div className="poi-item-detail">🍴 {poi.cuisine}</div>
+                )}
+                {poi.sport && (
+                  <div className="poi-item-detail">⚽ {poi.sport}</div>
+                )}
+                {poi.line && (
+                  <div className="poi-item-detail">🚉 Line: {poi.line}</div>
+                )}
+                {poi.network && (
+                  <div className="poi-item-detail">🚇 {poi.network}</div>
+                )}
+                {poi.type &&
+                  (poi.type === "kindergarten" || poi.type === "childcare") && (
+                    <div className="poi-item-detail">
+                      🏫{" "}
+                      {poi.type === "kindergarten"
+                        ? "Kindergarten"
+                        : "Childcare"}
+                    </div>
+                  )}
               </div>
-              {poi.address && (
-                <div className="poi-item-detail">📍 {poi.address}</div>
-              )}
-              {poi.parkType && (
-                <div className="poi-item-detail">🌳 {poi.parkType}</div>
-              )}
-              {poi.schoolType && (
-                <div className="poi-item-detail">🎓 {poi.schoolType}</div>
-              )}
-              {poi.healthcareType && (
-                <div className="poi-item-detail">🏥 {poi.healthcareType}</div>
-              )}
-              {poi.cuisine && (
-                <div className="poi-item-detail">🍴 {poi.cuisine}</div>
-              )}
-              {poi.sport && (
-                <div className="poi-item-detail">⚽ {poi.sport}</div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {currentPOIs.length === 0 && (

@@ -14,6 +14,10 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
     hospitalCount: neighborhood.hospitalCount,
     restaurantCount: neighborhood.restaurantCount,
     sportsCount: neighborhood.sportsCount,
+    metroCount: neighborhood.metroCount,
+    trainsCount: neighborhood.trainsCount,
+    remCount: neighborhood.remCount,
+    daycaresCount: neighborhood.daycaresCount,
   });
 
   // Helper function to render emoji density based on count
@@ -86,6 +90,10 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
               {renderAmenityDensity(neighborhood.hospitalCount, "🏥")}
               {renderAmenityDensity(neighborhood.restaurantCount, "🍽️")}
               {renderAmenityDensity(neighborhood.sportsCount, "⚽")}
+              {renderAmenityDensity(neighborhood.metroCount, "🚇")}
+              {renderAmenityDensity(neighborhood.trainsCount, "🚆")}
+              {renderAmenityDensity(neighborhood.remCount, "⚡")}
+              {renderAmenityDensity(neighborhood.daycaresCount, "👶")}
             </div>
 
             {/* Amenities Legend */}
@@ -109,6 +117,22 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
               <div className="legend-item">
                 <span className="legend-emoji">⚽</span>
                 <span className="legend-label">Sports</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">🚇</span>
+                <span className="legend-label">Metro</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">🚆</span>
+                <span className="legend-label">Trains</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">⚡</span>
+                <span className="legend-label">REM</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-emoji">👶</span>
+                <span className="legend-label">Daycares</span>
               </div>
             </div>
           </div>
