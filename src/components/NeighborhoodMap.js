@@ -742,6 +742,29 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     }
   });
 
+  // Enable pinch-to-zoom (trackpad) but disable scroll-to-zoom (mouse wheel)
+  useEffect(() => {
+    if (!map) return;
+
+    const handleWheel = (e) => {
+      // Allow zoom only if Ctrl key is pressed (standard for trackpad pinch on Windows/Chrome)
+      if (e.ctrlKey) {
+        return; // Let it propagate to Leaflet
+      }
+
+      // Prevent Leaflet from zooming on regular scroll
+      e.stopPropagation();
+    };
+
+    const container = map.getContainer();
+    // Use capture to intercept before Leaflet
+    container.addEventListener("wheel", handleWheel, { capture: true });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel, { capture: true });
+    };
+  }, [map]);
+
   if (!neighborhoodGeoJSON) {
     return (
       <div className="custom-montreal-map">
