@@ -1,0 +1,583 @@
+/* Palette Container Styles (Reused from HeaderPalette mostly) */
+.footer-palette-container {
+  background-color: #1a1a1a;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.palette-title {
+  color: #FFD700;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.palette-subtitle {
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 1.2rem;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.palette-item {
+  background: #252525;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.palette-label {
+  padding: 15px 20px;
+  background: #333;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #444;
+}
+
+.variant-number {
+  background: #FFD700;
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.variant-name {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.variant-desc {
+  color: #888;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.footer-preview-container {
+  position: relative;
+  background-color: #f0f0f0;
+  /* No fixed height, let footer content dictate size */
+  padding-top: 20px;
+  /* Space to show it's at bottom */
+}
+
+/* Common Footer Styles */
+.palette-footer {
+  background: #000;
+  color: #fff;
+  padding: 40px 20px 20px;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto 30px;
+  gap: 30px;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.footer-tagline {
+  color: #888;
+  font-size: 0.9rem;
+  max-width: 200px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 40px;
+}
+
+.link-col h4 {
+  color: #FFD700;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.link-col span {
+  display: block;
+  color: #aaa;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.link-col span:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-socials span {
+  background: #333;
+  color: #FFD700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+/* --- VARIANT STYLES --- */
+
+/* #1 Classic 3-Column */
+.footer-variant-1 {
+  border-top: 1px solid #333;
+}
+
+/* #2 Centered Minimal */
+.footer-variant-2 .footer-content {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.footer-variant-2 .footer-bottom {
+  justify-content: center;
+  border-top: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* #3 Newsletter Focus */
+.footer-variant-3 .footer-newsletter {
+  background: #111;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.footer-variant-3 .input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.footer-variant-3 input {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  background: #333;
+  color: #fff;
+}
+
+.footer-variant-3 button {
+  background: #FFD700;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* #4 Social Bar */
+.footer-variant-4 {
+  padding: 20px;
+}
+
+.footer-variant-4 .footer-content {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.footer-variant-4 .footer-bottom {
+  border-top: none;
+  justify-content: center;
+  gap: 30px;
+}
+
+.footer-variant-4 .footer-socials span {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  background: #FFD700;
+  color: #000;
+}
+
+/* #5 Gold Border Top */
+.footer-variant-5 {
+  border-top: 4px solid #FFD700;
+}
+
+/* #6 Corporate Grid */
+.footer-variant-6 {
+  background: #0a0a0a;
+}
+
+.footer-variant-6 .footer-links {
+  width: 100%;
+  justify-content: space-around;
+}
+
+/* #7 App Download */
+.footer-variant-7 .app-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.app-btn {
+  background: #333;
+  border: 1px solid #555;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.app-btn:hover {
+  border-color: #FFD700;
+  color: #FFD700;
+}
+
+/* #8 Tagline Hero */
+.footer-variant-8 .footer-tagline {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bold;
+  max-width: 300px;
+  line-height: 1.2;
+}
+
+/* #9 Contact Strip */
+.footer-variant-9 {
+  padding: 0;
+}
+
+.footer-variant-9 .contact-row {
+  background: #FFD700;
+  color: #000;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.footer-variant-9 .footer-content {
+  display: none;
+}
+
+/* Hide main content for this strip style */
+.footer-variant-9 .footer-bottom {
+  padding: 15px;
+  border-top: none;
+}
+
+/* #10 Legal & Trust */
+.footer-variant-10 .legal-links {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-variant-10 .legal-links span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* #11 Asymmetric Top */
+.footer-variant-11 {
+  position: relative;
+  padding-top: 60px;
+}
+
+.footer-angle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #f0f0f0;
+  /* Match container bg */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+  /* Creates angle */
+}
+
+/* #12 Gradient Depth */
+.footer-variant-12 {
+  background: linear-gradient(to top, #000 0%, #1a1a1a 100%);
+  border-top: 1px solid #333;
+}
+
+/* #13 Map Integrated */
+.footer-variant-13 .footer-map-preview {
+  width: 200px;
+  height: 120px;
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #444;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/1000px-World_map_blank_without_borders.svg.png') center/cover;
+  opacity: 0.5;
+}
+
+/* #14 Luxury Pattern */
+.footer-variant-14 {
+  background-color: #050505;
+  background-image: radial-gradient(#222 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-top: 2px solid #FFD700;
+}
+
+/* #15 Floating Card */
+.variant-15-container {
+  padding-bottom: 20px;
+  background: #ddd;
+}
+
+.footer-variant-15 {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* PRINT OPTIMIZATIONS */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .footer-palette-container {
+    background-color: #1a1a1a !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .palette-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+    border: 1px solid #444;
+  }
+
+  /* Hide UI elements */
+  button {
+    display: none !important;
+  }
+}
+
+/* --- CUSTOM VARIANTS 16-20 (Inspired by Image) --- */
+
+/* Common Structure for 16-20 */
+.custom-footer-structure {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.footer-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.footer-left-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.ali-chris-logo {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.ali-chris-logo .sub-text {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 5px;
+  color: #888;
+  text-align: center;
+}
+
+.agency-name {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.social-icons-minimal {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons-minimal span {
+  color: #666;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.social-icons-minimal span:hover {
+  color: #fff;
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: #333;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #888;
+  font-size: 14px;
+}
+
+.phone-number {
+  color: #888;
+}
+
+.copyright-legal {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legal-notice {
+  color: #666;
+  cursor: pointer;
+}
+
+.made-by-section {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.neighborhoods-link {
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* Variant 16: The Real Deal (Exact Match) */
+.footer-variant-16 {
+  background-color: #000;
+  padding: 40px 50px;
+}
+
+/* Variant 17: Split Level */
+.footer-variant-17 {
+  background-color: #050505;
+  padding: 40px 50px;
+}
+
+.footer-variant-17 .footer-top-row {
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.footer-variant-17 .footer-left-group {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Variant 18: Agency Focus */
+.footer-variant-18 {
+  background-color: #000;
+  padding: 40px 50px;
+}
+
+.footer-variant-18 .agency-name {
+  color: #FFD700;
+  font-size: 20px;
+}
+
+.footer-variant-18 .footer-divider {
+  background-color: #FFD700;
+  opacity: 0.3;
+}
+
+/* Variant 19: Creator Credit */
+.footer-variant-19 {
+  background-color: #080808;
+  padding: 40px 50px;
+}
+
+.footer-variant-19 .made-by-section {
+  color: #fff;
+}
+
+/* Variant 20: Legal Center */
+.footer-variant-20 {
+  background-color: #000;
+  padding: 40px 50px;
+  border-top: 1px solid #222;
+}
+
+.footer-variant-20 .copyright-legal {
+  font-weight: bold;
+  color: #aaa;
+}

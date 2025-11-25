@@ -7,8 +7,14 @@ import NeighborhoodMap from "./components/NeighborhoodMap";
 import NeighborhoodDetails from "./components/NeighborhoodDetails";
 import AnimatedIntro from "./components/AnimatedIntro";
 import HelpGuide from "./components/HelpGuide";
+import HeaderPalette from "./components/HeaderPalette";
+import FooterPalette from "./components/FooterPalette";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
+  const [showPalette, setShowPalette] = useState(false); // Toggle to show header palette
+  const [showFooterPalette, setShowFooterPalette] = useState(false); // Toggle to show footer palette
   const [selectedPart, setSelectedPart] = useState(null); // None = show PartMap, else = show MontrealMap
   const [selectedPartGeoJSON, setSelectedPartGeoJSON] = useState(null); // Filtered GeoJSON for selected part
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null);
@@ -129,78 +135,94 @@ function App() {
 
   return (
     <div className="App">
-      {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+          }}
+        >
+          <Header />
 
-      {/* Help Guide for first-time users */}
-      {!isMobile && <HelpGuide />}
+          {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 
-      <div className="map-container">
-        {selectedPart === null ? (
-          // Show PartMap
-          <PartMap
-            onPartClick={handlePartClick}
-            onPartHover={handlePartHover}
-            onPartLeave={handlePartLeave}
-          />
-        ) : isPinned && selectedNeighborhoodGeoJSON ? (
-          // Show NeighborhoodMap for selected neighborhood
-          <NeighborhoodMap
-            neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
-            neighborhoodInfo={pinnedNeighborhood}
-            onBack={() => {
-              // Use browser back instead of direct state change
-              if (!isNavigatingBack) {
-                window.history.back();
-              } else {
-                // If already navigating back, just update state
-                setIsPinned(false);
-                setPinnedNeighborhood(null);
-                setIsHovering(false);
-                setSelectedNeighborhood(null);
-                setSelectedNeighborhoodGeoJSON(null);
-              }
-            }}
-          />
-        ) : (
-          // Show MontrealMap for selected part
-          <MontrealMap
-            selectedPart={selectedPart}
-            partGeoJSON={selectedPartGeoJSON}
-            onPartBack={() => {
-              // Always go back to PartMap directly
-              setSelectedPart(null);
-              setSelectedPartGeoJSON(null);
-              setSelectedNeighborhoodGeoJSON(null);
-              setIsPinned(false);
-              setPinnedNeighborhood(null);
-            }}
-            onNeighborhoodHover={handleNeighborhoodHover}
-            onNeighborhoodLeave={handleNeighborhoodLeave}
-            onNeighborhoodClick={handleNeighborhoodClick}
-            startNeighborhoodAnimation={introComplete}
-            isPinned={isPinned}
-            pinnedNeighborhood={pinnedNeighborhood}
-          />
-        )}
-        {/* Floating neighborhood details overlay - only show on MontrealMap, not NeighborhoodMap */}
-        {!isMobile && selectedPart !== null && !isPinned && (
+          {/* Help Guide for first-time users - REMOVED as per request */}
+          {/* {!isMobile && <HelpGuide />} */}
+
           <div
-            className={`neighborhood-overlay ${
-              isHovering && selectedNeighborhood ? "visible" : ""
-            }`}
+            className="map-container"
+            style={{ flex: 1, position: "relative", overflow: "hidden" }}
           >
-            <NeighborhoodDetails
-              neighborhood={selectedNeighborhood}
-              isPinned={false}
-              onUnpin={() => {
-                setIsPinned(false);
-                setPinnedNeighborhood(null);
-                setIsHovering(false);
-                setSelectedNeighborhood(null);
-              }}
-            />
+            {selectedPart === null ? (
+              // Show PartMap
+              <PartMap
+                onPartClick={handlePartClick}
+                onPartHover={handlePartHover}
+                onPartLeave={handlePartLeave}
+              />
+            ) : isPinned && selectedNeighborhoodGeoJSON ? (
+              // Show NeighborhoodMap for selected neighborhood
+              <NeighborhoodMap
+                neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
+                neighborhoodInfo={pinnedNeighborhood}
+                onBack={() => {
+                  // Use browser back instead of direct state change
+                  if (!isNavigatingBack) {
+                    window.history.back();
+                  } else {
+                    // If already navigating back, just update state
+                    setIsPinned(false);
+                    setPinnedNeighborhood(null);
+                    setIsHovering(false);
+                    setSelectedNeighborhood(null);
+                    setSelectedNeighborhoodGeoJSON(null);
+                  }
+                }}
+              />
+            ) : (
+              // Show MontrealMap for selected part
+              <MontrealMap
+                selectedPart={selectedPart}
+                partGeoJSON={selectedPartGeoJSON}
+                onPartBack={() => {
+                  // Always go back to PartMap directly
+                  setSelectedPart(null);
+                  setSelectedPartGeoJSON(null);
+                  setSelectedNeighborhoodGeoJSON(null);
+                  setIsPinned(false);
+                  setPinnedNeighborhood(null);
+                }}
+                onNeighborhoodHover={handleNeighborhoodHover}
+                onNeighborhoodLeave={handleNeighborhoodLeave}
+                onNeighborhoodClick={handleNeighborhoodClick}
+                startNeighborhoodAnimation={introComplete}
+                isPinned={isPinned}
+                pinnedNeighborhood={pinnedNeighborhood}
+              />
+            )}
+            {/* Floating neighborhood details overlay - only show on MontrealMap, not NeighborhoodMap */}
+            {!isMobile && selectedPart !== null && !isPinned && (
+              <div
+                className={`neighborhood-overlay ${
+                  isHovering && selectedNeighborhood ? "visible" : ""
+                }`}
+              >
+                <NeighborhoodDetails
+                  neighborhood={selectedNeighborhood}
+                  isPinned={false}
+                  onUnpin={() => {
+                    setIsPinned(false);
+                    setPinnedNeighborhood(null);
+                    setIsHovering(false);
+                    setSelectedNeighborhood(null);
+                  }}
+                />
+              </div>
+            )}
           </div>
-        )}
+        </div>
+        <Footer />
       </div>
     </div>
   );

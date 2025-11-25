@@ -255,6 +255,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const [arrowPositions, setArrowPositions] = useState(null); // Store calculated arrow positions
   const [showArrows, setShowArrows] = useState(false); // Control arrow visibility
   const [iconicLocations, setIconicLocations] = useState([]); // Store rotated iconic locations
+  const [showInfoBox, setShowInfoBox] = useState(true); // Control info box visibility
 
   // Calculate responsive font size for mobile buttons
   const calculateButtonFontSize = useCallback(() => {
@@ -793,15 +794,16 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
   return (
     <div className="part-map-container">
-      {/* BoomSold Logo - Top Right */}
+      {/* BoomSold Logo - Top Left (Next to Hamburger) */}
       <div
         style={{
           position: "fixed",
-          top: isMobile ? "2%" : "5%",
-          right: isMobile ? "10px" : "20px",
-          width: isMobile ? "100px" : "150px",
-          height: isMobile ? "65px" : "100px",
-          zIndex: 1000,
+          top: isMobile ? "3.5%" : "3.5vh",
+          left: isMobile ? "auto" : "90px",
+          right: isMobile ? "0px" : "auto",
+          width: isMobile ? "100px" : "100px",
+          height: isMobile ? "65px" : "65px",
+          zIndex: 1500,
         }}
       >
         <img
@@ -817,41 +819,161 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
       {/* Info Bubble - Bottom Right */}
       {!isMobile && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "10%",
-            right: "5%",
-            maxWidth: "20%",
-            height: "auto",
-            zIndex: 1000,
-          }}
-        >
-          <div
+        <>
+          {/* Toggle Button - Question Mark */}
+          <button
+            onClick={() => setShowInfoBox(!showInfoBox)}
             style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#ffd90025",
-              color: "#000000",
-              padding: "20px 24px",
-              borderRadius: "20px",
-              boxShadow:
-                "0 4px 20px rgba(255, 215, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)",
-              fontFamily: "'Nunito', sans-serif",
-              fontSize: "14px",
-              lineHeight: "1.6",
-              textAlign: "center",
-              border: "2px solid rgba(0, 0, 0, 0.1)",
-              boxSizing: "border-box",
+              position: "fixed",
+              bottom: "30px",
+              right: "30px",
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              backgroundColor: "#FFD700",
+              color: "#000",
+              border: "none",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+              fontSize: "24px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              zIndex: 1001,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "transform 0.2s ease, background-color 0.2s ease",
             }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.1)";
+              e.target.style.backgroundColor = "#FFC107";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.backgroundColor = "#FFD700";
+            }}
+            aria-label="Toggle Info"
           >
-            <p style={{ fontSize: 14, margin: 0, fontWeight: 600 }}>
-              We are here to simplify your real estate search. Select a
-              neighborhood to discover average home prices, amenities nearby and
-              more.
-            </p>
-          </div>
-        </div>
+            ?
+          </button>
+
+          {/* Info Box */}
+          {showInfoBox && (
+            <div
+              className="info-bubble-container"
+              style={{
+                position: "absolute",
+                bottom: "20%", // Positioned above the toggle button
+                right: "30px",
+                maxWidth: "340px",
+                zIndex: 1000,
+                animation: "fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  backgroundColor: "rgba(255, 255, 255, 0.95)",
+                  backdropFilter: "blur(12px)",
+                  padding: "24px 28px",
+                  borderRadius: "24px",
+                  boxShadow:
+                    "0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
+                  borderLeft: "6px solid #FFD700",
+                  fontFamily: "'Nunito', sans-serif",
+                  color: "#2d3436",
+                  transform: "translateZ(0)",
+                }}
+              >
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowInfoBox(false);
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: "12px",
+                    right: "12px",
+                    background: "rgba(0,0,0,0.05)",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: "24px",
+                    height: "24px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    color: "#636e72",
+                    padding: 0,
+                    lineHeight: 1,
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = "rgba(0,0,0,0.1)";
+                    e.target.style.color = "#000";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = "rgba(0,0,0,0.05)";
+                    e.target.style.color = "#636e72";
+                  }}
+                  aria-label="Close info"
+                >
+                  ×
+                </button>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "28px",
+                      background: "#FFF9C4",
+                      width: "48px",
+                      height: "48px",
+                      borderRadius: "14px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    💡
+                  </div>
+                  <div>
+                    <h4
+                      style={{
+                        margin: "0 0 6px 0",
+                        fontSize: "18px",
+                        fontWeight: 800,
+                        color: "#2d3436",
+                        letterSpacing: "-0.5px",
+                      }}
+                    >
+                      Welcome to BoomSold
+                    </h4>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        margin: 0,
+                        lineHeight: "1.5",
+                        color: "#636e72",
+                        fontWeight: 500,
+                      }}
+                    >
+                      We are here to simplify your real estate search. Select a
+                      neighborhood to discover average home prices, amenities
+                      nearby and more.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {/* Montreal Island Header */}
@@ -861,8 +983,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       <h2
         className="part-map-heading"
         style={{
-          position: "fixed",
-          top: isMobile ? "14vh" : "15%",
+          position: "relative",
+          top: isMobile ? "4%" : "5%",
           width: isMobile ? "100%" : "90vw",
           textAlign: "center",
           zIndex: 1000,
@@ -918,14 +1040,18 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
       <div
         className="custom-montreal-map"
-        style={{ background: "transparent" }}
+        style={
+          !isMobile
+            ? { background: "transparent" }
+            : { position: "relative", top: "-2%" }
+        }
       >
         {isMobile ? (
           // Mobile view - Static image with interactive labels
           <div
             style={{
               width: "100%",
-              height: "100%",
+              height: "90%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -1303,7 +1429,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         ) : (
           // Desktop view - Interactive map
           <MapContainer
-            center={[45.56, -73.62]}
+            center={[45.52, -73.62]}
             zoom={zoomLevel}
             style={{ height: "100%", width: "100%", background: "transparent" }}
             zoomControl={false}

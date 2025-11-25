@@ -47,8 +47,8 @@
 }
 
 .pm-selected-part-label {
-  position: fixed;
-  top: 10vh;
+  position: relative;
+  top: 2vh;
   width: 90vw;
   text-align: center;
   z-index: 2000;
@@ -60,8 +60,8 @@
 
 
   .pm-selected-part-label {
-    position: fixed;
-    top: 10vh;
+    position: relative;
+    top: 2vh;
     width: 100vw;
     text-align: center;
     z-index: 2000;

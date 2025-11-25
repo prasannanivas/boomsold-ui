@@ -2218,10 +2218,10 @@ const MontrealMap = ({
         <div
           style={{
             position: "fixed",
-            top: isMobile ? "2%" : "5%",
-            right: isMobile ? "10px" : "20px",
+            top: isMobile ? "2%" : "3.5%",
+            left: isMobile ? "60px" : "90px",
             width: isMobile ? "100px" : "150px",
-            zIndex: 1000,
+            zIndex: 1500,
             display: "flex",
             flexDirection: "column",
             gap: "10px",
