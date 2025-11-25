@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/boomsold-ui/static/css/main.57e0351a.css",
-    "main.js": "/boomsold-ui/static/js/main.d48e818d.js",
+    "main.css": "/boomsold-ui/static/css/main.82fb63d7.css",
+    "main.js": "/boomsold-ui/static/js/main.097be468.js",
     "static/js/453.0a794063.chunk.js": "/boomsold-ui/static/js/453.0a794063.chunk.js",
     "static/media/Montreal-map-textremoved.png": "/boomsold-ui/static/media/Montreal-map-textremoved.3a2233e3c8c0eef9138c.png",
     "static/media/Montreal_Canadiens.svg.png": "/boomsold-ui/static/media/Montreal_Canadiens.svg.6cf458963790ca98e9c9.png",
+    "static/media/istockphoto-160291870-1024x1024.jpg": "/boomsold-ui/static/media/istockphoto-160291870-1024x1024.c8dc942cdf43f7275a10.jpg",
     "index.html": "/boomsold-ui/index.html",
-    "main.57e0351a.css.map": "/boomsold-ui/static/css/main.57e0351a.css.map",
-    "main.d48e818d.js.map": "/boomsold-ui/static/js/main.d48e818d.js.map",
+    "main.82fb63d7.css.map": "/boomsold-ui/static/css/main.82fb63d7.css.map",
+    "main.097be468.js.map": "/boomsold-ui/static/js/main.097be468.js.map",
     "453.0a794063.chunk.js.map": "/boomsold-ui/static/js/453.0a794063.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.57e0351a.css",
-    "static/js/main.d48e818d.js"
+    "static/css/main.82fb63d7.css",
+    "static/js/main.097be468.js"
   ]
 }
