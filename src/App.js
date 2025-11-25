@@ -143,7 +143,7 @@ function App() {
             height: "100vh",
           }}
         >
-          <Header />
+          {!(isPinned && selectedNeighborhoodGeoJSON) && <Header />}
 
           {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 
@@ -152,7 +152,14 @@ function App() {
 
           <div
             className="map-container"
-            style={{ flex: 1, position: "relative", overflow: "hidden" }}
+            style={{
+              flex: 1,
+              position: "relative",
+              overflow:
+                isPinned && selectedNeighborhoodGeoJSON ? "auto" : "hidden",
+              touchAction:
+                isPinned && selectedNeighborhoodGeoJSON ? "auto" : "none",
+            }}
           >
             {selectedPart === null ? (
               // Show PartMap
@@ -163,23 +170,27 @@ function App() {
               />
             ) : isPinned && selectedNeighborhoodGeoJSON ? (
               // Show NeighborhoodMap for selected neighborhood
-              <NeighborhoodMap
-                neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
-                neighborhoodInfo={pinnedNeighborhood}
-                onBack={() => {
-                  // Use browser back instead of direct state change
-                  if (!isNavigatingBack) {
-                    window.history.back();
-                  } else {
-                    // If already navigating back, just update state
-                    setIsPinned(false);
-                    setPinnedNeighborhood(null);
-                    setIsHovering(false);
-                    setSelectedNeighborhood(null);
-                    setSelectedNeighborhoodGeoJSON(null);
-                  }
-                }}
-              />
+              <>
+                <Header />
+                <NeighborhoodMap
+                  neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
+                  neighborhoodInfo={pinnedNeighborhood}
+                  onBack={() => {
+                    // Use browser back instead of direct state change
+                    if (!isNavigatingBack) {
+                      window.history.back();
+                    } else {
+                      // If already navigating back, just update state
+                      setIsPinned(false);
+                      setPinnedNeighborhood(null);
+                      setIsHovering(false);
+                      setSelectedNeighborhood(null);
+                      setSelectedNeighborhoodGeoJSON(null);
+                    }
+                  }}
+                />
+                <Footer />
+              </>
             ) : (
               // Show MontrealMap for selected part
               <MontrealMap
@@ -222,7 +233,7 @@ function App() {
             )}
           </div>
         </div>
-        <Footer />
+        {!(isPinned && selectedNeighborhoodGeoJSON) && <Footer />}
       </div>
     </div>
   );

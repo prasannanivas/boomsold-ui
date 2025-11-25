@@ -43,7 +43,7 @@
 
 .selected-part-label {
   position: fixed;
-  top: 5%;
+  top: 120px;
   width: 90vw;
   text-align: center;
   z-index: 2000;

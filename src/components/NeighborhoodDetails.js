@@ -95,46 +95,6 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
               {renderAmenityDensity(neighborhood.remCount, "⚡")}
               {renderAmenityDensity(neighborhood.daycaresCount, "👶")}
             </div>
-
-            {/* Amenities Legend */}
-            <div className="amenities-legend">
-              <div className="legend-item">
-                <span className="legend-emoji">🌳</span>
-                <span className="legend-label">Parks</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">🏫</span>
-                <span className="legend-label">Schools</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">🏥</span>
-                <span className="legend-label">Hospitals</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">🍽️</span>
-                <span className="legend-label">Restaurants</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">⚽</span>
-                <span className="legend-label">Sports</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">🚇</span>
-                <span className="legend-label">Metro</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">🚆</span>
-                <span className="legend-label">Trains</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">⚡</span>
-                <span className="legend-label">REM</span>
-              </div>
-              <div className="legend-item">
-                <span className="legend-emoji">👶</span>
-                <span className="legend-label">Daycares</span>
-              </div>
-            </div>
           </div>
 
           {/* Area */}

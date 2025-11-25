@@ -324,6 +324,7 @@ const MontrealMap = ({
 
   // Filter state
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [isLegendExpanded, setIsLegendExpanded] = useState(false);
   const [filters, setFilters] = useState({
     showBoroughs: true,
     showSuburbs: true,
@@ -398,7 +399,7 @@ const MontrealMap = ({
       `Calculated zoom level: ${zoom} for weighted score: ${weightedScore} (width: ${width}, height: ${height})`
     );
 
-    return zoom + 1;
+    return zoom + 0.9;
   }, []);
 
   // Handle window resize for mobile detection and zoom calculation
@@ -1826,6 +1827,8 @@ const MontrealMap = ({
     return () => window.removeEventListener("resize", handleResize);
   }, [map, getPartConfig]);
 
+  // const [isLegendExpanded, setIsLegendExpanded] = useState(false);
+
   if (!montrealData) {
     return (
       <div className="mm-custom-montreal-map">
@@ -1859,7 +1862,7 @@ const MontrealMap = ({
           onClick={onPartBack}
           style={{
             position: "fixed",
-            top: isMobile ? "2%" : "10%",
+            top: isMobile ? "120px" : "120px",
             left: isMobile ? "3%" : "5%",
             zIndex: 1000,
             padding: isMobile ? "8px 16px" : "12px 24px",
@@ -2218,13 +2221,12 @@ const MontrealMap = ({
         <div
           style={{
             position: "fixed",
-            top: isMobile ? "2%" : "3.5%",
-            left: isMobile ? "60px" : "90px",
-            width: isMobile ? "100px" : "150px",
+            top: isMobile ? "35px" : "20px",
+            left: isMobile ? "auto" : "90px",
+            right: isMobile ? "0px" : "auto",
+            width: isMobile ? "100px" : "100px",
+            height: isMobile ? "65px" : "65px",
             zIndex: 1500,
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
           }}
         >
           {/* BoomSold Logo */}
@@ -2232,7 +2234,6 @@ const MontrealMap = ({
             style={{
               width: "100%",
               height: isMobile ? "60px" : "100px",
-
               borderRadius: "8px",
               padding: "5px",
             }}
@@ -2249,6 +2250,201 @@ const MontrealMap = ({
           </div>
         </div>
 
+        {/* Map Legend - Left Bottom */}
+        {!isMobile && (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "30px",
+              left: "30px",
+              zIndex: 1000,
+              backgroundColor: "white",
+              borderRadius: "12px",
+              padding: "12px 16px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              transition: "all 0.3s ease",
+              border: "1px solid rgba(0,0,0,0.1)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexWrap: isLegendExpanded ? "wrap" : "nowrap",
+                gap: "16px",
+                alignItems: "center",
+                maxWidth: isLegendExpanded ? "300px" : "auto",
+              }}
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🌳</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Parks
+                </span>
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🏫</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Schools
+                </span>
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🏥</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Hospitals
+                </span>
+              </div>
+
+              {isLegendExpanded && (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🍽️</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Restaurants
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>⚽</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Sports
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🚇</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Metro
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🚆</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Trains
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>⚡</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      REM
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>👶</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Daycares
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <button
+              onClick={() => setIsLegendExpanded(!isLegendExpanded)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#666",
+                fontSize: "12px",
+                fontWeight: 600,
+                cursor: "pointer",
+                padding: "0",
+                textAlign: "left",
+                alignSelf: "flex-start",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
+            >
+              {isLegendExpanded ? "Show less ▲" : "View more ▼"}
+            </button>
+          </div>
+        )}
+
         {/* Filter Button - Hidden on Mobile */}
         {!isMobile && (
           <button
@@ -2256,7 +2452,7 @@ const MontrealMap = ({
             style={{
               position: "fixed",
               bottom: "30px",
-              left: "30px",
+              right: "30px",
               zIndex: 1000,
               padding: "12px 20px",
               backgroundColor: "#FFD700",
@@ -2292,7 +2488,7 @@ const MontrealMap = ({
             style={{
               position: "fixed",
               bottom: "100px",
-              left: "30px",
+              right: "30px",
               zIndex: 1000,
               backgroundColor: "white",
               borderRadius: "12px",

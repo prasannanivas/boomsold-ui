@@ -15,6 +15,12 @@
   position: relative;
   touch-action: none;
   overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.map-container::-webkit-scrollbar {
+  display: none;
 }
 
 /* Floating neighborhood details overlay */

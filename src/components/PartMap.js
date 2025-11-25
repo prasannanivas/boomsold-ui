@@ -798,7 +798,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
       <div
         style={{
           position: "fixed",
-          top: isMobile ? "3.5%" : "3.5vh",
+          top: isMobile ? "35px" : "20px",
           left: isMobile ? "auto" : "90px",
           right: isMobile ? "0px" : "auto",
           width: isMobile ? "100px" : "100px",
@@ -806,15 +806,25 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           zIndex: 1500,
         }}
       >
-        <img
-          src={
-            process.env.PUBLIC_URL +
-            "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
-          }
-          alt="Boom Sold Logo"
-          className="boomsold-logo"
-          style={{ width: "100%", height: "100%" }}
-        />
+        {/* BoomSold Logo */}
+        <div
+          style={{
+            width: "100%",
+            height: isMobile ? "60px" : "100px",
+            borderRadius: "8px",
+            padding: "5px",
+          }}
+        >
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
+            }
+            alt="Boom Sold Logo"
+            className="boomsold-logo"
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          />
+        </div>
       </div>
 
       {/* Info Bubble - Bottom Right */}

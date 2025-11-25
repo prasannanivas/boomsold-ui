@@ -10,6 +10,12 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.neighborhood-map-container::-webkit-scrollbar {
+  display: none;
 }
 
 .neighborhood-map-wrapper {
@@ -653,7 +659,7 @@
     padding: 15px 12px;
     min-height: 100vh;
     min-height: 100dvh;
-    overflow-y: auto !important;
+    overflow-y: visible !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     position: relative !important;
@@ -744,11 +750,11 @@
 @media (max-width: 480px) {
   .neighborhood-map-container {
     padding: 12px 10px;
-    overflow-y: auto !important;
+    overflow-y: visible !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    height: 100vh;
-    height: 100dvh;
+    height: auto !important;
+    min-height: 100%;
   }
 
   .neighborhood-map-wrapper {

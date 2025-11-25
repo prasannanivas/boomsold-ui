@@ -704,9 +704,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     }
   };
 
-  // Fit bounds when map is created and originalGeoJSON is loaded
+  // Fit bounds only once when map is first created
+  const hasInitializedBounds = useRef(false);
   useEffect(() => {
-    if (map && bounds && originalGeoJSON) {
+    if (map && bounds && originalGeoJSON && !hasInitializedBounds.current) {
       setTimeout(() => {
         console.log("🎯 Fitting map to neighborhood bounds:", bounds);
         map.fitBounds(bounds, {
@@ -714,6 +715,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           animate: true,
           duration: 0.5,
         });
+        hasInitializedBounds.current = true;
       }, 200);
     }
   }, [map, bounds, originalGeoJSON]);
@@ -1305,10 +1307,10 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                   center={center}
                   zoom={maxZoom || 14}
                   minZoom={11}
-                  maxZoom={18}
+                  maxZoom={28}
                   style={{ height: "100%", width: "100%" }}
                   zoomControl={true}
-                  scrollWheelZoom={false}
+                  scrollWheelZoom={true}
                   doubleClickZoom={true}
                   touchZoom={true}
                   boxZoom={true}
@@ -1316,7 +1318,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                   zoomAnimation={true}
                   fadeAnimation={true}
                   markerZoomAnimation={true}
-                  attributionControl={false}
+                  attributionControl={true}
                   className="neighborhood-leaflet-map"
                   ref={(mapInstance) => {
                     if (mapInstance && !map) {
