@@ -8,6 +8,10 @@ import "./PremiumEffects.css";
 import { getNeighborhoodScores } from "../utils/walkabilityScores";
 import enhancedWalkScores from "../data/enhancedWalkScores.json";
 import WalkabilityScoresBadge from "./WalkabilityScoresBadge";
+import PriceRequestModal from "./PriceRequestModal";
+
+// Fix for default marker icon
+delete L.Icon.Default.prototype._getIconUrl;
 
 // Neighborhood name abbreviations mapping
 const neighborhoodAbbreviations = {
@@ -83,6 +87,16 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     rem: [],
     daycares: [],
   });
+
+  const [modalState, setModalState] = useState({ isOpen: false, type: null });
+
+  const openPriceModal = (type) => {
+    setModalState({ isOpen: true, type });
+  };
+
+  const closePriceModal = () => {
+    setModalState({ ...modalState, isOpen: false });
+  };
 
   // Get walkability scores for the neighborhood
   const neighborhoodName =
@@ -1101,6 +1115,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               >
                 {neighborhoodInfo?.singleFamilyPrice && (
                   <div
+                    onClick={() => openPriceModal("single-family")}
                     style={{
                       backgroundColor: "#ffffff",
                       borderRadius: "10px",
@@ -1109,6 +1124,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
                       border: "2px solid #FFD700",
                       transition: "all 0.3s ease",
+                      cursor: "pointer",
                     }}
                   >
                     <div
@@ -1145,12 +1161,17 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
                     >
                       <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openPriceModal("bungalow");
+                        }}
                         style={{
                           flex: 1,
                           padding: "6px",
                           backgroundColor: "#fef3c7",
                           borderRadius: "6px",
                           border: "1px solid #FFD700",
+                          cursor: "pointer",
                         }}
                       >
                         <div
@@ -1160,7 +1181,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Min
+                          Bungalow
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1171,12 +1192,17 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         </div>
                       </div>
                       <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openPriceModal("two-storey");
+                        }}
                         style={{
                           flex: 1,
                           padding: "6px",
                           backgroundColor: "#fef3c7",
                           borderRadius: "6px",
                           border: "1px solid #FFD700",
+                          cursor: "pointer",
                         }}
                       >
                         <div
@@ -1186,7 +1212,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Max
+                          Two-Storey
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1202,6 +1228,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
                 {neighborhoodInfo?.condoPrice && (
                   <div
+                    onClick={() => openPriceModal("condo")}
                     style={{
                       backgroundColor: "#ffffff",
                       borderRadius: "10px",
@@ -1210,6 +1237,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
                       border: "2px solid #FFC700",
                       transition: "all 0.3s ease",
+                      cursor: "pointer",
                     }}
                   >
                     <div
@@ -1246,12 +1274,17 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
                     >
                       <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openPriceModal("one-bedroom");
+                        }}
                         style={{
                           flex: 1,
                           padding: "6px",
                           backgroundColor: "#fef3c7",
                           borderRadius: "6px",
                           border: "1px solid #FFC700",
+                          cursor: "pointer",
                         }}
                       >
                         <div
@@ -1261,7 +1294,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Min
+                          One-bedroom
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1272,12 +1305,17 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         </div>
                       </div>
                       <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openPriceModal("two-bedroom");
+                        }}
                         style={{
                           flex: 1,
                           padding: "6px",
                           backgroundColor: "#fef3c7",
                           borderRadius: "6px",
                           border: "1px solid #FFC700",
+                          cursor: "pointer",
                         }}
                       >
                         <div
@@ -1287,7 +1325,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Max
+                          Two-bedroom
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1450,6 +1488,11 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
         {/* <NeighborhoodFooter neighborhoodName={neighborhoodName} /> */}
       </div>
+      <PriceRequestModal
+        isOpen={modalState.isOpen}
+        onClose={closePriceModal}
+        type={modalState.type}
+      />
     </div>
   );
 };
