@@ -1894,14 +1894,14 @@ const MontrealMap = ({
       >
         <h2
           className="selected-part-label"
-          style={isMobile ? { marginTop: "10vh", width: "100%" } : {}}
+          style={isMobile ? { marginTop: "180px", width: "100%" } : {}}
         >
           {selectedPart === "South"
             ? "downtown/ Center South"
             : selectedPart === "West"
             ? "West Island"
             : selectedPart === "North"
-            ? "Montreal East/North"
+            ? "Montreal East/ North"
             : `Montreal ${selectedPart}`}
         </h2>
 
@@ -1909,7 +1909,7 @@ const MontrealMap = ({
           <h3
             style={{
               position: "fixed",
-              top: "15vh",
+              top: "220px",
               left: "50%",
               transform: "translateX(-50%)",
               width: "90%",
@@ -1930,7 +1930,7 @@ const MontrealMap = ({
           <div
             style={{
               position: "fixed",
-              top: "20vh",
+              top: "250px",
               left: "50%",
               transform: "translateX(-50%)",
               width: "90%",

@@ -1053,7 +1053,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={
           !isMobile
             ? { background: "transparent" }
-            : { position: "relative", top: "-2%" }
+            : { position: "relative", top: "-8%" }
         }
       >
         {isMobile ? (
