@@ -1,14 +1,15 @@
 /* Premium Visual Effects for BoomSold Map */
 
-/* Leaflet Path animations and transitions */
+/* Leaflet Path animations and transitions - optimized */
 .leaflet-interactive {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: none;
+  filter: none;
+  will-change: auto;
 }
 
 .leaflet-interactive:hover {
-  filter: drop-shadow(0 8px 16px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
-  transform: translateZ(0) scale(1.01);
+  filter: none;
+  transform: none;
 }
 
 /* Pulsing effect for active neighborhoods */

@@ -564,15 +564,14 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     const partColor = feature.properties.color || "#FFD700";
     return {
       fillColor: partColor,
-      weight: 0, // No borders at all
-      opacity: 0, // No border opacity
-      color: "transparent", // Transparent borders
-      fillOpacity: 0.9,
+      weight: 1, // Add small border to fill gaps
+      opacity: 1, // Make border visible
+      color: partColor, // Border same color as fill
+      fillOpacity: 2,
       lineJoin: "round",
       lineCap: "round",
     };
   };
-
   // Hover style - Brighter version with no borders, only shadow effects
   const getPartHoverStyle = (feature) => {
     const partColor = feature.properties.color || "#FFD700";
@@ -580,7 +579,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     return {
       weight: 0, // No borders on hover either
       color: "white", // Transparent borders on hover
-      fillOpacity: 1,
+      fillOpacity: 0,
       opacity: 0, // No border opacity on hover
       fillColor: partColor,
       lineJoin: "round",
@@ -986,8 +985,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         </>
       )}
 
-      {/* Montreal Island Header */}
-      <h2 className="pm-selected-part-label">Welcome to Montreal</h2>
+      {/* Montreal Island Header
+      <h2 className="pm-selected-part-label">Welcome to Montreal</h2> */}
 
       {/* Top Heading */}
       <h2
