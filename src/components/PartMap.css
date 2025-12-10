@@ -4,7 +4,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'DM Serif Text', 'Nunito', sans-serif;
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.2);
@@ -139,7 +139,7 @@
   border: 1.5px solid #000000;
   border-radius: 8px;
   /* padding: 15px 10px; */
-  font-family: 'Nunito', sans-serif;
+  font-family: 'DM Serif Text', 'Nunito', sans-serif;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;

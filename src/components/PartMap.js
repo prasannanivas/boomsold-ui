@@ -864,7 +864,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           margin: 0,
           textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
           pointerEvents: "none",
-          fontFamily: "'Nunito', sans-serif",
+          fontFamily: "'DM Serif Text', 'Nunito', sans-serif",
         }}
       >
         Select a part of the city
@@ -1427,7 +1427,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                     1px 1px 2px rgba(0, 0, 0, 0.3);
                   white-space: nowrap;
                   pointer-events: none;
-                  font-family: 'Nunito', sans-serif;
+                  font-family: 'DM Serif Text', 'DM Serif Text', 'Nunito', sans-serif;
                   transform: translate(-50%, -50%);
                   background: transparent;
                   padding: ${padding}px ${padding * 2}px;
@@ -1461,7 +1461,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   click: (e) => {
                     const marker = e.target;
                     const popupContent = `
-                      <div style="text-align: center; font-family: 'Nunito', sans-serif;">
+                      <div style="text-align: center; font-family: 'DM Serif Text', 'Nunito', sans-serif;">
                         <div style="font-size: 24px; margin-bottom: 8px;">${location.icon}</div>
                         <strong style="font-size: 16px; color: ${location.color};">${location.name}</strong>
                         <div style="font-size: 14px; color: #666; margin-top: 4px;">${location.description}</div>
@@ -1477,7 +1477,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   mouseover: (e) => {
                     const marker = e.target;
                     const tooltipContent = `
-                      <div style="text-align: center; font-family: 'Nunito', sans-serif;">
+                      <div style="text-align: center; font-family: 'DM Serif Text', 'Nunito', sans-serif;">
                         <span style="font-size: 12px; font-weight: 600;">${location.name}</span>
                       </div>
                     `;

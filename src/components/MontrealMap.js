@@ -639,6 +639,9 @@ const MontrealMap = ({
         fetch(process.env.PUBLIC_URL + "/assets/montreal_daycares.json").then(
           (response) => response.json()
         ),
+        fetch(
+          process.env.PUBLIC_URL + "/quartierreferencehabitation_merged.geojson"
+        ).then((response) => response.json()),
       ])
         .then(
           ([
@@ -649,6 +652,7 @@ const MontrealMap = ({
             trainsData,
             remData,
             daycaresData,
+            unrotatedGeoJsonData,
           ]) => {
             // Create neighborhood mapping from JSON data
             const neighborhoodMapping = {};
@@ -810,7 +814,19 @@ const MontrealMap = ({
 
             // The data is already rotated from PartMap, use it directly
             setMontrealData(processedData);
-            setMontrealDataTop(processedData); // For top view, use the same rotated data
+
+            // Use unrotated data for top view (and POI calculations)
+            // Filter unrotated data to match the selected part if needed
+            let unrotatedFiltered = unrotatedGeoJsonData;
+            if (selectedPart) {
+              unrotatedFiltered = {
+                ...unrotatedGeoJsonData,
+                features: unrotatedGeoJsonData.features.filter(
+                  (f) => f.properties.part === selectedPart
+                ),
+              };
+            }
+            setMontrealDataTop(unrotatedFiltered);
 
             // Rotate iconic locations with the same parameters used in PartMap
             const centerPoint = { lat: 45.48, lng: -73.62 };
@@ -1412,10 +1428,21 @@ const MontrealMap = ({
           // Calculate real POI counts for this neighborhood
           // CRITICAL: Use ORIGINAL UNROTATED geometry from montrealDataTop for accurate point-in-polygon testing
           // The rotated geometry coordinates won't match the actual POI lat/lon coordinates
-          const featureName = feature.properties.name || feature.properties.nom_arr;
-          const unrotatedFeature = montrealDataTop?.features?.find(
-            f => (f.properties.name || f.properties.nom_arr) === featureName
-          );
+          const featureName =
+            feature.properties.name || feature.properties.nom_arr;
+          const unrotatedFeature = montrealDataTop?.features?.find((f) => {
+            const p = f.properties;
+            const targetP = feature.properties;
+            // Try exact name match
+            if ((p.name || p.nom_arr) === featureName) return true;
+            // Try matching by IDs if available
+            if (p.no_qr && targetP.no_qr && p.no_qr === targetP.no_qr)
+              return true;
+            // Try matching by municipality name
+            if (p.nom_mun && targetP.nom_mun && p.nom_mun === targetP.nom_mun)
+              return true;
+            return false;
+          });
           
           const geometryToUse = unrotatedFeature?.geometry || feature.geometry;
           
@@ -2428,13 +2455,13 @@ const MontrealMap = ({
             />
 
             {/* Iconic location markers */}
-            {iconicLocations.map((location) => (
+            {/* {iconicLocations.map((location) => (
               <Marker
                 key={location.id}
                 position={location.coordinates}
                 icon={createIconicLocationIcon(location)}
               />
-            ))}
+            ))} */}
           </MapContainer>
         )}
 
