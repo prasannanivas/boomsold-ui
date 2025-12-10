@@ -34,8 +34,8 @@ const neighborhoodAbbreviations = {
   "Le Sud-Ouest": "Le Sud-Ouest",
   "L'Île-Bizard–Sainte-Geneviève": "Île-Bizard",
   "L'Île-Bizard - Sainte-Geneviève": "Île-Bizard",
-  "Mercier–Hochelaga-Maisonneuve": "Hochelag",
-  "Mercier-Hochelaga-Maisonneuve": "Hochelag",
+  "Mercier–Hochelaga-Maisonneuve": "Hochelaga",
+  "Mercier-Hochelaga-Maisonneuve": "Hochelaga",
   "Montréal-Est": "Mtl-Est",
   "Mont-Royal": "Mont-Royal",
   "Montréal-Nord": "Mtl-Nord",
@@ -866,31 +866,33 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     return (
       <div>
         <div className="poi-category-panel">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedPOICategory(
-                  selectedPOICategory === cat.id ? null : cat.id
-                );
-              }}
-              className={`poi-category-button ${
-                selectedPOICategory === cat.id ? "active" : ""
-              }`}
-              style={{
-                backgroundColor:
-                  selectedPOICategory === cat.id ? cat.color : undefined,
-                color: selectedPOICategory === cat.id ? "#fff" : undefined,
-              }}
-            >
-              <span className="poi-category-content">
-                <span className="poi-category-icon">{cat.icon}</span>
-                <span>{cat.name}</span>
-              </span>
-              <span className="poi-category-count">{cat.count}</span>
-            </button>
-          ))}
+          {categories
+            .filter((cat) => cat.count > 0)
+            .map((cat) => (
+              <button
+                key={cat.id}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPOICategory(
+                    selectedPOICategory === cat.id ? null : cat.id
+                  );
+                }}
+                className={`poi-category-button ${
+                  selectedPOICategory === cat.id ? "active" : ""
+                }`}
+                style={{
+                  backgroundColor:
+                    selectedPOICategory === cat.id ? cat.color : undefined,
+                  color: selectedPOICategory === cat.id ? "#fff" : undefined,
+                }}
+              >
+                <span className="poi-category-content">
+                  <span className="poi-category-icon">{cat.icon}</span>
+                  <span>{cat.name}</span>
+                </span>
+                <span className="poi-category-count">{cat.count}</span>
+              </button>
+            ))}
         </div>
       </div>
     );

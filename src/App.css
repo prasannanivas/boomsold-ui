@@ -25,8 +25,8 @@
 
 /* Floating neighborhood details overlay */
 .neighborhood-overlay {
-  position: fixed;
-  bottom: 10%;
+  position: absolute;
+  bottom: 30%;
   right: 20px;
   width: 25vw;
   background: rgba(255, 255, 255, 0.95);

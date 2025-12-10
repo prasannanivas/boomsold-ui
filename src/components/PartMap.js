@@ -170,7 +170,7 @@ const getPartDisplayName = (part) => {
   const nameMap = {
     South: "Downtown/ Center South",
     West: "West Island",
-    North: "Montreal East/ North",
+    North: "East/ North",
     Central: "Central North",
   };
   return nameMap[part] || part;
@@ -816,24 +816,18 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   return (
     <div className="part-map-container">
       {/* BoomSold Logo - Top Left (Next to Hamburger) */}
-      <div
-        style={{
-          position: "fixed",
-          top: isMobile ? "35px" : "20px",
-          left: isMobile ? "auto" : "90px",
-          right: isMobile ? "0px" : "auto",
-          width: isMobile ? "100px" : "100px",
-          height: isMobile ? "65px" : "65px",
-          zIndex: 1500,
-        }}
-      >
-        {/* BoomSold Logo */}
+   
+
+      {/* BoomSold Logo - Bottom Right */}
+      {!isMobile && (
         <div
           style={{
-            width: "100%",
-            height: isMobile ? "60px" : "100px",
-            borderRadius: "8px",
-            padding: "5px",
+            position: "fixed",
+            bottom: "30px",
+            right: "30px",
+            width: `${zoomLevel * 15}px`, // Scales with zoom: 10 zoom = 150px, 11 zoom = 165px
+            height: `${zoomLevel * 10}px`, // Scales with zoom: 10 zoom = 100px, 11 zoom = 110px
+            zIndex: 1001,
           }}
         >
           <img
@@ -842,169 +836,14 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
             }
             alt="Boom Sold Logo"
-            className="boomsold-logo"
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
+            }}
           />
         </div>
-      </div>
-
-      {/* Info Bubble - Bottom Right */}
-      {!isMobile && (
-        <>
-          {/* Toggle Button - Question Mark */}
-          <button
-            onClick={() => setShowInfoBox(!showInfoBox)}
-            style={{
-              position: "fixed",
-              bottom: "30px",
-              right: "30px",
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              backgroundColor: "#FFD700",
-              color: "#000",
-              border: "none",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-              fontSize: "24px",
-              fontWeight: "bold",
-              cursor: "pointer",
-              zIndex: 1001,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transition: "transform 0.2s ease, background-color 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.1)";
-              e.target.style.backgroundColor = "#FFC107";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.backgroundColor = "#FFD700";
-            }}
-            aria-label="Toggle Info"
-          >
-            ?
-          </button>
-
-          {/* Info Box */}
-          {showInfoBox && (
-            <div
-              className="info-bubble-container"
-              style={{
-                position: "absolute",
-                bottom: "20%", // Positioned above the toggle button
-                right: "30px",
-                maxWidth: "340px",
-                zIndex: 1000,
-                animation: "fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  backgroundColor: "rgba(255, 255, 255, 0.95)",
-                  backdropFilter: "blur(12px)",
-                  padding: "24px 28px",
-                  borderRadius: "24px",
-                  boxShadow:
-                    "0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
-                  borderLeft: "6px solid #FFD700",
-                  fontFamily: "'Nunito', sans-serif",
-                  color: "#2d3436",
-                  transform: "translateZ(0)",
-                }}
-              >
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowInfoBox(false);
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "12px",
-                    background: "rgba(0,0,0,0.05)",
-                    border: "none",
-                    borderRadius: "50%",
-                    width: "24px",
-                    height: "24px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    fontSize: "16px",
-                    color: "#636e72",
-                    padding: 0,
-                    lineHeight: 1,
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = "rgba(0,0,0,0.1)";
-                    e.target.style.color = "#000";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = "rgba(0,0,0,0.05)";
-                    e.target.style.color = "#636e72";
-                  }}
-                  aria-label="Close info"
-                >
-                  ×
-                </button>
-
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "16px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "28px",
-                      background: "#FFF9C4",
-                      width: "48px",
-                      height: "48px",
-                      borderRadius: "14px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    💡
-                  </div>
-                  <div>
-                    <h4
-                      style={{
-                        margin: "0 0 6px 0",
-                        fontSize: "18px",
-                        fontWeight: 800,
-                        color: "#2d3436",
-                        letterSpacing: "-0.5px",
-                      }}
-                    >
-                      Welcome to BoomSold
-                    </h4>
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        margin: 0,
-                        lineHeight: "1.5",
-                        color: "#636e72",
-                        fontWeight: 500,
-                      }}
-                    >
-                      We are here to simplify your real estate search. Select a
-                      neighborhood to discover average home prices, amenities
-                      nearby and more.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </>
       )}
 
       {/* Montreal Island Header
@@ -1016,7 +855,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         style={{
           position: "relative",
           top: isMobile ? "4%" : "5%",
-          width: isMobile ? "100%" : "90vw",
+          width: "100%",
           textAlign: "center",
           zIndex: 1000,
           fontSize: isMobile ? "1.2rem" : "1.8rem",
@@ -1411,8 +1250,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 e.currentTarget.style.transform = "translateY(-50%) scale(1)";
               }}
             >
-              Montreal
-              <br />
+              {/* Montreal
+              <br /> */}
               East/North
             </div>
 
@@ -1460,7 +1299,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
         ) : (
           // Desktop view - Interactive map
           <MapContainer
-            center={[45.52, -73.62]}
+            center={[45.52, -73.68]}
             zoom={zoomLevel}
             style={{ height: "100%", width: "100%", background: "transparent" }}
             zoomControl={false}
@@ -1558,14 +1397,14 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               if (partName === "North") {
                 // Move North up and left
                 adjustedLat += 0.03; // Move up
-                adjustedLng -= 0.08; // Move left (increased from 0.05)
+                adjustedLng -= 0.025; // Move left (increased from 0.05)
               } else if (partName === "South") {
                 // Move South left
                 adjustedLng -= 0.07; // Move left
               } else if (partName === "Central") {
                 // Move West Island down and left
                 adjustedLat += 0.02; // Move down
-                adjustedLng -= 0.09; // Move left
+                adjustedLng -= 0.080; // Move left
               } else if (partName === "West") {
                 // Move West Island down and left
                 adjustedLat += 0.02; // Move down
@@ -1613,7 +1452,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             })}
 
             {/* Add iconic location markers */}
-            {iconicLocations.map((location) => (
+            {/* {iconicLocations.map((location) => (
               <Marker
                 key={location.id}
                 position={location.coordinates}
@@ -1652,7 +1491,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                   },
                 }}
               />
-            ))}
+            ))} */}
           </MapContainer>
         )}
       </div>

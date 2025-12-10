@@ -42,9 +42,9 @@
 }
 
 .selected-part-label {
-  position: fixed;
-  top: 120px;
-  width: 90vw;
+  position: absolute;
+  top: 12px;
+  width: 100vw;
   text-align: center;
   z-index: 2000;
   font-size: 3rem;

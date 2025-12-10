@@ -254,8 +254,8 @@ const neighborhoodAbbreviations = {
   "Le Sud-Ouest": "Le Sud-Ouest",
   "L'Île-Bizard–Sainte-Geneviève": "Île-Bizard",
   "L'Île-Bizard - Sainte-Geneviève": "Île-Bizard",
-  "Mercier–Hochelaga-Maisonneuve": "Hochelag",
-  "Mercier-Hochelaga-Maisonneuve": "Hochelag",
+  "Mercier–Hochelaga-Maisonneuve": "Hochelaga",
+  "Mercier-Hochelaga-Maisonneuve": "Hochelaga",
   "Montréal-Est": "Mtl-Est",
   "Mont-Royal": "Mont-Royal",
   "Montréal-Nord": "Mtl-Nord",
@@ -1410,18 +1410,66 @@ const MontrealMap = ({
           }
 
           // Calculate real POI counts for this neighborhood
-          let polygonLatLngs = [];
-          if (feature.geometry.type === "MultiPolygon") {
-            polygonLatLngs = feature.geometry.coordinates[0][0].map((coord) => [
-              coord[1],
-              coord[0],
-            ]);
-          } else if (feature.geometry.type === "Polygon") {
-            polygonLatLngs = feature.geometry.coordinates[0].map((coord) => [
-              coord[1],
-              coord[0],
-            ]);
-          }
+          // CRITICAL: Use ORIGINAL UNROTATED geometry from montrealDataTop for accurate point-in-polygon testing
+          // The rotated geometry coordinates won't match the actual POI lat/lon coordinates
+          const featureName = feature.properties.name || feature.properties.nom_arr;
+          const unrotatedFeature = montrealDataTop?.features?.find(
+            f => (f.properties.name || f.properties.nom_arr) === featureName
+          );
+          
+          const geometryToUse = unrotatedFeature?.geometry || feature.geometry;
+          
+          // Helper function to check if point is in neighborhood (handles both Polygon and MultiPolygon)
+          // EXACT COPY from NeighborhoodMap.js
+          const isPointInNeighborhood = (lat, lon) => {
+            let inside = false;
+            const testPoint = [lon, lat]; // [lng, lat] format - GeoJSON native
+
+            if (geometryToUse.type === "MultiPolygon") {
+              // Test against all polygons in the MultiPolygon
+              for (const poly of geometryToUse.coordinates) {
+                const ring = poly[0]; // Outer ring - NO coordinate conversion
+                if (pointInPolygon(testPoint, ring)) {
+                  inside = true;
+                  break;
+                }
+              }
+            } else if (geometryToUse.type === "Polygon") {
+              const ring = geometryToUse.coordinates[0]; // Outer ring - NO coordinate conversion
+              inside = pointInPolygon(testPoint, ring);
+            }
+
+            return inside;
+          };
+
+          // Ray casting algorithm to determine if point is inside polygon
+          // EXACT COPY from NeighborhoodMap.js
+          const pointInPolygon = (point, polygon) => {
+            const x = point[0];
+            const y = point[1];
+            let inside = false;
+
+            for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+              const xi = polygon[i][0];
+              const yi = polygon[i][1];
+              const xj = polygon[j][0];
+              const yj = polygon[j][1];
+
+              // Ray casting: check if ray crosses polygon edge
+              const yiAbovePoint = yi > y;
+              const yjAbovePoint = yj > y;
+              const edgeCrossesRay = yiAbovePoint !== yjAbovePoint;
+
+              if (edgeCrossesRay) {
+                const xIntersection = ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+                if (x < xIntersection) {
+                  inside = !inside;
+                }
+              }
+            }
+
+            return inside;
+          };
 
           let parkCount = 0;
           let schoolCount = 0;
@@ -1450,12 +1498,7 @@ const MontrealMap = ({
               lon = poi.center.lon;
             }
 
-            if (
-              lat &&
-              lon &&
-              polygonLatLngs.length > 0 &&
-              isPointInPolygon([lat, lon], polygonLatLngs)
-            ) {
+            if (lat && lon && isPointInNeighborhood(lat, lon)) {
               if (leisure === "park" || amenity === "park") parkCount++;
               else if (amenity === "school") schoolCount++;
               else if (amenity === "hospital") hospitalCount++;
@@ -1480,48 +1523,28 @@ const MontrealMap = ({
             allMetroSample: allMetro[0],
           });
           allMetro.forEach((poi) => {
-            if (
-              poi.lat &&
-              poi.lon &&
-              polygonLatLngs.length > 0 &&
-              isPointInPolygon([poi.lat, poi.lon], polygonLatLngs)
-            ) {
+            if (poi.lat && poi.lon && isPointInNeighborhood(poi.lat, poi.lon)) {
               metroCount++;
             }
           });
 
           // Count train stations
           allTrains.forEach((poi) => {
-            if (
-              poi.lat &&
-              poi.lon &&
-              polygonLatLngs.length > 0 &&
-              isPointInPolygon([poi.lat, poi.lon], polygonLatLngs)
-            ) {
+            if (poi.lat && poi.lon && isPointInNeighborhood(poi.lat, poi.lon)) {
               trainsCount++;
             }
           });
 
           // Count REM stations
           allRem.forEach((poi) => {
-            if (
-              poi.lat &&
-              poi.lon &&
-              polygonLatLngs.length > 0 &&
-              isPointInPolygon([poi.lat, poi.lon], polygonLatLngs)
-            ) {
+            if (poi.lat && poi.lon && isPointInNeighborhood(poi.lat, poi.lon)) {
               remCount++;
             }
           });
 
           // Count daycares
           allDaycares.forEach((poi) => {
-            if (
-              poi.lat &&
-              poi.lon &&
-              polygonLatLngs.length > 0 &&
-              isPointInPolygon([poi.lat, poi.lon], polygonLatLngs)
-            ) {
+            if (poi.lat && poi.lon && isPointInNeighborhood(poi.lat, poi.lon)) {
               daycaresCount++;
             }
           });
@@ -1541,7 +1564,8 @@ const MontrealMap = ({
               remCount,
               daycaresCount,
               allPoisLength: allPois.length,
-              polygonLatLngsLength: polygonLatLngs.length,
+              geometryType: geometryToUse.type,
+              usedUnrotated: !!unrotatedFeature,
             }
           );
 
@@ -1743,6 +1767,7 @@ const MontrealMap = ({
       onNeighborhoodHover,
       onNeighborhoodClick,
       localPinnedName,
+      montrealDataTop,
     ]
   );
 
@@ -1901,7 +1926,7 @@ const MontrealMap = ({
             : selectedPart === "West"
             ? "West Island"
             : selectedPart === "North"
-            ? "Montreal East/ North"
+            ? "East/ North"
             : `Montreal ${selectedPart}`}
         </h2>
 
@@ -1923,6 +1948,202 @@ const MontrealMap = ({
           >
             Please tap on a neighborhood to explore detailed real estate data,
           </h3>
+        )}
+
+
+           {/* Map Legend - Right Bottom */}
+        {!isMobile && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "20vh",
+              right: "30px",
+              zIndex: 1,
+              backgroundColor: "white",
+              borderRadius: "12px",
+              padding: "12px 16px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              transition: "all 0.3s ease",
+              border: "1px solid rgba(0,0,0,0.1)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexWrap: isLegendExpanded ? "wrap" : "nowrap",
+                gap: "16px",
+                alignItems: "center",
+                maxWidth: isLegendExpanded ? "300px" : "auto",
+              }}
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🌳</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Parks
+                </span>
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🏫</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Schools
+                </span>
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <span style={{ fontSize: "18px" }}>🏥</span>
+                <span
+                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
+                >
+                  Hospitals
+                </span>
+              </div>
+
+              {isLegendExpanded && (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🍽️</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Restaurants
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>⚽</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Sports
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🚇</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Metro
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>🚆</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Trains
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>⚡</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      REM
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span style={{ fontSize: "18px" }}>👶</span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        color: "#333",
+                      }}
+                    >
+                      Daycares
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <button
+              onClick={() => setIsLegendExpanded(!isLegendExpanded)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#666",
+                fontSize: "12px",
+                fontWeight: 600,
+                cursor: "pointer",
+                padding: "0",
+                textAlign: "left",
+                alignSelf: "flex-start",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
+            >
+              {isLegendExpanded ? "Show less ▲" : "View more ▼"}
+            </button>
+          </div>
         )}
 
         {/* Neighborhood List - Mobile Only - Below Map */}
@@ -2217,273 +2438,15 @@ const MontrealMap = ({
           </MapContainer>
         )}
 
-        {/* Logo and Neighborhood List Container */}
-        <div
-          style={{
-            position: "fixed",
-            top: isMobile ? "35px" : "20px",
-            left: isMobile ? "auto" : "90px",
-            right: isMobile ? "0px" : "auto",
-            width: isMobile ? "100px" : "100px",
-            height: isMobile ? "65px" : "65px",
-            zIndex: 1500,
-          }}
-        >
-          {/* BoomSold Logo */}
-          <div
-            style={{
-              width: "100%",
-              height: isMobile ? "60px" : "100px",
-              borderRadius: "8px",
-              padding: "5px",
-            }}
-          >
-            <img
-              src={
-                process.env.PUBLIC_URL +
-                "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"
-              }
-              alt="Boom Sold Logo"
-              className="boomsold-logo"
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
-          </div>
-        </div>
+   
 
-        {/* Map Legend - Left Bottom */}
-        {!isMobile && (
-          <div
-            style={{
-              position: "fixed",
-              bottom: "30px",
-              left: "30px",
-              zIndex: 1000,
-              backgroundColor: "white",
-              borderRadius: "12px",
-              padding: "12px 16px",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              transition: "all 0.3s ease",
-              border: "1px solid rgba(0,0,0,0.1)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexWrap: isLegendExpanded ? "wrap" : "nowrap",
-                gap: "16px",
-                alignItems: "center",
-                maxWidth: isLegendExpanded ? "300px" : "auto",
-              }}
-            >
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "6px" }}
-              >
-                <span style={{ fontSize: "18px" }}>🌳</span>
-                <span
-                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
-                >
-                  Parks
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "6px" }}
-              >
-                <span style={{ fontSize: "18px" }}>🏫</span>
-                <span
-                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
-                >
-                  Schools
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "6px" }}
-              >
-                <span style={{ fontSize: "18px" }}>🏥</span>
-                <span
-                  style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
-                >
-                  Hospitals
-                </span>
-              </div>
-
-              {isLegendExpanded && (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>🍽️</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      Restaurants
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>⚽</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      Sports
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>🚇</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      Metro
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>🚆</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      Trains
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>⚡</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      REM
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px" }}>👶</span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        color: "#333",
-                      }}
-                    >
-                      Daycares
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
-
-            <button
-              onClick={() => setIsLegendExpanded(!isLegendExpanded)}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#666",
-                fontSize: "12px",
-                fontWeight: 600,
-                cursor: "pointer",
-                padding: "0",
-                textAlign: "left",
-                alignSelf: "flex-start",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              {isLegendExpanded ? "Show less ▲" : "View more ▼"}
-            </button>
-          </div>
-        )}
+     
 
         {/* Filter Button - Hidden on Mobile */}
-        {!isMobile && (
-          <button
-            onClick={() => setShowFilterPanel(!showFilterPanel)}
-            style={{
-              position: "fixed",
-              bottom: "30px",
-              right: "30px",
-              zIndex: 1000,
-              padding: "12px 20px",
-              backgroundColor: "#FFD700",
-              color: "#000000",
-              border: "2px solid #FFD700",
-              borderRadius: "50px",
-              fontSize: "16px",
-              fontWeight: 700,
-              cursor: "pointer",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
-              transition: "all 0.3s ease",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = "#FFC107";
-              e.target.style.transform = "scale(1.05)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = "#FFD700";
-              e.target.style.transform = "scale(1)";
-            }}
-          >
-            <span style={{ fontSize: "18px" }}>🔍</span>
-            <span>Filters</span>
-          </button>
-        )}
+       
 
         {/* Filter Panel */}
-        {showFilterPanel && (
+        {/* {showFilterPanel && (
           <div
             style={{
               position: "fixed",
@@ -2534,7 +2497,7 @@ const MontrealMap = ({
             </div>
 
             {/* Scope Filter */}
-            <div style={{ marginBottom: "20px" }}>
+            {/* <div style={{ marginBottom: "20px" }}>
               <h4
                 style={{
                   fontSize: "14px",
@@ -2594,10 +2557,10 @@ const MontrealMap = ({
                   Show Suburbs (Independent)
                 </span>
               </label>
-            </div>
+            </div> */}
 
             {/* Area Filter */}
-            <div style={{ marginBottom: "20px" }}>
+            {/* <div style={{ marginBottom: "20px" }}>
               <h4
                 style={{
                   fontSize: "14px",
@@ -2628,10 +2591,10 @@ const MontrealMap = ({
                 }}
                 placeholder="Enter minimum area"
               />
-            </div>
+            </div> */}
 
             {/* Accessibility Filter */}
-            <div style={{ marginBottom: "20px" }}>
+            {/* <div style={{ marginBottom: "20px" }}>
               <h4
                 style={{
                   fontSize: "14px",
@@ -2740,10 +2703,10 @@ const MontrealMap = ({
                   🏥 Has Hospitals
                 </span>
               </label>
-            </div>
+            </div> */}
 
             {/* Reset Button */}
-            <button
+            {/* <button
               onClick={() =>
                 setFilters({
                   showBoroughs: true,
@@ -2777,7 +2740,7 @@ const MontrealMap = ({
               Reset Filters
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
