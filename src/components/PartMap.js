@@ -276,39 +276,61 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Base zoom calculation - larger screens get more zoom
-    // Width has 2x weight, height has 1x weight (width is more important for horizontal map)
-    const weightedScore = width * 2 + height * 1;
-    let zoom;
+    // Calculate zoom independently for width and height, then take the minimum
+    // This prevents clipping on either dimension
 
-    if (weightedScore < 2400) {
-      zoom = 10.0;
-    } else if (weightedScore < 2600) {
-      zoom = 10.2;
-    } else if (weightedScore < 2800) {
-      zoom = 10.4;
-    } else if (weightedScore < 3000) {
-      zoom = 10.5;
-    } else if (weightedScore < 3200) {
-      zoom = 10.6;
-    } else if (weightedScore < 3400) {
-      zoom = 10.7;
-    } else if (weightedScore < 3600) {
-      zoom = 10.7;
-    } else if (weightedScore < 3800) {
-      zoom = 10.8;
-    } else if (weightedScore < 4000) {
-      zoom = 10.8;
-    } else if (weightedScore < 4200) {
-      zoom = 10.9;
-    } else if (weightedScore < 4400) {
-      zoom = 10.9;
+    // Width-based zoom (horizontal fit)
+    let widthZoom;
+    if (width > 1350) {
+      widthZoom = 11;
+    } else if (width > 1300) {
+      widthZoom = 10.8;
+    } else if (width > 1200) {
+      widthZoom = 10.7;
+    } else if (width > 1150) {
+      widthZoom = 10.6;
+    } else if (width > 1100) {
+      widthZoom = 10.6;
+    } else if (width > 1050) {
+      widthZoom = 10.5;
+    } else if (width > 1000) {
+      widthZoom = 10.5;
+    } else if (width > 900) {
+      widthZoom = 10.4;
     } else {
-      zoom = 11;
+      widthZoom = 10.3;
     }
 
+    // Height-based zoom (vertical fit) - more conservative to prevent bottom clipping
+    let heightZoom;
+    if (height > 950) {
+      heightZoom = 11;
+    } else if (height > 900) {
+      heightZoom = 10.9;
+    } else if (height > 850) {
+      heightZoom = 10.8;
+    } else if (height > 800) {
+      heightZoom = 10.7;
+    } else if (height > 780) {
+      heightZoom = 10.6;
+    }
+    else if (height > 740) {
+      heightZoom = 10.5;
+    } else if (height > 700) {
+      heightZoom = 10.4;
+    }
+    else if (height > 650) {
+      heightZoom = 10.3;
+    }
+     else {
+      heightZoom = 10;
+    }
+
+    // Take the minimum to ensure map fits both dimensions
+    const zoom = Math.min(widthZoom, heightZoom);
+
     console.log(
-      `Calculated zoom level: ${zoom} for weighted score: ${weightedScore} (width: ${width}, height: ${height})`
+      `Zoom calculation - Width: ${width} -> ${widthZoom}, Height: ${height} -> ${heightZoom}, Final: ${zoom}`
     );
 
     return zoom;
