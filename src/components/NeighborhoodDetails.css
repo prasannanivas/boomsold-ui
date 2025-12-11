@@ -31,9 +31,8 @@
 
 /* Comic Book BoomSold Theme - White on Yellow */
 .neighborhood-details {
-  height: 80%;
   box-sizing: border-box;
-  padding: 0.8rem 1.2rem 1.5rem 1.2rem;
+  padding: 0.4rem 1rem 1rem 1rem;
   border-left: 5px solid #000000;
   box-shadow:
     -8px 0 0 #FFD700,
@@ -205,7 +204,7 @@
 }
 
 .pin-indicator {
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   color: #FFD700;
   font-weight: 700;
   background: linear-gradient(135deg,
@@ -267,7 +266,7 @@
 
 .neighborhood-name {
   color: #000000;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
   font-weight: 900;
   flex: 1;
@@ -326,7 +325,7 @@
 
 .amenity-emoji-group {
   display: flex;
-  gap: 0.15rem;
+  gap: 0.1rem;
   align-items: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -336,7 +335,7 @@
 }
 
 .amenity-emoji {
-  font-size: 1.0rem;
+  font-size: 0.8rem;
   filter: drop-shadow(0 2px 6px rgba(255, 215, 0, 0.4));
   transition: all 0.3s ease;
   animation: emojiPulse 2s ease-in-out infinite;
@@ -466,8 +465,7 @@
 /* Area Info - BoomSold style */
 .area-info {
   text-align: center;
-  margin-top: 1rem;
-  padding-top: 1rem;
+ 
   border-top: 1px solid rgba(255, 215, 0, 0.2);
 }
 
@@ -480,7 +478,7 @@
 
 .detail-item {
   background: #2a2a2a;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1);
   border-left: 4px solid #FFD700;
@@ -488,9 +486,9 @@
 
 .detail-label {
   display: block;
-  font-weight: 900;
+  font-weight: 600;
   color: #232003;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 0.4rem;
@@ -499,15 +497,15 @@
 }
 
 .detail-value {
-  font-size: 1.3rem;
-  font-weight: 900;
+  font-size: 0.70rem;
+  font-weight: 700;
   color: #4d4504;
   font-family: 'DM Serif Display', serif;
 }
 
 .detail-value.price {
   color: #2b2702;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 900;
 
 }
