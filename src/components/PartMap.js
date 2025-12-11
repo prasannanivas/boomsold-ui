@@ -81,6 +81,7 @@ const createIconicLocationIcon = (location) => {
               width: 100%;
               height: 100%;
               object-fit: contain;
+              -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
               filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
               border: 0;
               border-radius: 50%;
@@ -621,6 +622,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         const pathElement = layer.getElement();
         if (pathElement) {
+          pathElement.classList.add("part-hover");
           pathElement.style.transform = "translate(0, -3px)";
           pathElement.style.transition = "none";
           pathElement.style.zIndex = "1000";
@@ -643,6 +645,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
 
         const pathElement = layer.getElement();
         if (pathElement) {
+          pathElement.classList.remove("part-hover");
           pathElement.style.transform = "translate(0, 0)";
           pathElement.style.transition = "none";
           pathElement.style.zIndex = "auto";
@@ -841,6 +844,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               height: "100%",
               objectFit: "contain",
               filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
+              WebkitFilter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
             }}
           />
         </div>

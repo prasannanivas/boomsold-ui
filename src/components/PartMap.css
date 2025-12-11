@@ -48,12 +48,15 @@
 
 /* Default shadow effects for PartMap only - border only changes on hover */
 .part-map-container .leaflet-interactive {
+  -webkit-filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px -1px 0px white) drop-shadow(1px -1px 0px white) drop-shadow(-1px 1px 0px white) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px -1px 0px white) drop-shadow(1px -1px 0px white) drop-shadow(-1px 1px 0px white) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   transition: none;
   
 }
 
-.part-map-container .leaflet-interactive:hover {
+.part-map-container .leaflet-interactive:hover,
+.part-map-container .leaflet-interactive.part-hover {
+  -webkit-filter: drop-shadow(1px 1px 0px black) drop-shadow(-1px -1px 0px black) drop-shadow(1px -1px 0px black) drop-shadow(-1px 1px 0px black) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   filter: drop-shadow(1px 1px 0px black) drop-shadow(-1px -1px 0px black) drop-shadow(1px -1px 0px black) drop-shadow(-1px 1px 0px black) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   transition: none;
   
@@ -110,6 +113,8 @@
 
   /* Add white inner stroke for separation effect */
   .part-map-container .leaflet-interactive {
+    -webkit-filter:
+      drop-shadow(0px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.3)) !important;
     filter:
       drop-shadow(0px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.3)) !important;
     transition: none !important;
@@ -123,6 +128,7 @@
   left: 0;
   right: 0;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 20%, rgba(255, 255, 255, 1) 100%);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 8px 8px 12px 8px;
   display: grid;
