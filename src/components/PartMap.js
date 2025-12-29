@@ -82,8 +82,8 @@ const createIconicLocationIcon = (location) => {
               width: 100%;
               height: 100%;
               object-fit: contain;
-              -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
-              filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+              filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1));
+              -webkit-filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1));
               border: 0;
               border-radius: 50%;
             "
@@ -856,8 +856,8 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
-              WebkitFilter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
+              WebkitFilter: "drop-shadow(0px 4px 12px rgba(0,0,0,0.2))",
+              filter: "drop-shadow(0px 4px 12px rgba(0,0,0,0.2))",
             }}
           />
         </div>

@@ -1178,7 +1178,7 @@ const MontrealMap = ({
 
     const base = {
       fillColor: "#FFD700", // Bright gold yellow like logo burst
-      weight: isMobile ? 0.3 : 6,
+      weight: isMobile ? 0.3 : 2,
       opacity: 1,
       color: isMobile ? "#000000" : "#FFFFFF",
       fillOpacity: 0.9,
@@ -1190,7 +1190,7 @@ const MontrealMap = ({
       if (isPinnedFeature) {
         return {
           ...base,
-          weight: isMobile ? 1 : 7,
+          weight: isMobile ? 1 : 2,
           fillOpacity: 1,
           color: "#000000", // emphasize border
         };
@@ -1207,7 +1207,7 @@ const MontrealMap = ({
   };
 
   const getHoverStyle = () => ({
-    weight: isMobile ? 3 : 6, // Match the default weight based on device
+    weight: isMobile ? 3 : 1, // Match the default weight based on device
     color: "#000000", // Black border on hover
     fillOpacity: 1,
     opacity: 1,
@@ -1422,9 +1422,9 @@ const MontrealMap = ({
             pathElement.style.transition = "none";
             pathElement.style.zIndex = "1000";
             pathElement.setAttribute("data-hovering", "true");
-            // Force black border to persist
+            // Force black border on hover with thin width
             pathElement.style.stroke = "#000000";
-            pathElement.style.strokeWidth = isMobile ? "1" : "6"; // Match the reduced border width on mobile
+            pathElement.style.strokeWidth = isMobile ? "1" : "2";
           }
 
           // Calculate real POI counts for this neighborhood
@@ -1672,9 +1672,9 @@ const MontrealMap = ({
             pathElement.style.filter = "none";
             pathElement.style.transition = "none";
             pathElement.style.zIndex = "auto";
-            // Reset border to original white
-            pathElement.style.stroke = "#FFFFFF";
-            pathElement.style.strokeWidth = "6";
+            // Remove inline style overrides so originalStyle takes effect
+            pathElement.style.stroke = "";
+            pathElement.style.strokeWidth = "";
           }
 
           if (onNeighborhoodLeave) {

@@ -48,16 +48,16 @@
 
 /* Default shadow effects for PartMap only - border only changes on hover */
 .part-map-container .leaflet-interactive {
-  -webkit-filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px -1px 0px white) drop-shadow(1px -1px 0px white) drop-shadow(-1px 1px 0px white) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-  filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px -1px 0px white) drop-shadow(1px -1px 0px white) drop-shadow(-1px 1px 0px white) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  -webkit-filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(1px -1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
   transition: none;
   
 }
 
 .part-map-container .leaflet-interactive:hover,
 .part-map-container .leaflet-interactive.part-hover {
-  -webkit-filter: drop-shadow(1px 1px 0px black) drop-shadow(-1px -1px 0px black) drop-shadow(1px -1px 0px black) drop-shadow(-1px 1px 0px black) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-  filter: drop-shadow(1px 1px 0px black) drop-shadow(-1px -1px 0px black) drop-shadow(1px -1px 0px black) drop-shadow(-1px 1px 0px black) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  -webkit-filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 1)) drop-shadow(-1px -1px 0px rgba(0, 0, 0, 1)) drop-shadow(1px -1px 0px rgba(0, 0, 0, 1)) drop-shadow(-1px 1px 0px rgba(0, 0, 0, 1)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 1)) drop-shadow(-1px -1px 0px rgba(0, 0, 0, 1)) drop-shadow(1px -1px 0px rgba(0, 0, 0, 1)) drop-shadow(-1px 1px 0px rgba(0, 0, 0, 1)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
   transition: none;
   
 }
