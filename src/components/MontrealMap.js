@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import simplify from "simplify-js";
@@ -300,6 +301,7 @@ const MontrealMap = ({
   partGeoJSON = null, // NEW: Pre-filtered and rotated GeoJSON for selected part
   onPartBack = null, // NEW: Callback to go back to PartMap
 }) => {
+  const { t } = useTranslation();
   // Rotated (default) and Top-View (unrotated) datasets
   const [montrealData, setMontrealData] = useState(null); // rotated
   const [montrealDataTop, setMontrealDataTop] = useState(null); // unrotated (top view)
@@ -1936,7 +1938,7 @@ const MontrealMap = ({
           }}
         >
           <span style={{ fontSize: isMobile ? "14px" : "20px" }}>←</span>
-          <span>Back</span>
+          <span>{t('back')}</span>
         </button>
       )}
 
@@ -1949,12 +1951,12 @@ const MontrealMap = ({
           style={isMobile ? { marginTop: "180px", width: "100%" } : {}}
         >
           {selectedPart === "South"
-            ? "downtown/ Center South"
+            ? t('neighborhoods.downtownCenterSouth')
             : selectedPart === "West"
-            ? "West Island"
+            ? t('neighborhoods.westIsland')
             : selectedPart === "North"
-            ? "East/ North"
-            : `Montreal ${selectedPart}`}
+            ? t('neighborhoods.eastNorth')
+            : `${t('neighborhoods.montreal')} ${selectedPart}`}
         </h2>
 
         {isMobile && (
@@ -2013,7 +2015,7 @@ const MontrealMap = ({
                 <span
                   style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
                 >
-                  Parks
+                  {t('poi.parks')}
                 </span>
               </div>
               <div
@@ -2023,7 +2025,7 @@ const MontrealMap = ({
                 <span
                   style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
                 >
-                  Schools
+                  {t('poi.schools')}
                 </span>
               </div>
               <div
@@ -2033,7 +2035,7 @@ const MontrealMap = ({
                 <span
                   style={{ fontSize: "13px", fontWeight: 600, color: "#333" }}
                 >
-                  Hospitals
+                  {t('poi.hospitals')}
                 </span>
               </div>
 
@@ -2054,7 +2056,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      Restaurants
+                      {t('poi.restaurants')}
                     </span>
                   </div>
                   <div
@@ -2072,7 +2074,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      Sports
+                      {t('poi.sports')}
                     </span>
                   </div>
                   <div
@@ -2090,7 +2092,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      Metro
+                      {t('poi.metro')}
                     </span>
                   </div>
                   <div
@@ -2108,7 +2110,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      Trains
+                      {t('poi.trains')}
                     </span>
                   </div>
                   <div
@@ -2126,7 +2128,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      REM
+                      {t('poi.rem')}
                     </span>
                   </div>
                   <div
@@ -2144,7 +2146,7 @@ const MontrealMap = ({
                         color: "#333",
                       }}
                     >
-                      Daycares
+                      {t('poi.daycares')}
                     </span>
                   </div>
                 </>
@@ -2168,7 +2170,7 @@ const MontrealMap = ({
                 gap: "4px",
               }}
             >
-              {isLegendExpanded ? "Show less ▲" : "View more ▼"}
+              {isLegendExpanded ? t('legend.showLess') : t('legend.viewMore')}
             </button>
           </div>
         )}

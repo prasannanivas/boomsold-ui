@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -55,7 +57,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             marginBottom: "10px",
           }}
         >
-          Walk Score
+          {t('scores.walkScore')}
         </div>
 
         {/* Score */}
@@ -104,12 +106,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           }}
         >
           {walkabilityScores.walkScore >= 90
-            ? "Walker's Paradise"
+            ? t('scores.walkersParadise')
             : walkabilityScores.walkScore >= 70
-            ? "Very Walkable"
+            ? t('scores.veryWalkable')
             : walkabilityScores.walkScore >= 50
-            ? "Somewhat Walkable"
-            : "Car-Dependent"}
+            ? t('scores.somewhatWalkable')
+            : t('scores.carDependent')}
         </div>
       </div>
 
@@ -157,7 +159,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             marginBottom: "10px",
           }}
         >
-          Transit Score
+          {t('scores.transitScore')}
         </div>
 
         {/* Score */}
@@ -207,12 +209,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           }}
         >
           {walkabilityScores.transitScore >= 90
-            ? "Rider's Paradise"
+            ? t('scores.ridersParadise')
             : walkabilityScores.transitScore >= 70
-            ? "Excellent Transit"
+            ? t('scores.excellentTransit')
             : walkabilityScores.transitScore >= 50
-            ? "Good Transit"
-            : "Some Transit"}
+            ? t('scores.goodTransit')
+            : t('scores.someTransit')}
         </div>
 
         {/* Transit Details */}
@@ -293,7 +295,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             marginBottom: "10px",
           }}
         >
-          Bike Score
+          {t('scores.bikeScore')}
         </div>
 
         {/* Score */}
@@ -343,12 +345,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           }}
         >
           {walkabilityScores.bikeScore >= 90
-            ? "Biker's Paradise"
+            ? t('scores.bikersParadise')
             : walkabilityScores.bikeScore >= 70
-            ? "Very Bikeable"
+            ? t('scores.veryBikeable')
             : walkabilityScores.bikeScore >= 50
-            ? "Bikeable"
-            : "Somewhat Bikeable"}
+            ? t('scores.bikeable')
+            : t('scores.somewhatBikeable')}
         </div>
 
         {/* Bike Details */}
@@ -420,7 +422,7 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
             marginBottom: "10px",
           }}
         >
-          Overall Score
+          {t('scores.overallScore')}
         </div>
 
         {/* Score */}
@@ -469,12 +471,12 @@ const WalkabilityScoresBadge = ({ walkabilityScores, enhancedScores }) => {
           }}
         >
           {walkabilityScores.accessibilityScore >= 90
-            ? "Highly Accessible"
+            ? t('scores.highlyAccessible')
             : walkabilityScores.accessibilityScore >= 70
-            ? "Very Accessible"
+            ? t('scores.veryAccessible')
             : walkabilityScores.accessibilityScore >= 50
-            ? "Moderately Accessible"
-            : "Less Accessible"}
+            ? t('scores.moderatelyAccessible')
+            : t('scores.lessAccessible')}
         </div>
       </div>
 

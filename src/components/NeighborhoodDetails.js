@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./NeighborhoodDetails.css";
 
 const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
+  const { t } = useTranslation();
+  
   if (!neighborhood) {
     return <></>;
   }
@@ -47,7 +50,7 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
           <h2 className="neighborhood-name">{neighborhood.name}</h2>
           {isPinned && (
             <div className="pin-controls">
-              <span className="pin-indicator">📌 Pinned</span>
+              <span className="pin-indicator">{t('neighborhoodDetails.pinned')}</span>
               <button
                 className="unpin-button"
                 onClick={onUnpin}
@@ -65,7 +68,7 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
             {neighborhood.singleFamilyPrice && (
               <div className="detail-item">
                 <span className="detail-label">
-                  Average Single Family Home Price
+                  {t('neighborhoodDetails.singleFamilyPrice')}
                 </span>
                 <span className="detail-value price">
                   {neighborhood.singleFamilyPrice}
@@ -74,7 +77,7 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
             )}
             {neighborhood.condoPrice && (
               <div className="detail-item">
-                <span className="detail-label">Average Condo Price</span>
+                <span className="detail-label">{t('neighborhoodDetails.condoPrice')}</span>
                 <span className="detail-value price">
                   {neighborhood.condoPrice}
                 </span>

@@ -1,0 +1,165 @@
+{
+  "selectPart": "Select a part of the city",
+  "loading": "Loading...",
+  "back": "Back",
+  "header": {
+    "phone": "📞 514-555-0123",
+    "email": "✉️ info@boomsold.ca",
+    "nav": {
+      "buy": "Buy",
+      "sell": "Sell",
+      "map": "Map"
+    },
+    "sidebar": {
+      "menu": "Menu",
+      "buy": "Buy",
+      "sell": "Sell",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "language": "Language"
+    }
+  },
+  "footer": {
+    "tagline": "Montreal's Real Estate Authority",
+    "buy": {
+      "title": "Buy",
+      "search": "Search",
+      "map": "Map",
+      "alerts": "Alerts"
+    },
+    "sell": {
+      "title": "Sell",
+      "valuation": "Valuation",
+      "process": "Process",
+      "agents": "Agents"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "placeholder": "Enter email...",
+      "button": "Subscribe"
+    },
+    "copyright": "© 2025 BoomSold Inc.",
+    "legal": {
+      "privacy": "Privacy",
+      "terms": "Terms"
+    }
+  },
+  "helpGuide": {
+    "welcome": "Welcome to BoomSold! 💥🏆",
+    "subtitle": "Your Premium Montreal Real Estate Experience",
+    "step1": {
+      "title": "Select a Region",
+      "description": "Click on North, South, East, or West Montreal to explore neighborhoods"
+    },
+    "step2": {
+      "title": "Hover Over Neighborhoods",
+      "description": "Move your cursor over any neighborhood to see prices and amenities instantly"
+    },
+    "step3": {
+      "title": "Click to Pin Details",
+      "description": "Click any neighborhood to pin its details and explore it in depth"
+    },
+    "step4": {
+      "title": "Navigate Back",
+      "description": "Use the back arrow to return to previous views anytime"
+    },
+    "getStarted": "Get Started! 🚀"
+  },
+  "neighborhoodDetails": {
+    "pinned": "📌 Pinned",
+    "singleFamilyPrice": "Average Single Family Home Price",
+    "condoPrice": "Average Condo Price",
+    "bungalowPrice": "Average Bungalow Price",
+    "twoStoreyPrice": "Average Two-Storey Price",
+    "oneBedroom": "Average 1 Bedroom Condo Price",
+    "twoBedroom": "Average 2 Bedroom Condo Price",
+    "area": "Area"
+  },
+  "priceRequestModal": {
+    "messages": {
+      "singleFamily": "If you would like a list of the properties sold in the last 90 days, please leave us your email.",
+      "bungalow": "If you would like a list of the bungalows sold in the last 90 days, please leave us your email.",
+      "twoStorey": "If you would like a list of the two-story houses sold in the last 90 days, please leave us your email.",
+      "condo": "If you would like a list of the condos sold in the last 90 days, please leave us your email.",
+      "oneBedroom": "If you would like to know the average price of 1 bedroom condos please leave us your email:",
+      "twoBedroom": "If you would like to know the average price of 2 bedroom condos please leave us your email:"
+    },
+    "emailPlaceholder": "Enter your email",
+    "agreeText": "I agree to the",
+    "termsLink": "Terms and Conditions",
+    "submit": "Submit"
+  },
+  "map": {
+    "north": "East/North",
+    "south": "Downtown/Center South",
+    "east": "East Montreal",
+    "west": "West Island",
+    "central": "Central North"
+  },
+  "poi": {
+    "parks": "Parks",
+    "schools": "Schools",
+    "hospitals": "Hospitals",
+    "restaurants": "Restaurants",
+    "sports": "Sports",
+    "metro": "Metro",
+    "trains": "Trains",
+    "rem": "REM",
+    "daycares": "Daycares"
+  },
+  "legend": {
+    "showLess": "Show less ▲",
+    "viewMore": "View more ▼"
+  },
+  "neighborhoods": {
+    "downtownCenterSouth": "Downtown/ Center South",
+    "westIsland": "West Island",
+    "eastNorth": "East/ North",
+    "montreal": "Montreal"
+  },
+  "neighborhood": {
+    "description": "Explore the neighborhood outline, mobility scores, and nearby amenities tailored for home hunters.",
+    "averagePropertyPrices": "AVERAGE PROPERTY PRICES",
+    "singleFamily": "Single Family",
+    "bungalow": "Bungalow",
+    "twoStorey": "Two-Storey",
+    "condo": "Condo",
+    "oneBedroom": "One-bedroom",
+    "twoBedroom": "Two-bedroom",
+    "amenitiesNearby": "AMENITIES NEARBY",
+    "amenitiesDescription": "Select a category to see highlighted points of interest within the neighborhood outline.",
+    "walkabilityMobilityScores": "WALKABILITY & MOBILITY SCORES",
+    "line": "Line",
+    "kindergarten": "Kindergarten",
+    "childcare": "Childcare",
+    "noPOIsFound": "No {{category}} found in this neighborhood"
+  },
+  "scores": {
+    "walkScore": "Walk Score",
+    "walkersParadise": "Walker's Paradise",
+    "veryWalkable": "Very Walkable",
+    "somewhatWalkable": "Somewhat Walkable",
+    "carDependent": "Car-Dependent",
+    "transitScore": "Transit Score",
+    "ridersParadise": "Rider's Paradise",
+    "excellentTransit": "Excellent Transit",
+    "goodTransit": "Good Transit",
+    "someTransit": "Some Transit",
+    "bikeScore": "Bike Score",
+    "bikersParadise": "Biker's Paradise",
+    "veryBikeable": "Very Bikeable",
+    "bikeable": "Bikeable",
+    "somewhatBikeable": "Somewhat Bikeable",
+    "overallScore": "Overall Score",
+    "highlyAccessible": "Highly Accessible",
+    "veryAccessible": "Very Accessible",
+    "moderatelyAccessible": "Moderately Accessible",
+    "lessAccessible": "Less Accessible"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "selectPart": "Sélectionnez une partie de la ville",
+  "loading": "Chargement...",
+  "back": "Retour",
+  "header": {
+    "phone": "📞 514-555-0123",
+    "email": "✉️ info@boomsold.ca",
+    "nav": {
+      "buy": "Acheter",
+      "sell": "Vendre",
+      "map": "Carte"
+    },
+    "sidebar": {
+      "menu": "Menu",
+      "buy": "Acheter",
+      "sell": "Vendre",
+      "aboutUs": "À propos",
+      "contact": "Contact",
+      "language": "Langue"
+    }
+  },
+  "footer": {
+    "tagline": "L'autorité immobilière de Montréal",
+    "buy": {
+      "title": "Acheter",
+      "search": "Rechercher",
+      "map": "Carte",
+      "alerts": "Alertes"
+    },
+    "sell": {
+      "title": "Vendre",
+      "valuation": "Évaluation",
+      "process": "Processus",
+      "agents": "Agents"
+    },
+    "company": {
+      "title": "Entreprise",
+      "about": "À propos",
+      "careers": "Carrières",
+      "contact": "Contact"
+    },
+    "newsletter": {
+      "title": "Restez informé",
+      "placeholder": "Entrez votre courriel...",
+      "button": "S'abonner"
+    },
+    "copyright": "© 2025 BoomSold Inc.",
+    "legal": {
+      "privacy": "Confidentialité",
+      "terms": "Conditions"
+    }
+  },
+  "helpGuide": {
+    "welcome": "Bienvenue à BoomSold! 💥🏆",
+    "subtitle": "Votre expérience immobilière premium à Montréal",
+    "step1": {
+      "title": "Sélectionnez une région",
+      "description": "Cliquez sur le Nord, le Sud, l'Est ou l'Ouest de Montréal pour explorer les quartiers"
+    },
+    "step2": {
+      "title": "Survolez les quartiers",
+      "description": "Déplacez votre curseur sur n'importe quel quartier pour voir les prix et les commodités instantanément"
+    },
+    "step3": {
+      "title": "Cliquez pour épingler les détails",
+      "description": "Cliquez sur n'importe quel quartier pour épingler ses détails et l'explorer en profondeur"
+    },
+    "step4": {
+      "title": "Naviguer en arrière",
+      "description": "Utilisez la flèche de retour pour revenir aux vues précédentes à tout moment"
+    },
+    "getStarted": "Commencer! 🚀"
+  },
+  "neighborhoodDetails": {
+    "pinned": "📌 Épinglé",
+    "singleFamilyPrice": "Prix moyen d'une maison unifamiliale",
+    "condoPrice": "Prix moyen d'un condo",
+    "bungalowPrice": "Prix moyen d'un bungalow",
+    "twoStoreyPrice": "Prix moyen d'une maison à deux étages",
+    "oneBedroom": "Prix moyen d'un condo 1 chambre",
+    "twoBedroom": "Prix moyen d'un condo 2 chambres",
+    "area": "Superficie"
+  },
+  "priceRequestModal": {
+    "messages": {
+      "singleFamily": "Si vous souhaitez obtenir une liste des propriétés vendues au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
+      "bungalow": "Si vous souhaitez obtenir une liste des bungalows vendus au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
+      "twoStorey": "Si vous souhaitez obtenir une liste des maisons à deux étages vendues au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
+      "condo": "Si vous souhaitez obtenir une liste des condos vendus au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
+      "oneBedroom": "Si vous souhaitez connaître le prix moyen des condos 1 chambre, veuillez nous laisser votre courriel:",
+      "twoBedroom": "Si vous souhaitez connaître le prix moyen des condos 2 chambres, veuillez nous laisser votre courriel:"
+    },
+    "emailPlaceholder": "Entrez votre courriel",
+    "agreeText": "J'accepte les",
+    "termsLink": "Termes et Conditions",
+    "submit": "Soumettre"
+  },
+  "map": {
+    "north": "Est/Nord",
+    "south": "Centre-ville/Centre Sud",
+    "east": "Montréal Est",
+    "west": "Ouest de l'île",
+    "central": "Nord Central"
+  },
+  "poi": {
+    "parks": "Parcs",
+    "schools": "Écoles",
+    "hospitals": "Hôpitaux",
+    "restaurants": "Restaurants",
+    "sports": "Sports",
+    "metro": "Métro",
+    "trains": "Trains",
+    "rem": "REM",
+    "daycares": "Garderies"
+  },
+  "legend": {
+    "showLess": "Afficher moins ▲",
+    "viewMore": "Voir plus ▼"
+  },
+  "neighborhoods": {
+    "downtownCenterSouth": "Centre-ville/ Centre-Sud",
+    "westIsland": "Ouest de l'île",
+    "eastNorth": "Est/ Nord",
+    "montreal": "Montréal"
+  },
+  "neighborhood": {
+    "description": "Explorez le contour du quartier, les scores de mobilité et les commodités à proximité pour les acheteurs de maison.",
+    "averagePropertyPrices": "PRIX MOYEN DES PROPRIÉTÉS",
+    "singleFamily": "Maison unifamiliale",
+    "bungalow": "Bungalow",
+    "twoStorey": "À deux étages",
+    "condo": "Condo",
+    "oneBedroom": "Une chambre",
+    "twoBedroom": "Deux chambres",
+    "amenitiesNearby": "COMMODITÉS À PROXIMITÉ",
+    "amenitiesDescription": "Sélectionnez une catégorie pour voir les points d'intérêt mis en évidence dans le contour du quartier.",
+    "walkabilityMobilityScores": "SCORES DE MARCHABILITÉ ET DE MOBILITÉ",
+    "line": "Ligne",
+    "kindergarten": "Maternelle",
+    "childcare": "Garderie",
+    "noPOIsFound": "Aucun {{category}} trouvé dans ce quartier"
+  },
+  "scores": {
+    "walkScore": "Score de marche",
+    "walkersParadise": "Paradis des piétons",
+    "veryWalkable": "Très marchable",
+    "somewhatWalkable": "Quelque peu marchable",
+    "carDependent": "Dépendant de la voiture",
+    "transitScore": "Score de transport",
+    "ridersParadise": "Paradis des usagers",
+    "excellentTransit": "Excellent transport",
+    "goodTransit": "Bon transport",
+    "someTransit": "Un peu de transport",
+    "bikeScore": "Score de vélo",
+    "bikersParadise": "Paradis des cyclistes",
+    "veryBikeable": "Très cyclable",
+    "bikeable": "Cyclable",
+    "somewhatBikeable": "Quelque peu cyclable",
+    "overallScore": "Score global",
+    "highlyAccessible": "Très accessible",
+    "veryAccessible": "Très accessible",
+    "moderatelyAccessible": "Modérément accessible",
+    "lessAccessible": "Moins accessible"
+  }
+}

@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./Header.css";
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const logoUrl =
     process.env.PUBLIC_URL + "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png";
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   const isMobile = window.innerWidth <= 768;
@@ -17,8 +23,8 @@ const Header = () => {
       <header className="main-header">
         {/* Top Bar (From Variant 4) */}
         <div className="header-top-bar">
-          <span>📞 514-555-0123</span>
-          <span>✉️ info@boomsold.ca</span>
+          <span>{t('header.phone')}</span>
+          <span>{t('header.email')}</span>
         </div>
 
         {/* Main Header Content */}
@@ -64,9 +70,24 @@ const Header = () => {
 
           {/* Navigation (From Variant 4) */}
           <nav className="header-nav">
-            <span className="nav-item">Buy</span>
-            <span className="nav-item">Sell</span>
-            <span className="nav-item">Map</span>
+            <span className="nav-item">{t('header.nav.buy')}</span>
+            <span className="nav-item">{t('header.nav.sell')}</span>
+            <span className="nav-item">{t('header.nav.map')}</span>
+            <div className="language-switcher">
+              <button 
+                onClick={() => changeLanguage('en')} 
+                className={i18n.language === 'en' ? 'active' : ''}
+              >
+                EN
+              </button>
+              <span className="lang-separator">|</span>
+              <button 
+                onClick={() => changeLanguage('fr')} 
+                className={i18n.language === 'fr' ? 'active' : ''}
+              >
+                FR
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -83,11 +104,18 @@ const Header = () => {
           </span>
         </div>
         <ul className="sidebar-links">
-          <li>About</li>
-          <li>Buy</li>
-          <li>Sell</li>
-          <li>Contact</li>
-          <li>Legal</li>
+          <li>{t('header.sidebar.buy')}</li>
+          <li>{t('header.sidebar.sell')}</li>
+          <li>{t('header.sidebar.aboutUs')}</li>
+          <li>{t('header.sidebar.contact')}</li>
+          <li>
+            <div className="sidebar-language">
+              <span>{t('header.sidebar.language')}: </span>
+              <button onClick={() => changeLanguage('en')} className={i18n.language === 'en' ? 'active' : ''}>EN</button>
+              <span> / </span>
+              <button onClick={() => changeLanguage('fr')} className={i18n.language === 'fr' ? 'active' : ''}>FR</button>
+            </div>
+          </li>
         </ul>
       </div>
     </>

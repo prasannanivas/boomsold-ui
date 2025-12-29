@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./PriceRequestModal.css";
 
 const PriceRequestModal = ({ isOpen, onClose, type }) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [agreed, setAgreed] = useState(false);
 
@@ -10,19 +12,19 @@ const PriceRequestModal = ({ isOpen, onClose, type }) => {
   const getMessage = () => {
     switch (type) {
       case "single-family":
-        return "If you would like a list of the properties sold in the last 90 days, please leave us your email.";
+        return t('priceRequestModal.messages.singleFamily');
       case "bungalow":
-        return "If you would like a list of the bungalows sold in the last 90 days, please leave us your email.";
+        return t('priceRequestModal.messages.bungalow');
       case "two-storey":
-        return "If you would like a list of the two-story houses sold in the last 90 days, please leave us your email.";
+        return t('priceRequestModal.messages.twoStorey');
       case "condo":
-        return "If you would like a list of the condos sold in the last 90 days, please leave us your email.";
+        return t('priceRequestModal.messages.condo');
       case "one-bedroom":
-        return "If you would like to know the average price of 1 bedroom condos please leave us your email:";
+        return t('priceRequestModal.messages.oneBedroom');
       case "two-bedroom":
-        return "If you would like to know the average price of 2 bedroom condos please leave us your email:";
+        return t('priceRequestModal.messages.twoBedroom');
       default:
-        return "If you would like a list of the properties sold in the last 90 days, please leave us your email.";
+        return t('priceRequestModal.messages.singleFamily');
     }
   };
 
@@ -48,7 +50,7 @@ const PriceRequestModal = ({ isOpen, onClose, type }) => {
           <div className="price-modal-input-group">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder={t('priceRequestModal.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -65,9 +67,9 @@ const PriceRequestModal = ({ isOpen, onClose, type }) => {
                 required
               />
               <span>
-                I agree to the{" "}
+                {t('priceRequestModal.agreeText')}{" "}
                 <a href="/terms" target="_blank" rel="noopener noreferrer">
-                  Terms and Conditions
+                  {t('priceRequestModal.termsLink')}
                 </a>
               </span>
             </label>
@@ -78,7 +80,7 @@ const PriceRequestModal = ({ isOpen, onClose, type }) => {
             className="price-modal-submit"
             disabled={!agreed}
           >
-            Submit
+            {t('priceRequestModal.submit')}
           </button>
         </form>
       </div>

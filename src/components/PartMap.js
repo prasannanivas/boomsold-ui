@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { MapContainer, GeoJSON, useMap, Marker } from "react-leaflet";
+import { useTranslation } from "react-i18next";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MontrealMap.css";
@@ -166,16 +167,16 @@ const ZoomUpdater = ({ zoomLevel }) => {
   return null;
 };
 
-// Get display name for each part
-const getPartDisplayName = (part) => {
-  const nameMap = {
-    South: "Downtown/ Center South",
-    West: "West Island",
-    North: "East/ North",
-    Central: "Central North",
-  };
-  return nameMap[part] || part;
-};
+// Get display name for each part - Moved inside component for translation support
+// const getPartDisplayName = (part) => {
+//   const nameMap = {
+//     South: "Downtown/ Center South",
+//     West: "West Island",
+//     North: "East/ North",
+//     Central: "Central North",
+//   };
+//   return nameMap[part] || part;
+// };
 
 // Yellow color variations inspired by Boomsold branding
 const getYellowShadeByPart = (part) => {
@@ -242,6 +243,7 @@ const aggregateByPart = (geoJsonData) => {
 };
 
 const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
+  const { t } = useTranslation();
   const [partData, setPartData] = useState(null);
   const [fullGeoJsonData, setFullGeoJsonData] = useState(null); // Store original full data
   const [isLoading, setIsLoading] = useState(true);
@@ -257,6 +259,17 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   const [showArrows, setShowArrows] = useState(false); // Control arrow visibility
   const [iconicLocations, setIconicLocations] = useState([]); // Store rotated iconic locations
   const [showInfoBox, setShowInfoBox] = useState(true); // Control info box visibility
+  
+  // Get display name for each part with translation support
+  const getPartDisplayName = (part) => {
+    const nameMap = {
+      South: t('map.south'),
+      West: t('map.west'),
+      North: t('map.north'),
+      Central: t('map.central', 'Central North'),
+    };
+    return nameMap[part] || part;
+  };
 
   // Calculate responsive font size for mobile buttons
   const calculateButtonFontSize = useCallback(() => {
@@ -871,7 +884,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           fontFamily: "'DM Serif Text', 'Nunito', sans-serif",
         }}
       >
-        Select a part of the city
+        {t('selectPart')}
       </h2>
 
       {/* Side Legend */}

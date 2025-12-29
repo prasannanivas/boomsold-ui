@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "./HelpGuide.css";
 
 const HelpGuide = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [hasSeenGuide, setHasSeenGuide] = useState(false);
 
@@ -46,19 +48,18 @@ const HelpGuide = () => {
           ✕
         </button>
 
-        <h1 className="help-title">Welcome to BoomSold! 💥🏆</h1>
+        <h1 className="help-title">{t('helpGuide.welcome')}</h1>
         <p className="help-subtitle">
-          Your Premium Montreal Real Estate Experience
+          {t('helpGuide.subtitle')}
         </p>
 
         <div className="help-steps">
           <div className="help-step">
             <div className="help-step-number">1</div>
             <div className="help-step-content">
-              <h3>Select a Region</h3>
+              <h3>{t('helpGuide.step1.title')}</h3>
               <p>
-                Click on North, South, East, or West Montreal to explore
-                neighborhoods
+                {t('helpGuide.step1.description')}
               </p>
             </div>
           </div>
@@ -66,10 +67,9 @@ const HelpGuide = () => {
           <div className="help-step">
             <div className="help-step-number">2</div>
             <div className="help-step-content">
-              <h3>Hover Over Neighborhoods</h3>
+              <h3>{t('helpGuide.step2.title')}</h3>
               <p>
-                Move your cursor over any neighborhood to see prices and
-                amenities instantly
+                {t('helpGuide.step2.description')}
               </p>
             </div>
           </div>
@@ -77,10 +77,9 @@ const HelpGuide = () => {
           <div className="help-step">
             <div className="help-step-number">3</div>
             <div className="help-step-content">
-              <h3>Click to Pin Details</h3>
+              <h3>{t('helpGuide.step3.title')}</h3>
               <p>
-                Click any neighborhood to pin its details and explore it in
-                depth
+                {t('helpGuide.step3.description')}
               </p>
             </div>
           </div>
@@ -88,14 +87,14 @@ const HelpGuide = () => {
           <div className="help-step">
             <div className="help-step-number">4</div>
             <div className="help-step-content">
-              <h3>Navigate Back</h3>
-              <p>Use the back arrow to return to previous views anytime</p>
+              <h3>{t('helpGuide.step4.title')}</h3>
+              <p>{t('helpGuide.step4.description')}</p>
             </div>
           </div>
         </div>
 
         <button className="help-get-started" onClick={handleClose}>
-          Get Started! 🚀
+          {t('helpGuide.getStarted')}
         </button>
       </div>
     </div>

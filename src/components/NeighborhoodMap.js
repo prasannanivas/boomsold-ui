@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import { MapContainer, GeoJSON, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -68,6 +69,7 @@ const getAbbreviatedName = (fullName) => {
 };
 
 const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
+  const { t } = useTranslation();
   const [map, setMap] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(14);
   const [selectedPOICategory, setSelectedPOICategory] = useState(null);
@@ -782,7 +784,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   if (!neighborhoodGeoJSON) {
     return (
       <div className="custom-montreal-map">
-        <div className="neighborhood-loading">Loading Neighborhood...</div>
+        <div className="neighborhood-loading">{t('loading')}</div>
       </div>
     );
   }
@@ -800,63 +802,63 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
     const categories = [
       {
         id: "parks",
-        name: "Parks",
+        name: t('poi.parks'),
         icon: "🌳",
         color: "#4CAF50",
         count: getFilteredCount(poiCategories.parks || []),
       },
       {
         id: "schools",
-        name: "Schools",
+        name: t('poi.schools'),
         icon: "🎓",
         color: "#2196F3",
         count: getFilteredCount(poiCategories.schools || []),
       },
       {
         id: "hospitals",
-        name: "Hospitals",
+        name: t('poi.hospitals'),
         icon: "🏥",
         color: "#F44336",
         count: getFilteredCount(poiCategories.hospitals || []),
       },
       {
         id: "restaurants",
-        name: "Restaurants",
+        name: t('poi.restaurants'),
         icon: "🍽️",
         color: "#FF9800",
         count: getFilteredCount(poiCategories.restaurants || []),
       },
       {
         id: "sports",
-        name: "Sports",
+        name: t('poi.sports'),
         icon: "🏟️",
         color: "#9C27B0",
         count: getFilteredCount(poiCategories.sports || []),
       },
       {
         id: "metro",
-        name: "Metro",
+        name: t('poi.metro'),
         icon: "🚇",
         color: "#FF5722",
         count: getFilteredCount(poiCategories.metro || []),
       },
       {
         id: "trains",
-        name: "Trains",
+        name: t('poi.trains'),
         icon: "🚆",
         color: "#607D8B",
         count: getFilteredCount(poiCategories.trains || []),
       },
       {
         id: "rem",
-        name: "REM",
+        name: t('poi.rem'),
         icon: "⚡",
         color: "#00BCD4",
         count: getFilteredCount(poiCategories.rem || []),
       },
       {
         id: "daycares",
-        name: "Daycares",
+        name: t('poi.daycares'),
         icon: "👶",
         color: "#E91E63",
         count: getFilteredCount(poiCategories.daycares || []),
@@ -1028,7 +1030,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                   <div className="poi-item-detail">⚽ {poi.sport}</div>
                 )}
                 {poi.line && (
-                  <div className="poi-item-detail">🚉 Line: {poi.line}</div>
+                  <div className="poi-item-detail">🚉 {t('neighborhood.line')}: {poi.line}</div>
                 )}
                 {poi.network && (
                   <div className="poi-item-detail">🚇 {poi.network}</div>
@@ -1038,8 +1040,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                     <div className="poi-item-detail">
                       🏫{" "}
                       {poi.type === "kindergarten"
-                        ? "Kindergarten"
-                        : "Childcare"}
+                        ? t('neighborhood.kindergarten')
+                        : t('neighborhood.childcare')}
                     </div>
                   )}
               </div>
@@ -1049,7 +1051,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
         {currentPOIs.length === 0 && (
           <div className="poi-list-empty">
-            No {selectedPOICategory} found in this neighborhood
+            {t('neighborhood.noPOIsFound', { category: selectedPOICategory })}
           </div>
         )}
       </div>
@@ -1062,7 +1064,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         {onBack && (
           <button onClick={onBack} className="neighborhood-back-button">
             <span className="neighborhood-back-icon">←</span>
-            <span>Back</span>
+            <span>{t('back')}</span>
           </button>
         )}
 
@@ -1088,8 +1090,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               )} */}
             </div>
             <p className="neighborhood-description">
-              Explore the neighborhood outline, mobility scores, and nearby
-              amenities tailored for home hunters.
+              {t('neighborhood.description')}
             </p>
           </div>
         </section>
@@ -1105,7 +1106,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                 className="neighborhood-section-title"
                 style={{ fontSize: "16px", marginBottom: "10px" }}
               >
-                💰 AVERAGE PROPERTY PRICES
+                💰 {t('neighborhood.averagePropertyPrices')}
               </h2>
 
               <div
@@ -1147,7 +1148,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         letterSpacing: "0.5px",
                       }}
                     >
-                      Single Family
+                      {t('neighborhood.singleFamily')}
                     </div>
                     <div
                       style={{
@@ -1183,7 +1184,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Bungalow
+                          {t('neighborhood.bungalow')}
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1214,7 +1215,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Two-Storey
+                          {t('neighborhood.twoStorey')}
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1260,7 +1261,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         letterSpacing: "0.5px",
                       }}
                     >
-                      Condo
+                      {t('neighborhood.condo')}
                     </div>
                     <div
                       style={{
@@ -1296,7 +1297,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          One-bedroom
+                          {t('neighborhood.oneBedroom')}
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1327,7 +1328,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          Two-bedroom
+                          {t('neighborhood.twoBedroom')}
                         </div>
                         <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1351,10 +1352,9 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           <div className="neighborhood-amenities-map-wrapper">
             <section className="neighborhood-amenities-section">
               <div className="neighborhood-section-card">
-                <h2 className="neighborhood-section-title">AMENITIES NEARBY</h2>
+                <h2 className="neighborhood-section-title">{t('neighborhood.amenitiesNearby')}</h2>
                 <p className="neighborhood-section-description">
-                  Select a category to see highlighted points of interest within
-                  the neighborhood outline.
+                  {t('neighborhood.amenitiesDescription')}
                 </p>
                 <POICategoryPanel />
                 <POIList />
@@ -1479,7 +1479,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
               className="neighborhood-section-title"
               style={{ fontSize: "18px", marginBottom: "8px" }}
             >
-              WALKABILITY & MOBILITY SCORES
+              {t('neighborhood.walkabilityMobilityScores')}
             </h2>
             <WalkabilityScoresBadge
               walkabilityScores={walkabilityScores}

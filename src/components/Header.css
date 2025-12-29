@@ -75,6 +75,66 @@
   color: #FFD700;
 }
 
+/* Language Switcher */
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.language-switcher button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.2s;
+  text-transform: uppercase;
+}
+
+.language-switcher button:hover {
+  color: #FFD700;
+}
+
+.language-switcher button.active {
+  color: #FFD700;
+  text-decoration: underline;
+}
+
+.lang-separator {
+  color: #fff;
+  font-weight: 300;
+}
+
+/* Sidebar Language Switcher */
+.sidebar-language {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sidebar-language button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.sidebar-language button:hover {
+  color: #FFD700;
+}
+
+.sidebar-language button.active {
+  color: #FFD700;
+  font-weight: bold;
+}
+
 /* Sidebar Drawer Styles */
 .sidebar-overlay {
   position: fixed;
