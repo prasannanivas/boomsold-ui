@@ -2,6 +2,53 @@
   "selectPart": "Sélectionnez une partie de la ville",
   "loading": "Chargement...",
   "back": "Retour",
+  "aboutUs": {
+    "title": "À Propos de Nous",
+    "intro": "Bonjour et bienvenue sur notre site web. Je m'appelle Mikhail Stechine, courtier immobilier et PDG. Nous avons créé ce site web pour servir d'outil afin de faciliter votre parcours immobilier.",
+    "paragraph1": "En quelques clics simples, vous pouvez explorer les prix médians des quartiers et les commodités telles que les écoles, les parcs, les garderies, les transports en commun et plus encore.",
+    "paragraph2": "L'objectif est de rendre cela aussi facile que possible pour vous, l'utilisateur final.",
+    "paragraph3": "Vous pouvez demander une analyse de marché gratuite pour tout type de propriété dans n'importe quel quartier de l'île de Montréal.",
+    "paragraph4": "Notre site web met en valeur notre capacité à simplifier le processus, nous sommes là pour vous fournir tous les outils nécessaires afin de réduire votre recherche et vous guider à travers les étapes requises.",
+    "closing": "Connectez-vous avec nous aujourd'hui pour une analyse de marché gratuite, une évaluation de propriété ou pour discuter des prochaines étapes de votre parcours immobilier. Nous sommes là pour rendre ce parcours aussi simple que possible, tout comme notre site web."
+  },
+  "buyPage": {
+    "title": "Acheter",
+    "step1": {
+      "title": "Obtenir une Pré-Approbation Financière",
+      "description": "Contactez un spécialiste hypothécaire afin d'obtenir une pré-approbation financière. Cela vous donnera une idée de votre fourchette de prix tout en déterminant les paiements mensuels avec lesquels vous êtes à l'aise. Évitez de tomber amoureux d'une propriété que vous ne pouvez pas vous permettre."
+    },
+    "step2": {
+      "title": "Déterminer le Type de Propriété",
+      "description": "Déterminez quel type de propriété vous recherchez. Êtes-vous du type condo? Du type maison unifamiliale? Ou recherchez-vous une propriété à revenus où vous pouvez être propriétaire occupant tout en obtenant un revenu supplémentaire."
+    },
+    "step3": {
+      "title": "Explorer les Quartiers",
+      "description": "En utilisant notre site web, naviguez à travers les quartiers, découvrez leurs commodités et déterminez lesquels vous préférez le plus."
+    },
+    "step4": {
+      "title": "Contacter BoomSold",
+      "description": "Contactez BoomSold, passez en revue les avantages et les inconvénients pour chaque type de propriété, les quartiers choisis et les prochaines étapes de votre parcours immobilier."
+    },
+    "step5": {
+      "title": "Conclure l'Affaire",
+      "description": "Faites une offre, satisfaites toutes les conditions. Notariez. Obtenez les clés. Profitez de votre nouvelle maison."
+    }
+  },
+  "sellPage": {
+    "title": "Vendre",
+    "step1": {
+      "title": "Planifier Votre Calendrier",
+      "description": "Déterminez quand et où vous voulez déménager. Cela aidera à créer un calendrier pour préparer votre maison à la vente et la mettre en vente de manière stratégique."
+    },
+    "step2": {
+      "title": "Préparer Votre Maison",
+      "description": "Si possible, désencombrez votre maison. Nous voulons que l'espace soit aussi visible que possible. Gardez vos meubles mais assurez-vous que l'espace soit ouvert et accueillant."
+    },
+    "step3": {
+      "title": "Obtenez Votre Évaluation Gratuite",
+      "description": "Contactez BoomSold pour obtenir une évaluation de propriété gratuite, le calendrier et les bons conseils pour vendre votre maison de la manière la plus stratégique."
+    }
+  },
   "header": {
     "phone": "📞 514-555-0123",
     "email": "✉️ info@boomsold.ca",

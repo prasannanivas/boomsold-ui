@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ onNavigate, currentPage }) => {
   const { t, i18n } = useTranslation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const logoUrl =
@@ -14,6 +14,13 @@ const Header = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+  };
+
+  const handleNavigate = (page) => {
+    if (onNavigate) {
+      onNavigate(page);
+    }
+    setIsSidebarOpen(false);
   };
 
   const isMobile = window.innerWidth <= 768;
@@ -70,9 +77,9 @@ const Header = () => {
 
           {/* Navigation (From Variant 4) */}
           <nav className="header-nav">
-            <span className="nav-item">{t('header.nav.buy')}</span>
-            <span className="nav-item">{t('header.nav.sell')}</span>
-            <span className="nav-item">{t('header.nav.map')}</span>
+            <span className="nav-item" onClick={() => handleNavigate("buy")} style={{ cursor: "pointer" }}>{t('header.nav.buy')}</span>
+            <span className="nav-item" onClick={() => handleNavigate("sell")} style={{ cursor: "pointer" }}>{t('header.nav.sell')}</span>
+            <span className="nav-item" onClick={() => handleNavigate("map")} style={{ cursor: "pointer" }}>{t('header.nav.map')}</span>
             <div className="language-switcher">
               <button 
                 onClick={() => changeLanguage('en')} 
@@ -104,10 +111,10 @@ const Header = () => {
           </span>
         </div>
         <ul className="sidebar-links">
-          <li>{t('header.sidebar.buy')}</li>
-          <li>{t('header.sidebar.sell')}</li>
-          <li>{t('header.sidebar.aboutUs')}</li>
-          <li>{t('header.sidebar.contact')}</li>
+          <li onClick={() => handleNavigate("buy")}>{t('header.sidebar.buy')}</li>
+          <li onClick={() => handleNavigate("sell")}>{t('header.sidebar.sell')}</li>
+          <li onClick={() => handleNavigate("about")}>{t('header.sidebar.aboutUs')}</li>
+          <li onClick={() => handleNavigate("map")}>{t('header.nav.map')}</li>
           <li>
             <div className="sidebar-language">
               <span>{t('header.sidebar.language')}: </span>

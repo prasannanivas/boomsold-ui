@@ -2,6 +2,53 @@
   "selectPart": "Select a part of the city",
   "loading": "Loading...",
   "back": "Back",
+  "aboutUs": {
+    "title": "About Us",
+    "intro": "Hello and welcome to our website. My name is Mikhail Stechine, real estate broker and CEO. We have created this website to act as a tool in order to facilitate your real estate journey.",
+    "paragraph1": "With a simple few clicks, you can explore the neighborhoods' median prices and amenities such as schools, parks, daycares, public transport and more.",
+    "paragraph2": "The goal is to make this as easy as possible for yourself, the end user.",
+    "paragraph3": "You can request a free market analysis for any type of property in any neighborhood on the Island of Montreal.",
+    "paragraph4": "Our website showcases our ability to simplify the process, we are here to provide you with all the tools necessary in order to narrow down your search and guide you through the required steps.",
+    "closing": "Connect with us today for a free market analysis, a property evaluation or to discuss the next steps in your real estate journey. We are here to make this journey as simple as possible, just like our website."
+  },
+  "buyPage": {
+    "title": "Buy",
+    "step1": {
+      "title": "Get Financial Pre-Approval",
+      "description": "Contact a mortgage specialist in order to get a financial pre-approval. This will give you an idea of your price range while you figure out the monthly payments that you're comfortable with. Avoid falling in love with a property that you cannot afford."
+    },
+    "step2": {
+      "title": "Determine Property Type",
+      "description": "Figure out what type of property you are looking for. Are you the condo type? The single family home type? Or are you looking for a revenue property where you can be owner occupant while getting an extra income."
+    },
+    "step3": {
+      "title": "Explore Neighborhoods",
+      "description": "Using our website, navigate through the neighborhoods, discover their amenities and figure out which ones you prefer most."
+    },
+    "step4": {
+      "title": "Contact BoomSold",
+      "description": "Contact BoomSold, go over the pros and cons for each type of property, the chosen neighborhoods and the next steps in your real estate journey."
+    },
+    "step5": {
+      "title": "Close the Deal",
+      "description": "Make an offer, satisfy all conditions. Notarize. Get the keys. Enjoy your new home."
+    }
+  },
+  "sellPage": {
+    "title": "Sell",
+    "step1": {
+      "title": "Plan Your Timeline",
+      "description": "Figure out when and where you want to move. This will help create a timeline to getting your home ready for sale and listing it strategically."
+    },
+    "step2": {
+      "title": "Prepare Your Home",
+      "description": "If possible, declutter your home. We want the space to be as visible as possible. Keep your furniture but make sure the space feels open and inviting."
+    },
+    "step3": {
+      "title": "Get Your Free Evaluation",
+      "description": "Contact BoomSold to get a free property evaluation, the time frame and the right guidance to sell your home in the most strategic way."
+    }
+  },
   "header": {
     "phone": "📞 514-555-0123",
     "email": "✉️ info@boomsold.ca",

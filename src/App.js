@@ -11,8 +11,12 @@ import HeaderPalette from "./components/HeaderPalette";
 import FooterPalette from "./components/FooterPalette";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AboutUs from "./components/AboutUs";
+import BuyPage from "./components/BuyPage";
+import SellPage from "./components/SellPage";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("map"); // "map", "about", "buy", "sell"
   const [showPalette, setShowPalette] = useState(false); // Toggle to show header palette
   const [showFooterPalette, setShowFooterPalette] = useState(false); // Toggle to show footer palette
   const [selectedPart, setSelectedPart] = useState(null); // None = show PartMap, else = show MontrealMap
@@ -143,13 +147,21 @@ function App() {
             height: "100vh",
           }}
         >
-          {!(isPinned && selectedNeighborhoodGeoJSON) && <Header />}
+          {!(isPinned && selectedNeighborhoodGeoJSON) && <Header onNavigate={setCurrentPage} currentPage={currentPage} />}
 
           {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 
           {/* Help Guide for first-time users - REMOVED as per request */}
           {/* {!isMobile && <HelpGuide />} */}
 
+          {/* Show info pages or map based on currentPage */}
+          {currentPage === "about" ? (
+            <AboutUs />
+          ) : currentPage === "buy" ? (
+            <BuyPage />
+          ) : currentPage === "sell" ? (
+            <SellPage />
+          ) : (
           <div
             className="map-container"
             style={{
@@ -171,7 +183,7 @@ function App() {
             ) : isPinned && selectedNeighborhoodGeoJSON ? (
               // Show NeighborhoodMap for selected neighborhood
               <>
-                <Header />
+                <Header onNavigate={setCurrentPage} currentPage={currentPage} />
                 <NeighborhoodMap
                   neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
                   neighborhoodInfo={pinnedNeighborhood}
@@ -232,8 +244,9 @@ function App() {
               </div>
             )}
           </div>
+          )}
         </div>
-        {!(isPinned && selectedNeighborhoodGeoJSON) && <Footer />}
+        {!(isPinned && selectedNeighborhoodGeoJSON) && <Footer onNavigate={setCurrentPage} />}
       </div>
     </div>
   );

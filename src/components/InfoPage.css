@@ -1,0 +1,145 @@
+.info-page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 80px 20px 40px;
+}
+
+.info-page-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: rgba(17, 17, 17, 0.9);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 2px solid #FFD700;
+}
+
+.info-page-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #FFD700;
+  text-align: center;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.info-page-section {
+  color: #FFF;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.info-page-section p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.info-page-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.info-page-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background-color: rgba(255, 215, 0, 0.05);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid #FFD700;
+  transition: all 0.3s ease;
+}
+
+.info-page-step:hover {
+  background-color: rgba(255, 215, 0, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2);
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.step-content p {
+  color: #FFF;
+  line-height: 1.8;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .info-page-container {
+    padding: 60px 15px 30px;
+  }
+
+  .info-page-content {
+    padding: 25px;
+  }
+
+  .info-page-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .info-page-section {
+    font-size: 15px;
+  }
+
+  .info-page-step {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .step-content h3 {
+    font-size: 16px;
+  }
+
+  .step-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-page-title {
+    font-size: 24px;
+  }
+
+  .info-page-content {
+    padding: 20px;
+  }
+}
