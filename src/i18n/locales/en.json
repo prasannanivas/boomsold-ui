@@ -100,7 +100,9 @@
     "south": "Downtown/Center South",
     "east": "East Montreal",
     "west": "West Island",
-    "central": "Central North"
+    "central": "Central North",
+    "tapToExplore": "Please tap on a neighborhood to explore detailed real estate data,",
+    "neighborhoodsCount": "Neighborhoods"
   },
   "poi": {
     "parks": "Parks",

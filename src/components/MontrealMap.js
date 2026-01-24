@@ -1975,7 +1975,7 @@ const MontrealMap = ({
               fontSize: "11px",
             }}
           >
-            Please tap on a neighborhood to explore detailed real estate data,
+            {t('map.tapToExplore')}
           </h3>
         )}
 
@@ -2213,7 +2213,7 @@ const MontrealMap = ({
                   color: "#000",
                 }}
               >
-                Neighborhoods (
+                {t('map.neighborhoodsCount')} (
                 {getFilteredData()?.features.filter(
                   (f, i, arr) =>
                     arr.findIndex(

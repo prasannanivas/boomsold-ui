@@ -95,13 +95,6 @@
     "termsLink": "Termes et Conditions",
     "submit": "Soumettre"
   },
-  "map": {
-    "north": "Est/Nord",
-    "south": "Centre-ville/Centre Sud",
-    "east": "Montréal Est",
-    "west": "Ouest de l'île",
-    "central": "Nord Central"
-  },
   "poi": {
     "parks": "Parcs",
     "schools": "Écoles",
@@ -161,5 +154,13 @@
     "veryAccessible": "Très accessible",
     "moderatelyAccessible": "Modérément accessible",
     "lessAccessible": "Moins accessible"
+  },
+  "map": {
+    "south": "Centre-ville/ Centre-Sud",
+    "west": "Ouest de l'île",
+    "north": "Est/ Nord",
+    "central": "Centre Nord",
+    "tapToExplore": "Veuillez appuyer sur un quartier pour explorer les données immobilières détaillées,",
+    "neighborhoodsCount": "Quartiers"
   }
 }
