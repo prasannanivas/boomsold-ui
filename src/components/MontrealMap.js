@@ -1948,7 +1948,7 @@ const MontrealMap = ({
       >
         <h2
           className="selected-part-label"
-          style={isMobile ? { marginTop: "180px", width: "100%" } : {}}
+          style={isMobile ? { marginTop: "55px", width: "100%" } : {}}
         >
           {selectedPart === "South"
             ? t('neighborhoods.downtownCenterSouth')
