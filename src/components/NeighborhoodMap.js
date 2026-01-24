@@ -1106,7 +1106,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                 className="neighborhood-section-title"
                 style={{ fontSize: "16px", marginBottom: "10px" }}
               >
-                💰 {t('neighborhood.averagePropertyPrices')}
+                💰 {t('neighborhood.medianPropertyPrices')}
               </h2>
 
               <div
@@ -1186,13 +1186,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           {t('neighborhood.bungalow')}
                         </div>
-                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
                           {(Math.random() * 300000 + 400000)
                             .toFixed(0)
                             .substring(0, 3)}
                           k
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         onClick={(e) => {
@@ -1217,13 +1217,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           {t('neighborhood.twoStorey')}
                         </div>
-                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
                           {(Math.random() * 300000 + 800000)
                             .toFixed(0)
                             .substring(0, 3)}
                           k
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -1299,13 +1299,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           {t('neighborhood.oneBedroom')}
                         </div>
-                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
                           {(Math.random() * 200000 + 250000)
                             .toFixed(0)
                             .substring(0, 3)}
                           k
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         onClick={(e) => {
@@ -1330,13 +1330,13 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           {t('neighborhood.twoBedroom')}
                         </div>
-                        <div style={{ fontWeight: "700", color: "#2d3436" }}>
+                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
                           {(Math.random() * 200000 + 650000)
                             .toFixed(0)
                             .substring(0, 3)}
                           k
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

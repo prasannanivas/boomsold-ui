@@ -82,6 +82,8 @@
     "area": "Area"
   },
   "priceRequestModal": {
+    "marketAnalysisMessage": "If you would like a market analysis for this type of property in this neighborhood, please leave us your email.",
+    "emailMessage": "Please enter your email to receive your personalized market report.",
     "messages": {
       "singleFamily": "If you would like a list of the properties sold in the last 90 days, please leave us your email.",
       "bungalow": "If you would like a list of the bungalows sold in the last 90 days, please leave us your email.",
@@ -90,10 +92,36 @@
       "oneBedroom": "If you would like to know the average price of 1 bedroom condos please leave us your email:",
       "twoBedroom": "If you would like to know the average price of 2 bedroom condos please leave us your email:"
     },
+    "questions": {
+      "homeType": "What type of home?",
+      "homeStyle": "What style?",
+      "condoSize": "What size condo?",
+      "intent": "Looking to buy or sell?",
+      "reportPeriod": "Would you like a market report for?"
+    },
+    "options": {
+      "detached": "Detached",
+      "attached": "Attached",
+      "both": "Both",
+      "bungalow": "Bungalow",
+      "twoStorey": "Two-Storey",
+      "bothStyles": "Both Styles",
+      "oneBedroom": "1 Bedroom",
+      "twoBedroom": "2 Bedrooms",
+      "twoBedroomPlus": "2+ Bedrooms",
+      "buy": "Buy",
+      "sell": "Sell",
+      "exploring": "Just Exploring",
+      "90days": "Last 90 Days",
+      "180days": "Last 180 Days",
+      "1year": "Last Year"
+    },
     "emailPlaceholder": "Enter your email",
     "agreeText": "I agree to the",
     "termsLink": "Terms and Conditions",
-    "submit": "Submit"
+    "submit": "Submit",
+    "next": "Next",
+    "back": "Back"
   },
   "map": {
     "north": "East/North",
@@ -128,6 +156,7 @@
   "neighborhood": {
     "description": "Explore the neighborhood outline, mobility scores, and nearby amenities tailored for home hunters.",
     "averagePropertyPrices": "AVERAGE PROPERTY PRICES",
+    "medianPropertyPrices": "MEDIAN PROPERTY PRICES",
     "singleFamily": "Single Family",
     "bungalow": "Bungalow",
     "twoStorey": "Two-Storey",

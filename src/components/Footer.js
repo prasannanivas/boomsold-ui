@@ -22,13 +22,11 @@ const Footer = () => {
             <h4>{t('footer.buy.title')}</h4>
             <span>{t('footer.buy.search')}</span>
             <span>{t('footer.buy.map')}</span>
-            <span>{t('footer.buy.alerts')}</span>
           </div>
           <div className="link-col">
             <h4>{t('footer.sell.title')}</h4>
             <span>{t('footer.sell.valuation')}</span>
             <span>{t('footer.sell.process')}</span>
-            <span>{t('footer.sell.agents')}</span>
           </div>
           <div className="link-col">
             <h4>{t('footer.company.title')}</h4>

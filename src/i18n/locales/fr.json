@@ -82,6 +82,8 @@
     "area": "Superficie"
   },
   "priceRequestModal": {
+    "marketAnalysisMessage": "Si vous souhaitez une analyse de marché pour ce type de propriété dans ce quartier, veuillez nous laisser votre courriel.",
+    "emailMessage": "Veuillez entrer votre courriel pour recevoir votre rapport de marché personnalisé.",
     "messages": {
       "singleFamily": "Si vous souhaitez obtenir une liste des propriétés vendues au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
       "bungalow": "Si vous souhaitez obtenir une liste des bungalows vendus au cours des 90 derniers jours, veuillez nous laisser votre courriel.",
@@ -90,10 +92,36 @@
       "oneBedroom": "Si vous souhaitez connaître le prix moyen des condos 1 chambre, veuillez nous laisser votre courriel:",
       "twoBedroom": "Si vous souhaitez connaître le prix moyen des condos 2 chambres, veuillez nous laisser votre courriel:"
     },
+    "questions": {
+      "homeType": "Quel type de maison?",
+      "homeStyle": "Quel style?",
+      "condoSize": "Quelle taille de condo?",
+      "intent": "Vous cherchez à acheter ou vendre?",
+      "reportPeriod": "Souhaitez-vous un rapport de marché pour?"
+    },
+    "options": {
+      "detached": "Détachée",
+      "attached": "Attachée",
+      "both": "Les deux",
+      "bungalow": "Bungalow",
+      "twoStorey": "À deux étages",
+      "bothStyles": "Les deux styles",
+      "oneBedroom": "1 chambre",
+      "twoBedroom": "2 chambres",
+      "twoBedroomPlus": "2+ chambres",
+      "buy": "Acheter",
+      "sell": "Vendre",
+      "exploring": "Explorer seulement",
+      "90days": "Les 90 derniers jours",
+      "180days": "Les 180 derniers jours",
+      "1year": "La dernière année"
+    },
     "emailPlaceholder": "Entrez votre courriel",
     "agreeText": "J'accepte les",
     "termsLink": "Termes et Conditions",
-    "submit": "Soumettre"
+    "submit": "Soumettre",
+    "next": "Suivant",
+    "back": "Retour"
   },
   "poi": {
     "parks": "Parcs",
@@ -119,6 +147,7 @@
   "neighborhood": {
     "description": "Explorez le contour du quartier, les scores de mobilité et les commodités à proximité pour les acheteurs de maison.",
     "averagePropertyPrices": "PRIX MOYEN DES PROPRIÉTÉS",
+    "medianPropertyPrices": "PRIX MÉDIAN DES PROPRIÉTÉS",
     "singleFamily": "Maison unifamiliale",
     "bungalow": "Bungalow",
     "twoStorey": "À deux étages",
