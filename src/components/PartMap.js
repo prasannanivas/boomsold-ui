@@ -1188,9 +1188,12 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 e.currentTarget.style.transform = "translateX(-50%) scale(1)";
               }}
             >
-              West
-              <br />
-              Island
+              {t('map.west').split(' ').map((word, i) => (
+                <React.Fragment key={i}>
+                  {word}
+                  {i < t('map.west').split(' ').length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </div>
 
             {/* Central North Label */}
@@ -1229,7 +1232,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 e.currentTarget.style.transform = "translateX(-50%) scale(1)";
               }}
             >
-              Central North
+              {t('map.central')}
             </div>
 
             {/* Montreal East/North Label */}
@@ -1267,9 +1270,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 e.currentTarget.style.transform = "translateY(-50%) scale(1)";
               }}
             >
-              {/* Montreal
-              <br /> */}
-              East/North
+              {t('map.north')}
             </div>
 
             {/* Downtown/Center South Label */}
@@ -1308,9 +1309,17 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 e.currentTarget.style.transform = "translateX(-50%) scale(1)";
               }}
             >
-              Downtown/
-              <br />
-              Center South
+              {t('map.south').split('/').map((part, i) => (
+                <React.Fragment key={i}>
+                  {part.trim()}
+                  {i < t('map.south').split('/').length - 1 && (
+                    <>
+                      /
+                      <br />
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         ) : (
