@@ -15,6 +15,7 @@ import {
   nameMapping,
 } from "./Utils";
 import MontrealSvg from "./MontrealSvg";
+import MobileAreaSelection from "./MobileAreaSelection";
 
 import MaskedOutside from "./MaskedOutside.js";
 
@@ -1904,6 +1905,29 @@ const MontrealMap = ({
 
   return (
     <div className="montreal-map-container">
+      {/* Mobile Area Selection - Show on mobile instead of map */}
+      {isMobile && selectedPart && !isPinned && (
+        <MobileAreaSelection
+          selectedPart={selectedPart}
+          neighborhoods={partGeoJSON?.features || montrealData?.features || []}
+          onNeighborhoodClick={(neighborhood) => {
+            // Create a synthetic neighborhood object with the required data
+            const neighborhoodData = {
+              ...neighborhood.properties,
+              filteredGeoJSON: {
+                type: "FeatureCollection",
+                features: [neighborhood],
+              },
+            };
+            onNeighborhoodClick(neighborhoodData);
+          }}
+          onBack={onPartBack}
+        />
+      )}
+
+      {/* Show map only when not on mobile with area selection */}
+      {!(isMobile && selectedPart && !isPinned) && (
+        <>
       {/* Professional Header */}
       {/* <ProfessionalHeader /> */}
 
@@ -2771,6 +2795,8 @@ const MontrealMap = ({
           </div>
         )} */}
       </div>
+      </>
+      )}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import PartMap from "./components/PartMap";
 import NeighborhoodMap from "./components/NeighborhoodMap";
 import NeighborhoodDetails from "./components/NeighborhoodDetails";
 import AnimatedIntro from "./components/AnimatedIntro";
+import MobileLanding from "./components/MobileLanding";
 import HelpGuide from "./components/HelpGuide";
 import HeaderPalette from "./components/HeaderPalette";
 import FooterPalette from "./components/FooterPalette";
@@ -31,10 +32,26 @@ function App() {
   const [introComplete, setIntroComplete] = useState(false);
   const [isNavigatingBack, setIsNavigatingBack] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
+  const [showMobileLanding, setShowMobileLanding] = useState(isMobile); // Show mobile landing for mobile users
 
   React.useEffect(() => {
     console.log("Pinned neighborhood changed:", pinnedNeighborhood);
   }, [pinnedNeighborhood]);
+
+  // Update mobile state on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      // Show mobile landing if switching to mobile view
+      if (mobile && currentPage === "map" && !showMobileLanding) {
+        setShowMobileLanding(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [currentPage, showMobileLanding]);
 
   // Handle browser back navigation
   useEffect(() => {
@@ -148,6 +165,11 @@ function App() {
           }}
         >
           {!(isPinned && selectedNeighborhoodGeoJSON) && <Header onNavigate={setCurrentPage} currentPage={currentPage} />}
+
+          {/* Mobile Landing Page */}
+          {isMobile && showMobileLanding && currentPage === "map" && (
+            <MobileLanding onExplore={() => setShowMobileLanding(false)} />
+          )}
 
           {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}
 

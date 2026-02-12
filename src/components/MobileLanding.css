@@ -1,0 +1,187 @@
+/* Mobile Landing Page Styles */
+.mobile-landing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  z-index: 2001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
+  opacity: 1;
+}
+
+.mobile-landing.slide-up {
+  transform: translateY(-100%);
+}
+
+.mobile-landing-content {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+/* Logo */
+.mobile-logo {
+  margin-bottom: 25px;
+  animation: logoFloat 2s ease-in-out infinite;
+  position: relative;
+  top: 0;
+}
+
+.mobile-logo img {
+  max-width: 180px;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Agent Info */
+.mobile-agent-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.mobile-agent-title {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin: 0 0 12px 0;
+  color: #cccccc;
+  text-transform: uppercase;
+}
+
+.mobile-agent-phone {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  color: #ffd700;
+}
+
+/* Bio Section */
+.mobile-bio {
+  margin: 20px 0 30px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.mobile-bio-label {
+  font-size: 11px;
+  color: #999999;
+  margin: 0 0 10px 0;
+  font-style: italic;
+}
+
+.mobile-bio-text {
+  font-size: 14px;
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Discover Button */
+.discover-button {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.discover-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6);
+}
+
+.discover-button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .mobile-landing {
+    height: 100vh;
+  }
+
+  .mobile-logo img {
+    max-width: 150px;
+  }
+
+  .mobile-agent-name {
+    font-size: 20px;
+  }
+
+  .mobile-agent-title {
+    font-size: 12px;
+  }
+
+  .mobile-agent-phone {
+    font-size: 18px;
+  }
+
+  .mobile-bio-text {
+    font-size: 13px;
+  }
+
+  .discover-button {
+    padding: 14px 40px;
+    font-size: 14px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 375px) {
+  .mobile-landing-content {
+    padding: 15px;
+    padding-top: 20px;
+  }
+
+  .mobile-logo {
+    margin-bottom: 15px;
+  }
+
+  .mobile-logo img {
+    max-width: 130px;
+  }
+
+  .mobile-bio {
+    margin: 15px 0 25px 0;
+    padding: 12px;
+  }
+
+  .mobile-agent-name {
+    font-size: 18px;
+  }
+}
