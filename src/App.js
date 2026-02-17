@@ -7,6 +7,7 @@ import NeighborhoodMap from "./components/NeighborhoodMap";
 import NeighborhoodDetails from "./components/NeighborhoodDetails";
 import AnimatedIntro from "./components/AnimatedIntro";
 import MobileLanding from "./components/MobileLanding";
+import MobileSpecsSelection from "./components/MobileSpecsSelection";
 import HelpGuide from "./components/HelpGuide";
 import HeaderPalette from "./components/HeaderPalette";
 import FooterPalette from "./components/FooterPalette";
@@ -33,6 +34,8 @@ function App() {
   const [isNavigatingBack, setIsNavigatingBack] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile device
   const [showMobileLanding, setShowMobileLanding] = useState(isMobile); // Show mobile landing for mobile users
+  const [showSpecsScreen, setShowSpecsScreen] = useState(false); // Show specs selection screen on mobile
+  const [pendingNeighborhood, setPendingNeighborhood] = useState(null); // Store neighborhood data until spec is selected
 
   React.useEffect(() => {
     console.log("Pinned neighborhood changed:", pinnedNeighborhood);
@@ -61,7 +64,11 @@ function App() {
       console.log("Browser back button pressed");
 
       // Determine current view and navigate back one level
-      if (isPinned && selectedNeighborhoodGeoJSON) {
+      if (showSpecsScreen) {
+        // Currently on specs screen → Go back to area selection
+        setShowSpecsScreen(false);
+        setPendingNeighborhood(null);
+      } else if (isPinned && selectedNeighborhoodGeoJSON) {
         // Currently on NeighborhoodMap → Go back to MontrealMap
         setIsPinned(false);
         setPinnedNeighborhood(null);
@@ -85,7 +92,7 @@ function App() {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [isPinned, selectedNeighborhoodGeoJSON, selectedPart]);
+  }, [isPinned, selectedNeighborhoodGeoJSON, selectedPart, showSpecsScreen]);
 
   const handleNeighborhoodHover = (neighborhood) => {
     // Only update if not pinned
@@ -108,21 +115,33 @@ function App() {
       setIsHovering(false);
       setSelectedNeighborhood(null);
       setSelectedNeighborhoodGeoJSON(null);
+      setShowSpecsScreen(false);
+      setPendingNeighborhood(null);
     } else {
-      // Pin the clicked neighborhood
-      setIsPinned(true);
-      setPinnedNeighborhood(neighborhood);
-      setSelectedNeighborhood(neighborhood);
-      setIsHovering(true);
+      // On mobile, show specs screen first
+      if (isMobile) {
+        setPendingNeighborhood(neighborhood);
+        setShowSpecsScreen(true);
+        // Add history entry so back button works
+        if (!isNavigatingBack) {
+          window.history.pushState({}, "", "");
+        }
+      } else {
+        // Desktop: Pin the neighborhood immediately
+        setIsPinned(true);
+        setPinnedNeighborhood(neighborhood);
+        setSelectedNeighborhood(neighborhood);
+        setIsHovering(true);
 
-      // Set filtered GeoJSON if provided
-      if (neighborhood.filteredGeoJSON) {
-        setSelectedNeighborhoodGeoJSON(neighborhood.filteredGeoJSON);
-      }
+        // Set filtered GeoJSON if provided
+        if (neighborhood.filteredGeoJSON) {
+          setSelectedNeighborhoodGeoJSON(neighborhood.filteredGeoJSON);
+        }
 
-      // Add history entry so back button works
-      if (!isNavigatingBack) {
-        window.history.pushState({}, "", "");
+        // Add history entry so back button works
+        if (!isNavigatingBack) {
+          window.history.pushState({}, "", "");
+        }
       }
     }
   };
@@ -132,6 +151,35 @@ function App() {
     if (!isPinned) {
       setIsHovering(false);
       setSelectedNeighborhood(null);
+    }
+  };
+
+  const handleSpecSelect = (specId) => {
+    console.log("Spec selected:", specId);
+    // After spec is selected, proceed with pinning the neighborhood
+    if (pendingNeighborhood) {
+      setIsPinned(true);
+      setPinnedNeighborhood(pendingNeighborhood);
+      setSelectedNeighborhood(pendingNeighborhood);
+      setIsHovering(true);
+
+      // Set filtered GeoJSON if provided
+      if (pendingNeighborhood.filteredGeoJSON) {
+        setSelectedNeighborhoodGeoJSON(pendingNeighborhood.filteredGeoJSON);
+      }
+
+      // Hide specs screen
+      setShowSpecsScreen(false);
+      setPendingNeighborhood(null);
+    }
+  };
+
+  const handleSpecsBack = () => {
+    // Go back from specs screen to area selection
+    setShowSpecsScreen(false);
+    setPendingNeighborhood(null);
+    if (!isNavigatingBack) {
+      window.history.back();
     }
   };
 
@@ -169,6 +217,14 @@ function App() {
           {/* Mobile Landing Page */}
           {isMobile && showMobileLanding && currentPage === "map" && (
             <MobileLanding onExplore={() => setShowMobileLanding(false)} />
+          )}
+
+          {/* Mobile Specs Selection */}
+          {isMobile && showSpecsScreen && !showMobileLanding && (
+            <MobileSpecsSelection
+              onSpecSelect={handleSpecSelect}
+              onBack={handleSpecsBack}
+            />
           )}
 
           {/* {showIntro && <AnimatedIntro onAnimationComplete={handleIntroComplete} />} */}

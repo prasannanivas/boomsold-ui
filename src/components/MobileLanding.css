@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 60vh;
   background: #000000;
   z-index: 2001;
   display: flex;
@@ -73,13 +73,6 @@
   text-transform: uppercase;
 }
 
-.mobile-agent-phone {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 0 20px 0;
-  color: #ffd700;
-}
-
 /* Bio Section */
 .mobile-bio {
   margin: 20px 0 30px 0;
@@ -132,7 +125,7 @@
 /* Responsive adjustments for smaller screens */
 @media (max-width: 480px) {
   .mobile-landing {
-    height: 100vh;
+    height: 60vh;
   }
 
   .mobile-logo img {
@@ -145,10 +138,6 @@
 
   .mobile-agent-title {
     font-size: 12px;
-  }
-
-  .mobile-agent-phone {
-    font-size: 18px;
   }
 
   .mobile-bio-text {

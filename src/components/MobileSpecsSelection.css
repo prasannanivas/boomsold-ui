@@ -1,19 +1,21 @@
-/* Mobile Area Selection Styles */
-.mobile-area-selection {
+/* Mobile Specs Selection Styles */
+.mobile-specs-selection {
   position: fixed;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: #000000;
-  z-index: 998;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   overflow-y: auto;
 }
 
-.mobile-back-button {
+.mobile-specs-back-button {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -29,27 +31,26 @@
   z-index: 10;
 }
 
-.mobile-back-button:hover {
+.mobile-specs-back-button:hover {
   background: #ffd700;
   color: #000000;
 }
 
-.mobile-back-button:active {
+.mobile-specs-back-button:active {
   transform: scale(0.95);
 }
 
-.mobile-area-content {
+.mobile-specs-content {
   width: 100%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  margin-top: 10vh;
+  gap: 50px;
 }
 
 /* Title */
-.mobile-area-title {
+.mobile-specs-title {
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -61,75 +62,75 @@
 }
 
 /* Buttons Container */
-.mobile-area-buttons {
+.mobile-specs-buttons {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   padding: 0 20px;
 }
 
-/* Individual Area Button */
-.mobile-area-button {
+/* Individual Spec Button */
+.mobile-spec-button {
   width: 100%;
-  background: #ffffff;
+  background: #f4e49c;
   color: #000000;
   border: none;
-  padding: 12px 13px;
+  padding: 18px 24px;
   border-radius: 50px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(244, 228, 156, 0.3);
   transition: all 0.3s ease;
   text-transform: uppercase;
   text-align: center;
 }
 
-.mobile-area-button:hover {
+.mobile-spec-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(244, 228, 156, 0.5);
   background: #ffd700;
 }
 
-.mobile-area-button:active {
+.mobile-spec-button:active {
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(244, 228, 156, 0.3);
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-  .mobile-area-content {
-    gap: 30px;
+  .mobile-specs-content {
+    gap: 40px;
   }
 
-  .mobile-area-title {
+  .mobile-specs-title {
     font-size: 24px;
   }
 
-  .mobile-area-buttons {
-    gap: 15px;
+  .mobile-specs-buttons {
+    gap: 18px;
     padding: 0 10px;
   }
 
-  .mobile-area-button {
-    padding: 12px 13px;
-    font-size: 12px;
+  .mobile-spec-button {
+    padding: 18px 25px;
+    font-size: 16px;
   }
 
-  .mobile-back-button {
+  .mobile-specs-back-button {
     padding: 8px 16px;
     font-size: 14px;
   }
 }
 
 @media (max-width: 375px) {
-  .mobile-area-title {
+  .mobile-specs-title {
     font-size: 22px;
   }
 
-  .mobile-area-button {
+  .mobile-spec-button {
     padding: 16px 20px;
     font-size: 15px;
   }
@@ -137,20 +138,21 @@
 
 /* Landscape mode */
 @media (max-width: 768px) and (orientation: landscape) {
-  .mobile-area-content {
-    gap: 20px;
+  .mobile-specs-content {
+    margin-top: 20px;
+    gap: 30px;
   }
 
-  .mobile-area-title {
+  .mobile-specs-title {
     font-size: 20px;
   }
 
-  .mobile-area-buttons {
-    gap: 12px;
+  .mobile-specs-buttons {
+    gap: 15px;
   }
 
-  .mobile-area-button {
-    padding: 12px 25px;
+  .mobile-spec-button {
+    padding: 14px 25px;
     font-size: 14px;
   }
 }
