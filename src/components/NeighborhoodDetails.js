@@ -64,7 +64,7 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
 
         <div className="details-grid">
           {/* Real Estate Pricing */}
-          <div className="section pricing-section">
+          <div id="market-value-section" className="section pricing-section">
             {neighborhood.singleFamilyPrice && (
               <div className="detail-item">
                 <span className="detail-label">
@@ -86,7 +86,7 @@ const NeighborhoodDetails = ({ neighborhood, isPinned, onUnpin }) => {
           </div>
 
           {/* Amenities Section - Simple Emoji Indicators */}
-          <div className="section amenities-section">
+          <div id="amenities-section" className="section amenities-section">
             <div className="amenities-compact">
               {renderAmenityDensity(neighborhood.parkCount, "🌳")}
               {renderAmenityDensity(neighborhood.schoolCount, "🏫")}

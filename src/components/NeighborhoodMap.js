@@ -1097,7 +1097,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         {/* Average Prices Section */}
         {(neighborhoodInfo?.singleFamilyPrice ||
           neighborhoodInfo?.condoPrice) && (
-          <section className="neighborhood-prices-section">
+          <section id="market-value-section" className="neighborhood-prices-section">
             <div
               className="neighborhood-section-card"
               style={{ padding: "12px" }}
@@ -1350,7 +1350,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         <div className="neighborhood-content-container">
           {/* Left Side: Amenities */}
           <div className="neighborhood-amenities-map-wrapper">
-            <section className="neighborhood-amenities-section">
+            <section id="amenities-section" className="neighborhood-amenities-section">
               <div className="neighborhood-section-card">
                 <h2 className="neighborhood-section-title">{t('neighborhood.amenitiesNearby')}</h2>
                 <p className="neighborhood-section-description">

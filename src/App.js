@@ -156,6 +156,16 @@ function App() {
 
   const handleSpecSelect = (specId) => {
     console.log("Spec selected:", specId);
+    
+    // Handle Contact Me - open email
+    if (specId === "contact") {
+      window.location.href = "mailto:info@boomsold.com?subject=Property Inquiry - Montreal&body=Hi, I'm interested in learning more about properties in this area.";
+      // Close specs screen but don't pin
+      setShowSpecsScreen(false);
+      setPendingNeighborhood(null);
+      return;
+    }
+    
     // After spec is selected, proceed with pinning the neighborhood
     if (pendingNeighborhood) {
       setIsPinned(true);
@@ -171,6 +181,36 @@ function App() {
       // Hide specs screen
       setShowSpecsScreen(false);
       setPendingNeighborhood(null);
+      
+      // Scroll to the appropriate section after a delay for content to render
+      setTimeout(() => {
+        let sectionId = null;
+        switch(specId) {
+          case "market-value":
+            sectionId = "market-value-section";
+            break;
+          case "amenities":
+            sectionId = "amenities-section";
+            break;
+          case "convinience":
+            // Scroll to the map legend/POI area
+            sectionId = "amenities-section"; // Use amenities as it shows POI
+            break;
+          default:
+            break;
+        }
+        
+        if (sectionId) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            // Additional scroll to account for any fixed headers
+            window.scrollBy({ top: -20, behavior: "smooth" });
+          } else {
+            console.log("Element not found:", sectionId);
+          }
+        }
+      }, 1000);
     }
   };
 
