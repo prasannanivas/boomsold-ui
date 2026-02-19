@@ -281,7 +281,7 @@ function App() {
             <SellPage />
           ) : (
           <div
-            className="map-container"
+            className={`map-container ${isMobile && showMobileLanding ? 'map-container-mobile-initial' : ''}`}
             style={{
               flex: 1,
               position: "relative",

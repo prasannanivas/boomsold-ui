@@ -12,7 +12,7 @@ const MobileLanding = ({ onExplore }) => {
       // Wait for animation to complete before notifying parent
       setTimeout(() => {
         onExplore();
-      }, 800);
+      }, 100);
     }
   }, [isExploring, onExplore]);
 
