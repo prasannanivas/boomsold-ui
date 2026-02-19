@@ -61,6 +61,10 @@ const MobileLanding = ({ onExplore }) => {
   return (
     <div ref={landingRef} className={`mobile-landing ${isExploring ? "slide-up" : ""}`}>
       <div className="mobile-landing-content">
+        <div className="mobile-services-tagline">
+          BUY • SELL • INVEST
+        </div>
+        
         <div className="mobile-logo">
           <img
             src={process.env.PUBLIC_URL + "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"}
