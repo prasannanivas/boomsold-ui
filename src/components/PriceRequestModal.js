@@ -1,375 +1,160 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import "./PriceRequestModal.css";
 
-const PriceRequestModal = ({ isOpen, onClose, type }) => {
-  const { t } = useTranslation();
-  const [step, setStep] = useState(1);
+const PriceRequestModal = ({ isOpen, onClose, type, neighborhoodName }) => {
   const [email, setEmail] = useState("");
-  const [agreed, setAgreed] = useState(false);
-  
-  // Form data for Single Family Homes
-  const [homeType, setHomeType] = useState("");
-  const [homeStyle, setHomeStyle] = useState("");
-  const [intent, setIntent] = useState("");
-  const [reportPeriod, setReportPeriod] = useState("");
-  
-  // Form data for Condos
-  const [condoSize, setCondoSize] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Reset form when modal opens/closes or type changes
+  // Reset form when modal opens/closes
   useEffect(() => {
     if (!isOpen) {
-      setStep(1);
       setEmail("");
-      setAgreed(false);
-      setHomeType("");
-      setHomeStyle("");
-      setIntent("");
-      setReportPeriod("");
-      setCondoSize("");
+      setIsSubmitting(false);
     }
-  }, [isOpen, type]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
-  // Determine if it's a single-family or condo type
-  const isSingleFamily = ["single-family", "bungalow", "two-storey"].includes(type);
-  const isCondo = ["condo", "one-bedroom", "two-bedroom"].includes(type);
-
-  const handleNext = () => {
-    setStep(step + 1);
+  // Generate Centris.ca URL based on neighborhood and property type
+  const generateCentrisURL = () => {
+    // Base Centris URL for Montreal real estate
+    let baseURL = "https://www.centris.ca/en/properties~for-sale";
+    
+    // Add neighborhood/location parameter if available
+    if (neighborhoodName) {
+      const encodedNeighborhood = encodeURIComponent(neighborhoodName);
+      baseURL += `~montreal-${encodedNeighborhood.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+    } else {
+      baseURL += "~montreal";
+    }
+    
+    // Add property type filters
+    if (type === "bungalow") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=0&house=1&styleBuilding=Bungalow";
+    } else if (type === "two-storey") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=0&house=1&styleBuilding=Two-storey";
+    } else if (type === "single-family") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=0&house=1";
+    } else if (type === "one-bedroom" || type === "3.5") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=1&rooms=3.5";
+    } else if (type === "two-bedroom" || type === "4.5") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=1&rooms=4.5";
+    } else if (type === "condo") {
+      baseURL += "?view=Thumbnail&uc=0&category=1&condo=1";
+    }
+    
+    return baseURL;
   };
 
-  const handleBack = () => {
-    setStep(step - 1);
-  };
+  const centrisURL = generateCentrisURL();
 
-  const handleSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., API call)
+    if (!email) return;
+    
+    setIsSubmitting(true);
+    
+    // Handle email submission for market updates
     const formData = {
-      type,
       email,
-      ...(isSingleFamily && {
-        homeType,
-        homeStyle,
-        intent,
-        reportPeriod,
-      }),
-      ...(isCondo && {
-        condoSize,
-        intent,
-        reportPeriod,
-      }),
+      type,
+      neighborhoodName,
+      requestType: "market-updates",
+      timestamp: new Date().toISOString(),
     };
-    console.log("Form submitted:", formData);
-    // Reset and close
+    
+    console.log("Email submitted for market updates:", formData);
+    
+    // TODO: Send to your backend API or email service
+    // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify(formData) });
+    
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    
+    setIsSubmitting(false);
+    
+    // Redirect to Centris
+    window.open(centrisURL, "_blank");
     onClose();
   };
 
-  const renderStepContent = () => {
-    // Step 1: Initial message and property type questions
-    if (step === 1) {
-      return (
-        <>
-          <p className="price-modal-message">
-            {t('priceRequestModal.marketAnalysisMessage')}
-          </p>
+  const handleNoThanks = () => {
+    // Redirect to Centris without email
+    window.open(centrisURL, "_blank");
+    onClose();
+  };
 
-          {isSingleFamily && (
-            <div className="price-modal-question-group">
-              <h3 className="price-modal-question">{t('priceRequestModal.questions.homeType')}</h3>
-              <div className="price-modal-options">
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeType"
-                    value="detached"
-                    checked={homeType === "detached"}
-                    onChange={(e) => setHomeType(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.detached')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeType"
-                    value="attached"
-                    checked={homeType === "attached"}
-                    onChange={(e) => setHomeType(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.attached')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeType"
-                    value="both"
-                    checked={homeType === "both"}
-                    onChange={(e) => setHomeType(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.both')}</span>
-                </label>
-              </div>
-
-              <h3 className="price-modal-question">{t('priceRequestModal.questions.homeStyle')}</h3>
-              <div className="price-modal-options">
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeStyle"
-                    value="bungalow"
-                    checked={homeStyle === "bungalow"}
-                    onChange={(e) => setHomeStyle(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.bungalow')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeStyle"
-                    value="twoStorey"
-                    checked={homeStyle === "twoStorey"}
-                    onChange={(e) => setHomeStyle(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.twoStorey')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="homeStyle"
-                    value="bothStyles"
-                    checked={homeStyle === "bothStyles"}
-                    onChange={(e) => setHomeStyle(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.bothStyles')}</span>
-                </label>
-              </div>
-            </div>
-          )}
-
-          {isCondo && (
-            <div className="price-modal-question-group">
-              <h3 className="price-modal-question">{t('priceRequestModal.questions.condoSize')}</h3>
-              <div className="price-modal-options">
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="condoSize"
-                    value="1bedroom"
-                    checked={condoSize === "1bedroom"}
-                    onChange={(e) => setCondoSize(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.oneBedroom')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="condoSize"
-                    value="2bedroom"
-                    checked={condoSize === "2bedroom"}
-                    onChange={(e) => setCondoSize(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.twoBedroom')}</span>
-                </label>
-                <label className="price-modal-option">
-                  <input
-                    type="radio"
-                    name="condoSize"
-                    value="2bedroomPlus"
-                    checked={condoSize === "2bedroomPlus"}
-                    onChange={(e) => setCondoSize(e.target.value)}
-                  />
-                  <span>{t('priceRequestModal.options.twoBedroomPlus')}</span>
-                </label>
-              </div>
-            </div>
-          )}
-
-          <button
-            type="button"
-            className="price-modal-submit"
-            onClick={handleNext}
-            disabled={
-              (isSingleFamily && (!homeType || !homeStyle)) ||
-              (isCondo && !condoSize)
-            }
-          >
-            {t('priceRequestModal.next')}
-          </button>
-        </>
-      );
-    }
-
-    // Step 2: Intent and report period
-    if (step === 2) {
-      return (
-        <>
-          <div className="price-modal-question-group">
-            <h3 className="price-modal-question">{t('priceRequestModal.questions.intent')}</h3>
-            <div className="price-modal-options">
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="intent"
-                  value="buy"
-                  checked={intent === "buy"}
-                  onChange={(e) => setIntent(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.buy')}</span>
-              </label>
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="intent"
-                  value="sell"
-                  checked={intent === "sell"}
-                  onChange={(e) => setIntent(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.sell')}</span>
-              </label>
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="intent"
-                  value="exploring"
-                  checked={intent === "exploring"}
-                  onChange={(e) => setIntent(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.exploring')}</span>
-              </label>
-            </div>
-
-            <h3 className="price-modal-question">{t('priceRequestModal.questions.reportPeriod')}</h3>
-            <div className="price-modal-options">
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="reportPeriod"
-                  value="90days"
-                  checked={reportPeriod === "90days"}
-                  onChange={(e) => setReportPeriod(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.90days')}</span>
-              </label>
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="reportPeriod"
-                  value="180days"
-                  checked={reportPeriod === "180days"}
-                  onChange={(e) => setReportPeriod(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.180days')}</span>
-              </label>
-              <label className="price-modal-option">
-                <input
-                  type="radio"
-                  name="reportPeriod"
-                  value="1year"
-                  checked={reportPeriod === "1year"}
-                  onChange={(e) => setReportPeriod(e.target.value)}
-                />
-                <span>{t('priceRequestModal.options.1year')}</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="price-modal-button-group">
-            <button
-              type="button"
-              className="price-modal-back"
-              onClick={handleBack}
-            >
-              {t('priceRequestModal.back')}
-            </button>
-            <button
-              type="button"
-              className="price-modal-submit"
-              onClick={handleNext}
-              disabled={!intent || !reportPeriod}
-            >
-              {t('priceRequestModal.next')}
-            </button>
-          </div>
-        </>
-      );
-    }
-
-    // Step 3: Email and terms
-    if (step === 3) {
-      return (
-        <form onSubmit={handleSubmit}>
-          <p className="price-modal-message">
-            {t('priceRequestModal.emailMessage')}
-          </p>
-
-          <div className="price-modal-input-group">
-            <input
-              type="email"
-              placeholder={t('priceRequestModal.emailPlaceholder')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="price-modal-input"
-            />
-          </div>
-
-          <div className="price-modal-terms">
-            <label>
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                required
-              />
-              <span>
-                {t('priceRequestModal.agreeText')}{" "}
-                <a href="/terms" target="_blank" rel="noopener noreferrer">
-                  {t('priceRequestModal.termsLink')}
-                </a>
-              </span>
-            </label>
-          </div>
-
-          <div className="price-modal-button-group">
-            <button
-              type="button"
-              className="price-modal-back"
-              onClick={handleBack}
-            >
-              {t('priceRequestModal.back')}
-            </button>
-            <button
-              type="submit"
-              className="price-modal-submit"
-              disabled={!agreed || !email}
-            >
-              {t('priceRequestModal.submit')}
-            </button>
-          </div>
-        </form>
-      );
-    }
+  // Get property type display text
+  const getPropertyTypeText = () => {
+    const typeMap = {
+      "bungalow": "Bungalows",
+      "two-storey": "Two Storey Homes",
+      "single-family": "Single Family Homes",
+      "one-bedroom": "3½ Condos",
+      "two-bedroom": "4½ Condos",
+      "3.5": "3½ Condos",
+      "4.5": "4½ Condos",
+      "condo": "Condos",
+    };
+    return typeMap[type] || "Properties";
   };
 
   return (
     <div className="price-modal-overlay" onClick={onClose}>
-      <div className="price-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="price-modal-content centris-redirect-modal" onClick={(e) => e.stopPropagation()}>
         <button className="price-modal-close" onClick={onClose}>
           ×
         </button>
         
-        <div className="price-modal-progress">
-          <div className={`price-modal-progress-step ${step >= 1 ? 'active' : ''}`}>1</div>
-          <div className={`price-modal-progress-line ${step >= 2 ? 'active' : ''}`}></div>
-          <div className={`price-modal-progress-step ${step >= 2 ? 'active' : ''}`}>2</div>
-          <div className={`price-modal-progress-line ${step >= 3 ? 'active' : ''}`}></div>
-          <div className={`price-modal-progress-step ${step >= 3 ? 'active' : ''}`}>3</div>
-        </div>
+        <div className="redirect-message-container">
+          <div className="email-capture-section">
+            <p className="email-capture-message">
+              BEFORE YOU LEAVE, FEEL FREE TO LEAVE US YOUR EMAIL FOR MARKET UPDATES
+            </p>
+            
+            <form onSubmit={handleEmailSubmit} className="email-form">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="price-modal-input"
+                disabled={isSubmitting}
+              />
+              
+              <button
+                type="submit"
+                className="price-modal-submit"
+                disabled={!email || isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Submit & Continue"}
+              </button>
+            </form>
+          </div>
 
-        {renderStepContent()}
+          <button
+            type="button"
+            className="no-thanks-button"
+            onClick={handleNoThanks}
+            disabled={isSubmitting}
+          >
+            No, thanks
+          </button>
+
+          <div className="centris-info-bottom">
+            <p className="centris-redirect-notice">
+              Redirecting to Centris.ca
+            </p>
+            <p className="property-type-info">
+              {getPropertyTypeText()}
+              {neighborhoodName && (
+                <>
+                  {" "}• {neighborhoodName}
+                </>
+              )}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

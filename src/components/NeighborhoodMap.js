@@ -1106,7 +1106,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                 className="neighborhood-section-title"
                 style={{ fontSize: "16px", marginBottom: "10px" }}
               >
-                💰 {t('neighborhood.medianPropertyPrices')}
+                PROPERTY PRICES
               </h2>
 
               <div
@@ -1152,13 +1152,37 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                     </div>
                     <div
                       style={{
+                        fontSize: "8px",
+                        color: "#999",
+                        marginBottom: "4px",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      Click here for median prices
+                    </div>
+                    <div
+                      style={{
                         fontSize: "18px",
                         fontWeight: "900",
                         color: "#2d3436",
                         marginBottom: "8px",
                       }}
                     >
-                      {neighborhoodInfo.singleFamilyPrice}
+                      {(() => {
+                        const price = neighborhoodInfo.singleFamilyPrice;
+                        const numericMatch = price.match(/\$?([\d,]+)/);
+                        if (!numericMatch) return price;
+                        
+                        const numericValue = numericMatch[1].replace(/,/g, '');
+                        const firstDigit = numericValue[0];
+                        
+                        // Format based on magnitude: 5 digits or less = "x,xxx", 6+ digits = "xx,xxx"
+                        if (numericValue.length <= 5) {
+                          return `$${firstDigit}x,xxx`;
+                        } else {
+                          return `$${firstDigit}xx,xxx`;
+                        }
+                      })()}
                     </div>
                     <div
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
@@ -1265,13 +1289,37 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                     </div>
                     <div
                       style={{
+                        fontSize: "8px",
+                        color: "#999",
+                        marginBottom: "4px",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      Click here for median prices
+                    </div>
+                    <div
+                      style={{
                         fontSize: "18px",
                         fontWeight: "900",
                         color: "#2d3436",
                         marginBottom: "8px",
                       }}
                     >
-                      {neighborhoodInfo.condoPrice}
+                      {(() => {
+                        const price = neighborhoodInfo.condoPrice;
+                        const numericMatch = price.match(/\$?([\d,]+)/);
+                        if (!numericMatch) return price;
+                        
+                        const numericValue = numericMatch[1].replace(/,/g, '');
+                        const firstDigit = numericValue[0];
+                        
+                        // Format based on magnitude: 5 digits or less = "x,xxx", 6+ digits = "xx,xxx"
+                        if (numericValue.length <= 5) {
+                          return `$${firstDigit}x,xxx`;
+                        } else {
+                          return `$${firstDigit}xx,xxx`;
+                        }
+                      })()}
                     </div>
                     <div
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
@@ -1297,7 +1345,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          {t('neighborhood.oneBedroom')}
+                          3½
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1328,7 +1376,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          {t('neighborhood.twoBedroom')}
+                          4½
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1494,6 +1542,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         isOpen={modalState.isOpen}
         onClose={closePriceModal}
         type={modalState.type}
+        neighborhoodName={neighborhoodName}
       />
     </div>
   );

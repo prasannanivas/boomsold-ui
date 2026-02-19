@@ -303,3 +303,105 @@
     flex: 1;
   }
 }
+
+/* Centris Redirect Modal Styles */
+.centris-redirect-modal {
+  max-width: 500px;
+}
+
+.redirect-message-container {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.centris-info-bottom {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+}
+
+.centris-redirect-notice {
+  font-size: 10px;
+  color: #666;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.property-type-info {
+  font-size: 11px;
+  color: #555;
+  margin: 0;
+  font-weight: 400;
+}
+
+.property-type-info strong {
+  color: #777;
+  font-weight: 500;
+}
+
+.email-capture-section {
+  margin-bottom: 20px;
+}
+
+.email-capture-message {
+  font-size: 15px;
+  color: #FFD700;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.email-form .price-modal-input {
+  margin: 0;
+}
+
+.email-form .price-modal-submit {
+  margin: 0;
+}
+
+.no-thanks-button {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 8px;
+  margin-bottom: 10px;
+  transition: color 0.2s;
+  text-decoration: underline;
+  text-transform: lowercase;
+}
+
+.no-thanks-button:hover {
+  color: #CCC;
+}
+
+.no-thanks-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Responsive for redirect modal */
+@media (max-width: 600px) {
+  .email-capture-message {
+    font-size: 13px;
+  }
+
+  .centris-redirect-notice {
+    font-size: 9px;
+  }
+
+  .property-type-info {
+    font-size: 10px;
+  }
+}
