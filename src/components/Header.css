@@ -1,7 +1,8 @@
 /* Main Header Container */
 .main-header {
   width: 100%;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
   background: #000;
   display: flex;

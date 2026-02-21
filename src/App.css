@@ -7,6 +7,7 @@
       #FFFFFF 50%,
       #F8F8F8 75%,
       #FFFFFF 100%);
+  overflow-y: auto;
 }
 
 .map-container {
@@ -162,11 +163,6 @@
   .map-container {
     height: 100vh;
     height: 100dvh;
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .map-container-mobile-initial {
-    transform: translateY(30vh);
   }
 
   .neighborhood-overlay {

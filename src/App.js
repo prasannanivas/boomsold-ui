@@ -36,6 +36,7 @@ function App() {
   const [showMobileLanding, setShowMobileLanding] = useState(isMobile); // Show mobile landing for mobile users
   const [showSpecsScreen, setShowSpecsScreen] = useState(false); // Show specs selection screen on mobile
   const [pendingNeighborhood, setPendingNeighborhood] = useState(null); // Store neighborhood data until spec is selected
+  const [hasScrolledPastLanding, setHasScrolledPastLanding] = useState(false); // Track if user scrolled past landing
 
   React.useEffect(() => {
     console.log("Pinned neighborhood changed:", pinnedNeighborhood);
@@ -55,6 +56,20 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [currentPage, showMobileLanding]);
+
+  // Track scroll position for mobile landing
+  useEffect(() => {
+    if (!isMobile || !showMobileLanding || currentPage !== "map") return;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      // Show header when scrolled past 30vh (about half of the 50vh landing)
+      setHasScrolledPastLanding(scrollPosition > window.innerHeight * 0.3);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile, showMobileLanding, currentPage]);
 
   // Handle browser back navigation
   useEffect(() => {
@@ -120,6 +135,7 @@ function App() {
     } else {
       // On mobile, show specs screen first
       if (isMobile) {
+        setShowMobileLanding(false); // Close mobile landing
         setPendingNeighborhood(neighborhood);
         setShowSpecsScreen(true);
         // Add history entry so back button works
@@ -225,6 +241,9 @@ function App() {
 
   const handlePartClick = (partInfo) => {
     console.log("Part clicked:", partInfo);
+    if (isMobile) {
+      setShowMobileLanding(false); // Close mobile landing
+    }
     setSelectedPart(partInfo.partName);
     setSelectedPartGeoJSON(partInfo.geoJSON);
 
@@ -249,10 +268,15 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            height: "100vh",
+            minHeight: isMobile && showMobileLanding && currentPage === "map" ? "150vh" : "100vh",
+            height: isMobile && showMobileLanding && currentPage === "map" ? "auto" : "100vh",
           }}
         >
-          {!(isPinned && selectedNeighborhoodGeoJSON) && <Header onNavigate={setCurrentPage} currentPage={currentPage} />}
+          {/* Conditionally render header based on mobile landing state */}
+          {!(isPinned && selectedNeighborhoodGeoJSON) && (
+            // Hide header only when mobile landing is visible and not scrolled
+            !(isMobile && showMobileLanding && currentPage === "map" && !hasScrolledPastLanding)
+          ) && <Header onNavigate={setCurrentPage} currentPage={currentPage} />}
 
           {/* Mobile Landing Page */}
           {isMobile && showMobileLanding && currentPage === "map" && (
@@ -281,7 +305,7 @@ function App() {
             <SellPage />
           ) : (
           <div
-            className={`map-container ${isMobile && showMobileLanding ? 'map-container-mobile-initial' : ''}`}
+            className="map-container"
             style={{
               flex: 1,
               position: "relative",
