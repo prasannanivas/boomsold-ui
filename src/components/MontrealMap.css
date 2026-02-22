@@ -41,6 +41,16 @@
   position: relative;
 }
 
+/* Mobile: Allow scrolling for area selection */
+@media (max-width: 768px) {
+  .montreal-map-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    height: auto;
+  }
+}
+
 .selected-part-label {
   position: absolute;
   top: 12px;

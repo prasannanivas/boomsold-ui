@@ -310,7 +310,11 @@ function App() {
               flex: 1,
               position: "relative",
               overflow:
-                isPinned && selectedNeighborhoodGeoJSON ? "auto" : "hidden",
+                isPinned && selectedNeighborhoodGeoJSON 
+                  ? "auto" 
+                  : isMobile 
+                    ? "visible" 
+                    : "hidden",
               touchAction:
                 isPinned && selectedNeighborhoodGeoJSON ? "auto" : "pan-y",
             }}

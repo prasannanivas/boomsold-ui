@@ -1,9 +1,9 @@
 /* Mobile Area Selection Styles */
 .mobile-area-selection {
-  position: fixed;
+  position: relative;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: #000000;
   z-index: 998;
   display: flex;
@@ -11,9 +11,7 @@
   align-items: center;
   padding: 20px;
   padding-bottom: calc(20px + 20vh);
-  overflow-y: auto;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-back-button {

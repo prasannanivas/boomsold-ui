@@ -137,6 +137,13 @@
 
 /* Responsive design for mobile */
 @media (max-width: 768px) {
+  .map-container {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .neighborhood-overlay {
     width: calc(100vw - 30px);
     right: 15px;
