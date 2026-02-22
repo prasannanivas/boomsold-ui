@@ -312,7 +312,7 @@ function App() {
               overflow:
                 isPinned && selectedNeighborhoodGeoJSON ? "auto" : "hidden",
               touchAction:
-                isPinned && selectedNeighborhoodGeoJSON ? "auto" : "none",
+                isPinned && selectedNeighborhoodGeoJSON ? "auto" : "pan-y",
             }}
           >
             {selectedPart === null ? (
