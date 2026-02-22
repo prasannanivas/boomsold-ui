@@ -1208,7 +1208,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          {t('neighborhood.bungalow')}
+                          BUY
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1239,7 +1239,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          {t('neighborhood.twoStorey')}
+                          SELL
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1345,7 +1345,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          3½
+                          BUY
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $
@@ -1376,7 +1376,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                             marginBottom: "2px",
                           }}
                         >
-                          4½
+                          SELL
                         </div>
                         {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
                           $

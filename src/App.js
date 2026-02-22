@@ -209,7 +209,7 @@ function App() {
             sectionId = "amenities-section";
             break;
           case "convinience":
-            // Scroll to the map legend/POI area
+            // Scroll to the map legend/POI area (ACCESSIBILITY)
             sectionId = "amenities-section"; // Use amenities as it shows POI
             break;
           default:

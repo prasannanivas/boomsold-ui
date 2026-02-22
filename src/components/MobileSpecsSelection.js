@@ -5,7 +5,7 @@ const MobileSpecsSelection = ({ onSpecSelect, onBack }) => {
   const specs = [
     { id: "market-value", label: "MARKET VALUE" },
     { id: "amenities", label: "AMENITIES" },
-    { id: "convinience", label: "CONVINIENCE" },
+    { id: "convinience", label: "ACCESSIBILITY" },
     { id: "contact", label: "CONTACT ME" },
   ];
 
