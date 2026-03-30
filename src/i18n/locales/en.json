@@ -218,6 +218,19 @@
     "childcare": "Childcare",
     "noPOIsFound": "No {{category}} found in this neighborhood"
   },
+  "mobile": {
+    "back": "← Back",
+    "chooseArea": "CHOOSE AN AREA",
+    "in": "IN",
+    "specsTitle": "SPECS IN THIS AREA",
+    "propertyPrices": "PROPERTY PRICES",
+    "amenities": "AMENITIES",
+    "accessibility": "ACCESSIBILITY",
+    "contactMe": "CONTACT ME",
+    "agentTitle": "REAL ESTATE BROKER",
+    "bioText": "Hello, my name is Mikhail Stechine and I have built this website to simplify your real estate journey.",
+    "area": "AREA"
+  },
   "scores": {
     "walkScore": "Walk Score",
     "walkersParadise": "Walker's Paradise",

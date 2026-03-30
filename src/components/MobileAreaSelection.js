@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./MobileAreaSelection.css";
 
 const MobileAreaSelection = ({ 
@@ -7,20 +8,21 @@ const MobileAreaSelection = ({
   onNeighborhoodClick,
   onBack 
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="mobile-area-selection">
       {/* Back Button */}
       {onBack && (
         <button className="mobile-back-button" onClick={onBack}>
-          ← Back
+          {t('mobile.back')}
         </button>
       )}
 
       <div className="mobile-area-content">
         <h2 className="mobile-area-title">
-          CHOOSE AN AREA
+          {t('mobile.chooseArea')}
           <br />
-          IN {selectedPart?.toUpperCase() || "MONTREAL"}
+          {t('mobile.in')} {selectedPart?.toUpperCase() || "MONTRÉAL"}
         </h2>
 
         <div className="mobile-area-buttons">
@@ -31,16 +33,15 @@ const MobileAreaSelection = ({
                 className="mobile-area-button"
                 onClick={() => onNeighborhoodClick(neighborhood)}
               >
-                {neighborhood.properties?.name || `AREA ${index + 1}`}
+                {neighborhood.properties?.name || `${t('mobile.area')} ${index + 1}`}
               </button>
             ))
           ) : (
-            // Fallback if no neighborhoods available
             <>
-              <button className="mobile-area-button">AREA 1</button>
-              <button className="mobile-area-button">AREA 2</button>
-              <button className="mobile-area-button">AREA 3</button>
-              <button className="mobile-area-button">AREA 4</button>
+              <button className="mobile-area-button">{t('mobile.area')} 1</button>
+              <button className="mobile-area-button">{t('mobile.area')} 2</button>
+              <button className="mobile-area-button">{t('mobile.area')} 3</button>
+              <button className="mobile-area-button">{t('mobile.area')} 4</button>
             </>
           )}
         </div>

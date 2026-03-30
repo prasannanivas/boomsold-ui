@@ -1,12 +1,14 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./MobileSpecsSelection.css";
 
 const MobileSpecsSelection = ({ onSpecSelect, onBack }) => {
+  const { t } = useTranslation();
   const specs = [
-    { id: "market-value", label: "MARKET VALUE" },
-    { id: "amenities", label: "AMENITIES" },
-    { id: "convinience", label: "ACCESSIBILITY" },
-    { id: "contact", label: "CONTACT ME" },
+    { id: "market-value", label: t('mobile.propertyPrices') },
+    { id: "amenities", label: t('mobile.amenities') },
+    { id: "convinience", label: t('mobile.accessibility') },
+    { id: "contact", label: t('mobile.contactMe') },
   ];
 
   return (
@@ -14,13 +16,13 @@ const MobileSpecsSelection = ({ onSpecSelect, onBack }) => {
       {/* Back Button */}
       {onBack && (
         <button className="mobile-specs-back-button" onClick={onBack}>
-          ← Back
+          {t('mobile.back')}
         </button>
       )}
 
       <div className="mobile-specs-content">
         <h2 className="mobile-specs-title">
-          SPECS IN THIS AREA
+          {t('mobile.specsTitle')}
         </h2>
 
         <div className="mobile-specs-buttons">

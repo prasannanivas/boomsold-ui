@@ -209,21 +209,45 @@ function App() {
             sectionId = "amenities-section";
             break;
           case "convinience":
-            // Scroll to the map legend/POI area (ACCESSIBILITY)
-            sectionId = "amenities-section"; // Use amenities as it shows POI
+            sectionId = "neighborhood-walkability-section";
             break;
           default:
             break;
         }
         
+        console.log("[SCROLL DEBUG] sectionId:", sectionId);
+
         if (sectionId) {
           const element = document.getElementById(sectionId);
+          console.log("[SCROLL DEBUG] element found:", !!element);
+
           if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            // Additional scroll to account for any fixed headers
-            window.scrollBy({ top: -20, behavior: "smooth" });
+            // The actual scrollable container is .map-container (set to overflow:auto when pinned)
+            const scrollContainer = document.querySelector(".map-container");
+            console.log("[SCROLL DEBUG] scrollContainer scrollHeight:", scrollContainer?.scrollHeight, "clientHeight:", scrollContainer?.clientHeight);
+
+            if (scrollContainer && scrollContainer.scrollHeight > scrollContainer.clientHeight) {
+              const containerTop = scrollContainer.getBoundingClientRect().top;
+              const elementTop = element.getBoundingClientRect().top;
+              const offset = elementTop - containerTop + scrollContainer.scrollTop - (window.innerHeight * 0.2);
+              console.log("[SCROLL DEBUG] Scrolling .map-container to offset:", offset);
+              scrollContainer.scrollTo({ top: offset, behavior: "smooth" });
+            } else {
+              // fallback: try neighborhood-map-container
+              const innerContainer = document.querySelector(".neighborhood-map-container");
+              if (innerContainer && innerContainer.scrollHeight > innerContainer.clientHeight) {
+                const containerTop = innerContainer.getBoundingClientRect().top;
+                const elementTop = element.getBoundingClientRect().top;
+                const offset = elementTop - containerTop + innerContainer.scrollTop;
+                console.log("[SCROLL DEBUG] Scrolling .neighborhood-map-container to offset:", offset);
+                innerContainer.scrollTo({ top: offset, behavior: "smooth" });
+              } else {
+                console.log("[SCROLL DEBUG] Falling back to scrollIntoView");
+                element.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }
           } else {
-            console.log("Element not found:", sectionId);
+            console.log("[SCROLL DEBUG] Element not found for id:", sectionId);
           }
         }
       }, 1000);

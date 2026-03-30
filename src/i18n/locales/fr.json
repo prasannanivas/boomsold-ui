@@ -191,6 +191,19 @@
     "eastNorth": "Est/ Nord",
     "montreal": "Montréal"
   },
+  "mobile": {
+    "back": "← Retour",
+    "chooseArea": "CHOISIR UN SECTEUR",
+    "in": "À",
+    "specsTitle": "DÉTAILS DU SECTEUR",
+    "propertyPrices": "PRIX DES PROPRIÉTÉS",
+    "amenities": "COMMODITÉS",
+    "accessibility": "ACCESSIBILITÉ",
+    "contactMe": "ME CONTACTER",
+    "agentTitle": "COURTIER IMMOBILIER",
+    "bioText": "Bonjour, je m'appelle Mikhail Stechine et j'ai créé ce site web pour simplifier votre parcours immobilier.",
+    "area": "SECTEUR"
+  },
   "neighborhood": {
     "description": "Explorez le contour du quartier, les scores de mobilité et les commodités à proximité pour les acheteurs de maison.",
     "averagePropertyPrices": "PRIX MOYEN DES PROPRIÉTÉS",

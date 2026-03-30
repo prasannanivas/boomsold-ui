@@ -71,18 +71,18 @@
 }
 
 /* Individual Spec Button */
-.mobile-spec-button {
+.mobile-specs-selection .mobile-spec-button {
   width: 100%;
-  background: #f4e49c;
+  background: #ffd700;
   color: #000000;
   border: none;
-  padding: 18px 24px;
+  padding: 8px 10px;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.8px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(244, 228, 156, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
   transition: all 0.3s ease;
   text-transform: uppercase;
   text-align: center;
@@ -90,13 +90,13 @@
 
 .mobile-spec-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(244, 228, 156, 0.5);
-  background: #ffd700;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+  background: #ffed4e;
 }
 
 .mobile-spec-button:active {
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(244, 228, 156, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive adjustments */
@@ -114,9 +114,9 @@
     padding: 0 10px;
   }
 
-  .mobile-spec-button {
-    padding: 18px 25px;
-    font-size: 16px;
+  .mobile-specs-selection .mobile-spec-button {
+    padding: 8px 10px;
+    font-size: 11px;
   }
 
   .mobile-specs-back-button {
@@ -130,9 +130,9 @@
     font-size: 22px;
   }
 
-  .mobile-spec-button {
-    padding: 16px 20px;
-    font-size: 15px;
+  .mobile-specs-selection .mobile-spec-button {
+    padding: 7px 9px;
+    font-size: 10px;
   }
 }
 
@@ -151,8 +151,8 @@
     gap: 15px;
   }
 
-  .mobile-spec-button {
-    padding: 14px 25px;
-    font-size: 14px;
+  .mobile-specs-selection .mobile-spec-button {
+    padding: 8px 10px;
+    font-size: 11px;
   }
 }

@@ -1,7 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./MobileLanding.css";
 
 const MobileLanding = ({ onExplore }) => {
+  const { t } = useTranslation();
   return (
     <div className="mobile-landing">
       <div className="mobile-landing-content">
@@ -13,11 +15,11 @@ const MobileLanding = ({ onExplore }) => {
         </div>
 
         <h1 className="mobile-agent-name">MIKHAIL STECHINE</h1>
-        <p className="mobile-agent-title">REAL ESTATE BROKER</p>
+        <p className="mobile-agent-title">{t('mobile.agentTitle')}</p>
 
         <div className="mobile-bio">
           <p className="mobile-bio-text">
-            Hello, my name is Mikhail Stechine and I have built this website to simplify your real estate journey.
+            {t('mobile.bioText')}
           </p>
         </div>
 

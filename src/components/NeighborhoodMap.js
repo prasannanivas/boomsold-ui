@@ -1518,7 +1518,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
           </div>
         </div>
 
-        <section className="neighborhood-walkability-section">
+        <section id="neighborhood-walkability-section" className="neighborhood-walkability-section">
           <div
             className="neighborhood-section-card"
             style={{ padding: "16px" }}
