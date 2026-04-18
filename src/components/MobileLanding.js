@@ -1,34 +1,71 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import "./MobileLanding.css";
 
-const MobileLanding = ({ onExplore }) => {
-  const { t } = useTranslation();
+const MobileLanding = ({ onExplore, onNavigate }) => {
   return (
     <div className="mobile-landing">
-      <div className="mobile-landing-content">
-        <div className="mobile-logo">
+
+      {/* ── FIRST SCREEN: photo + info up to description (100dvh) ── */}
+      <div className="mobile-landing-first-screen">
+        {/* Broker photo with overlay badge */}
+        <div className="mobile-landing-photo-section">
+          <div className="mobile-landing-broker-badge">
+            <img
+              src={process.env.PUBLIC_URL + "/assets/BOOM SOLD LOGO 2025 YELLOW PNG SMALL.png"}
+              alt="BoomSold"
+              className="ml-badge-logo"
+            />
+            <div className="ml-badge-info">
+              <span className="ml-broker-name">MIKHAIL<br />STECHINE</span>
+              <span className="ml-broker-title">
+                Courtier Immobilier Résidentiel &amp; Commercial<br />
+                Residential &amp; Commercial Real Estate Broker
+              </span>
+              <span className="ml-broker-phone">514-983-8459</span>
+            </div>
+          </div>
           <img
-            src={process.env.PUBLIC_URL + "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"}
-            alt="BoomSold"
+            src={process.env.PUBLIC_URL + "/assets/michaImage.png"}
+            alt="Mikhail Stechine"
+            className="mobile-landing-broker-photo"
           />
         </div>
 
-        <h1 className="mobile-agent-name">MIKHAIL STECHINE</h1>
-        <p className="mobile-agent-title">{t('mobile.agentTitle')}</p>
-
-        <div className="mobile-bio">
-          <p className="mobile-bio-text">
-            {t('mobile.bioText')}
+        {/* Info: logo + tagline + description */}
+        <div className="mobile-landing-info-section">
+          <img
+            src={process.env.PUBLIC_URL + "/assets/BOOM SOLD LOGO 2025 YELLOW PNG LARGE.png"}
+            alt="BoomSold"
+            className="ml-main-logo"
+          />
+          <p className="ml-tagline">BoomSold — The Smarter Way to Move</p>
+          <p className="ml-description">
+            Hello, and welcome to my real estate website. I've created this
+            platform to help you navigate the Montreal market with ease.
           </p>
         </div>
-
-        <div className="scroll-indicator">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <path d="M40 15 L40 55 M40 55 L25 40 M40 55 L55 40" stroke="#FFD700" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
       </div>
+
+      {/* ── ACTION CARDS: appear after scrolling ── */}
+      <div className="ml-buttons-section">
+        <button className="ml-action-btn" onClick={onExplore}>
+          <span className="ml-btn-title">Find Homes by Area</span>
+          <span className="ml-btn-sub">We filter the market for you…</span>
+        </button>
+        <button className="ml-action-btn" onClick={onExplore}>
+          <span className="ml-btn-title">Get My Home Value</span>
+          <span className="ml-btn-sub">Access market data + personalized insights</span>
+        </button>
+        <button className="ml-action-btn" onClick={onExplore}>
+          <span className="ml-btn-title">Explore Investments</span>
+          <span className="ml-btn-sub">Properties with strong potential based on market trends</span>
+        </button>
+        <button className="ml-action-btn" onClick={onExplore}>
+          <span className="ml-btn-title">Browse Rentals</span>
+          <span className="ml-btn-sub">Find the perfect rental in your area</span>
+        </button>
+      </div>
+
     </div>
   );
 };

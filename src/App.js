@@ -38,9 +38,17 @@ function App() {
   const [pendingNeighborhood, setPendingNeighborhood] = useState(null); // Store neighborhood data until spec is selected
   const [hasScrolledPastLanding, setHasScrolledPastLanding] = useState(false); // Track if user scrolled past landing
 
-  React.useEffect(() => {
-    console.log("Pinned neighborhood changed:", pinnedNeighborhood);
-  }, [pinnedNeighborhood]);
+  const [scrollToTopFlag, setScrollToTopFlag] = useState(false);
+
+  // Scroll to top AFTER the map page has rendered
+  useEffect(() => {
+    if (scrollToTopFlag) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      setScrollToTopFlag(false);
+    }
+  }, [scrollToTopFlag]);
 
   // Update mobile state on resize
   useEffect(() => {
@@ -288,27 +296,42 @@ function App() {
   return (
     <div className="App">
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: isMobile && showMobileLanding && currentPage === "map" ? "150vh" : "100vh",
-            height: isMobile && showMobileLanding && currentPage === "map" ? "auto" : "100vh",
-          }}
-        >
-          {/* Conditionally render header based on mobile landing state */}
-          {!(isPinned && selectedNeighborhoodGeoJSON) && (
-            // Hide header only when mobile landing is visible and not scrolled
-            !(isMobile && showMobileLanding && currentPage === "map" && !hasScrolledPastLanding)
-          ) && <Header onNavigate={setCurrentPage} currentPage={currentPage} />}
 
-          {/* Mobile Landing Page */}
-          {isMobile && showMobileLanding && currentPage === "map" && (
-            <MobileLanding onExplore={() => setShowMobileLanding(false)} />
+        {/* ── MOBILE LANDING: its own standalone page (header + landing + footer) ── */}
+        {isMobile && showMobileLanding && currentPage === "map" ? (
+          <div style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            height: "100vh",
+            overflow: "hidden",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            zIndex: 100,
+          }}>
+            <Header onNavigate={setCurrentPage} currentPage={currentPage} />
+            <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+              <MobileLanding onExplore={() => { setShowMobileLanding(false); setScrollToTopFlag(true); }} onNavigate={setCurrentPage} />
+              <Footer onNavigate={setCurrentPage} />
+            </div>
+          </div>
+        ) : (
+          <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100vh",
+            }}
+          >
+          {/* Conditionally render header */}
+          {!(isPinned && selectedNeighborhoodGeoJSON) && (
+            <Header onNavigate={setCurrentPage} currentPage={currentPage} />
           )}
 
           {/* Mobile Specs Selection */}
-          {isMobile && showSpecsScreen && !showMobileLanding && (
+          {isMobile && showSpecsScreen && (
             <MobileSpecsSelection
               onSpecSelect={handleSpecSelect}
               onBack={handleSpecsBack}
@@ -415,8 +438,12 @@ function App() {
             )}
           </div>
           )}
-        </div>
-        {!(isPinned && selectedNeighborhoodGeoJSON) && <Footer onNavigate={setCurrentPage} />}
+          </div>
+          {!(isPinned && selectedNeighborhoodGeoJSON) && <Footer onNavigate={setCurrentPage} />}
+          </>
+
+        )} {/* end mobile landing ternary */}
+
       </div>
     </div>
   );
