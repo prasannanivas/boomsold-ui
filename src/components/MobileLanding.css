@@ -4,7 +4,7 @@
   background: #111111;
   display: flex;
   flex-direction: column;
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
 }
 
 /* ══ First screen: exactly one viewport tall ══ */
@@ -61,7 +61,7 @@
 }
 
 .ml-broker-name {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
   color: #ffffff;
@@ -71,14 +71,14 @@
 }
 
 .ml-broker-title {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 6px;
   color: #cccccc;
   line-height: 1.45;
 }
 
 .ml-broker-phone {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
   color: #ffffff;
@@ -105,7 +105,7 @@
 }
 
 .ml-tagline {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 700;
   color: #ffffff;
@@ -115,7 +115,7 @@
 }
 
 .ml-description {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
   color: #aaaaaa;
   line-height: 1.65;
@@ -157,7 +157,7 @@
 }
 
 .ml-btn-title {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.4px;
@@ -166,7 +166,7 @@
 }
 
 .ml-btn-sub {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
   color: #444444;

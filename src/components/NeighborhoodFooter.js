@@ -27,7 +27,7 @@ const NeighborhoodFooter = ({ neighborhoodName }) => {
               fontSize: "24px",
               fontWeight: 900,
               marginBottom: "12px",
-              fontFamily: "'Arial Black', sans-serif",
+              fontFamily: "var(--font-primary)",
             }}
           >
             💥 BoomSold

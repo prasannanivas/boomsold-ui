@@ -3,7 +3,7 @@
   background-color: #1a1a1a;
   min-height: 100vh;
   padding: 40px 20px;
-  font-family: 'DM Serif Text', 'Nunito', sans-serif;
+  font-family: var(--font-primary);
 }
 
 .palette-title {
@@ -420,7 +420,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .footer-top-row {

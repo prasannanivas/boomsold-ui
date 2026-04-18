@@ -42,7 +42,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   position: relative;
   overflow-y: auto;
 }
@@ -120,7 +120,7 @@
     0 0 20px rgba(255, 215, 0, 0.6),
     1px 1px 2px rgba(0, 0, 0, 0.3);
   position: relative;
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
 }
 
 @keyframes titleGlow {
@@ -273,7 +273,7 @@
   text-transform: uppercase;
   letter-spacing: 1.5px;
 
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   position: relative;
   z-index: 1;
 }
@@ -493,14 +493,14 @@
   letter-spacing: 1px;
   margin-bottom: 0.4rem;
 
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
 }
 
 .detail-value {
   font-size: 0.70rem;
   font-weight: 700;
   color: #4d4504;
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
 }
 
 .detail-value.price {
@@ -801,5 +801,5 @@
 .legend-label {
   font-weight: 500;
   letter-spacing: 0.3px;
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
 }

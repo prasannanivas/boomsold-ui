@@ -3,7 +3,7 @@
   background-color: #1a1a1a;
   min-height: 100vh;
   padding: 40px 20px;
-  font-family: 'DM Serif Text', 'Nunito', sans-serif;
+  font-family: var(--font-primary);
 }
 
 .palette-title {
@@ -461,7 +461,7 @@
 
 .header-variant-18 .nav-link {
   color: #000;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-code);
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -514,7 +514,7 @@
 
 .header-variant-20 .nav-link {
   color: #FFD700;
-  font-family: serif;
+  font-family: var(--font-display);
   font-style: italic;
 }
 

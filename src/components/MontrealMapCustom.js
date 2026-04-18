@@ -188,7 +188,7 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
                 fontSize: "18px",
                 fontWeight: "900",
                 fill: "#2d3436",
-                fontFamily: "Arial, Helvetica, sans-serif",
+                fontFamily: "var(--font-primary)",
                 textShadow: "1px 1px 2px rgba(255, 255, 255, 0.8)",
                 pointerEvents: "none",
               }}
@@ -208,7 +208,7 @@ const MontrealMap = ({ onNeighborhoodHover }) => {
             fontSize: "24px",
             fontWeight: "bold",
             fill: "#2d3436",
-            fontFamily: "Arial, Helvetica, sans-serif",
+            fontFamily: "var(--font-primary)",
           }}
         >
           Montreal Neighborhoods

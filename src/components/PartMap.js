@@ -891,7 +891,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
           margin: 0,
           textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
           pointerEvents: "none",
-          fontFamily: "'DM Serif Text', 'Nunito', sans-serif",
+          fontFamily: "var(--font-primary)",
         }}
       >
         {t('selectPart')}
@@ -915,7 +915,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
             textTransform: "uppercase",
             letterSpacing: "8px",
             fontFamily:
-              "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif",
+              "var(--font-display)",
             textShadow: `
               5px 5px 0px #000000,
               -3px -3px 0px #000000,
@@ -1172,7 +1172,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 transform: "translateX(-50%)",
                 fontSize: `${calculateButtonFontSize()}px`,
                 fontWeight: 500,
-                fontFamily: "'Jost', sans-serif",
+                fontFamily: "var(--font-button)",
                 color: "#000000",
                 backgroundColor: "#FFD700",
                 padding: `${calculateButtonFontSize() * 0.6}px ${
@@ -1227,7 +1227,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 zIndex: 10,
                 textAlign: "center",
                 border: "1px solid #000000",
-                fontFamily: "'Jost', sans-serif",
+                fontFamily: "var(--font-button)",
                 textTransform: "uppercase",
                 letterSpacing: "0.3px",
                 pointerEvents: "auto",
@@ -1266,7 +1266,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 zIndex: 10,
                 textAlign: "center",
                 border: "1px solid #000000",
-                fontFamily: "'Jost', sans-serif",
+                fontFamily: "var(--font-button)",
                 textTransform: "uppercase",
                 letterSpacing: "0.3px",
                 pointerEvents: "auto",
@@ -1304,7 +1304,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
                 zIndex: 10,
                 textAlign: "center",
                 border: "1px solid #000000",
-                fontFamily: "'Jost', sans-serif",
+                fontFamily: "var(--font-button)",
                 textTransform: "uppercase",
                 letterSpacing: "0.3px",
                 pointerEvents: "auto",

@@ -1957,8 +1957,7 @@ const MontrealMap = ({
             display: "flex",
             alignItems: "center",
             gap: isMobile ? "4px" : "8px",
-            fontFamily:
-              "'DM Serif Display', 'Arial Black', 'Arial Bold', 'Helvetica', sans-serif",
+            fontFamily: "var(--font-display)",
           }}
         >
           <span style={{ fontSize: isMobile ? "14px" : "20px" }}>←</span>

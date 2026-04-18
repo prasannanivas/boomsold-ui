@@ -20,7 +20,7 @@
   justify-content: flex-end;
   gap: 15px;
   font-weight: bold;
-  font-family: 'DM Serif Text', 'DM Serif Text', 'Nunito', sans-serif;
+  font-family: var(--font-primary);
 }
 
 /* Main Header Content */

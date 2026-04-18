@@ -23,6 +23,7 @@
   color: #ffd700;
   padding: 10px 20px;
   border-radius: 25px;
+  font-family: inherit;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -78,6 +79,7 @@
   border: none;
   padding: 12px 13px;
   border-radius: 50px;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;

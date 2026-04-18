@@ -202,7 +202,7 @@
 }
 
 body {
-  font-family: 'DM Serif Text', 'Nunito', sans-serif;
+  font-family: var(--font-primary);
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
