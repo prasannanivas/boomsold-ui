@@ -1,4 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import bg1 from "../backgroundImages/BGImages/bg1.jpg";
+import bg2 from "../backgroundImages/BGImages/bg2.jpg";
+import bg3 from "../backgroundImages/BGImages/bg3.jpg";
+import bg4 from "../backgroundImages/BGImages/bg4.jpg";
+import bg5 from "../backgroundImages/BGImages/bg5.jpg";
+import bg6 from "../backgroundImages/BGImages/bg6.jpg";
 import { MapContainer, GeoJSON, useMap, Marker } from "react-leaflet";
 import { useTranslation } from "react-i18next";
 import L from "leaflet";
@@ -10,6 +16,10 @@ import { rotateGeoJSON } from "./Utils";
 import MontrealMapImage from "../data/Montreal-map-textremoved.png";
 import MontrealSvg from "./MontrealSvg";
 import ProfessionalHeader from "./ProfessionalHeader";
+
+const BG_IMAGES = [bg1, bg3, bg4];
+const randomBg = BG_IMAGES[Math.floor(Math.random() * BG_IMAGES.length)];
+
 
 // Iconic Montreal locations with coordinates and logos
 const ICONIC_LOCATIONS = [
@@ -830,7 +840,7 @@ const PartMap = ({ onPartClick, onPartHover, onPartLeave }) => {
   }
 
   return (
-    <div className="part-map-container">
+    <div className="part-map-container" style={{ "--bg-image": `url(${randomBg})` }}>
       {/* BoomSold Logo - Top Left (Next to Hamburger) */}
    
 
