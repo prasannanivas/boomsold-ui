@@ -48,19 +48,19 @@ const MobileLanding = ({ onExplore, onNavigate }) => {
 
       {/* ── ACTION CARDS: appear after scrolling ── */}
       <div className="ml-buttons-section">
-        <button className="ml-action-btn" onClick={onExplore}>
+        <button className="ml-action-btn" onClick={() => onExplore("buy")}>
           <span className="ml-btn-title">Find Homes by Area</span>
           <span className="ml-btn-sub">We filter the market for you…</span>
         </button>
-        <button className="ml-action-btn" onClick={onExplore}>
+        <button className="ml-action-btn" onClick={() => onExplore("sell")}>
           <span className="ml-btn-title">Get My Home Value</span>
           <span className="ml-btn-sub">Access market data + personalized insights</span>
         </button>
-        <button className="ml-action-btn" onClick={onExplore}>
+        <button className="ml-action-btn" onClick={() => onExplore("buy")}>
           <span className="ml-btn-title">Explore Investments</span>
           <span className="ml-btn-sub">Properties with strong potential based on market trends</span>
         </button>
-        <button className="ml-action-btn" onClick={onExplore}>
+        <button className="ml-action-btn" onClick={() => onExplore("buy")}>
           <span className="ml-btn-title">Browse Rentals</span>
           <span className="ml-btn-sub">Find the perfect rental in your area</span>
         </button>

@@ -1,0 +1,152 @@
+/* ─── SellMarketModal ─── */
+
+.smm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.smm-content {
+  background-color: #111;
+  padding: 28px 24px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  border: 2px solid #FFD700;
+  animation: smmFadeIn 0.3s ease-out;
+}
+
+@keyframes smmFadeIn {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.smm-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #FFD700;
+  line-height: 1;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+.smm-close:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ─── Step ─── */
+.smm-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.smm-header-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.smm-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFD700;
+  margin: 0 0 6px;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+.smm-neighborhood {
+  font-size: 13px;
+  color: #aaa;
+  margin: 0 0 18px;
+}
+
+/* ─── Form ─── */
+.smm-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.smm-email-input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.smm-email-input::placeholder {
+  color: #777;
+}
+.smm-email-input:focus {
+  outline: none;
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+/* ─── CTA Button ─── */
+.smm-cta-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #FFD700;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.smm-cta-button:hover {
+  background-color: #FFC107;
+  transform: translateY(-1px);
+}
+.smm-cta-button:disabled {
+  background-color: #444;
+  color: #777;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Disclaimer ─── */
+.smm-disclaimer {
+  font-size: 11px;
+  color: #777;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 480px) {
+  .smm-content {
+    padding: 22px 18px;
+  }
+  .smm-title {
+    font-size: 16px;
+  }
+}

@@ -10,6 +10,8 @@ import { getNeighborhoodScores } from "../utils/walkabilityScores";
 import enhancedWalkScores from "../data/enhancedWalkScores.json";
 import WalkabilityScoresBadge from "./WalkabilityScoresBadge";
 import PriceRequestModal from "./PriceRequestModal";
+import BuyListingsModal from "./BuyListingsModal";
+import SellMarketModal from "./SellMarketModal";
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -68,7 +70,7 @@ const getAbbreviatedName = (fullName) => {
   return neighborhoodAbbreviations[fullName] || fullName;
 };
 
-const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
+const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack, flowType }) => {
   const { t } = useTranslation();
   const [map, setMap] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(14);
@@ -91,6 +93,8 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
   });
 
   const [modalState, setModalState] = useState({ isOpen: false, type: null });
+  const [buyModalOpen, setBuyModalOpen] = useState(false);
+  const [sellModalOpen, setSellModalOpen] = useState(false);
 
   const openPriceModal = (type) => {
     setModalState({ isOpen: true, type });
@@ -98,6 +102,15 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
 
   const closePriceModal = () => {
     setModalState({ ...modalState, isOpen: false });
+  };
+
+  const handleRectangleClick = (e) => {
+    e.stopPropagation();
+    if (flowType === "sell") {
+      setSellModalOpen(true);
+    } else {
+      setBuyModalOpen(true);
+    }
   };
 
   // Get walkability scores for the neighborhood
@@ -1106,7 +1119,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                 className="neighborhood-section-title"
                 style={{ fontSize: "16px", marginBottom: "10px" }}
               >
-                PROPERTY PRICES
+                PROPERTY TYPE
               </h2>
 
               <div
@@ -1158,7 +1171,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         fontStyle: "italic",
                       }}
                     >
-                      Click here for median prices
+                      MEDIAN PRICE
                     </div>
                     <div
                       style={{
@@ -1184,6 +1197,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         }
                       })()}
                     </div>
+                    {/* BUY/SELL buttons commented out
                     <div
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
                     >
@@ -1210,13 +1224,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           BUY
                         </div>
-                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
-                          $
-                          {(Math.random() * 300000 + 400000)
-                            .toFixed(0)
-                            .substring(0, 3)}
-                          k
-                        </div> */}
                       </div>
                       <div
                         onClick={(e) => {
@@ -1241,13 +1248,41 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           SELL
                         </div>
-                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
-                          $
-                          {(Math.random() * 300000 + 800000)
-                            .toFixed(0)
-                            .substring(0, 3)}
-                          k
-                        </div> */}
+                      </div>
+                    </div>
+                    */}
+                    <div
+                      onClick={handleRectangleClick}
+                      style={{
+                        padding: "8px 10px",
+                        backgroundColor: "#fef3c7",
+                        borderRadius: "8px",
+                        border: "1px solid #FFD700",
+                        cursor: "pointer",
+                        textAlign: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          color: "#2d3436",
+                          marginBottom: "2px",
+                          letterSpacing: "0.5px",
+                        }}
+                      >
+                        {flowType === "sell" ? "VIEW MARKET STATISTICS" : "HOMES THAT STAND OUT"}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "9px",
+                          color: "#666",
+                          fontStyle: "italic",
+                        }}
+                      >
+                        {flowType === "sell"
+                          ? "Access detailed market data and trends for your area"
+                          : "Curated from recent market activity delivered to your inbox"}
                       </div>
                     </div>
                   </div>
@@ -1295,7 +1330,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         fontStyle: "italic",
                       }}
                     >
-                      Click here for median prices
+                      MEDIAN PRICE
                     </div>
                     <div
                       style={{
@@ -1321,6 +1356,7 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         }
                       })()}
                     </div>
+                    {/* BUY/SELL buttons commented out
                     <div
                       style={{ display: "flex", gap: "8px", fontSize: "11px" }}
                     >
@@ -1347,13 +1383,6 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           BUY
                         </div>
-                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
-                          $
-                          {(Math.random() * 200000 + 250000)
-                            .toFixed(0)
-                            .substring(0, 3)}
-                          k
-                        </div> */}
                       </div>
                       <div
                         onClick={(e) => {
@@ -1378,13 +1407,41 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
                         >
                           SELL
                         </div>
-                        {/* <div style={{ fontWeight: "700", color: "#2d3436" }}>
-                          $
-                          {(Math.random() * 200000 + 650000)
-                            .toFixed(0)
-                            .substring(0, 3)}
-                          k
-                        </div> */}
+                      </div>
+                    </div>
+                    */}
+                    <div
+                      onClick={handleRectangleClick}
+                      style={{
+                        padding: "8px 10px",
+                        backgroundColor: "#fef3c7",
+                        borderRadius: "8px",
+                        border: "1px solid #FFC700",
+                        cursor: "pointer",
+                        textAlign: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          color: "#2d3436",
+                          marginBottom: "2px",
+                          letterSpacing: "0.5px",
+                        }}
+                      >
+                        {flowType === "sell" ? "VIEW MARKET STATISTICS" : "HOMES THAT STAND OUT"}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "9px",
+                          color: "#666",
+                          fontStyle: "italic",
+                        }}
+                      >
+                        {flowType === "sell"
+                          ? "Access detailed market data and trends for your area"
+                          : "Curated from recent market activity delivered to your inbox"}
                       </div>
                     </div>
                   </div>
@@ -1542,6 +1599,16 @@ const NeighborhoodMap = ({ neighborhoodGeoJSON, neighborhoodInfo, onBack }) => {
         isOpen={modalState.isOpen}
         onClose={closePriceModal}
         type={modalState.type}
+        neighborhoodName={neighborhoodName}
+      />
+      <BuyListingsModal
+        isOpen={buyModalOpen}
+        onClose={() => setBuyModalOpen(false)}
+        neighborhoodName={neighborhoodName}
+      />
+      <SellMarketModal
+        isOpen={sellModalOpen}
+        onClose={() => setSellModalOpen(false)}
         neighborhoodName={neighborhoodName}
       />
     </div>

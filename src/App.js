@@ -37,6 +37,7 @@ function App() {
   const [showSpecsScreen, setShowSpecsScreen] = useState(false); // Show specs selection screen on mobile
   const [pendingNeighborhood, setPendingNeighborhood] = useState(null); // Store neighborhood data until spec is selected
   const [hasScrolledPastLanding, setHasScrolledPastLanding] = useState(false); // Track if user scrolled past landing
+  const [flowType, setFlowType] = useState("buy"); // "buy" or "sell" - tracks which mobile landing button was clicked
 
   const [scrollToTopFlag, setScrollToTopFlag] = useState(false);
 
@@ -312,7 +313,7 @@ function App() {
           }}>
             <Header onNavigate={setCurrentPage} currentPage={currentPage} />
             <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-              <MobileLanding onExplore={() => { setShowMobileLanding(false); setScrollToTopFlag(true); }} onNavigate={setCurrentPage} />
+              <MobileLanding onExplore={(type) => { setFlowType(type || "buy"); setShowMobileLanding(false); setScrollToTopFlag(true); }} onNavigate={setCurrentPage} />
               <Footer onNavigate={setCurrentPage} />
             </div>
           </div>
@@ -380,6 +381,7 @@ function App() {
                 <NeighborhoodMap
                   neighborhoodGeoJSON={selectedNeighborhoodGeoJSON}
                   neighborhoodInfo={pinnedNeighborhood}
+                  flowType={flowType}
                   onBack={() => {
                     // Use browser back instead of direct state change
                     if (!isNavigatingBack) {
