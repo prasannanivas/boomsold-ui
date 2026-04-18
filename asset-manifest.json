@@ -1,18 +1,23 @@
 {
   "files": {
-    "main.css": "/boomsold-ui/static/css/main.2a1e1429.css",
-    "main.js": "/boomsold-ui/static/js/main.7a5d4fe8.js",
+    "main.css": "/boomsold-ui/static/css/main.360b8730.css",
+    "main.js": "/boomsold-ui/static/js/main.1812636a.js",
     "static/js/453.0a794063.chunk.js": "/boomsold-ui/static/js/453.0a794063.chunk.js",
+    "static/media/bg5.jpg": "/boomsold-ui/static/media/bg5.92d8567d217c4b413c44.jpg",
+    "static/media/bg6.jpg": "/boomsold-ui/static/media/bg6.d51f564dbfa46bbc5755.jpg",
+    "static/media/bg3.jpg": "/boomsold-ui/static/media/bg3.f6cd9766c515e44858b3.jpg",
+    "static/media/bg2.jpg": "/boomsold-ui/static/media/bg2.ebcadb9ef872fa9e53fb.jpg",
+    "static/media/bg1.jpg": "/boomsold-ui/static/media/bg1.649c89388e7bc87665ad.jpg",
+    "static/media/bg4.jpg": "/boomsold-ui/static/media/bg4.475f4e9a7b11cde0ea0b.jpg",
     "static/media/Montreal-map-textremoved.png": "/boomsold-ui/static/media/Montreal-map-textremoved.3a2233e3c8c0eef9138c.png",
     "static/media/Montreal_Canadiens.svg.png": "/boomsold-ui/static/media/Montreal_Canadiens.svg.6cf458963790ca98e9c9.png",
-    "static/media/istockphoto-160291870-1024x1024.jpg": "/boomsold-ui/static/media/istockphoto-160291870-1024x1024.c8dc942cdf43f7275a10.jpg",
     "index.html": "/boomsold-ui/index.html",
-    "main.2a1e1429.css.map": "/boomsold-ui/static/css/main.2a1e1429.css.map",
-    "main.7a5d4fe8.js.map": "/boomsold-ui/static/js/main.7a5d4fe8.js.map",
+    "main.360b8730.css.map": "/boomsold-ui/static/css/main.360b8730.css.map",
+    "main.1812636a.js.map": "/boomsold-ui/static/js/main.1812636a.js.map",
     "453.0a794063.chunk.js.map": "/boomsold-ui/static/js/453.0a794063.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a1e1429.css",
-    "static/js/main.7a5d4fe8.js"
+    "static/css/main.360b8730.css",
+    "static/js/main.1812636a.js"
   ]
 }
